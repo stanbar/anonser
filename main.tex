@@ -1,0 +1,86 @@
+\documentclass{article}
+
+
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Anonymous provision of services via blockchain}
+\author{Stanisław Barański}
+\date{December 2021}
+
+\providecommand{\keywords}[1]{\textbf{Keywords:} #1}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Lorem ipsum\ldots
+\end{abstract}
+\keywords{data privacy, zk-SNARK, blockchain}
+
+
+
+\section{Problem statement}
+Service providers (SP) like: lawyers, laboratories, auditors, or banks, to provide services, require data that is often associated with user identity. The guarantee of the privacy of the data is based on a trust assumptions and security of IT systems. However, most of the service providers don't need the information of user identity for other reasons than payment, communication, or logistics. It would be desirable if the user could keep its identity private, while service provider still provide its services. This could lead to reduced trust that users have to put on SP and less responsibility borne by SP.
+
+In this paper we propose a protocol for anonymous provision of services via blockchain and cryptography. Specificaly, we use
+\begin{enumerate}
+    \item \textbf{confidential blockchain} to process payment for a service without revealing a user's identity.
+    \item \textbf{zero-knowledge proofs} — to proof the payment for the service without revealing the payment itself.
+    \item \textbf{encryption scheme and blockchain} — to asynchronously deliver the results of the made service back to the user.
+\end{enumerate}
+
+\section{State of the art}
+Verifiable Document Redacting ~\cite{chabanne2017verifiable} is a protocol for erasing confidential information from authenticated images in verifiable manner. In other words, the protocol allows verifying that only the fields that cover personal information has been blacked out from the authenticated image.
+
+\section{Coverage}
+
+Non invasive tests — those which patients can sample themselves: 
+\begin{enumerate}
+    \item Urine tests
+    \item Stool tests
+    \item Saliva tests
+\end{enumerate}
+
+\section{Solution}
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{sequence-flow.png}}
+\caption{Sequence flow}
+\label{fig:sequence-flow}
+\end{figure}
+
+
+
+\section{Blockchains}
+\paragraph{Monero}
+Monero offers out-of-the-box proving/checking confidental transactions. \href{https://www.getmonero.org/resources/user-guides/prove-payment.html}
+
+\paragraph{ZCash}
+ZCash offers payment disclosure as a preview feature.
+\href{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}
+
+\href{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}
+
+\section{Applications}
+\subsections{Clinical tests}
+Bodybuilders, athletes,  weightlifters, cyclists, football and rugby players have to pass anti-doping tests before attending the competition. 
+
+Patients willing to check steroid tests, drug tests, venereal diseases — anything that they wouldn't want to share with anyone, have to risk that the data stored in laboratory won't get to unauthorized hands like attacker or malicious worker.
+
+Analysis of urine, saliva, stool, or blood. 
+
+\subsections{Lawyer consultations}
+
+People willing to take business action that may be risky or not yet fully legistlated, may be willing to receive the estimation of risks and repercussions of such action.
+Such protocol would provide a mechanism for 
+
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}
