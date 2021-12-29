@@ -35,7 +35,11 @@ In this paper we propose a protocol for anonymous provision of services via bloc
 \end{enumerate}
 
 \section{State of the art}
-Verifiable Document Redacting ~\cite{chabanne2017verifiable} is a protocol for erasing confidential information from authenticated images in verifiable manner. In other words, the protocol allows verifying that only the fields that cover personal information has been blacked out from the authenticated image.
+
+Verifiable Document Redacting ~\cite{chabanne2017verifiable} is a protocol for erasing confidential information from authenticated images in verifiable manner. In other words, the protocol allows verifying that only the fields that cover personal information has been blacked out from the authenticated image. This allows users to provide required images without exposing their personal information, and SPs to authenticate the modified images, such that they are sure that only the stated fields have been blacked out and nothing else was touched. 
+% In this paper we extend the idea to a whole user-to-service-provider protocol
+
+Authors of the paper~\cite{lin2021efficient} propose a system for Privacy-Preserving Credit Score System. Letting banks to calculate creditworthness without learning user private information like registration, hobbies, credit, relationships, and inquiry. To achieve this they use Paillier encryption and noninteractive zero-Knowledge schemes (NIZK).
 
 \section{Coverage}
 
