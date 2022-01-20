@@ -2,22 +2,22 @@
 
 1.  What you want to achieve (specific goal)
 
-- Write abstract
-- - State a problem 1-2 sentences. 
-- - Solution. 
-- - Contribution.
-- State of the art show differences between standard TTP and blockchain based solutions.
-- Propose experiments that validate proposed solution.
-- Review papers
-- - Themis
-- - A Solution for Secure Certified Electronic Mail Using Blockchain as aSecure Message Board
-- - An efficient privacy-preserving credit score system based on noninteractive zero-knowledge proof
-- Review anonymous blockchains
-- - Anonymous smart contracts platforms
-- - Aleo
-- - AZTEC
-- - zkSync
-- - etc.
+[x] Write abstract
+[x] - State a problem 1-2 sentences. 
+[x] - Solution. 
+[] - Contribution.
+[] State of the art show differences between standard TTP and blockchain based solutions.
+[] Propose experiments that validate proposed solution.
+[] Review papers
+- [x] Themis
+- [] A Solution for Secure Certified Electronic Mail Using Blockchain as aSecure Message Board
+- [] An efficient privacy-preserving credit score system based on noninteractive zero-knowledge proof
+[] Review anonymous blockchains
+- [] Anonymous smart contracts platforms
+- [] Aleo
+- [] AZTEC
+- [] zkSync
+- [] etc.
 
 2.  Why does it matter to you personally? What difference will it make if you can be creative? Why do you care? How can you improve youself? How can you help others?
 	- I learn how to conduct reasearch alone, I will write complete publication alone.
