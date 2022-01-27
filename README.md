@@ -5,13 +5,15 @@
 [x] Write abstract
 [x] - State a problem 1-2 sentences. 
 [x] - Solution. 
-[] - Contribution.
+[] - Contribution, compared to other protocols what we've achieved.
 [] State of the art show differences between standard TTP and blockchain based solutions.
 [] Propose experiments that validate proposed solution.
 [] Review papers
 - [x] Themis
-- [] A Solution for Secure Certified Electronic Mail Using Blockchain as aSecure Message Board
+- [x] A Solution for Secure Certified Electronic Mail Using Blockchain as aSecure Message Board
+- [] Lelantos: A Blockchain-based Anonymous Physical Delivery System
 - [] An efficient privacy-preserving credit score system based on noninteractive zero-knowledge proof
+[] Possible group Physical Delivery Systems, and fair-exchange systems
 [] Review anonymous blockchains
 - [] Anonymous smart contracts platforms
 - [] Aleo
