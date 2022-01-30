@@ -19,7 +19,7 @@
 - [] Review papers
   - [x] Themis
   - [x] A Solution for Secure Certified Electronic Mail Using Blockchain as aSecure Message Board
-  - [] Lelantos: A Blockchain-based Anonymous Physical Delivery System
+  - [x] Lelantos: A Blockchain-based Anonymous Physical Delivery System
   - [] An efficient privacy-preserving credit score system based on noninteractive zero-knowledge proof
 - [] Possible group Physical Delivery Systems, and fair-exchange systems
 - [] Review anonymous blockchains
