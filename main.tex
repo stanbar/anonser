@@ -17,7 +17,14 @@
 \maketitle
 
 \begin{abstract}
-Lorem ipsum\ldots
+Service providers like: lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data that is often associated with their personal information. This situation expose customers to privacy risk. However, most of the service providers use the personal information merely for logistic operations, and could provide services on anonymous data if other means of communication would be possible.
+
+We propose a protocol for local confidential services provision, using blockchain for both contract agreement and anonymous payments.
+
+In case of dispute, we let the parties communicate over blockchain. In case of disagreement, the customer can disclose the whole interaction and proof to the justice misbehaving SP.
+
+We propose three applications for our protocol: (i) anonymous steroid examination, (ii) anonymous legal advice, and (iii) anonymous financial trustworthiness evaluation.
+
 \end{abstract}
 \keywords{data privacy, privacy preserving, blockchain, fair-exchange}
 
@@ -34,9 +41,10 @@ The guarantee of the privacy of the data is based on a trust assumptions and sec
 
 It would be desirable if the user could keep its identity private, while service provider still provide its services. This could lead to reduced trust that users have to put on SP and less responsibility borne by SP.
 
-In this paper we propose a protocol for anonymous provision of services via blockchain and cryptography techniques. Specificaly, we use
+In this paper we propose a protocol for anonymous provision of services via blockchain and cryptography techniques. Specifically, we use
 \begin{enumerate}
     \item \textbf{confidential blockchain} to process payment for a service without revealing a user's identity.
+    \item \textbf{smart contracts} to process the agreements and disputes in decentralized and trustless manner.
     \item \textbf{zero-knowledge proofs} — to proof the payment for the service without revealing the payment itself.
     \item \textbf{encryption scheme and blockchain} — to asynchronously deliver the results of the made service back to the user.
 \end{enumerate}
@@ -90,13 +98,71 @@ According to ~\cite{djuric2015feips}, a typical e-commerce process can be illust
 \label{fig:ecommerce-transaction-diagram}
 \end{figure}
 
+\section{Pseudo-anonymous vs anonymous blockchain}
+In the papers on fair-exchange and anonymity, there's a disagreement on what the anonymity is, the definition is vague, and sometimes overused (wiki leaks), it's rather commonly accepted that Bitcoin and other the like traceable blockchains are not anonymous, rather pseudo-nomous. 
 
-\section{Anonymous fair-exchange}
+What is a anonymity then? We like the definition stated in (huge paper on privacy ), or the more practical in the context of blockchain the definition stated in (swap in Monero). 
+
+
+\section{State of the art}
+
+\subsection{Anonymous fair-exchange}
 
 An protocol ensures anonymity if no party can make a link between identity and actions taken by another party.
 
-\subsection{State of the art}
-\subsubsection{Anonymity and fair-exchange in e-commerce protocol for physical products delivery}
+\paragraph{Themis} Themis~\cite{meng2019themis} is a fair-exchange protocol, which uses blockchain instead of TTP. It provide escrow services for secure exchanging between cryptocurrencies and digital goods.
+
+Authors highlight that a widely-used atomic exchange mechanism HTLC (Hashed Time-lock Contract) is vulnerable to denial of service (DoS) attacks. While Multi-Signature Schemes depends on the Trusted Third Party (TTP) making them vulnerable to collusion attacks. Such TTP can collude with one party and take the locked funds. It can also refuse settling disputes and lock the hosted funds. 
+
+Themis is a decentralized system that provides an escrow and dispute resolution. It claims to satisfy following requirements:
+\begin{description}
+    \item[Fairness] Either both seller and buyer obtain all the goods, or they both obtain nothing.
+    \item[Security] The funds are locked until the transaction is completed.
+    \item[Passivity] If no dispute arise, the third-party does not need to involve in the transaction.
+    \item[Correctness] Transactions and disputes are executed according to a priori agreed protocol rules.
+    \item[Dependability] There is no single point of failure vulnerable to DoS attack.
+    \item[Privacy] If the dispute does not arise, the third-party does not know if the transaction completes. If the dispute arises, only the related parties are aware of it.    
+\end{description}
+
+Two parties, say Alice and Bob, can create an escrow by generating 2-of-2 (not 2-of-3 as it is other TTP-based systems) threshold account using Thresh-Key-Gen protocol. Alice and Bob generate secret keys $x_A$ and $x_B$ accordingly, the shared account public key becomes $y = g^{x_A+x_B}$; only the access to both Alice's and Bob's secrets grants access to the shared account.
+
+Then, both Alice and Bob, takes their keys, and split them into $n=2t+1$ secret shares using Shamir Secret Shamir protocol, where $n$ is the number of mediators that participate in the decentralized network, and $t+1$ becomes the threshold of sufficient number of mediators that can reconstruct the secret key. 
+
+Next, both Alice and Bob, take their key shares, and encrypt each $i$-th key share using public key of $i$-th mediator. As a result Alice's secret $x_A$ becomes ${c^A_1, c^A_2,...,c^A_n}$, and Bob's secret $x_B$ becomes ${c^B_1, c^B_2,...,c^B_n}$, where $c_i = E_{M_i}(P_i)$ is the encrypted $i$-th key share using $i$-th mediator public key $M_i$. 
+
+Next, both Alice and Bob exchange the sets of encrypted key shares with each other. And send funds to the escrow account. 
+
+The escrow is secure as long as $t+1$ of mediators does not collude, which would let them recreate both $x_A$ and $x_B$. Also, to ensure that parties are exchanging real key shares, they also send a witnesses generated with Feldman VSS scheme and zero-knowledge proofs to guarantee the consistency between witnesses and key shares.
+
+In case of dispute, the decentralized network of mediators settle the conflict and grand one winning party, the other party secret key, letting him to withdraw the funds.
+
+The honesty of mediators is achieved by the monetary incentivization and reputation system.
+
+\paragraph{A Solution for Secure Certified Electronic Mail Using Blockchain as a Secure Message Board}
+
+The idea of certified mail is simple, neither the sender can deny sending the mail, nor the receiver can deny receiving it. As the service is widely used in paper world, achieving it for e-mails haven't meet the agreement across scientific community for over 40 years. The main reason was the dependency of TTP. Which significantly reduce the performance, security, and robustness of such protocol. Those protocols that do not use TTP struggle with high computation and communication overhead.
+
+Authors of ~\cite{hinarejos2019solution} replaced the TTP with blockchain (concretely Bitcoin blockchain as a reference implementation), which can be seen as a secure, verifiable, and decentralized TTP.
+
+The idea behind certified e-mails—and any other fair-exchange protocol—is following
+\begin{enumerate}
+    \item The sender sends encrypted and signed message to the receiver.
+    \item The receiver returns a proof of delivery (a signature) of the encrypted message to the sender.
+    \item The sender publish on blockchain (or TTP in general) a proof of delivery and the decryption key.
+    \item The receiver decrypt the encrypted message using the published decryption key.
+\end{enumerate}
+
+The non-repudiation requirement is achieved by the receiver sending the Proof-of-Delivery prior having access to the decrypted message. And the sender publishing the decription key together with the Proof-of-Delivery on blockchain (or TTP) so that the receiver can not deny both receiving the message and having access to decryption key, because it's publicly available.
+
+The protocol also handles confidentiality — the encryption key used to encrypt and then decrypt the message is encrypted using the receiver's public key, so the key is never published in raw form.
+Also, the protocol supports timeliness, meaning that the transaction is always finalized in a finite time.
+
+In this case, the role of Blockchain is to attest the existence of decryption key.
+
+
+\subsection{Anonymous delivery system for physical goods}
+
+\paragraph{Anonymity and fair-exchange in e-commerce protocol for physical products delivery}
 
 Authors of ~\cite{birjoveanu2015anonymity} proposed a fair-exchange of physical product and electronic payment protocol that guarantee both customer and merchant anonymity. They achieve it by introducing online trusted third party that validate coins and provide fair exchange guarantees. 
 
@@ -145,25 +211,40 @@ Yet, the fair-exchange properties are achieved by strong assumptions. Namely,
     \item Communication channels between parties provides anonymity.
 \end{itemize}
 
-\subsubsection{Themis} Themis~\cite{meng2019themis} is a fair-exchange protocol, which uses blockchain instead of TTP. It provide escrow services for secure exchanging between cryptocurrencies and physical goods.
 
-Authors highlight that a widely-used atomic exchange mechanism HTLC (Hashed Time-lock Contract) is vulnerable to denial of service (DoS) attacks. While Multi-Signature Schemes depends on the Trusted Third Party (TTP) making them vulnerable to collusion attacks. Such TTP can collude with one party and take the locked funds. It can also refuse settling disputes and lock the hosted funds. 
 
-Themis is a decentralized system which provides an escrow and dispute resolution serivces. It satisfies following requirements:
-\begin{description}
-    \item[Fairness] Either both seller and buyer obtain all the goods, or they both obtain nothing.
-    \item[Security] The funds are locked until the transaction is completed.
-    \item[Passivity] If no dispute arise, the third-party does not need to involve in the transaction.
-    \item[Correctness] Transactions and disputes are executed according to a priori agreed protocol rules.
-    \item[Dependability] There is no single point of failure vulnerable to DoS attack.
-    \item[Privacy] If the dispute does not arise, the third-party does not know if the transaction completes. If the dispute arises, only the related parties are aware of it.    
-\end{description}
+\paragraph{Lelanros} Lelanros~\cite{altawy2017lelantos} is a blockchain-based anonymous physical delivery system. The anonymity is achieved by employing ToR's onion routing to connect physical delivery providers. The whole route from merchant to customer is split into multiple steps, and each step is undertaken by different randomly selected delivery provider. As long as the develiery providers does no collude, mechant can not learn both identity and destination address of the customer.
 
-\subsection{A Solution for Secure Certified Electronic Mail Using Blockchain as a Secure Message Board}
+Onchain smart-contract is used to coordinate the whole process and mediate communication between customer and delivery providers.
+
+
+However, the system achieve only pseudo-anonymity or 'weak anonymity'. 
+
+\paragraph{Auditable Protocols for Fair Payment and Physical Asset Delivery Based on Smart Contracts}
+Authors of~\cite{wang2019auditable} propose simillar to \cite{altawy2017lelantos} physical asset delivery system to connect merchants, customers and logistic company.
+
+However, the system does not achieve anonymity.
 
 
 \section{Contribution}
-In this paper similarly to by~\cite{birjoveanu2015anonymity}, we propose fully-fledged protocol for anonymous fair-exchange which includes payment processing and physical goods exchange. Yet, compared to ~\cite{birjoveanu2015anonymity}, we use decentralized blockchain instead of centralized TTP, and payments using cryptocurrencies, getting rid of strong and unrealistic assumptions on traditional banking.
+In this paper similarly to by~\cite{birjoveanu2015anonymity}, we propose fully-fledged protocol for anonymous fair-exchange which includes payment processing and physical goods exchange. Yet, compared to ~\cite{birjoveanu2015anonymity}, we use blockchain instead of centralized TTP. Additionally, we use anonymous cryptocurrencies getting rid of strong and unrealistic assumptions on traditional banking.
+
+Although there have been number of protocols achieving fair-exchange over blockchain~\cite{heilman2016blindly, meng2019themis, icete18, barber2012bitter}, only few achieve anonymity~\cite{heilman2016blindly}. From these achieving anonymity, non target exchange of psychical goods.
+
+We contribute to the field of anonymous fair-exchange and anonymous physical delivery with following improvements:
+With this paper we propose a protocol that add following contribution to the field of physical delivery, fair-exchange protocols:
+\begin{itemize}
+    \item Strong anonymity — unlike other protocols based on pseudoanonymous traceable blockchains like Bitcoin or Ethereum, we propose a solution based on private blockchain (ZCash) where transactions can not be analyzed and thus linked back to users' identity.
+    \item Practicality — out proposal is practical and ready to deploy
+\end{itemize}
+
+In this paper, we propose a protocol for provisioning local services, that guarantee following requirements:
+\begin{enumerate}
+    \item Anonymous — The customer identity is strongly untraceable (see section~\ref{anonimity-vs-pseudoanonimity}.
+    \item Fair-exchange — the service provider does not receive the payment before it provide the service, in case it provide wrong service, customer can proof this case to the justice.
+    \item Blockchain-based — the protocol does not use TTP, instead it uses decentralized blockchain network.
+    \item Timeliness — the transaction will terminate if it don't meet the timely requirerement
+\end{enumerate}
 
 Additionally, since the services are provided locally, we enable customers to disclose the transaction and start the dispute in law.
 
@@ -212,7 +293,15 @@ As defined in~\cite{lin2021efficient}, such a system consist of three parties: (
 
 
 
-\section{Blockchains}
+\section{confidential Blockchains}
+
+\paragraph{Ethereum}
+
+\paragraph{Aleo}
+
+\paragraph{STARK-net}
+
+
 \paragraph{Monero}
 Monero offers out-of-the-box proving/checking confidental transactions. \href{https://www.getmonero.org/resources/user-guides/prove-payment.html}
 
@@ -222,7 +311,9 @@ ZCash offers payment disclosure as a preview feature.
 
 \href{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}
 
-\paragraph{Aleo}
+
+
+
 
 \section{Future work}
 
