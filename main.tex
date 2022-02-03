@@ -15,8 +15,11 @@
 
 \begin{document}
 \maketitle
+\keywords{data privacy, privacy preserving, blockchain, fair-exchange}
 
-\begin{abstract}
+
+
+\section{Abstract}
 Service providers like: lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data that is often associated with their personal information. This situation expose customers to privacy risk. However, most of the service providers use the personal information merely for logistic operations, and could provide services on anonymous data if other means of communication would be possible.
 
 We propose a protocol for local confidential services provision, using blockchain for both contract agreement and anonymous payments.
@@ -25,92 +28,85 @@ In case of dispute, we let the parties communicate over blockchain. In case of d
 
 We propose three applications for our protocol: (i) anonymous steroid examination, (ii) anonymous legal advice, and (iii) anonymous financial trustworthiness evaluation.
 
-\end{abstract}
-\keywords{data privacy, privacy preserving, blockchain, fair-exchange}
-
-
-
-\section{Problem statement}
+\section{Introduction}
 Service providers (SP) like: lawyers, laboratories, auditors, or banks, to provide services, require data that is often associated with user identity.
 
-Providing personal information exposes users to privacy risk, i.e. potential loss of control over personal information ~\cite{smith2011information}. 
+Providing personal information exposes users to privacy risk, i.e. potential loss of control over personal information ~\cite{smith2011information}.
 
 Such user information can be then used deliberately or unintentionally (e.g, by theft) for: insider disclosure, unauthorized access, or commercial gains. For example, by reselling it to marketers, financial institutions, other businesses, government agencies, or even cybercriminals. Which in turn can lead to profiled advertisements, or criminal activities like identity theft or illegal tracking and surveillance~\cite{smith2011information}.
 
-The guarantee of the privacy of the data is based on a trust assumptions and security of IT systems. However, most of the service providers don't need the information of user identity for other reasons than payment, communication, or logistics. 
+Important individuals like top government, influencers, or celebrities are especially vulnerable to this kind of attacks as exposure of their health records, purchase habits, or legal documents can threaten their reputation, position, or can be used for blackmailing.
+
+The guarantee of the privacy of the data is based on a trust assumptions and security of IT systems. However, most of the service providers don't need the personal information for any other reasons than payment, communication, or logistics.
 
 It would be desirable if the user could keep its identity private, while service provider still provide its services. This could lead to reduced trust that users have to put on SP and less responsibility borne by SP.
 
-In this paper we propose a protocol for anonymous provision of services via blockchain and cryptography techniques. Specifically, we use
-\begin{enumerate}
-    \item \textbf{confidential blockchain} to process payment for a service without revealing a user's identity.
-    \item \textbf{smart contracts} to process the agreements and disputes in decentralized and trustless manner.
-    \item \textbf{zero-knowledge proofs} — to proof the payment for the service without revealing the payment itself.
-    \item \textbf{encryption scheme and blockchain} — to asynchronously deliver the results of the made service back to the user.
-\end{enumerate}
-
-
-Authors of the paper~\cite{lin2021efficient} propose a system for Privacy-Preserving Credit Score System. Letting banks to calculate creditworthness without learning user private information like registration, hobbies, credit, relationships, and inquiry. To achieve this they use Paillier encryption and noninteractive zero-Knowledge schemes (NIZK).
-
-\subsection{Fair-exchange protocols}
-
-We observe that such protocols for providing services are special case of fair-exchange protocol.
-
-Fair-exchange protocol is a protocol used for performing e-commerce transactions of both digital and physical goods, exchanging documents, or signing contracts, between mutually distrusting parties, while satisfying following conditions:
-\begin{itemize}
-    \item non-repudiation  — any participating party can not deny their actions (e.g. signing, sending, and receiving data). Usually this is achieved by digital signatures.
-    \item fairness — any participating party does not gain any advantage at any step of the exchange protocol.
-    \item timeliness — the protocol eventually terminates for all participants.
-\end{itemize}
-
-There are two main categories of fair-exchange protocols~\cite{kremer2002intensive,duangphasuk2020fair}: those that involve the use of trusted third party (TTP), and those that do not.
-
-\paragraph{Protocols that do not involve use of trusted third party.}
-Protocols that do not involve use of trusted third party, also called "probabilistic" or "gradual" exchange protocols. In such protocols~\cite{markowitch1999probabilistic}, items that will be exchanged are first split into parts. Then, the parts are exchanged between parties. This causes increased communication overhead. Moreover the fairness of such protocol is probabilistic, meaning that there is a small chance that the protocol will end up with one party being in advantageous position. 
-
-Hence, the great benefit of TTP-less protocol, comes at a cost of increased communication overhead, and unsatisfactory property of uncertain termination.
-
-
-\paragraph{Protocols that involve the use of trusted third party}
-The most common approach to achieve fair-exhange conditions is by introducing Trusted Third Party (TTP).  
-
-TTP can play different role in fair-exchange protocol. Commonly agreed classification~\cite{kremer2002intensive,duangphasuk2020fair} distinguish three roles the TTP can play:
-
-\begin{enumerate}
-    \item Inline~\cite{coffey1996non}, the TTP act as a authoritative middleman between sender and receiver. The obvious consequence of such method is the communication bottleneck and single point of failure. These protocols are inefficient and trust-dependent.
-    
-    \item Online~\cite{djuric2015feips}, the TTP is involved in each protocol step, but not in each data transmission. Significantly improving the performance compared to inline TTP.
-    
-    \item Offline~\cite{hwang2015provable}, the TTP is involved only in case of a dispute between parties. This approach is also called "optimistic", because in scenarios where both parties behaves honesty, the TTP is ignored. Resulting in high-performance and low trust-dependency. 
-\end{enumerate}
-
-Involving online and centralized TTP in each transaction, could cause the communication bottleneck problem. Therefore, the offline TTP is the most favorable approach.
-
-The main idea of the offline TTP model is that the sender sends a ciphertext of his/her own document before obtaining the expect document from opposite party. Both parties will then fairly exchange the decryption keys of the ciphertext. 
-
-\section{E-commerce transaction protocol}
-
-According to ~\cite{djuric2015feips}, a typical e-commerce process can be illustrated with the diagram on figure ~\ref{fig:ecommerce-transaction-diagram}.
-
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=.4\linewidth]{ecommerce-process.png}}
-\caption{Diagram illustrating a typical e-commerce transaction process}
-\label{fig:ecommerce-transaction-diagram}
-\end{figure}
-
-\section{Pseudo-anonymous vs anonymous blockchain}
-In the papers on fair-exchange and anonymity, there's a disagreement on what the anonymity is, the definition is vague, and sometimes overused (wiki leaks), it's rather commonly accepted that Bitcoin and other the like traceable blockchains are not anonymous, rather pseudo-nomous. 
-
-What is a anonymity then? We like the definition stated in (huge paper on privacy ), or the more practical in the context of blockchain the definition stated in (swap in Monero). 
-
+\subsection{Contribution}
+In this paper, we propose a blockchain based anonymity-preserving framework for local services provision.
 
 \section{State of the art}
+\subsection{Anonymity and Fair-Exchange in e-Commerce Protocol for Physical Products Delivery}
 
-\subsection{Anonymous fair-exchange}
+Authors of ~\cite{birjoveanu2015anonymity} proposed a fair-exchange of physical product and electronic payment protocol that guarantee both customer and merchant anonymity. They achieve it by introducing online trusted third party that validate coins and provide fair exchange guarantees.
 
-An protocol ensures anonymity if no party can make a link between identity and actions taken by another party.
+The anonymity is ensured by assuming the existence of source cabinet (SC) and delivery cabinet (DC), and a trusted delivery agent who take product from a source cabinet and provide it to a destination cabinet.
+Both cabinets provides access to the product by passwords to conceal identity of the customer and the merchant.
+To avoid identity disclosure of customer and merchant, the access to the product is provided by passwords.
 
-\paragraph{Themis} Themis~\cite{meng2019themis} is a fair-exchange protocol, which uses blockchain instead of TTP. It provide escrow services for secure exchanging between cryptocurrencies and digital goods.
+Both cabinets are equipment with cameras. Also there should exist the trusted delivery agent (DA) who will deliver items from source cabinet do delivery cabinet.
+
+The protocol works as follows:
+\begingroup
+\renewcommand{\labelenumii}{\arabic{enumii}.}
+\begin{enumerate}
+\item Both parties agree on the purchase details.
+\item The customer buys a digital coin from his bank and validates it with the TTP.
+\item The customer sends to the merchant the purchase order and the digital signature made by TTP on the encrypted coin.
+\item The merchant post the product to the source cabinet.
+\item Delivery agent collect the product from source cabinet and post it to delivery cabinet.
+\item Customer collects the product from delivery cabinet using password.
+\item The customer checks if the product is actually the ordered one.
+\begin{itemize}
+\item[-] if yes
+\begin{enumerate}
+\setcounter{enumii}{7}
+\item the customer sends the acknowledge to delivery cabinet and decryption key to the merchant.
+\item The merchant redeem the coins from the bank.
+\end{enumerate}
+\item[-] if no
+\begin{enumerate}
+\setcounter{enumii}{7}
+\item the delivery cabinet is equipment with video camera that records the moment when the customer open the package and let the customer to signal the invalidity of the product, and so, sending the encrypted recording to the TTP.
+\item the dispute is settled via TTP, optionally letting each party to reveal it's identity.
+\end{enumerate}
+\end{itemize}
+\end{enumerate}
+\endgroup
+
+Yet, the fair-exchange properties are achieved by strong assumptions. Namely,
+\begin{itemize}
+\item the TTP does not misbehave or collude with any party.
+\item The customer's and merchant's banks enable confidental transactions and both share commit-buffer where the value is locked until the transaction is finished.
+\item All banks mantain a global list of coin's serial numbers to prevent double-spending problem.
+\item The source cabinet and delivery cabinet exists, and in both the product access is protected by password.
+\item Delivery cabinet is equppted with a video camera that records the moment when the customer opens the package, and provide a way to submit the video to TTP in case of a dispute.
+\item Delivery agent exist and is trusted.
+\item Communication channels between parties provides anonymity.
+\end{itemize}
+
+\subsection{Lelantos - A blockchain-based anonymous physical delivery system}
+
+Lelanros~\cite{altawy2017lelantos} is a blockchain-based anonymous physical delivery system. The anonymity is achieved by employing ToR's onion routing to connect physical delivery providers. The whole route from merchant to customer is split into multiple steps, and each step is undertaken by different randomly selected delivery provider. As long as the develiery providers does no collude, mechant can not learn both identity and destination address of the customer.
+
+
+Onchain smart-contract is used to coordinate the whole process and mediate communication between customer and delivery providers.
+
+
+However, the system achieve only pseudo-anonymity or 'weak anonymity'. 
+
+\subsection{Themis - Towards Decentralized Escrow of Cryptocurrencies without Trusted Third Parties}
+
+Themis~\cite{meng2019themis} is a fair-exchange protocol, which uses blockchain instead of TTP. It provide escrow services for secure exchanging between cryptocurrencies and digital goods.
 
 Authors highlight that a widely-used atomic exchange mechanism HTLC (Hashed Time-lock Contract) is vulnerable to denial of service (DoS) attacks. While Multi-Signature Schemes depends on the Trusted Third Party (TTP) making them vulnerable to collusion attacks. Such TTP can collude with one party and take the locked funds. It can also refuse settling disputes and lock the hosted funds. 
 
@@ -138,124 +134,375 @@ In case of dispute, the decentralized network of mediators settle the conflict a
 
 The honesty of mediators is achieved by the monetary incentivization and reputation system.
 
-\paragraph{A Solution for Secure Certified Electronic Mail Using Blockchain as a Secure Message Board}
+\subsection{Background}
+\subsection{Dispute resolution system}
 
-The idea of certified mail is simple, neither the sender can deny sending the mail, nor the receiver can deny receiving it. As the service is widely used in paper world, achieving it for e-mails haven't meet the agreement across scientific community for over 40 years. The main reason was the dependency of TTP. Which significantly reduce the performance, security, and robustness of such protocol. Those protocols that do not use TTP struggle with high computation and communication overhead.
+[[Themis - Towards Decentralized Escrow of Cryptocurrencies without Trusted Third Parties]] proposed a semi-autonomous decentralised dispute resolution system, which comply with the web3 postulates of decentralised web. Themis resolve disputes by set of voluntary anonymous users participating in a voting and deciding which party misbehaved. 
 
-Authors of ~\cite{hinarejos2019solution} replaced the TTP with blockchain (concretely Bitcoin blockchain as a reference implementation), which can be seen as a secure, verifiable, and decentralized TTP.
+Such dispute resolution system might work for straightforward money exchanges. However it's hard to realise such decentralised evaluation of quality of heath or legal services when expertise and privacy concerns are taken into an account. Therefore, in this protocol we take the more practical approach and resolve disputes using local justice system. 
 
-The idea behind certified e-mails—and any other fair-exchange protocol—is following
-\begin{enumerate}
-    \item The sender sends encrypted and signed message to the receiver.
-    \item The receiver returns a proof of delivery (a signature) of the encrypted message to the sender.
-    \item The sender publish on blockchain (or TTP in general) a proof of delivery and the decryption key.
-    \item The receiver decrypt the encrypted message using the published decryption key.
-\end{enumerate}
+Possible directions toward semi-autonomous decentralised resolution system are discussed in [[anonser/Future Work]].
 
-The non-repudiation requirement is achieved by the receiver sending the Proof-of-Delivery prior having access to the decrypted message. And the sender publishing the decription key together with the Proof-of-Delivery on blockchain (or TTP) so that the receiver can not deny both receiving the message and having access to decryption key, because it's publicly available.
-
-The protocol also handles confidentiality — the encryption key used to encrypt and then decrypt the message is encrypted using the receiver's public key, so the key is never published in raw form.
-Also, the protocol supports timeliness, meaning that the transaction is always finalized in a finite time.
-
-In this case, the role of Blockchain is to attest the existence of decryption key.
+Unless such expertise service evaluation is possible the evaluation have to be in justice. 
 
 
-\subsection{Anonymous delivery system for physical goods}
 
-\paragraph{Anonymity and fair-exchange in e-commerce protocol for physical products delivery}
+\subsection{There is really no need to create an escrow}
+One could assume that the escrow mechanism would make the whole protocol more fair, because the SP would not receive the money until it doesn't provide the services. But, in scenario without TTP its the SP who decide if service is provided or not. In other words, SP can finish the protocol at any time, sending some arbitrary data and claim that he finished providing the services. We could make the customer decide if the service is provided or not, but then the customer could receive the services and lie that he didn't. And since the customer is anonymous, there would be no means to open the dispute.
 
-Authors of ~\cite{birjoveanu2015anonymity} proposed a fair-exchange of physical product and electronic payment protocol that guarantee both customer and merchant anonymity. They achieve it by introducing online trusted third party that validate coins and provide fair exchange guarantees. 
 
-The anonymity is ensured by assuming the existence of source cabinet (SC) and delivery cabinet (DC), and a trusted delivery agent who take product from a source cabinet and provide it to a destination cabinet. 
-Both cabinets provides access to the product by passwords to conceal identity of the customer and the merchant.
-To avoid identity disclosure of customer and merchant, the access to the product is provided by passwords. 
+\subsection{Proof to justice}
+In case of dispute customer can proof to the justice (police, court, etc.) evidences that convinces justice about the honesty of customer and misbehaviour of SP. Abstracting from the services the SP is providing. Customer should be able to proof that: (I) he delivered complete $pkg$ and POD proofs that; (ii) he paid for the transaction $tx$ and payment disclosure proofs that.
+In case the customer is laying, and the SP has indeed delivered the results in time, he can proof: that the results had been published on time and Proof-of-Provision proofs that;
 
-Both cabinets are equipment with cameras. Also there should exist the trusted delivery agent (DA) who will deliver items from source cabinet do delivery cabinet. 
 
-The protocol works as follows:
-\begingroup
-\renewcommand{\labelenumii}{\arabic{enumii}.}
-\begin{enumerate}
-    \item Both parties agree on the purchase details.
-    \item The customer buys a digital coin from his bank and validates it with the TTP.
-    \item The customer sends to the merchant the purchase order and the digital signature made by TTP on the encrypted coin.
-    \item The merchant post the product to the source cabinet.
-    \item Delivery agent collect the product from source cabinet and post it to delivery cabinet.
-    \item Customer collects the product from delivery cabinet using password.
-    \item The customer checks if the product is actually the ordered one.
-    \begin{itemize}
-    \item[-] if yes 
-        \begin{enumerate}
-        \setcounter{enumii}{7}
-        \item the customer sends the acknowledge to delivery cabinet and decryption key to the merchant.
-        \item The merchant redeem the coins from the bank.
-        \end{enumerate}
-    \item[-] if no
-        \begin{enumerate}
-        \setcounter{enumii}{7}
-        \item the delivery cabinet is equipment with video camera that records the moment when the customer open the package and let the customer to signal the invalidity of the product, and so, sending the encrypted recording to the TTP. 
-        \item the dispute is settled via TTP, optionally letting each party to reveal it's identity.
-    \end{enumerate}
-    \end{itemize}
-\end{enumerate}
-\endgroup
+# Proof-of-Delivery
 
-Yet, the fair-exchange properties are achieved by strong assumptions. Namely, 
+# Payment disclosure
+
+Private cryptocurrencies can hide
+
+# Proof-of-Provision
+Blockchain is global block that time stamps everything that gets to the block. Therefore by publishing results on a blockchain, everyone is convinced that the service have been indeed provisioned on time, because the results have been available since the publication of that block. 
+
+
+\subsection{Pseudo-anonymous vs anonymous blockchain}
+
+\subsection{Payment for services}
+Transactions between customers and SP have to be somehow pegged in order to prevent proving one payment for multiple transactions. In other words, we need some way to uniquely link particular payment with the transaction it pays for. 
+
+Depending for the cryptocurrency the link can be created in different ways. 
+- separate address - each transaction derives new address uniquely associating it with the transaction. Such addresses can be derived using BEP-32 standard. 
+- memo - the payments are send to one SP account, but contain extra field named "memo" which contains a random value generated by SP and included in POD. Each payment containing such value in memo is considered to pay for the transaction in question. in case of dispute, the connection can be disclosed by revealing the value in POD and  payment's memo. 
+
+
+Both approaches have some advantages and shortcomings, but our protocol can abstract them away by treating them as come unique number called "invoice". How it's implemented  depends on the payment blockchain. 
+
+\subsection{Message Board}
+Blockchain as a Message Board — proof-of-existence.
+
+\subsection{We could use one blockchain}
+Instead of using two blockchains, one for anonymous payments and one for message board, we could use one blockchain that supports both.
+
+Ufortunately at the time of writing. Monero does not support message board functionallity. Zcash transaction disclosure is experimental feature.
+
+
+\section{The framework}
+
+\subsection{Overview of the framework}
+\subsubsection{Why we need to first give the items to the merchant then pay}
+
+If we pay first, then mechant can refuse to accept our package, and refuse to give us the Proof-of-Delivery acknowledge. In such a case, we are left with proof of payment that we can't really do much about it.
+
+We have to first, go to merchant, give it package with sample, they give us the proof-of-delivery with some random secret, acting like a invoice.
+
+Proof-of-Delivery is something we can use to proof to the justice that we have.
+
+To prove the payment for that invoice, we have to send a message to the mechant with the memo value of the secret. Pegging these two values.
+
+\subsubsection{There is a need to create proof of delivery}
+
+Without the proof of delivery, the customer get's left with just proof of payment, but he has no proof that he indeed brought the sample and other stuff to the merchant.
+
+Merchant has to give the customer either on blockchain or via other means that he accepted the package.
+
+\subsection{Notation}
 \begin{itemize}
-    \item the TTP does not misbehave or collude with any party. 
-    \item The customer's and merchant's banks enable confidental transactions and both share commit-buffer where the value is locked until the transaction is finished.   
-    \item All banks mantain a global list of coin's serial numbers to prevent double-spending problem. 
-    \item The source cabinet and delivery cabinet exists, and in both the product access is protected by password.
-    \item Delivery cabinet is equppted with a video camera that records the moment when the customer opens the package, and provide a way to submit the video to TTP in case of a dispute. 
-    \item Delivery agent exist and is trusted. 
-    \item Communication channels between parties provides anonymity.
+    \item $\mathrm{SP}$ - Service Provider.
+    \item $\mathrm{customer}$ - Customer.
+    \item $\mathrm{pkg}$ - package anonymously delivered by customer to SP. pkg = (materials, )
+    \item $\mathrm{materials}$ - materials used by SP to provide services, can be of any kind: urine, saliva, blood, stool, or health documents, legal documents etc.
+    \item $\mathrm{results}$ - results in binary format, can be either PDF, docx or any format agreed by both parities. 
+    \item $\mathrm{examination}(\mathrm{materials}) : \mathrm{results}$ - actual service provision executed on materials provided by customer and producing results
+    \item $\mathrm{POD}$ - Proof-of-Delivery, a confirmation issued by SP to the customer. The POD encompasses delivery time and an address to send funds to. POD is signed by SP to guarantee non-... .  POD can be used as a evidence in case of dispute.
+    \item $\mathrm{POP}$ - Proof-of-Provision, an logical proof of the existence of provision results.
+    \item $\mathrm{E}_\mathrm{key}(\cdot)$, $\mathrm{D}_\mathrm{key}(\cdot)$ - symmetric encryption and decryption operators.
+    \item $\mathrm{S}_\mathrm{key}(\cdot)$, $\mathrm{V}_\mathrm{key}(\cdot)$ - digital sign and verify operators.
+    \item $\mathrm{sk}$, $\mathrm{pk}$ - Key pair of secret and public keys accordingly.
+    \item $\mathrm{DH}(\cdot, \cdot)$ - Diffie–Hellman key exchange.
+    \item $CID$ - Content Identifier, a label used to address content in IPFS.
+\end{itemize}
+
+\subsection{Prerequisites}
+Blockchain:
+- Anonymous payments.
+- Invoice mechanism as described in [[Payment for services]].
+- Transaction disclosure as described in [[Proof to justice]].
+
+\subsection{Assumptions}
+Our protocol rely on some assumptions:
+1. SPs accept packages from unknown customers and give them back confirmation of acceptance (to stick with convention we call it Proof-of-Delivery).
+2. SPs accept payment for services via anonymous cryptocurrencies like Monero, Grin or ZCash. 
+3. Justice accepts as a evidence in dispute proof of payment of cryptocurrencies. 
+
+\subsection{The protocol}
+\subsubsection{Messages}
+\paragraph{Proof-of-Delivery}
+
+$\mathrm{POD} = (issued-at, pay-invoice-time-limit, provide-results-time-limit, invoice-nonce, signature)$
+
+where:
+\begin{itemize}
+    \item $issued-at$ - time at which the POD is issued
+    \item $pay-invoice-time-limit$ - time limit to pay the invoice 
+    \item $provide-results-time-limit$ - time limit to provide the service results
+    \item $\mathrm{nonce}$ - randomly generated number uniquely identifying the transaction.
+    \item $signature$ - signature proving authenticity of the SP
+\end{itemize}
+moreover
+
+$issued-at < pay-invoice-time-limit < provide-results-time-limit$
+
+\paragraph{Proof-of-Provision}
+$\mathrm{POP} = (\mathrm{cid}, \mathrm{nonce}, signature)$
+
+where:
+\begin{itemize}
+    \item $\mathrm{cid}$ - content identifier.
+    \item $\mathrm{nonce}$ - randomly generated number uniquely identifying the transaction.
+\end{itemize}
+
+\subsubsection{Step 1: deliver package}
+
+They protocol start once the customer delivers package $\mathrm{pkg}$ to SP.
+
+In return, the SP issue an Proof-of-Delivery (POD) confirmation. The confirmation encompasses timestamp, invoice (see section [[Payment for services]]), and signature. 
+
+Symbolically:
+$$
+\mathrm{delivery}(\mathrm{pkg}) : \mathrm{POD}
+$$
+
+
+\subsubsection{Step 2: pay for invoice}
+Having POD, SP can not reject receiving the package. At this point the customer should pay for the invoice according to selected cryptocurrency system (see section [[Payment for services]]). 
+
+In return, the customer receives the proof of payment that should be used in case of a dispute.
+
+Symbolically:
+$$
+\mathrm{payment}(\mathrm{POD}.\mathrm{nonce}) : \mathrm{POP}
+$$
+
+\subsubsection{Step 3: provision of service}
+At this point the SP can start the provision of service. If it's suspicious it may decide to wait until the invoice is paid, otherwise start immediately.
+
+Symbolically:
+$$
+\mathrm{examination}(\mathrm{pkg}.\mathrm{materials}) : \mathrm{results}
+$$
+
+\subsubsection{Step 4: publication of results}
+Once the service is finished, some kind of output should be created. The output should be encrypted using symmetric key derived using Diffie–Hellman key exchange between customer's public key and SP's secret key, and later decrypted using customer's secret key and SP's public key. 
+
+The encrypted results can be then published on content network such as IPFS. As a result, the content identifier (CID) is returned.
+
+Symbolically:
+$$\mathrm{key} = \mathrm{DH}(\mathrm{pkg}.\mathrm{pk}, \mathrm{SP}.\mathrm{sk})$$
+$$\mathrm{cid} = \mathrm{publish}(E_\mathrm{key}(\mathrm{results}))$$
+
+\subsubsection{Step 5: publication of proof-of-provision}
+Now, when the results are published on content addressable network such as IPFS, the SP publish $\mathrm{cid}$ obtained in previous step on a message board doing proof of provision. 
+
+Symbolically:
+$$\mathrm{publish}(\mathrm{cid})$$
+
+\subsubsection{Step 6: observe proof-of-provision}
+
+Since the delivery and payment was made the customer observes blockchain for a POP corresponding to his transaction. When it happen,   
+
+\subsubsection{Step 7: fetch the results}
+
+
+
+
+\section{Security analysis}
+\subsection{Fairness analysis}
+\subsubsection{Model}
+We consider three positions:
+\begin{itemize}
+    \item Disadvantage (-) position if a party has put any effort or paid money without being able to reclaim it. In other words it has to **risk** its resources.
+    \item Advantage(+) position is when a party would benefit if the transaction would halt at that point. For example, received payment in advance.
+    \item Neutral (•) is a neutral state where the party does not gain or lose anything significant. For example, beggining of the protocol.
 \end{itemize}
 
 
+We assume that if the protocol goes well each party ends in advantage position. Hence the incentive to accept transactions.
 
-\paragraph{Lelanros} Lelanros~\cite{altawy2017lelantos} is a blockchain-based anonymous physical delivery system. The anonymity is achieved by employing ToR's onion routing to connect physical delivery providers. The whole route from merchant to customer is split into multiple steps, and each step is undertaken by different randomly selected delivery provider. As long as the develiery providers does no collude, mechant can not learn both identity and destination address of the customer.
-
-Onchain smart-contract is used to coordinate the whole process and mediate communication between customer and delivery providers.
-
-
-However, the system achieve only pseudo-anonymity or 'weak anonymity'. 
-
-\paragraph{Auditable Protocols for Fair Payment and Physical Asset Delivery Based on Smart Contracts}
-Authors of~\cite{wang2019auditable} propose simillar to \cite{altawy2017lelantos} physical asset delivery system to connect merchants, customers and logistic company.
-
-However, the system does not achieve anonymity.
-
-
-\section{Contribution}
-In this paper similarly to by~\cite{birjoveanu2015anonymity}, we propose fully-fledged protocol for anonymous fair-exchange which includes payment processing and physical goods exchange. Yet, compared to ~\cite{birjoveanu2015anonymity}, we use blockchain instead of centralized TTP. Additionally, we use anonymous cryptocurrencies getting rid of strong and unrealistic assumptions on traditional banking.
-
-Although there have been number of protocols achieving fair-exchange over blockchain~\cite{heilman2016blindly, meng2019themis, icete18, barber2012bitter}, only few achieve anonymity~\cite{heilman2016blindly}. From these achieving anonymity, non target exchange of psychical goods.
-
-We contribute to the field of anonymous fair-exchange and anonymous physical delivery with following improvements:
-With this paper we propose a protocol that add following contribution to the field of physical delivery, fair-exchange protocols:
+And two dimensions:
 \begin{itemize}
-    \item Strong anonymity — unlike other protocols based on pseudoanonymous traceable blockchains like Bitcoin or Ethereum, we propose a solution based on private blockchain (ZCash) where transactions can not be analyzed and thus linked back to users' identity.
-    \item Practicality — out proposal is practical and ready to deploy
+    \item Normal, in this dimension the parties acts honestly or 
+    \item Dispute, in this dimension one party starts a dispute in justice and according to the local law gets into one of three positions.
 \end{itemize}
 
-In this paper, we propose a protocol for provisioning local services, that guarantee following requirements:
-\begin{enumerate}
-    \item Anonymous — The customer identity is strongly untraceable (see section~\ref{anonimity-vs-pseudoanonimity}.
-    \item Fair-exchange — the service provider does not receive the payment before it provide the service, in case it provide wrong service, customer can proof this case to the justice.
-    \item Blockchain-based — the protocol does not use TTP, instead it uses decentralized blockchain network.
-    \item Timeliness — the transaction will terminate if it don't meet the timely requirerement
-\end{enumerate}
+% - Disputable (!) position is when a party can proof to the justice the misbehaviour of the other party and (according to the local law) win the dispute.
 
-Additionally, since the services are provided locally, we enable customers to disclose the transaction and start the dispute in law.
+Motivation:
+At least one party should be motivated either via reward or punishment to move the protocol forward.
 
-Once the package is delivered to the SP, the SP publish POR (Proof-of-recipment) on the blockchain. From this point the customer is secured, i.e. if the merchant misbehaves, customer can proof to the justice that he paid for the service at a particular point of time, and that SP received the package, but didn't publish results. 
+The protocol is fair, if at any point of the protocol, each party is either in Disputable or Advantage position. Moreover, at least one party has the motivation and means to move the protocol forward. 
+
+\subsubsection{Steps}
+We assume the steps of the protocol to be atomic, there are no intermediate steps, nor the party can revert any step. In other words, it can only move forward.
+
+\subsubsection{Step 1: deliver package}
+    Customer has delivered the package:
+- Following protocol:
+	- Customer has risked its materials but has not paid anything, so we assume he is in neutral position (•). One would argue that the customer has put effort of delivering the sample to the merchant, or that the sample is valuable. We assume that the sample without personal information is useless and the effort to deliver the package is negligible small.
+	- SP is in neutral position as he didn't put any effort be receiving the package, also the package hasn't any value to the SP (•).
+- Starting a dispute:
+	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-).
+	- The SP win the case for the same reason (•).
+
+Motivation:
+At this point the customer has the motivation to push the protocol forward as he want to receive the service results.
+
+\subsubsection{Step 2: pay for invoice}
+Customer has paid the invoice:
+- Following protocol:
+	- The customer has spend his funds but hasn't received the results. Therefore, he moves to the disadvantage position (-).
+	- The SP has received the payment but hasn't spend his resources yet. Therefore, he moves to advantage position (+).
+- Starting a dispute:
+	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-)
+	- The SP win the case for the same reason (+)
+
+Customer has timeouted $time-to-issue-$, then:
+- Following protocol:
+	- The customer ends up in neutral position, since he didn't spend his funds (•)
+	- The SP ends up in neutral position as he didn't receive the payment, nor spent his resources (•)
+- Starting a dispute:
+	- The customer loses the case as he can not prove the payment before the time limit. Consequently, ends up in disadvantage position (-)
+	- The SP is not charged to the justice due to lack of proofs. Therefore, he ends up in neutral position (-)
 
 
-Or we can create a smart contract that automatically punish the SP if he doesn't fulfull the agreement in time. And the proof to justice is used in case where the content of the service is invalid, something that have to be settled by human.
+Motivation:
+The merchant has the motivation to move the protocol forward, as he don't want to lose the case and get punished.
 
-If merchant misbehaves i.e. does not provide the agreed services, then the customer can create a proof that such incident happened 
-However it provide a proof that such incident happened. In settings where the identity of the party is known, such proof can be used to bring the misbehaving party to the justice.
+\subsubsection{Step 3: provision of service}
 
+SP has done the provision of service:
+- Following protocol:
+	- The customer hasn't received the results. Therefore, he remains in disadvantage position (-).
+	- The SP has fullfiled the contract on time (+).
+- Starting a dispute:
+	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-)
+	- The SP win the case for the same reason (+)
+
+SP has timeouted, then:
+- Following protocol:
+	- The customer ends up in disadvantage position (-)
+	- The SP ends up in advantage position as he received the payment (+)
+- Starting a dispute:
+	- The customer wins the case and end up in neutral position (•)
+	- The SP loses the case and end up in disadvantage position (-)
+
+
+Motivation:
+The SP has the motivation to move the protocol forward, as he don't want to lose the case and get punished.
+
+\subsubsection{Step 4: publication of results}
+
+SP has published results on time:
+- Following protocol:
+	- The customer hasn't received the results. Therefore, he remains in disadvantage position (-).
+	- The SP has fullfiled the contract on time (+).
+- Starting a dispute:
+	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-)
+	- The SP win the case for the same reason (+)
+
+SP has timeouted, then:
+- Following protocol:
+	- The customer ends up in disadvantage position (-)
+	- The SP ends up in advantage position as he received the payment (+)
+- Starting a dispute:
+	- The customer wins the case and end up in neutral position (•)
+	- The SP loses the case and end up in disadvantage position (-)
+
+
+Motivation:
+The SP has the motivation to move the protocol forward, as he does not want to timeout and expose to losing case.
+
+\subsubsection{Step 5: publication of proof-of-provision}
+
+SP has published proof-of-provision on time:
+- Following protocol:
+	- The customer hasn't received the results. Therefore, he remains in disadvantage position (-).
+	- The SP has fullfiled the contract on time (+).
+- Starting a dispute:
+	- The customer lose the case as the SP can prove the publication of proof-of-provision (-)
+	- The SP win the case as the SP can prove the publication of proof-of-provision (+)
+
+SP has timeouted, then:
+- Following protocol:
+	- The customer ends up in disadvantage position (-)
+	- The SP ends up in advantage position as he received the payment (+)
+- Starting a dispute:
+	- The customer wins the case and end up in neutral position (•)
+	- The SP loses the case and end up in disadvantage position (-)
+
+
+Motivation:
+The customer wants to receive the results, therefore he move the protocol forward.
+
+\subsubsection{Step 6: retreival of proof-of-provision}
+
+SP has published results on time, then:
+- Follows the protocol:
+	- The customer gets hash of the results but not the results. Therefore, he is still in disadvantage position(-).
+	- The SP position hasn't changed(+).
+- Starts a dispute:
+	- The customer lose the case as the SP can prove the publication of proof-of-provision (-)
+	- The SP win the case as the SP can prove the publication of proof-of-provision (+)
+
+Customer has timeouted, then:
+- Follows the protocol:
+	- The customer ends up in disadvantage position (-)
+	- The SP ends up in advantage position as he received the payment but didn't spend his resources (+)
+- Starts a dispute:
+	- The customer wins the case and end up in neutral position (•)
+	- The SP loses the case and end up in disadvantage position (-)
+
+
+Motivation:
+The customer wants to receive the results, therefore he move to the protocol forward.
+
+\subsubsection{Step 7: retrieval of results}
+
+SP has published **correct** results on time:
+- Following protocol:
+	- The customer gets the correct results. Therefore, he moves to advantage position (+).
+	- The SP position hasn't changed(+).
+- Starting a dispute:
+	- The customer lose the case as the SP can prove the publication of proof-of-provision (-)
+	- The SP win the case as the SP can prove the publication of proof-of-provision (+)
+
+SP has published **incorrect** results on time:
+- Following protocol:
+	- The customer end up in disadvantage position, as he ends up with incorrect results (-)
+	- The SP ends up in advantage position as he received the payment but didn't spend his resources (+)
+- Starting a dispute:
+	- The customer wins the case and ends up in neutral position (•)
+	- The SP lose the case and end up in disadvantage position (-)
+
+
+Motivation:
+At this point no party has the motivation to start the case, since everyone  . 
+
+
+See how monero swaps analysis fairness and motivations.
+
+
+\subsection{Privacy and anonymity analysis}
+
+# Model
+The data can be either:
+- Public(+), 
+- Private(-)
+
+- Plaintext (...)
+- Encrypted (...)
+
+We analisis at each step of the protocol
 
 \section{Applications}
 \subsection{Anonymous clinical tests}
@@ -280,49 +527,31 @@ As defined in~\cite{lin2021efficient}, such a system consist of three parties: (
 % TODO write about
 ~\cite{birjoveanu2015anonymity}
 
-
-% [![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ3VzdG9tZXItPj5TbWFydCBDb250cmFjdDogUHJvdmlkZSBkZXRhaWxzLCBsb2NrIGZ1bmRzLlxuXHRhY3RpdmF0ZSBTbWFydCBDb250cmFjdFxuXHRTbWFydCBDb250cmFjdCAtPj4gU21hcnQgQ29udHJhY3Q6IENyZWF0ZSBhZ3JlZW1lbnRcblx0ZGVhY3RpdmF0ZSBTbWFydCBDb250cmFjdFxuXHRhbHQgSWYgc2VydmljZSBwcm92aWRlciBkZWNsaW5lIGFncmVlbWVudFxuXHRTZXJ2aWNlIFByb3ZpZGVyIC0-PiBTbWFydCBDb250cmFjdDogRGVjbGluZVxuXHRTbWFydCBDb250cmFjdCAtPj4gQ3VzdG9tZXI6IFJlZnVuZFxuXHRlbmRcblx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IEFjY2VwdFxuXHRcblx0YWx0IGRpZ2l0YWwgZG9jdW1lbnRzXG5cdFx0cGFyIGF0b21pYyB0cmFuc2FjdGlvblxuXHRcdEN1c3RvbWVyIC0-PiAgb2ZmLWNoYWluIHN0b3JhZ2U6IFB1Ymxpc2ggZW5jcnlwdGVkIGRvY3VtZW50c1xuXHRcdG9mZi1jaGFpbiBzdG9yYWdlIC0tPj4gQ3VzdG9tZXI6IFByb29mLW9mLURlbGl2ZXJ5IChQT0QpXG5cdFx0ZW5kXG5cdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogUHVibGlzaCBQT0Rcblx0ZWxzZSBwaHlzaWNhbCBkb2N1bWVudHNcblx0XHRwYXIgYXRvbWljIHRyYW5zYWN0aW9uXG5cdFx0Q3VzdG9tZXIgLT4-ICBTZXJ2aWNlIFByb3ZpZGVyOiBQcm92aWRlIGRvY3VtZW50cyBwaHlzaWNhbGx5XG5cdFx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IFB1Ymxpc2ggUE9EXG5cdFx0ZW5kXG5cdGVuZFxuXHRsb29wIGV4ZWN1dGUgdW50aWwgY3VzdG9tZXIgaXMgc2F0aXNmaWVkIHdpdGggcmVzdWx0c1xuXHRTZXJ2aWNlIFByb3ZpZGVyIC0-PiBTZXJ2aWNlIFByb3ZpZGVyOiBFeGVjdXRlIHNlcnZpY2Vcblx0U2VydmljZSBQcm92aWRlciAtPj4gT2ZmLWNoYWluIHN0b3JhZ2U6IFB1Ymxpc2ggZW5jcnlwdGVkIHJlc3VsdHNcblx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IFB1Ymxpc2ggUHJvb2Ytb2YtUmVzdWx0c1xuXHRcblx0XG5cdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogR2V0IFByb29mLW9mLVJlc3VsdHNcblx0Q3VzdG9tZXIgLT4-IE9mZi1jaGFpbiBzdG9yYWdlOiBHZXQgcmVzdWx0c1xuXHRDdXN0b21lciAtPj4gQ3VzdG9tZXI6IFZhbGlkYXRlIHJlc3VsdHNcblx0YWx0IHJlc3VsdHMgYXJlIGluY29ycmVjdFxuXHRcdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogU3RhcnQgZGlzcHV0ZSwgcHJvdmlkZSBkZXRhaWxzXG5cdFx0YWx0IFNlcnZpY2UgUHJvdmlkZXIgZGVjbGluZSBhcmd1bWVudHNcblx0XHRcdFNtYXJ0IENvbnRyYWN0IC0-PiBTZXJ2aWNlIFByb3ZpZGVyOiBVbmxvY2sgZnVuZHNcblx0XHRcdG5vdGUgcmlnaHQgb2YgU2VydmljZSBQcm92aWRlcjogU1AgaXMgYWx3YXlzIG9uIGxvc3QgcG9zaXRpb24sIDxicj5iZWNhdXNlIGhlIGNhbiBub3Qgc3VlIGFub255bW91cyBjdXN0b21lci48YnI-IFRoZXJlZm9yZSB0aGUgc2hvdWxkIGJlIHRoZSBob2xkZXIgdGhlIGZ1bmRzIGFzIHNvb24gYXMgcG9zc2libGUuXG5cdFx0XHRDdXN0b21lciAtPj4gUG9saWNlOiBPcGVuIGRpc3B1dGUgYXQgcG9saWNlXG5cdFx0ZW5kXG5cdGVuZFxuXHRlbmRcblx0XG5cbiAgICBcbiAgICAgICAgICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid.live/edit#eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ3VzdG9tZXItPj5TbWFydCBDb250cmFjdDogUHJvdmlkZSBkZXRhaWxzLCBsb2NrIGZ1bmRzLlxuXHRhY3RpdmF0ZSBTbWFydCBDb250cmFjdFxuXHRTbWFydCBDb250cmFjdCAtPj4gU21hcnQgQ29udHJhY3Q6IENyZWF0ZSBhZ3JlZW1lbnRcblx0ZGVhY3RpdmF0ZSBTbWFydCBDb250cmFjdFxuXHRhbHQgSWYgc2VydmljZSBwcm92aWRlciBkZWNsaW5lIGFncmVlbWVudFxuXHRTZXJ2aWNlIFByb3ZpZGVyIC0-PiBTbWFydCBDb250cmFjdDogRGVjbGluZVxuXHRTbWFydCBDb250cmFjdCAtPj4gQ3VzdG9tZXI6IFJlZnVuZFxuXHRlbmRcblx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IEFjY2VwdFxuXHRcblx0YWx0IGRpZ2l0YWwgZG9jdW1lbnRzXG5cdFx0cGFyIGF0b21pYyB0cmFuc2FjdGlvblxuXHRcdEN1c3RvbWVyIC0-PiAgb2ZmLWNoYWluIHN0b3JhZ2U6IFB1Ymxpc2ggZW5jcnlwdGVkIGRvY3VtZW50c1xuXHRcdG9mZi1jaGFpbiBzdG9yYWdlIC0tPj4gQ3VzdG9tZXI6IFByb29mLW9mLURlbGl2ZXJ5IChQT0QpXG5cdFx0ZW5kXG5cdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogUHVibGlzaCBQT0Rcblx0ZWxzZSBwaHlzaWNhbCBkb2N1bWVudHNcblx0XHRwYXIgYXRvbWljIHRyYW5zYWN0aW9uXG5cdFx0Q3VzdG9tZXIgLT4-ICBTZXJ2aWNlIFByb3ZpZGVyOiBQcm92aWRlIGRvY3VtZW50cyBwaHlzaWNhbGx5XG5cdFx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IFB1Ymxpc2ggUE9EXG5cdFx0ZW5kXG5cdGVuZFxuXHRsb29wIGV4ZWN1dGUgdW50aWwgY3VzdG9tZXIgaXMgc2F0aXNmaWVkIHdpdGggcmVzdWx0c1xuXHRTZXJ2aWNlIFByb3ZpZGVyIC0-PiBTZXJ2aWNlIFByb3ZpZGVyOiBFeGVjdXRlIHNlcnZpY2Vcblx0U2VydmljZSBQcm92aWRlciAtPj4gT2ZmLWNoYWluIHN0b3JhZ2U6IFB1Ymxpc2ggZW5jcnlwdGVkIHJlc3VsdHNcblx0U2VydmljZSBQcm92aWRlciAtPj4gU21hcnQgQ29udHJhY3Q6IFB1Ymxpc2ggUHJvb2Ytb2YtUmVzdWx0c1xuXHRcblx0XG5cdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogR2V0IFByb29mLW9mLVJlc3VsdHNcblx0Q3VzdG9tZXIgLT4-IE9mZi1jaGFpbiBzdG9yYWdlOiBHZXQgcmVzdWx0c1xuXHRDdXN0b21lciAtPj4gQ3VzdG9tZXI6IFZhbGlkYXRlIHJlc3VsdHNcblx0YWx0IHJlc3VsdHMgYXJlIGluY29ycmVjdFxuXHRcdEN1c3RvbWVyIC0-PiBTbWFydCBDb250cmFjdDogU3RhcnQgZGlzcHV0ZSwgcHJvdmlkZSBkZXRhaWxzXG5cdFx0YWx0IFNlcnZpY2UgUHJvdmlkZXIgZGVjbGluZSBhcmd1bWVudHNcblx0XHRcdFNtYXJ0IENvbnRyYWN0IC0-PiBTZXJ2aWNlIFByb3ZpZGVyOiBVbmxvY2sgZnVuZHNcblx0XHRcdG5vdGUgcmlnaHQgb2YgU2VydmljZSBQcm92aWRlcjogU1AgaXMgYWx3YXlzIG9uIGxvc3QgcG9zaXRpb24sIDxicj5iZWNhdXNlIGhlIGNhbiBub3Qgc3VlIGFub255bW91cyBjdXN0b21lci48YnI-IFRoZXJlZm9yZSB0aGUgc2hvdWxkIGJlIHRoZSBob2xkZXIgdGhlIGZ1bmRzIGFzIHNvb24gYXMgcG9zc2libGUuXG5cdFx0XHRDdXN0b21lciAtPj4gUG9saWNlOiBPcGVuIGRpc3B1dGUgYXQgcG9saWNlXG5cdFx0ZW5kXG5cdGVuZFxuXHRlbmRcblx0XG5cbiAgICBcbiAgICAgICAgICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{anonymous-service-provision.png}}
-\caption{Sequence flow}
-\label{fig:sequence-flow}
-\end{figure}
-
-\section{Solution protocol}
-
-
-
-
-\section{confidential Blockchains}
-
-\paragraph{Ethereum}
-
-\paragraph{Aleo}
-
-\paragraph{STARK-net}
-
-
-\paragraph{Monero}
-Monero offers out-of-the-box proving/checking confidental transactions. \href{https://www.getmonero.org/resources/user-guides/prove-payment.html}
-
-\paragraph{ZCash}
-ZCash offers payment disclosure as a preview feature.
-\href{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}
-
-\href{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}
-
-
-
-
-
 \section{Future work}
+
+\subsection{Justice}
+Justice is the one biggest obstacle in achieving system that is complied with web3 manifests. 
+
+The possible directions for mitigation of such issue are to either (1) replace Justice with decentralised autonomous organisations (DAO) like proposed in [[Themis - Towards Decentralized Escrow of Cryptocurrencies without Trusted Third Parties]]; or (2) make it impossible to provide incorrect results.
+
+The first approach is more feasible in the near future. It would require creating large pool of experts in a field, that in case of dispute, would receive all the proofs (POD, POP, POP, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivised to participate in the pool by the system of fees. Their honest behaviour would be incentivised by the stake they would have to lock, and punishment they would get by judging incorrectly, where the "correctly" is determined by the quorum of votes.
+
+The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations (cite snarks) to enforce that only correct computations (hence correct services) are accepted. But to do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like urine) are examined. Concretely, the problem canes down to "How to digitally represent urine". If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer to take a sample, discrete it and send it to the SP by himself. Then the whole chain of integrity could be ensured. Therefore, wrong service provision would be impossible, or — using cryptographic nomenclature — infeasible. 
+
+\subsection{Paying with cash}
+Without lose of generality the payment can be made with cash. 
+The customer can exchange the cash with SP together with delivering the package pkg. The POD would contain an information that the transaction has been paid with cash; therefore, [[The protocol#Phase 2 pay for invoice]] could be ommited. 
+
+
+%%# Verifable documents
 
 Verifiable Document Redacting ~\cite{chabanne2017verifiable} is a protocol for erasing confidential information from authenticated images in verifiable manner. In other words, the protocol allows verifying that only the fields that cover personal information has been blacked out from the authenticated image. This allows users to provide required images without exposing their personal information, and SPs to authenticate the modified images, such that they are sure that only the stated fields have been blacked out and nothing else was touched. 
 
-If such Verifiable Redacted Documents were accepted by other service providers like bank or tax office, national register of the judiciary, then the SP could use the documents provided by the customer to provide wider range of services, without knowing identity of the customer.
+If such Verifiable Redacted Documents were accepted by other service providers like bank or tax office, national register of the judiciary, then the SP could use the documents provided by the customer to provide wider range of services, without knowing identity of the customer.%%
 
 
-% In this paper we extend the idea to a whole user-to-service-provider protocol
+\subsection{Conclusions}
+In this paper, we have proposed a privacy- and anonymity- preserving blockchain-based framework for local services provision. The framework can be employed by any local service provider to provide services without collecting any personal information. The payment is handled by anonymous cryptocurrencies, and the results are published on content based p2p network. The dispute can be settled by disclosing proofs to the justice. At any stage of the transaction, both parties are either in privelaged situation or can proof to the justice the misbehaviour of the other party. 
 
 
 \bibliographystyle{alpha}
