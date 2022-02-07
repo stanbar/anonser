@@ -20,29 +20,34 @@
 
 
 \section{Abstract}
-Service providers like: lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data that is often associated with their personal information. This situation expose customers to privacy risk. However, most of the service providers use the personal information merely for logistic operations, and could provide services on anonymous data if other means of communication would be possible.
+Service providers like: lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data that is often associated with their personal information. This situation expose customers to privacy risk. However, most of the service providers use the personal information merely for logistic operations like payments and communication, and could provide services anonymously if other means of logistics would exists.
 
-We propose a protocol for local confidential services provision, using blockchain for both contract agreement and anonymous payments.
+We propose a framework for coordingating local anonymous service provision. Our proposal uses blockchain for both anonymous payments and proof-of-existence, and content addressable network (IPFS) for results delivery.
 
-In case of dispute, we let the parties communicate over blockchain. In case of disagreement, the customer can disclose the whole interaction and proof to the justice misbehaving SP.
+In case of dispute, either due to exceeding deadlines or providing incorrect results, the customer can disclose the whole interaction and proof to the justice (police or court) the misbehaviour of the SP.
+
+We analyse the protocol in the context of fairness, privacy, and anonymity.
 
 We propose three applications for our protocol: (i) anonymous steroid examination, (ii) anonymous legal advice, and (iii) anonymous financial trustworthiness evaluation.
+
+We contribute to the field of fair-exchanges by proposing a simple and practical framework that does not rely on centralized trusted-third party, rather on decentralized blockchain and decentralized content addressable networking. Also, we support physical materials delivery, which was rarely targeted by other researchers.
 
 \section{Introduction}
 Service providers (SP) like: lawyers, laboratories, auditors, or banks, to provide services, require data that is often associated with user identity.
 
-Providing personal information exposes users to privacy risk, i.e. potential loss of control over personal information ~\cite{smith2011information}.
+Providing personal information exposes users to privacy risk, i.e. potential loss of control over personal information ~\cite{smith2011information}. 
 
 Such user information can be then used deliberately or unintentionally (e.g, by theft) for: insider disclosure, unauthorized access, or commercial gains. For example, by reselling it to marketers, financial institutions, other businesses, government agencies, or even cybercriminals. Which in turn can lead to profiled advertisements, or criminal activities like identity theft or illegal tracking and surveillance~\cite{smith2011information}.
 
 Important individuals like top government, influencers, or celebrities are especially vulnerable to this kind of attacks as exposure of their health records, purchase habits, or legal documents can threaten their reputation, position, or can be used for blackmailing.
 
-The guarantee of the privacy of the data is based on a trust assumptions and security of IT systems. However, most of the service providers don't need the personal information for any other reasons than payment, communication, or logistics.
+The guarantee of the privacy of the data is often based merely on a trust assumptions and security of IT system. However, most of the SP don't need the personal information for any other reasons than payment, or communication, which should be considered secondary compared to primary matter that is service provision.
 
 It would be desirable if the user could keep its identity private, while service provider still provide its services. This could lead to reduced trust that users have to put on SP and less responsibility borne by SP.
 
 \subsection{Contribution}
-In this paper, we propose a blockchain based anonymity-preserving framework for local services provision.
+We contribute to the field of fair-exchanges by proposing a simple and practical framework that does not rely on centralized trusted-third party, rather on decentralized blockchain and distributed content addressable networking. 
+Also, we support physical materials delivery, which was rarely targeted by other researchers.
 
 \section{State of the art}
 \subsection{Anonymity and Fair-Exchange in e-Commerce Protocol for Physical Products Delivery}
@@ -237,8 +242,15 @@ Our protocol rely on some assumptions:
 
 \subsection{The protocol}
 \subsubsection{Messages}
-\paragraph{Proof-of-Delivery}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{diagram.png}
+    \caption{Diagram}
+    \label{fig:diagram}
+\end{figure}
+
+\paragraph{Proof-of-Delivery}
 $\mathrm{POD} = (issued-at, pay-invoice-time-limit, provide-results-time-limit, invoice-nonce, signature)$
 
 where:
@@ -321,62 +333,124 @@ Since the delivery and payment was made the customer observes blockchain for a P
 \subsubsection{Model}
 We consider three positions:
 \begin{itemize}
-    \item Disadvantage (-) position if a party has put any effort or paid money without being able to reclaim it. In other words it has to **risk** its resources.
-    \item Advantage(+) position is when a party would benefit if the transaction would halt at that point. For example, received payment in advance.
-    \item Neutral (•) is a neutral state where the party does not gain or lose anything significant. For example, beggining of the protocol.
+\item Neutral (•) position is when a party does not gain or lose anything significant. For example, beggining of the protocol.
+\item Disadvantage (-) position if a party has put any effort or paid money without being able to reclaim it. In other words it has to **risk** its resources.
+\item Advantage(+) position is when a party would benefit if the transaction would halt at that point. For example, received payment in advance.
 \end{itemize}
 
+$$\sigma = \{-, •, +\}$$
 
-We assume that if the protocol goes well each party ends in advantage position. Hence the incentive to accept transactions.
+We call one position *better* than the other if it's more preferable or more advantageous for the party. Then, we say that neutral position (•) *is better* than disadvantage position (-), and advantage position (+) is better than neutral position (•). The relation is transitive so advantage position (+) is better than disadvantage position (-). Formally: 
+$$
+\mathrm{is\ better} = \{(-,•), (•,+), (-,+)\}
+$$
 
-And two dimensions:
+There are many actions that each party can take, but we group them together into two categories: 
 \begin{itemize}
-    \item Normal, in this dimension the parties acts honestly or 
-    \item Dispute, in this dimension one party starts a dispute in justice and according to the local law gets into one of three positions.
+    \item Following the protocol — taking the action prescribed by the protocol.
+    \item Not following the protocol — everything that deviates from designed steps of the protocol. For example, sending arbitrary message, skipping some step, repeating step, timing out. 
 \end{itemize}
 
-% - Disputable (!) position is when a party can proof to the justice the misbehaviour of the other party and (according to the local law) win the dispute.
+Moreover, at any step of the protocol the customer can react with two reactions: 
+\begin{itemize}
+    \item Agree — the customer agree with the action and therefore does not start a dispute.
+    \item Start a dispute — the customer does not agree with the action and therefore start a dispute.
+\end{itemize}
+
+Hence, in our analysis we have to consider four different outcomes for each party of the protocol:
+- $\sigma_\mathrm{n}$ — after following the protocol within the timeframe.
+- $\sigma_\mathrm{d}$ — after a dispute where the other party hasn't broken the protocol.
+- $\sigma_\overline{n}$ — after not starting a dispute despite the other party has broken the protocol.
+- $\sigma_\overline{d}$ — after a dispute where the other party has broken the protocol.
+
+After starting a dispute, the protocol terminate. After timing out there is no going back on the normal path.
+
+In our framework, the only party that can start a dispute is the customer. It's because the customer is anonymous, and so the SP does not have any personal information to start a dispute against. 
+
+To mitigate this issue, the protocol is designed so that the SP who follows the protocol is always in advantage position, therefore he has no incentivisations to start a dispute. 
+
+We say that the protocol achieve fairness if:
+
+$$\forall_{party \in parties}\forall_{\mathrm{step} \in \mathrm{steps}} \mathrm{can\ move\ the\ protocol\ forward\ to\ the\ non-disadvantage\ position}$$
+
+
+\subsubsection{Assumptions}
+For the analysis purpose we state assumptions listed below. We consider them being rational and realistic.
+
+Assumptions:
+\begin{itemize}
+    
+\item Both parties start from neutral position (•).
+\item Both parties, by completing the transaction, end up in advantage positions (+). The transaction produces win-win scenario. In other words, they have intrinsic motivation to pursue in the transaction.
+\item We assume the steps of the protocol to be atomic, there are no intermediate steps.
+\item Repeating the first step starts new transaction. Repeating any other step is considered abnormal and gets ignored. For example paying for the invoice twice does not cause any effect on the curse of protocol.
+\item The protocol can go only forward, there is no way of revert any action.
+\item Losing the dispute leads to punishment that is greater than any reward therefore always leads to disadvantage position. Hence, the rational customer won't start a dispute that he will lose.
+\item Winning the dispute leads to neutral position (•)
+\item Both the customer and the SP are rational (selfish). They always prefer go from worst position to better position, but also risk temporary worst position in favour for later better position iff it's assured that they won't stuck in worst position. 
+\end{itemize}
 
 Motivation:
-At least one party should be motivated either via reward or punishment to move the protocol forward.
+At least one party should be motivated either via reward (better possition) or punishment (worst position) to move the protocol forward.
 
 The protocol is fair, if at any point of the protocol, each party is either in Disputable or Advantage position. Moreover, at least one party has the motivation and means to move the protocol forward. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{table-of-positions.png}
+    \caption{positions}
+    \label{fig:my_label}
+\end{figure}
 
 \subsubsection{Steps}
 We assume the steps of the protocol to be atomic, there are no intermediate steps, nor the party can revert any step. In other words, it can only move forward.
 
 \subsubsection{Step 1: deliver package}
-    Customer has delivered the package:
-- Following protocol:
-	- Customer has risked its materials but has not paid anything, so we assume he is in neutral position (•). One would argue that the customer has put effort of delivering the sample to the merchant, or that the sample is valuable. We assume that the sample without personal information is useless and the effort to deliver the package is negligible small.
-	- SP is in neutral position as he didn't put any effort be receiving the package, also the package hasn't any value to the SP (•).
-- Starting a dispute:
-	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-).
-	- The SP win the case for the same reason (•).
+Turn: Customer 
 
-Motivation:
-At this point the customer has the motivation to push the protocol forward as he want to receive the service results.
+Customer has delivered the package:
+- Agreeable path:
+	- $\sigma_{1, c, \mathrm{n}} = •$ - the customer has risked its materials but has not paid anything, so we assume he is in neutral position (•). One would argue that the customer has put effort of delivering the materials to the merchant, or that the sample is valuable. We assume that the sample without personal information is useless and the effort to deliver the package is negligible.
+	- $\sigma_{1, s, \mathrm{n}} = •$ - the SP is in neutral position as he didn't put any effort to rece the package, also the package hasn't any value to the SP (•).
+- Starting a dispute:
+	- $\sigma_{1, c, \mathrm{d}} = -$ - the customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-).
+	- $\sigma_{1, s, \mathrm{d}} = •$ - the SP win the case for the same reason (•).
+
+Fairness:
+- The customer can follow the protocol and move to the non-disadvantage position $\sigma_{1, c, \mathrm{n}} = •$.
+- The SP can do nothing and end up in non-disadvantage position $\sigma_{1, s, \mathrm{n}} = •$ or $\sigma_{1, s, \mathrm{d}} = •$.
 
 \subsubsection{Step 2: pay for invoice}
+Turn: Customer
+
 Customer has paid the invoice:
-- Following protocol:
-	- The customer has spend his funds but hasn't received the results. Therefore, he moves to the disadvantage position (-).
-	- The SP has received the payment but hasn't spend his resources yet. Therefore, he moves to advantage position (+).
-- Starting a dispute:
-	- The customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe (-)
-	- The SP win the case for the same reason (+)
+\begin{itemize}
+    \item Following protocol:
+    \begin{itemize}
+	    \item $\sigma_{2, c, \mathrm{n}} = -$ the customer has spend his funds but hasn't received the results. Therefore, he moves to the disadvantage position (-).
+	    \item  $\sigma_{2, s, \mathrm{n}} = +$ the SP has received the payment but hasn't spend his resources yet. Therefore, he moves to advantage position (+).
+    \end{itemize}
+    \item Starting a dispute:
+    \begin{itemize}
+	\item $\sigma_{2, c, \mathrm{d}} = -$ the customer lose the case as the SP has still opportunity to publish proof-of-provision before the deadline (-)
+	\item $\sigma_{2, s, \mathrm{d}} = +$ the SP win the case for the same reason (+)
+	\end{itemize}
+\end{itemize}
 
 Customer has timeouted $time-to-issue-$, then:
 - Following protocol:
-	- The customer ends up in neutral position, since he didn't spend his funds (•)
-	- The SP ends up in neutral position as he didn't receive the payment, nor spent his resources (•)
+	- $\sigma_{2, c, \overline{\mathrm{n}}} = •$ - the customer ends up in neutral position, since he didn't spend his funds (•)
+	- $\sigma_{2, s, \overline{\mathrm{n}}} = •$ - The SP ends up in neutral position as he didn't receive the payment, nor spent his resources (•)
 - Starting a dispute:
-	- The customer loses the case as he can not prove the payment before the time limit. Consequently, ends up in disadvantage position (-)
-	- The SP is not charged to the justice due to lack of proofs. Therefore, he ends up in neutral position (-)
+	- $\sigma_{2, c, \overline{\mathrm{d}}} = -$ - the customer loses the case as he can not prove the payment before the time limit. Consequently, ends up in disadvantage position (-)
+	- $\sigma_{2, s, \overline{\mathrm{d}}} = •$ - the SP is not charged to the justice due to lack of proofs. Therefore, he ends up in neutral position (•)
 
 
-Motivation:
-The merchant has the motivation to move the protocol forward, as he don't want to lose the case and get punished.
+Fairness:
+\begin{itemize}
+    \item The customer can move the protocol forward to the step 3, where if the SP follow the protocol then the customer can push the protocol forward up to the last termination step $\sigma_{7, c, \mathrm{n}} = +$, otherwise if at any step the SP does not follow the protocol the customer can start a dispute which terminates the protocol at non-disadvantage position, i.e., $\sigma_{3, c, \overline{\mathrm{d}}} = •$, $\sigma_{4, c, \overline{\mathrm{d}}} = •$, $\sigma_{5, c, \overline{\mathrm{d}}} = •$.
+    \item The SP can do nothing and end up in non-disadvantage position $\sigma_{2, s, \mathrm{n}} = +$, $\sigma_{2, s, \mathrm{d}} = +$, $\sigma_{2, s, \overline{\mathrm{n}}} = •$, $\sigma_{2, s, \overline{\mathrm{d}}} = •$.
+\end{itemize}
 
 \subsubsection{Step 3: provision of service}
 
@@ -483,6 +557,23 @@ SP has published **incorrect** results on time:
 - Starting a dispute:
 	- The customer wins the case and ends up in neutral position (•)
 	- The SP lose the case and end up in disadvantage position (-)
+
+\subsubsection{Examples}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{misbehaving-path.png}
+    \caption{positions}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{rational-path.png}
+    \caption{rational path}
+    \label{fig:my_label}
+\end{figure}
 
 
 Motivation:
