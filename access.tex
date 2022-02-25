@@ -446,60 +446,28 @@ ways:
   the connection can be disclosed by revealing the value in $\mathrm{PoD}$ and payment's memo.
 \end{itemize}
 
-Both approaches have some advantages and disadvantages, but our protocol
-can abstract them away by treating them as some randomly genrated unique
-number, often called \textit{nonce} (number once). How it is implemented
-depends on a particular blockchain.
+Both approaches have some advantages and disadvantages, but our protocol can abstract them away by treating them as some randomly genrated unique number, often called \textit{nonce} (number once). How it is implemented depends on a particular blockchain.
 
-In case of a dispute there must a way to prove to the justice that the
-customer has paid for the transaction. As the proof of transaction is
-trivial in transparent and trackable blockchains, it gets more
-complicated when it comes to anonymous blockchains. Monero allows
-proving and checking payments via dedicated API \cite{Howtopro46}.
-ZCash provides mechanism called Payment Disclosure \cite{AnIntrod25},
-which at the time of writing is still a experimental feature
+In case of a dispute there must a way to prove to the justice that the customer has paid for the transaction. As the proof of transaction is trivial in transparent and trackable blockchains, it gets more complicated when it comes to anonymous blockchains. Monero allows proving and checking payments via dedicated API \cite{Howtopro46}. ZCash provides mechanism called Payment Disclosure \cite{AnIntrod25}, which at the time of writing is still a experimental feature
 \cite{paymentd11}.
 
 \subsection{Storage network}\label{storage-network}
-Once the SP finish its service, he has to provide the results to the
-customer. The most natural approach would to be send the results via
-email of decidated platform. However, since the customer wants to stay
-anonymous, he don't want to expose his email address nor IP address.
-Moreover, in case of dispute the SP should be able to prove that the
-results have been provided before the deadline.
+Once the SP finish its service, he has to provide the results to the customer. The most natural approach would to be send the results via email of decidated platform. However, since the customer wants to stay anonymous, he don't want to expose his email address nor IP address. Moreover, in case of dispute the SP should be able to prove that the results have been provided before the deadline.
 
-One approach would be to post the results into a blockchain. Yet,
-storing data on a blockchain is very expensive. The most common
-workaround
-(\cite{shahid2020blockchain, wang2019auditable, chen2017improved, Usageide95})
-is to publish the data to the IPFS \cite{benet2014ipfs}—a content
-adressable peer-to-peer storage network—and publish to a blockchain
-just a content identifier (cid) that uniquely points to the content
-stored on the IPFS.
+One approach would be to post the results into a blockchain. Yet, storing data on a blockchain is very expensive. The most common workaround (\cite{shahid2020blockchain, wang2019auditable, chen2017improved, Usageide95}) is to publish the data to the IPFS \cite{benet2014ipfs}—a content adressable peer-to-peer storage network—and publish to a blockchain just a content identifier (cid) that uniquely points to the content stored on the IPFS.
 
-We take the same approach. Once the SP creates the results, he encrypts
-them using the previously provided encryption key; then publish
-them into a IPFS network.
+We take the same approach. Once the SP creates the results, he encrypts them using the previously provided encryption key; then publish them into a IPFS network.
 
-To increase anonimity, the customer should use a common techniques to
-hide its IP address; for example, use gateway, VPN, proxy, or onion
-routing.
+To increase anonimity, the customer should use a common techniques to hide its IP address; for example, use gateway, VPN, proxy, or onion routing.
 
 \subsection{Separation of concerns}
-We could use one blockchain to achieve all of these three roles: (i)
-anonymous payments; (ii) message board; (iii) storage network.
+We could use one blockchain to achieve all of these three roles: (i) anonymous payments; (ii) message board; (iii) storage network.
 
-As the message board could be achieved by most of the blockchanis, the
-anonymous payments isn't so prevalent, and provable storage network is a
-functionality of a few specialised blockchains.
+As the message board could be achieved by most of the blockchanis, the anonymous payments isn't so prevalent, and provable storage network is a functionality of a few specialised blockchains.
 
-Instead of searching for one blockchain that solves all the
-functionallities, we allow the framework to use separate blockchains for
-each of the functionalities. In case a suitable blockchain arises, it
-can play more than one role.
+Instead of searching for one blockchain that solves all the functionallities, we allow the framework to use separate blockchains for each of the functionalities. In case a suitable blockchain arises, it can play more than one role.
 
-At the time of writing, we see following technologies that fulfill the
-requrements of each role:
+At the time of writing, we see following technologies that fulfill the requrements of each role:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -515,8 +483,6 @@ requrements of each role:
   \cite{benetfilecoin} (runs on top of IPFS), or Ethereum's
   Swarm\cite{swarmwhi49}.
 \end{enumerate}
-
-
 
 \section{The Protocol}
 
