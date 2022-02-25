@@ -338,119 +338,56 @@ system are discussed in section ~\ref{future-work}.
 
 
 \subsection{Proofs to justice}\label{proof-of-justice}
-In case of dispute the customer can proof to the justice (police, court,
-etc.) evidences that convinces the justice about the honesty of customer
-and misbehaviour of SP. The reason why the SP can not start a dispute is
-that the customer is anonymous, and therefore there is no personal
-information to start a dispute against. To mitigate this issue the SP is
-always in advantaged position, so that he has no reason to start a
-dispute. The idea described further in section ~\ref{future-work}.
 
-% Unify with what is writen in fiarness analysis
+In case of dispute the customer can proof to justice (police, court, etc.) convincing evidences for the honesty of the customer and misbehaviour of the SP. 
+Because the customer is anonymous the SP can not start a dispute---there is no mean to identify the customer.
+
+To mitigate the issue, we designed the protocol so that the SP who follows the protocol is always in advantage position, therefore he has no reason to start a dispute. The customer on the other hand can start a dispute at any time of the protocol, but only the actual misbehaviour of the SP makes him win the case.
 
 
 
-Abstracting from the services the SP is providing, in case of dispute
-the customer should be able to prove that: (i) he delivered to the SP a
-complete (according to the SP requirements) package, and the SP
-accepted it; (ii) he paid for the transaction.
+Abstracting from the services the SP is providing, in case of dispute each party should be able to prove its honest behaviour. We introduce three proofs that should be disclosed to justice in case of a dispute:
 
-The first proof called proof-of-delivery (PoD) is a confirmation issued
-by the SP to the customer.
-
-\[\mathrm{PoD} = (\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, \mathrm{nonce}, \mathrm{sig}_\mathrm{SP})\]
-
-where:
-
-\begin{itemize}
-
-\item
-  \(\mathrm{T}_\mathrm{issue}\) - time at which the PoD is issued.
-\item
-  \(\mathrm{T}_\mathrm{pay}\) - deadline to pay for the transaction.
-\item
-  \(\mathrm{T}_\mathrm{provide}\) - deadline to provide the service
-  results.
-\item
-  \(\mathrm{nonce}\) - randomly generated number uniquely identifying
-  the transaction.
-\item
-  \(\mathrm{sig}_\mathrm{SP}\) - the SP's signature guaranteeing
-  non-repudiation.
-\end{itemize}
-
-also:
-
-\(\mathrm{T}_\mathrm{issue} < \mathrm{T}_\mathrm{pay} < \mathrm{T}_\mathrm{provide}\)
-
-The second proof depend on the cryptocurrency implementation and is
-discussed further section~\ref{payment-for-services}.
-
-In case the SP has fulfilled the transaction and provide the results,
-but the customer unjustly start a dispute, the SP is secured by the
-proof of provision (PoP) he has published on the message board (described in section ~\ref{message-board}.
-
-\[\mathrm{PoP} = (\mathrm{cid}, \mathrm{nonce}, \mathrm{sig}_\mathrm{SP})\]
-
-where:
-
-\begin{itemize}
-
-\item
-  \(\mathrm{cid}\) - content identifier as specified in section ~\ref{storage-network}.
-\item
-  \(\mathrm{nonce}\) - the value uniquely identifying the transaction
-  previosuly generated in PoD.
-\item
-  \(\mathrm{sig}_\mathrm{SP}\) - the SP's signature guaranteeing
-  non-repudiation.
-\end{itemize}
-
-By publishing the PoP on the blockchain, the SP can not falsify the time
-at which the results has been provided, because the block creation time
-proves that. Blockchain acts as a global clock that securely timestamps
-everything that gets into the block, so the PoP that was included in a
-block will be associated with the time when the block has been forged.
-Moreover, since the blockchain is public, everyone (including the
-justice) can be convinced that the SP indeed provided the results at
-that time.
-
-The connection between PoP and the results is made by the content
-identifier which uniquely points to the results such that the PoP can
-not forge results after the publication.
-
-The content identifier is usually some kind of hash write about ipfs
+\begin{enumerate}
+    \item Proof-of-delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it. It consists of: current time; deadline to pay for the transaction; and deadline to provide the service; deadline to provide the service results; randomly generated number uniquely identifying the transaction; and the SP's signature guaranteeing non-repudiation. The formal definition of the $\mathrm{PoD}$ is presented in section ~\ref{proof-of-delivery}.
+    
+    \item Payment $\mathrm{attestation}$ is confirmation that the customer has paid for the transaction, at a certain time. The actual implementation depends on the particular cryptocurrency and is discussed further section~\ref{payment-for-services}.
+    
+    \item Proof-of-provision ($\mathrm{PoP}$) is an proof that the SP published the results at a certain time. It defend the SP in case the customer unjustly start a dispute after the results has been published. It consist of: content identifier as specified in section ~\ref{storage-network}; the value uniquely identifying the transaction previosuly generated in $\mathrm{PoD}$; the SP's signature guaranteeing authentication. The connection between $\mathrm{PoP}$ and the results is made by the content identifier which uniquely points to the results such that the $\mathrm{PoP}$ can not forge results after the publication.
+\end{enumerate}
 
 \subsection{Message Board}\label{message-board}
-The proof of provision that we coined for the purpose of this protocol
-is generaly called the proof of existence
+The proof-of-provision that we coined for the purpose of this protocol
+is generally called the proof-of-existence
 \cite{proofofexistence, de2016stampery, Chainpoi39}.
 
-The idea behind proof of existence is to certify that some information
+The idea behind proof-of-existence is to certify that some information
 has existed at a certain moment of time, in such a way that nobody can
 undermine its existence, integrity, and ownership (also called the
-nonrepudiation requirement).
+non-repudiation requirement).
 
-We need this functionality for two reasons: 1. Communicate the existence
+
+We need this functionality for two reasons: (1) Communicate the existence
 of the results to the customer to whom the SP have no other
-communication medium as the customer stays anonymous. 2. Let the SP to
-proof the publication of results within the agreed with customer
-deadline. Without such a proof there would be no other means to settle
-the conflict between the customer claiming the results have not been
-published and the SP claiming the results have been published within the
-deadline.
+communication medium as the customer stays anonymous; (2) let the SP to proof the publication of results within the agreed with customer deadline. 
 
-Depending on the context the platform of achieving it is called bulletin
-board~\cite{achenbach2015improved} or message board~\cite{hinarejos2019solution} or trusted timestamping~\cite{gipp2015decentralized}. In this work we call it message board.
+By publishing the $\mathrm{PoP}$ on the blockchain, the SP can not falsify the time
+at which the results has been provided, because the block creation time
+proves that. Blockchain acts as a global clock that securely timestamps
+everything that gets into the block, so the $\mathrm{PoP}$ that was included in a
+block will be associated with the time when the block has been created. Moreover, since the blockchain is public, everyone (including justice) can be convinced that the SP indeed published the results at that time.
 
-Such functionallity is the easiest to achieve by the trusted third party
-that authoritatively tells what happend and when.
+Without such a proof there would be no other means to settle the conflict between the customer claiming the results have not been published and the SP claiming the results have been published within the deadline.
 
-Bitcoin introduced a way of decentralising not only the currency system,
-but also other similary working centralised trusted third parties
-including the message board.
+Depending on the context the platform of achieving it is called bulletin board~\cite{achenbach2015improved} or message board~\cite{hinarejos2019solution} or trusted timestamping~\cite{gipp2015decentralized}. In this work we call it message board.
 
-We let keep the protocol general enough to let the implementator use any
+% Such functionallity is the easiest to achieve by the trusted third party that authoritatively tells what happened and when.
+
+% Bitcoin introduced a way of decentralising not only the currency system,
+% but also other similary working centralised trusted third parties
+% including the message board.
+
+We let keep the protocol general enough to let the implementer use any
 existing technology to provide message board service, with the
 assumption that it's decentralised and supports subscribing for the
 upcoming proofs from particular address.
@@ -459,26 +396,25 @@ upcoming proofs from particular address.
 
 \subsection{Anonymity, pseudonomity, and confidentality}\label{pseudo-anonymous-vs-anonymous-blockchain}
 
-Privacy is a concept used in almost all kinds of social sciences like philosophy, psychology, sociology, and legal. The multidisciplinary nature leads to ambigous definitions~\cite{smith2011information}. For the purpose of our work we rely on more concrete definitions, i.e.~confidentality and anonimity.
+Privacy is a concept used in almost all kinds of social sciences like philosophy, psychology, sociology, and legal. The multidisciplinary nature leads to ambigous definitions~\cite{smith2011information}. For the purpose of our work we rely on more concrete definitions, i.e.~confidentality and anonymity.
 
 Confidentality is the ability to hide the details of an action from others. Or we can say, that the system guarantee confidentality if for all observers everything they can say about the action is the fact that it happened and nothing more.
 
 Anonymity is a the ability to hide one identity from others. More precisely, the unability to correlate actions performed within the system with the identity of the user. Or we can say, that the system guarantee anonymity if for all observers the actions are equally likely to be associated with any user of the system. However, anonymity is a spectrum rather than dichotomous classification. One method of quantifying level of anonymity is proposed in \textit{k}-anonymity~\cite{sweeney2002k}. It measure the user's anonymity by the number of other users from whom the user can not be distinguished. Concretely, the user is \textit{k}-anonymous if his actions are equally likely associated with \textit{k}-1 other users. The larger \textit{k}, the higher anonymity.
 
-There are also techniques that can be deployed on non-anonymous blockchains, the so called mixers that literaly gather together users into an \textit{anonymity set}, which then collude together in order to launder the transactions, in such a way that to a observer the likelihood of the sender of each transaction was equiprobable for any user from the anonymity set.
+There are also techniques that can be deployed on non-anonymous blockchains, the so called mixers that literally gather together users into an \textit{anonymity set}, which then collude together in order to launder the transactions, in such a way that to a observer the likelihood of the sender of each transaction was equiprobable for any user from the anonymity set.
 
-Some systems guarantee pseudonomity rather than anonymity. Pseudonomity, allows uses to hide their real identity behind the pseudonim. Despite the whole system is transparent and allows linking actions to one identity, the system is considered anonymous as long as the link between pseudonym and real identity is secret. This assumption is hard to satisfy in practice, as the KYC (Know You Customer) and AML (Anti Money Laundering) regulations require users to reveal their real identity on most of the cryptocurrencies exchanges. This makes the anonymity of the user dependent on the security of the IT system. Moreover, some correlations can be infered merely by the analysis of transactions \cite{androulaki2013evaluating, ober2013structure}.
+Some systems guarantee pseudonomity rather than anonymity. Pseudonomity, allows uses to hide their real identity behind the pseudonym. Despite the whole system is transparent and allows linking actions to one identity, the system is considered anonymous as long as the link between pseudonym and real identity is secret. This assumption is hard to satisfy in practice, as the KYC (Know You Customer) and AML (Anti Money Laundering) regulations require users to reveal their real identity on most of the cryptocurrencies exchanges. This makes the anonymity of the user dependent on the security of the IT system. Moreover, some correlations can be infered merely by the analysis of transactions \cite{androulaki2013evaluating, ober2013structure}.
 
 The relations between these terms are ilustrated in the figure~\ref{fig:anonymity-diagram}.
 
 \begin{figure}[h!]
-\caption{}
+\caption{Let us assume the Alice to be the customer willing to keep her identity private (anonymous) and Bob be the public SP. Alice controls two addresses 1 and 2, the connection between her real identity and the first address was compromised, and therefore the identification is possible, the connection between the second pseudonym is still unknown therefore anonymous. Alice takes two actions; the first one from the compromised address and the second one from anonymous one. The first action is confidential; therefore even though the psudonym has been compromised the action can not be associated with the Alice. The second action is transparent, therefore the Alice's anonymity is maintained as long as the connection to the second pseudonym is concealed.}
 \centering
 \includegraphics[width=9cm]{anonymity-diagram.png}
 \label{fig:anonymity-diagram}
 \end{figure}
 
-Let us assume the Alice to be the customer willing to keep her identity private (anonymous) and Bob be the public SP. Alice controls two blockchain addresses 1 and 2, the connection between her real identity and the first address was compromised, and therefore the identification is possible, the connection between the second pseudonym is still unknown therefore anonymous. Alice takes two actions; the first one from the compromised address and the second one from anonymous one. The first action is confidential; therefore even though the psudonym has been compromised the action can not be associated with the Alice. The second action is transparent, therefore the Alice's anonymity is maintained as long as the connection to the second pseudonym is concealed. 
 
 The privacy-preserving blockchains are the ones that maintain anonymity via untraceability and (ideally) unlikability, not via assumption that the connection between an address and the real identity is concealed.   
 
@@ -639,12 +575,8 @@ where:
 
 \begin{itemize}
 
-\item $\mathrm{materials}$ - are the materials needed to provide the
-  service on. For example, sample of urine, blood, stool, saliva; legal
-  documents, CDs, mails, photos, bank statement, or any other kind of
-  evidence depending on the service.
-\item $\mathrm{key}$ - symmetric key used to encrypt and decrypt the
-  results.
+\item $\mathrm{materials}$ - are the materials needed to provide the service on. For example, sample of urine, blood, stool, saliva; legal documents, CDs, mails, photos, bank statement, or any other kind of evidence depending on the service.
+\item $\mathrm{key}$ - symmetric key used to encrypt and decrypt the results.
 \end{itemize}
 
 \paragraph{Proof-of-Delivery}\label{proof-of-delivery}
@@ -659,12 +591,9 @@ where:
 \item
   $\mathrm{T}_\mathrm{pay}$ - deadline to pay for the transaction.
 \item
-  $\mathrm{T}_\mathrm{provide}$ - deadline to provide the service
-  results.
-\item $\mathrm{nonce}$ - randomly generated number uniquely identifying
-  the transaction.
-\item $\mathrm{sig}_\mathrm{SP}$ - the SP's signature guaranteeing
-  non-repudiation.
+  $\mathrm{T}_\mathrm{provide}$ - deadline to provide the service results.
+\item $\mathrm{nonce}$ - randomly generated number uniquely identifying the transaction.
+\item $\mathrm{sig}_\mathrm{SP}$ - the SP's signature guaranteeing non-repudiation.
 \end{itemize}
 
 also:
@@ -682,11 +611,9 @@ where:
 \item
   \(\mathrm{cid}\) - content identifier as specified in ~\ref{storage-network}.
 \item
-  \(\mathrm{nonce}\) - the value uniquely identifying the transaction
-  previosuly generated in PoD.
+  \(\mathrm{nonce}\) - the value uniquely identifying the transaction previously generated in $\mathrm{PoD}$.
 \item
-  \(\mathrm{sig}_\mathrm{SP}\) - the SP's signature guaranteeing
-  non-repudiation.
+  \(\mathrm{sig}_\mathrm{SP}\) - the SP's signature guaranteeing authentication.
 \end{itemize}
 
 \paragraph{Payment attestation}\label{payment-attestation}
@@ -1495,7 +1422,7 @@ Justice is the one biggest obstacle in achieving system that complies with Web3 
 
 The possible directions for mitigation of such issue are to either (1) replace justice with decentralised autonomous organisations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (2) make it infeasible to provide incorrect results.
 
-The first approach is more feasible in the near future. It would require creating large pool of experts in a field, that in case of dispute, would receive all the proofs (POD, POP, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivised to participate in the pool by the system of fees. Their honest behaviour would be incentivised by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
+The first approach is more feasible in the near future. It would require creating large pool of experts in a field, that in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivised to participate in the pool by the system of fees. Their honest behaviour would be incentivised by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
 
 The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer to take a sample, discrete it and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
 
