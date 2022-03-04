@@ -37,33 +37,12 @@ Anonymous provision of services via blockchain}
 \corresp{Corresponding author: Stanislaw Baranski (e-mail: stanislaw.baranski@pg.edu.pl).}
 
 \begin{abstract}
-Service providers like lawyers, laboratories, auditors, or banks, to
-provide services, require customers to submit data often
-associated with their personal information. This situation exposes
-customers to privacy risks. However, most service providers use personal information merely for logistic operations like payments
-and communication and could provide services anonymously if other means of logistics exist.
-
-We propose a protocol for coordinating local anonymous service
-provision. Our proposal uses blockchain for both anonymous payments and proofs of existence (so-called message board) and content-addressable network (e.g.~IPFS) for results delivery.
-
-A service provider can employ our protocol to provide
-services without collecting any personal information. Possible
-applications for this protocol include anonymous clinical drug testing,
-steroid, parenting testing, anonymous legal advice, or
-anonymous financial trustworthiness evaluation.
-
-In case of dispute, either due to exceeding deadlines or providing
-incorrect result, the customer can disclose the whole interaction and
-prove to justice (police or court) the misbehavior of the service
-provider.
-
-We analyze the protocol in the context of fairness and discuss further
-extensions to an anonymous delivery system, payment with cash, and
-decentralized conflict resolution system.
-
-Our protocol can enable various services currently based on unacceptable trust assumptions to the SP.
-%JS to framework czy protocol?
-%SB zmieniłem na protocol, framework jest zbyt abstrakcyjne
+Service providers like lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data often associated with their personal information. This situation exposes customers to privacy risks. However, most service providers use personal information merely for logistic operations like payments and communication and could provide services anonymously if other means of logistics exist.
+We propose a protocol for coordinating anonymous service provision. Our proposal uses blockchain for both anonymous payments and proofs of existence (so-called message board) and content-addressable network (e.g.~IPFS) for results delivery.
+A service provider can employ our protocol to provide services without collecting personal information. Possible applications for this protocol include anonymous clinical drugs, steroids, parenting testing, or anonymous legal advice.
+In case of dispute, either due to exceeding deadlines or providing incorrect results, the customer can disclose the whole interaction and prove to justice (police or court) the misbehaviour of the service provider.
+We analyze the protocol in the context of fairness and discuss further extensions to an anonymous delivery system, payment with cash, and a decentralized conflict resolution system.
+Our protocol may enable various services currently based on unacceptable trust assumptions to the SP.
 \end{abstract}
 
 \begin{keywords}
@@ -323,8 +302,7 @@ However, since the system uses Ethereum— fully traceable blockchain—its anon
 %JS moze\section{Building Blocks}
 %SB Dla mnie idealnie.
 \section{Building Blocks}\label{sec:building-blocks}
-%JS bacground czego?  
-%SB To jest takie wprowadzenie i opisanie wszystkich elementów które będą potrzebne do stowrzenia protokołu. Czy Preliminaries będzie ok?
+
 \subsection{Dispute resolution system}
 
 Disputes are an inevitable part of all human transactions. Whether intentional or accidental, the system should prevent 
@@ -1415,7 +1393,7 @@ The possible directions for mitigation of such issues are to either (1) replace 
 
 The first approach is more feasible shortly. It would require creating a large pool of experts in a field, that in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivized to participate in the pool by the system of fees. Their honest behavior would be incentivized by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
 
-The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
+The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood?''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
 
 
 \subsection{Provable availability of the
@@ -1425,7 +1403,7 @@ Currently, the SP has to publish the result into a peer-to-peer content-addressa
 
 \subsection{Paying with cash}\label{paying-with-cash}
 
-Without loss of generality, the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain information that the transaction has been paid with cash; therefore, Steps 1 and 2 could be merged and realized in one step. In case of dispute, the payment disclosure would be included in $\mathrm{PoD}$.
+Without loss of generality, the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain information that the transaction has been paid with cash; therefore, steps one and two could be merged and realized in one step. In case of dispute, the payment disclosure would be included in $\mathrm{PoD}$.
 
 \subsection{Anonymous delivery}\label{anonymous-delivery}
 
