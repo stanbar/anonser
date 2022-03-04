@@ -30,9 +30,9 @@
 \tfootnote{The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.}
 
 \markboth{S. Bara{\'n}ski, J. Szyma{\'n}ski : 
-Anonymous provision of local services via blockchain}
+Anonymous provision of services via blockchain}
 {S. Bara{\'n}ski, J. Szyma{\'n}ski : 
-Anonymous provision of local services via blockchain}
+Anonymous provision of services via blockchain}
 
 \corresp{Corresponding author: Stanislaw Baranski (e-mail: stanislaw.baranski@pg.edu.pl).}
 
@@ -46,14 +46,14 @@ and communication and could provide services anonymously if other means of logis
 We propose a protocol for coordinating local anonymous service
 provision. Our proposal uses blockchain for both anonymous payments and proofs of existence (so-called message board) and content-addressable network (e.g.~IPFS) for results delivery.
 
-A local service provider can employ our protocol to provide
+A service provider can employ our protocol to provide
 services without collecting any personal information. Possible
 applications for this protocol include anonymous clinical drug testing,
-steroid testing, parenting testing, anonymous legal advice, or
+steroid, parenting testing, anonymous legal advice, or
 anonymous financial trustworthiness evaluation.
 
 In case of dispute, either due to exceeding deadlines or providing
-incorrect results, the customer can disclose the whole interaction and
+incorrect result, the customer can disclose the whole interaction and
 prove to justice (police or court) the misbehavior of the service
 provider.
 
@@ -67,7 +67,7 @@ Our protocol can enable various services currently based on unacceptable trust a
 \end{abstract}
 
 \begin{keywords}
-Blockchain, anonymity, fair-exchange, physical delivery
+fair-exchange, blockchain, anonymity,  physical delivery, services
 \end{keywords}
 
 \titlepgskip=-15pt
@@ -95,7 +95,7 @@ It would be desirable for the user to keep its identity private while the servic
 There is some services that would benefit from anonymous services, some examples are:
 \begin{itemize}
     \item Patients willing to take a 
-    test for drug, venereal diseases, paternity etc. have a strong incentive to keep the whole procedure private. Merely the fact that they took the test — without exposing the results — is suggestive enough to act as a premise in case of a conflict.
+    test for drug, venereal diseases, paternity etc. have a strong incentive to keep the whole procedure private. Merely the fact that they took the test without exposing the result is suggestive enough to act as a premise in case of a conflict.
 
 Especially celebrities, politicians, and public figures are prone to this kind of problem as such precedent can negatively influence their future career.
 
@@ -117,7 +117,7 @@ getting rid of the strong trust assumption put on the lawyers and their IT syste
 We propose a protocol for anonymously provisioning services that require the delivery of physical materials. A service provider employing our protocol can provide services without collecting any personal information from customers.
 
 In case of dispute, either due to exceeding deadlines or providing
-incorrect results, the customer can disclose the whole interaction and
+incorrect result, the customer can disclose the whole interaction and
 prove to justice (police or court) the misbehavior of the service 
 provider.
 %JS a np automatyczny zwrot środków?
@@ -127,7 +127,7 @@ To achieve these objectives we use:
 \begin{itemize}
     \item Privacy-preserving blockchain, to allow customers anonymously pay for the services.
     \item Message board blockchain, to achieve fairness, i.e., as a means for proving that certain actions took place at a certain moment without the trusted third party.
-    \item Content-addressable peer-to-peer storage network, to provide results to the customer. 
+    \item Content-addressable peer-to-peer storage network, to provide results to customers. 
     \item Cryptography
     \begin{itemize}
         \item Symmetric encryption: to encrypt and decrypt results published on public networks.
@@ -138,7 +138,7 @@ To achieve these objectives we use:
 
 We observe that the issue of anonymous service provision can be seen as a problem of fair-exchange where parties exchange some goods in a fairly manner, i.e., either both parties obtain the goods, or they both obtain nothing.
 
-In our case, the customer is exchanging with the SP cryptocurrency and materials for the results.
+In our case, the customer is exchanging with the SP cryptocurrency and materials for the result of a service.
 
 %\paragraph{Contributions}
 We contribute to the field of fair-exchanges by proposing a simple,
@@ -157,9 +157,9 @@ at each step of the protocol, both parties are incentivized to act accordingly t
 \item Dispute resolution: at each step of the protocol the customer can start a dispute and win the case if and only if the SP misbehaved.
 
 \item TTP-less: 
-our protocol does not rely on a trusted-third party to conduct transactions in fairly manner. Only in case of dispute   the centralized justice is involved (the justice decentralization is discussed in section ~\ref{sec:future-work}.
+our protocol does not rely on a trusted-third party to conduct transactions in fairly manner. Only in case of dispute   the centralized justice is involved (the justice decentralization is discussed in Section ~\ref{sec:future-work}.
 \item Physical materials: our protocol allows providing not only digital but also physical materials to the service provider.
-\end{itemize}
+\end{itemize} 
 
 Some authors have proposed blockchain-based fair-exchange systems that could be adapted to service provision; however, to our best knowledge we
 are the first to propose a system that satisfies all five properties
@@ -173,12 +173,12 @@ customers based on unacceptable trust assumptions to the SP.
 
 %\paragraph{Organisation}
 The remainder of this paper is organized as follows.
-In section~\ref{sec:related-works} we briefly review related works. 
+In Section~\ref{sec:related-works} we briefly review related works. 
 Section~\ref{sec:building-blocks} explains the background related to fair-exchanges, blockchain, anonymity and confidentiality, and storage network. 
 Section~\ref{sec:protocol} describes how the protocol works in detail.
 Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
 Section~\ref{sec:future-work} discuss possible improvements. 
-Finally, section~\ref{sec:conclusion} concludes the paper.
+Finally, Section~\ref{sec:conclusion} concludes the paper.
 
 
 \section{Related Works}\label{sec:related-works}
@@ -188,7 +188,7 @@ The idea of certified mail is simple, neither the sender can deny sending the ma
 
 Authors of ~\cite{hinarejos2019solution} replaced the TTP with blockchain (concretely Bitcoin blockchain as a reference implementation), which acts as a secure, verifiable, and decentralized TTP.
 
-The idea behind certified e-mails—and any other fair-exchange protocol—is following:
+The idea behind certified e-mails and any other fair-exchange protocol is following:
 \begin{enumerate}
     \item The sender sends encrypted and signed message to the receiver.
     \item The receiver returns a proof of delivery (a signature) of the encrypted message to the sender.
@@ -201,7 +201,7 @@ The non-repudiation requirement is achieved by the receiver sending the proof of
 The protocol also handles confidentiality — the encryption key used to encrypt and then decrypt the message is encrypted using the receiver's public key, so the key is never published in raw form.
 Also, the protocol supports timeliness, meaning that the transaction is always finalized in a finite time.
 
-In this case, the role of Blockchain is to attest the public existence of decryption key at a particular point of time.
+In this case, the role of blockchain is to attest the public existence of decryption key at a particular point of time.
 
 \subsection{Fair-exchange, anonymity, and physical products delivery} 
 \label{anonymity-and-fair-exchange-in-e-commerce-protocol-for-physical-products-delivery}
@@ -318,7 +318,7 @@ the identity and destination address of the customer.
 Onchain smart-contract is used to coordinate the whole process and
 mediate communication between customers and delivery providers.
 
-However, since the system uses Ethereum— fully traceable blockchain—its anonymity is achieved as long as the addresses are not identified with the real identities, which we call pseudonymity rather than anonymity (see section~\ref{sec:pseudo-anon}). Also, the protocol does not cover the case of dispute between the parties.
+However, since the system uses Ethereum— fully traceable blockchain—its anonymity is achieved as long as the addresses are not identified with the real identities, which we call pseudonymity rather than anonymity (see Section~\ref{sec:pseudo-anon}). Also, the protocol does not cover the case of dispute between the parties.
  
 %JS moze\section{Building Blocks}
 %SB Dla mnie idealnie.
@@ -374,7 +374,7 @@ we take the more conservative approach and resolve disputes using local
 justice system (police, court, etc.).
 
 Possible directions toward semi-autonomous decentralised resolution
-system are discussed in section ~\ref{sec:future-work}.
+system are discussed in Section ~\ref{sec:future-work}.
 
 
 \subsection{Fairness}\label{proof-of-justice}
@@ -389,11 +389,11 @@ To mitigate the issue, we designed the protocol so that the SP who follows the p
 Abstracting from the services the SP is providing, in case of a dispute each party should be able to prove its honest behavior. We introduce three proofs that should be disclosed to justice in case of a dispute:
 
 \begin{enumerate}
-    \item Proof-of-delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it. It consists of the current time; deadline to pay for the transaction, and the deadline to provide the service; deadline to provide the service results; randomly generated number uniquely identifying the transaction, and the SP's signature guaranteeing non-repudiation. The formal definition of the $\mathrm{PoD}$ is presented in section ~\ref{proof-of-delivery}.
+    \item Proof-of-delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it. It consists of the current time; deadline to pay for the transaction; deadline to provide a result of the service; randomly generated number uniquely identifying the transaction, and the SP's signature guaranteeing non-repudiation. The formal definition of the $\mathrm{PoD}$ is presented in Section ~\ref{proof-of-delivery}.
     
-    \item Payment $\mathrm{attestation}$ is confirmation that the customer has paid for the transaction, at a certain time. The actual implementation depends on the particular cryptocurrency and is discussed further section~\ref{payment-for-services}.
+    \item Payment $\mathrm{attestation}$ is confirmation that the customer has paid for the transaction, at a certain time. The actual implementation depends on the particular cryptocurrency and is discussed further Section~\ref{payment-for-services}.
     
-    \item Proof-of-provision ($\mathrm{PoP}$) is proof that the SP published the results at a certain time. It defends the SP in case the customer unjustly starts a dispute after the results have been published. It consists of a content identifier as specified in section ~\ref{storage-network}; the value uniquely identifying the transaction previously generated in $\mathrm{PoD}$; the SP's signature guaranteeing authentication. The connection between $\mathrm{PoP}$ and the results is made by the content identifier which uniquely points to the results such that the $\mathrm{PoP}$ can not forge results after the publication.
+    \item Proof of provision ($\mathrm{PoP}$) is proof that the SP published the result at a certain time. It defends the SP in case the customer unjustly starts a dispute after the result have been published. It consists of a content identifier as specified in Section ~\ref{storage-network}; the value uniquely identifying the transaction previously generated in $\mathrm{PoD}$; the SP's signature guaranteeing authentication. The connection between $\mathrm{PoP}$ and the result is made by the content identifier (cid) that uniquely identify the result (it is some kind of a hash of the result) such that the result can not be forged after the $\mathrm{PoP}$ has been published.
 \end{enumerate}
 
 \subsection{Message Board}\label{message-board}
@@ -408,16 +408,16 @@ non-repudiation requirement).
 
 
 We need this functionality for two reasons: (1) Communicate the existence
-of the results to the customer to whom the SP have no other
-communication medium as the customer stays anonymous; (2) let the SP to proof the publication of results within the agreed with customer deadline. 
+of the result to the customer to whom the SP have no other
+communication medium as the customer stays anonymous; (2) let the SP to proof the publication of the result within the agreed with customer deadline. 
 
 By publishing the $\mathrm{PoP}$ on the blockchain, the SP can not falsify the time
-at which the results has been provided, because the block creation time
+at which the result has been provided, because the block creation time
 proves that. Blockchain acts as a global clock that securely timestamps
 everything that gets into the block, so the $\mathrm{PoP}$ that was included in a
-block will be associated with the time when the block has been created. Moreover, since the blockchain is public, everyone (including justice) can be convinced that the SP indeed published the results at that time.
+block will be associated with the time when the block has been created. Moreover, since the blockchain is public, everyone (including justice) can be convinced that the SP indeed published the result at that time.
 
-Without such a proof there would be no other means to settle the conflict between the customer claiming the results have not been published and the SP claiming the results have been published within the deadline.
+Without such a proof there would be no other means to settle the conflict between the customer claiming the result has not been published and the SP claiming the result has been published within the deadline.
 
 Depending on the context the platform of achieving it is called bulletin board~\cite{achenbach2015improved} or message board~\cite{hinarejos2019solution} or trusted timestamping~\cite{gipp2015decentralized}. In this work we call it message board.
 
@@ -448,7 +448,7 @@ Some techniques can be deployed on non-anonymous blockchains, the so-called mixe
 
 Some systems guarantee pseudonomity rather than anonymity. Pseudonomity allows users to hide their real identity behind the pseudonym. Despite the whole system being transparent and allowing linking actions to one identity, the system is considered anonymous as long as the link between pseudonym and real identity is secret. This assumption is hard to satisfy in practice, as the KYC (Know Your Customer) and AML (Anti Money Laundering) regulations require users to reveal their real identity on most of the cryptocurrencies exchanges. This makes the anonymity of the user dependent on the security of the IT system. Moreover, some correlations can be inferred merely by the analysis of transactions \cite{androulaki2013evaluating, ober2013structure}.
 
-The relations between these terms are illustrated in the figure~\ref{fig:anonymity-diagram1}.
+The relations between these terms are illustrated in the Figure~\ref{fig:anonymity-diagram1}.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{anonymity-diagram.png}
@@ -494,11 +494,11 @@ In case of a dispute, there must be a way to prove to the justice that the custo
 \cite{paymentd11}.
 
 \subsection{Storage network}\label{storage-network}
-Once the SP finishes its service, he has to provide the results to the customer. The most natural approach would to be send the results via email of the dedicated platform. However, since the customer wants to stay anonymous, he doesn't want to expose his email address nor IP address. Moreover, in case of dispute, the SP should be able to prove that the results have been provided before the deadline.
+Once the SP finishes its service, he has to provide the result to the customer. The most natural approach would to be send the result via email of the dedicated platform. However, since the customer wants to stay anonymous, he doesn't want to expose his email address nor IP address. Moreover, in case of dispute, the SP should be able to prove that the result has been provided before the deadline.
 
-One approach would be to post the results into a blockchain. Yet, storing data on a blockchain is very expensive. The most common workaround (\cite{shahid2020blockchain, wang2019auditable, chen2017improved, Usageide95}) is to publish the data to the IPFS \cite{benet2014ipfs}—a content addressable peer-to-peer storage network—and publish to a blockchain just a content identifier (cid) that uniquely points to the content stored on the IPFS.
+One approach would be to post the result into a blockchain. Yet, storing data on a blockchain is very expensive. The most common workaround (\cite{shahid2020blockchain, wang2019auditable, chen2017improved, Usageide95}) is to publish the data to the IPFS \cite{benet2014ipfs}—a content addressable peer-to-peer storage network—and publish to a blockchain just a content identifier (cid) that uniquely points to the content stored on the IPFS.
 
-We take the same approach. Once the SP creates the results, he encrypts them using the previously provided encryption key; then publishes them into an IPFS network.
+We take the same approach. Once the SP creates the result, he encrypts it using the previously provided encryption key and uploads it to IPFS network.
 
 To increase anonymity, the customer should use common techniques to hide its IP address; for example, use gateway, VPN, proxy, or onion routing.
 
@@ -526,7 +526,6 @@ At the time of writing, we see the following technologies that fulfill the requi
   Swarm\cite{swarmwhi49}.
 \end{enumerate}
 
-%%%%%%%%%%% dotad sprawdzone
 \section{The Protocol}\label{sec:protocol}
 
 \subsection{Prerequisites}
@@ -548,18 +547,18 @@ We do not design our protocol with the assumption of usage particular technologi
 \item The SP:
     \begin{itemize}
         \item Accepts packages from unknown customers and give $\mathrm{PoD}$ in return.
-        \item Accepts payments with anonymous cryptocurrencies as described in section~\ref{payment-for-services}.
+        \item Accepts payments with anonymous cryptocurrencies as described in Section~\ref{payment-for-services}.
     \end{itemize}
     
 \item Justice:
     \begin{itemize}
-        \item Accepts as a evidence in dispute a $\mathrm{PoD}$, $\mathrm{PoP}$, and payment $\mathrm{attestation}$ as described in section~\ref{proof-of-justice}.
+        \item Accepts as a evidence in dispute a $\mathrm{PoD}$, $\mathrm{PoP}$, and payment $\mathrm{attestation}$ as described in Section~\ref{proof-of-justice}.
     \end{itemize}
 
 \item Anonymous payments:
     \begin{itemize}
-        \item Supports anonymous, i.e., untraceable and (ideally) unlinkable transactions as specified in section~\ref{sec:pseudo-anon}.
-        \item Supports uniquely identifying transaction either via separate address, memo field, or other similar mechanism as described in section ~\ref{payment-for-services}. 
+        \item Supports anonymous, i.e., untraceable and (ideally) unlinkable transactions as specified in Section~\ref{sec:pseudo-anon}.
+        \item Supports uniquely identifying transaction either via separate address, memo field, or other similar mechanisms as described in Section ~\ref{payment-for-services}. 
     \end{itemize}
 
 \item Message board:
@@ -575,10 +574,10 @@ We do not design our protocol with the assumption of usage particular technologi
 \end{itemize}
 
 \subsection{Messages}\label{messages}
-In this section we describe the messages exchanged between the parties of the protocol.
+In this section, we describe the messages exchanged between the parties of the protocol.
 
 \noindent \textbf
-{Package}\label{package} is a physical container prepared by the customer encompassing all $\mathrm{materials}$ required by the SP to provide the service, and an encryption $\mathrm{key}$ used to encrypt results published on the storage network.
+{Package}\label{package} is a physical container prepared by the customer encompassing all $\mathrm{materials}$ required by the SP to provide the service, and an encryption $\mathrm{key}$ used to encrypt the result published on the storage network.
 
 $$\mathrm{pkg} \equiv (\mathrm{materials}, \mathrm{key})$$
 
@@ -586,18 +585,18 @@ where:
 
 \begin{itemize}
 
-\item $\mathrm{materials}$ - are the materials required to provide the service on. For example: sample of urine, blood, stool, saliva; legal documents, CDs, mails, photos, bank statement, or any other kind of evidence depending on the service.
-\item $\mathrm{key}$ - symmetric key used to encrypt and decrypt the results.
+\item $\mathrm{materials}$ - are the materials required to provide the service. For example samples of urine, blood, stool, saliva; legal documents, CDs, emails, photos, bank statements, or any other kind of evidence depending on the service.
+\item $\mathrm{key}$ - symmetric key used to encrypt and decrypt the result.
 \end{itemize}
 
 \noindent \textbf
-{Proof of delivery ($\mathrm{PoD}$)}\label{proof-of-delivery} is  a  confirmation  issued  by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it.
+{Proof of delivery ($\mathrm{PoD}$)}\label{proof-of-delivery} is a  confirmation issued by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it.
 
 It is also an agreement between the customer and the SP, as it includes agreed upfront deadlines of actions in the protocol.
 
-We assume the $\mathrm{PoD}$ to be an QR code printed on a paper receipt, but any other form that quarantee integrity, authenticity and non-repudiation can be used instead. 
+We assume the $\mathrm{PoD}$ to be a QR code printed on a paper receipt, but any other form that guarantees integrity, authenticity, and non-repudiation can be used instead. 
 
-The ($\mathrm{PoD}$ can be then used as a evidence in case of a dispute.
+The ($\mathrm{PoD}$ can be then used as evidence in case of a dispute.
 
 $$\mathrm{PoD} \equiv (\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, \mathrm{nonce}, \mathrm{sig}_\mathrm{SP})$$
 
@@ -609,19 +608,18 @@ where:
 \item
   $\mathrm{T}_\mathrm{pay}$ - deadline to pay for the transaction.
 \item
-  $\mathrm{T}_\mathrm{provide}$ - deadline to provide the service results.
+  $\mathrm{T}_\mathrm{provide}$ - deadline to provide a result of the service.
 \item $\mathrm{nonce}$ - randomly generated number uniquely identifying the transaction.
 \item $\mathrm{sig}_\mathrm{SP}$ - the SP's signature guaranteeing non-repudiation.
 \end{itemize}
 
 also:
-
 \(\mathrm{T}_\mathrm{issue} < \mathrm{T}_\mathrm{pay} < \mathrm{T}_\mathrm{provide}\)
 
 \noindent \textbf
-{Proof of provision ($\mathrm{PoP}$)}\label{proof-of-provision} is proof that the SP published the results at a certain time. It defends the SP in case the customer unjustly starts a dispute after the results have been published. The connection between $\mathrm{PoP}$ and the results is made by the content identifier which uniquely points to the results such that the $\mathrm{PoP}$ can not forge results after the publication.
+{Proof of provision ($\mathrm{PoP}$)}\label{proof-of-provision} is proof that the SP published the result at a certain time. It defends the SP in case the customer unjustly starts a dispute after the result has been published. The connection between $\mathrm{PoP}$ and the result is made by the content identifier ($(\mathrm{cid}$) that uniquely identify the result (it is some kind of a hash of the result) such that the result can not be forged after the $\mathrm{PoP}$ has been published.
 
-The $\mathrm{PoP}$ is an digital construction published by the SP on a message board.
+The $\mathrm{PoP}$ is a digital construction published by the SP on the message board.
 
 \[\mathrm{PoP} \equiv (\mathrm{cid}, \mathrm{nonce}, \mathrm{sig}_\mathrm{SP})\]
 
@@ -639,30 +637,24 @@ where:
 
 \noindent \textbf
 {Payment attestation}\label{payment-attestation}
-
-Payment attestation proves that the customer did the payment. Since the
-evidences depends on the particular blockchain (see section ~\ref{payment-for-services}). We refer to them symbollicaly as
+proves that the customer did the payment. Since the
+evidence depends on the particular blockchain (see Section ~\ref{payment-for-services}). We refer to them symbolically as
 \(attestation\).
 
 \noindent \textbf
-{Results}\label{results}
-
-We assume results to be documents in PDF format, but they can be
-anything as long as they can be binary encoded and uploaded to IPFS. We
-refer to them symbollicaly as \(results\).
+{Result}\label{results} is assumed to be document in PDF format, but any other format is allowed as long as it can be binary encoded and uploaded to IPFS. We refer to it symbolically as $result$.
 
 \noindent \textbf
-{Content Identifier (cid)}\label{content-identifier-cid}
-
-Although content identifier (cid) is a term coined by IPFS
-\cite{Contenta59}. However, since we our protocol does not depend on
-this particular implementation of storage network, we let the cid be any
+{Content Identifier (cid)}\label{content-identifier-cid}  is a term coined by IPFS
+\cite{Contenta59}  
+. However, since our protocol does not depend on
+this particular implementation of the storage network, we let the cid be any
 other identifier that securely and uniquely points to the content.
 
 \subsection{Protocol description}\label{protocol-description}
 
-In this section we describe each step of the protocol. The steps are
-shown in the figure ~\ref{fig:protocol-diagram}.
+In this section, we describe each step of the protocol. The steps are
+shown in the Figure ~\ref{fig:protocol-diagram}.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{anonser-protocol.png}
@@ -674,105 +666,117 @@ shown in the figure ~\ref{fig:protocol-diagram}.
 \noindent \textbf
 {Step 0.  Preparation}\label{step-0-preparation}
 
-The customer collects all the $\mathrm{materials}$ required by the SP, generate an encryption $\mathrm{key}$ print it on a paper as a QR code, and pack them together into a package $\mathrm{pkg}$.
+The customer collects all the $\mathrm{materials}$ required by the SP, generates an encryption $\mathrm{key}$ prints it on a paper as a QR code, and packs them together into a package $\mathrm{pkg}$.
 
-Symbolically: \[
+Symbolically: 
+$
 \mathrm{pkg} \gets (\mathrm{materials}, \mathrm{key})
-\]
+$
 
 \noindent \textbf
 {Step 1. Package delivery}\label{step-1-package-delivery}
 
 They protocol starts once the customer delivers package $\mathrm{pkg}$ and the SP accepts its content. In return, the SP issue a $\mathrm{PoD}$ with agreed upfront payment deadline $\mathrm{T}_\mathrm{pay}$, service provision deadline $\mathrm{T}_\mathrm{provide}$ and current time $\mathrm{T}_\mathrm{issue}$. Also, the $\mathrm{PoD}$ consist of randomly generated unique number $\mathrm{nonce}$, which will allow associating all actions related to the transaction throughout the protocol. Finally, the digital signature $\mathrm{sig}_{\mathrm{sk}(\mathrm{SP})}$ on the $\mathrm{PoD}$ created with the SP's secret key $\mathrm{sk}(\mathrm{SP})$ guarantee non-repudiation.
 
-We assume this step to be fully physical, that is, $\mathrm{pkg}$ consist of physical materials, $\mathrm{PoD}$ is in a form of e.g., QR code printed on paper receipt. 
+We assume this step to be fully physical, that is, $\mathrm{pkg}$ consists of physical materials, $\mathrm{PoD}$ is in a form of e.g., QR code printed on a paper receipt. 
 
-$\mathrm{PoD}$ could be published on a message board (similarly to $\mathrm{PoP}$); however, since the $\mathrm{pkg}$ is delivered personally or via trusted person, the confirmation can be issued in person as well. If we would like to hire a courier to deliver our $\mathrm{pkg}$, then the $\mathrm{PoD}$ would have to be published on message board (further extension to anonymous delivery system is discussed in section \ref{sec:future-work}).
+$\mathrm{PoD}$ could be published on a message board (similarly to $\mathrm{PoP}$); however, since the $\mathrm{pkg}$ is delivered personally or via a trusted person, the confirmation can be issued in person as well. If we would like to hire a courier to deliver our $\mathrm{pkg}$, then the $\mathrm{PoD}$ would have to be published on the message board (further extension to the anonymous delivery system is discussed in Section \ref{sec:future-work}).
 
 Symbolically: 
-\[
+$
 \mathrm{PoD} \gets \mathrm{delivery}(\mathrm{pkg})
-\]
-\[
+$
+
+$
 (\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, \mathrm{nonce}, \mathrm{sig}_{\mathrm{sk}(\mathrm{SP})}) \equiv \mathrm{PoD}
-\]
+$
 
 
 \noindent \textbf
 {Step 2. Payment}\label{step-2-payment}
 
 Having the PoD issued, the SP can not reject receiving the package. At this point the
-customer should pay for the transaction with agreed upfront cryptocurrency system (see section~\ref{payment-for-services}).
+customer should pay for the transaction with an agreed upfront cryptocurrency system (see Section~\ref{payment-for-services}).
 
 In return, the customer receives the $\mathrm{attestation}$ that should be disclosed in case of a dispute.
 
-Symbolically: \[
+Symbolically: 
+$
 \mathrm{attestation} \gets \mathrm{payment}(\mathrm{nonce}, \mathrm{sig}_{\mathrm{sk}(\mathrm{C})})
-\]
+$
 
 \noindent \textbf
 {Step 3. Provision of service}\label{step-3-provision-of-service} 
-Once the transaction is paid the SP start the provision of service.
-
-Symbolically: \[
-\mathrm{results} \gets \mathrm{provision}(\mathrm{materials})
-\]
-
-\noindent \textbf
-{Step 4. Results upload}\label{step-4-results-upload}
-
-After the service is finished, some kind of output should be created. Next, the output is encrypted using encryption symmetric key $\mathrm{key}$ provided in the first step.
-
-The encrypted results are then uploaded on content addressable network such as IPFS. As a result, the content identifier (cid) is returned.
+Once the transaction is paid the SP starts the provision of service.
 
 Symbolically: 
-\[
-\mathrm{cid} \gets \mathrm{upload}(E_{\mathrm{key}}(\mathrm{results}))
-\]
+$
+\mathrm{result} \gets \mathrm{provision}(\mathrm{materials})
+$
+
+\noindent \textbf
+{Step 4. Upload result }\label{step-4-results-upload}
+
+After the service is finished, some result should be created. Next, the result is encrypted using encryption symmetric $\mathrm{key}$ provided in the first step.
+
+The encrypted result is then uploaded on the content addressable network such as IPFS. In return the content identifier (cid) is created.
+
+Symbolically: 
+$
+\mathrm{cid} \gets \mathrm{upload}(E_{\mathrm{key}}(\mathrm{result}))
+$
 
 \noindent \textbf
 {Step 5. Proof of provision publication}\label{step-5-proof-of-provision-publication}
 
-When the results are published, the SP perform proof of provision by publishing $\mathrm{cid}$ along with $\mathrm{nonce}$ and signature $\mathrm{sig}_\mathrm{SP}$.
+When the result is published, the SP performs proof of provision by publishing $\mathrm{cid}$ along with $\mathrm{nonce}$ and signature $\mathrm{sig}_\mathrm{SP}$.
 
 Symbolically: 
-\[\mathrm{PoP} \equiv (\mathrm{cid}, \mathrm{nonce}, \mathrm{sig}_{\mathrm{sk}(\mathrm{SP})})\]
-\[\mathrm{publish}(\mathrm{PoP})\]
+$
+\mathrm{PoP} \equiv (\mathrm{cid}, \mathrm{nonce}, \mathrm{sig}_{\mathrm{sk}(\mathrm{SP})})
+$
+
+$
+\mathrm{publish}(\mathrm{PoP})
+$
 
 \noindent \textbf
 {Step 6. Proof-of-provision notification}\label{step-6-proof-of-provision-notification}
 
-After delivering the package and paying for the transaction the customer subscribe to the message board and waits until the SP publish the proof of provision. The subscription is for the SP public key $\mathrm{pk}(\mathrm{SP}$ and transaction's $\mathrm{nonce}$.
+After delivering the package and paying for the transaction the customer subscribes to the message board and waits until the SP publishes the proof of provision. The subscription is for the SP public key $\mathrm{pk}(\mathrm{SP}$ and transaction's $\mathrm{nonce}$.
 
-Symbolically: \[
+Symbolically: 
+$
 \mathrm{cid} \gets \mathrm{subscribe}(\mathrm{pk}(\mathrm{SP}), \mathrm{nonce})
-\]
+$
 
 \noindent \textbf
-{Step 7. Results download}\label{step-7-results-download} Having the $\mathrm{cid}$, the customer downloads and decrypts the $\mathrm{results}$.
+{Step 7. Result download}\label{step-7-results-download} 
+Having the $\mathrm{cid}$, the customer downloads and decrypts the $\mathrm{result}$.
 
-Symbolically: \[
-\mathrm{results} \gets \mathrm{D}_{\mathrm{key}}(\mathrm{download}(\mathrm{cid}))
-\]
+Symbolically: 
+$
+\mathrm{result} \gets \mathrm{D}_{\mathrm{key}}(\mathrm{download}(\mathrm{cid}))
+$
 
 
 \section{Fairness analysis}\label{sec:fairness-analysis}
 
-We analyse the fairness of the protocol by representing it as a interactive non-cooperative game.
+We analyze the fairness of the protocol by representing it as an interactive non-cooperative game.
 
 \subsection{Model}\label{model}
 We consider three positions:
 
 \begin{itemize}
 \item
-  Neutral position (•): when a party hasn't spend nor gain anything of significant value (money, time, effort). For example, at the beginning of the protocol.
+  Neutral position (•): when a party hasn't spent nor gained anything of significant value (money, time, effort). For example, at the beginning of the protocol.
 \item
   Disadvantaged position (-): when a party has put a significant value without receiving an equivalent. For example, paid for a service in advance.
 \item
   Advantaged position (+): when a party would benefit if the transaction would halt at that step. For example, the SP has received payment before service provision.
 \end{itemize}
 
-There are many actions that each party can take, but we group them together into two categories:
+There are many actions that each party can take, but we group them into two categories:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -780,18 +784,18 @@ There are many actions that each party can take, but we group them together into
 \item
   Normal: taking the action prescribed by the protocol.
 \item
-  Abnormal: everything that deviates from designed steps of the protocol. For example, sending arbitrary message, skipping some step, repeating step, timing out.
+  Abnormal: everything that deviates from the designed steps of the protocol. For example, sending an arbitrary message, skipping some step, repeating step, timing out.
 \end{enumerate}
 
-Moreover, at any step of the protocol the customer can start a dispute; therefore, another dimension with two positions has to be considered:
+Moreover, at any step of the protocol, the customer can start a dispute; therefore, another dimension with two positions has to be considered:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 
 \item
-  Agree: the customer agree with the action, and therefore does not start a dispute.
+  Agree: the customer agrees with the action and therefore does not start a dispute.
 \item
-  Start a dispute: the customer does not agree with the action and therefore start a dispute.
+  Start a dispute: the customer does not agree with the action and therefore starts a dispute.
 \end{enumerate}
 
 As a result, in our analysis we have to consider four different outcomes for each party of the protocol:
@@ -808,9 +812,9 @@ As a result, in our analysis we have to consider four different outcomes for eac
   $\sigma_\overline{d}$: after a settled dispute when the other party has acted abnormally.
 \end{itemize}
 
-The protocol terminate after last step, after starting a dispute, or after a party hasn't completed it's designated action in time. Therefore, all positions except $\sigma_\mathrm{n}$ are termination positions.
+The protocol terminates after the last step, after starting a dispute, or after a party hasn't completed its designated action in time. Therefore, all positions except $\sigma_\mathrm{n}$ are termination positions.
 
-Because the customer is anonymous the SP can not start a dispute---there is no mean to identify the customer. To mitigate the issue, we designed the protocol so that the SP who follows the protocol is always in advantage position, therefore he has no reason to start a dispute. The customer on the other hand can start a dispute at any time of the protocol, but only the actual misbehaviour of the SP makes him win the case.
+Because the customer is anonymous the SP can not start a dispute---there is no means to identify the customer. To mitigate the issue, we designed the protocol so that the SP who follows the protocol is always in an advantageous position, therefore he has no reason to start a dispute. The customer on the other hand can start a dispute at any time of the protocol, but only the actual misbehavior of the SP makes him win the case.
 
 \begin{definition}[Fairness] \label{fairness}
 A protocol achieve fariness iff 
@@ -826,45 +830,48 @@ A protocol achieve fariness iff
 
 \subsection{Assumptions}\label{assumptions}
 
-For the analysis purpose we state plausable assumptions listed below.
-
-Assumptions:
+Below  we listed
+assumptions we took
+for the analysis purpose.  
 
 \begin{itemize}
 
 \item
-  Both parties start from neutral position (•).
+  Both parties start from a neutral position (•).
 \item
-  Both parties, by completing a transaction, end up in advantaged positions (+). In other words, they have intrinsic motivation to initialise and complete the transaction.
+  Both parties, by completing a transaction, end up in advantaged positions (+). In other words, they have intrinsic motivation to initialize and complete the transaction.
 \item
   We assume the steps of the protocol to be atomic, there are no intermediate steps.
 \item
-  Repeating the first step starts new transaction. Repeating any other step is considered abnormal and gets ignored. For example paying for the invoice twice does not cause any effect on the curse of protocol.
+  Repeating the first step starts a new transaction. Repeating any other step is considered abnormal and gets ignored. For example, paying for the invoice twice does not cause any effect on the curse of the protocol.
 \item
-  Once published, the results are available to the customer in the content storage. The idea of guaranteeing it cryptographically is discussed in section ~\ref{future-work}.
+  Once published, the result is available to the customer in the content storage. The idea of guaranteeing it cryptographically is discussed in Section~\ref{sec:future-work}.
+  
+  
 \item
-  The protocol can go only forward, there is no way of revert any action.
+  The protocol can go only forward, there is no way of reverting any action.
 \item
-  Losing the dispute leads to punishment that is greater than any reward, which leads to disadvantaged position (-). Hence, the rational customer won't start a dispute that he is not sure to win.
+  Losing the dispute leads to a punishment that is greater than any reward, which leads to a disadvantaged position (-). Hence, the rational customer won't start a dispute that he is not sure to win.
 \item
-  Winning the dispute leads to neutral position (•).
+  Winning the dispute leads to a neutral position (•).
 \item
-  Both the customer and the SP are rational (selfish). They always prefer go from worst position to better position, but also risk temporary worst position in favour for later better position iff it's assured that they won't stuck in worst position.
+  Both the customer and the SP are rational (selfish). They always prefer to go from worst position to better position, but also risk temporary worst position in favor of a later better position iff it's assured that they won't be stuck in the worst position.
 \end{itemize}
 
 \subsection{Steps}\label{steps}
 
-The table in figure~\ref{fig:positions} shows the positions of each party after each possible action taken.
+Figure~\ref{fig:positions} 
+shows the positions of each party after each possible action taken.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-table-of-positions.png}
 \centering
-\caption{Table of positions after each step of protocol}
+\caption{Positions after each step of protocol}
 \label{fig:positions}
 \end{figure}
 
 
-Below we give the description for each step and rationale of the outcome position.
+Below we describe each step and rationale of the outcome position.
 
 
 \noindent \textbf
@@ -886,7 +893,7 @@ Customer has delivered the package:
     We assume that the sample without personal information is useless
     and the effort to deliver the package is negligible.
   \item
-    \(\sigma_{1, s, \mathrm{n}} = \sbullet\), the SP is in neutral position as he didn't put any effort to hence the package, also the package hasn't any value to the SP.
+    \(\sigma_{1, s, \mathrm{n}} = \sbullet\), the SP is in the neutral position as he didn't put any effort to hence the package, also the package hasn't any value to the SP.
   \end{itemize}
 \item
   Starting a dispute:
@@ -894,7 +901,7 @@ Customer has delivered the package:
   \begin{itemize}
   
   \item
-    \(\sigma_{1, c, \mathrm{d}} = -\), the customer lose the case as the SP has still opportunity to publish proof-of-provision within timeframe.
+    \(\sigma_{1, c, \mathrm{d}} = -\), the customer loses the case as the SP has still an opportunity to publish proof-of-provision within the timeframe.
   \item
     \(\sigma_{1, s, \mathrm{d}} = \sbullet\), the SP win the case for the same reason.
   \end{itemize}
@@ -905,10 +912,10 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can follow the protocol and move to the non-disadvantaged
+  The customer can follow the protocol and move to a non-disadvantaged
   position \(\sigma_{1, c, \mathrm{n}} = \sbullet\).
 \item
-  The SP can do nothing and end up in non-disadvantaged position
+  The SP can do nothing and end up in a non-disadvantaged position
   \(\sigma_{1, s, \mathrm{n}} = \sbullet \) or
   \(\sigma_{1, s, \mathrm{d}} = \sbullet \).
 \end{itemize}
@@ -923,31 +930,31 @@ Customer has paid the invoice:
   Following protocol:
   \begin{itemize}
   \item
-    \(\sigma_{2, c, \mathrm{n}} = -\), the customer has spend his funds but hasn't received the results.
+    \(\sigma_{2, c, \mathrm{n}} = -\), the customer has spent his funds but hasn't received the result.
   \item
-    \(\sigma_{2, s, \mathrm{n}} = +\), the SP has received the payment but hasn't spend his resources yet.
+    \(\sigma_{2, s, \mathrm{n}} = +\), the SP has received the payment but hasn't spent his resources yet.
   \end{itemize}
 \item
   Starting a dispute:
 
   \begin{itemize}
   \item
-    \(\sigma_{2, c, \mathrm{d}} = -\), the customer lose the case as the SP has still opportunity to publish proof-of-provision before the deadline.
+    \(\sigma_{2, c, \mathrm{d}} = -\), the customer loses the case as the SP has still an opportunity to publish proof-of-provision before the deadline.
   \item
     \(\sigma_{2, s, \mathrm{d}} = +\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
-Customer has time outed, then:
+Customer has timeouted, then:
 
 \begin{itemize}
 \item
   Following protocol:
   \begin{itemize}
   \item
-    \(\sigma_{2, c, \overline{\mathrm{n}}} = \sbullet\), the customer ends up in neutral position, since he didn't spend his funds.
+    \(\sigma_{2, c, \overline{\mathrm{n}}} = \sbullet\), the customer ends up in a neutral position, since he didn't spend his funds.
   \item
-    \(\sigma_{2, s, \overline{\mathrm{n}}} = \sbullet\), the SP ends up in neutral position as he didn't receive the payment, nor spent his resources.
+    \(\sigma_{2, s, \overline{\mathrm{n}}} = \sbullet\), the SP ends up in a neutral position as he didn't receive the payment, nor spent his resources.
   \end{itemize}
 \item
   Starting a dispute:
@@ -957,7 +964,7 @@ Customer has time outed, then:
   \item
     \(\sigma_{2, c, \overline{\mathrm{d}}} = -\), the customer loses the case as he can not prove the payment before the time limit.
   \item
-    \(\sigma_{2, s, \overline{\mathrm{d}}} = \sbullet\), the SP is not charged to the justice due to lack of proofs.
+    \(\sigma_{2, s, \overline{\mathrm{d}}} = \sbullet\), the SP is not charged to justice due to a lack of proof.
   \end{itemize}
 \end{itemize}
 
@@ -966,8 +973,8 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can move the protocol forward to the step 3, where if the
-  SP follow the protocol then the customer can push the protocol forward
+  The customer can move the protocol forward to step 3, where if the
+  SP follows the protocol then the customer can push the protocol forward
   up to the last termination step \(\sigma_{7, c, \mathrm{n}} = +\),
   otherwise if at any step the SP does not follow the protocol the
   customer can start a dispute which terminates the protocol at
@@ -995,7 +1002,7 @@ The SP has done the provision of service:
   
   \item
     \(\sigma_{3, c, \mathrm{n}} = -\), the customer hasn't received the
-    results so he remains in disadvantaged position.
+    result so he remains in a disadvantaged position.
   \item
     \(\sigma_{3, s, \mathrm{n}} = +\), the SP has fulfilled the contract
     on time.
@@ -1007,7 +1014,7 @@ The SP has done the provision of service:
   
   \item
     \(\sigma_{3, c, \mathrm{d}} = -\), the customer lose the case as the
-    SP has still opportunity to publish proof-of-provision within
+    SP has still the opportunity to publish proof-of-provision within
     timeframe.
   \item
     \(\sigma_{3, s, \mathrm{d}} = +\), the SP win the case for the same
@@ -1024,9 +1031,9 @@ SP has timeouted, then:
   \begin{itemize}
   
   \item
-    \(\sigma_{3, c, \overline{\mathrm{n}}} = -\), the customer ends up in disadvantaged position.
+    \(\sigma_{3, c, \overline{\mathrm{n}}} = -\), the customer ends up in a disadvantaged position.
   \item
-    \(\sigma_{3, s, \overline{\mathrm{n}}} = +\), the SP ends up in
+    \(\sigma_{3, s, \overline{\mathrm{n}}} = +\), the SP ends up in a
     advantaged position as he received the payment.
   \end{itemize}
 \item
@@ -1035,10 +1042,10 @@ SP has timeouted, then:
   \begin{itemize}
   
   \item
-    \(\sigma_{3, c, \overline{\mathrm{d}}} = •\), the customer wins the case and end up in neutral position.
+    \(\sigma_{3, c, \overline{\mathrm{d}}} = •\), the customer wins the case and ends up in a neutral position.
   \item
     \(\sigma_{3, s, \overline{\mathrm{d}}} = -\), the SP loses the case
-    and end up in disadvantaged position.
+    and end up in a disadvantaged position.
   \end{itemize}
 \end{itemize}
 
@@ -1048,15 +1055,15 @@ Fairness:
 
 \item
   The customer can do nothing if the SP follows the protocol, which will
-  ultimately put him in advantaged position
+  ultimately put him in an advantaged position
   \(\sigma_{7, c, \mathrm{n}} = +\), or in case of the SP not following
-  the protocol, the customer can start a dispute and terminate in
+  the protocol, the customer can start a dispute and terminate in a
   non-disadvantaged position
   \(\sigma_{3, c, \overline{\mathrm{d}}} = •\).
 \item
-  The SP can follow the protocol and move to the non-disadvantaged
+  The SP can follow the protocol and move to a non-disadvantaged
   position \(\sigma_{3, s, \mathrm{n}} = +\), or not follow the protocol
-  and also end up at non-disadvantaged position
+  and also end up at a non-disadvantaged position
   \(\sigma_{3, s, \overline{\mathrm{n}}} = +\), but the second option
   puts him at risk of terminating the protocol at
   \(\sigma_{3, s, \overline{\mathrm{n}}} = +\), if the customer is
@@ -1064,9 +1071,9 @@ Fairness:
 \end{itemize}
 
 \noindent \textbf
-{Step 4. SP turn: publication of results}\label{step-4-publication-of-results}
+{Step 4. SP turn: upload result}\label{step-4-publication-of-results}
 
-SP has published results on time:
+SP has uploaded the result on time:
 
 \begin{itemize}
 \item
@@ -1075,7 +1082,7 @@ SP has published results on time:
   \begin{itemize}
   
   \item
-    \(\sigma_{4, c, \mathrm{n}} = -\), the customer hasn't received the results so he remains in disadvantaged position.
+    \(\sigma_{4, c, \mathrm{n}} = -\), the customer hasn't received the result so he remains in disadvantaged position.
   \item
     \(\sigma_{4, s, \mathrm{n}} = +\), the SP has fulfilled the contract on time.
   \end{itemize}
@@ -1119,7 +1126,7 @@ SP has timeouted, then:
     case and end up in neutral position.
   \item
     \(\sigma_{4, s, \overline{\mathrm{d}}} = -\), the SP loses the case
-    and end up in disadvantaged position.
+    and end up in a disadvantaged position.
   \end{itemize}
 \end{itemize}
 
@@ -1129,7 +1136,7 @@ Fairness:
 
 \item
   The customer can do nothing if the SP follows the protocol, which will
-  ultimately put him in advantaged position
+  ultimately put him in an advantaged position
   \(\sigma_{7, c, \mathrm{n}} = +\), or in case of the SP not following
   the protocol, the customer can start a dispute and terminate in
   non-disadvantaged position
@@ -1157,7 +1164,7 @@ The SP has published proof of provision on time:
   
   \item
     \(\sigma_{5, c, \mathrm{n}} = -\) the customer hasn't received the
-    results. Therefore, he remains in disadvantaged position.
+    result. Therefore, he remains in a disadvantaged position.
   \item
     \(\sigma_{5, s, \mathrm{n}} = +\) the SP has fulfilled the contract
     on time.
@@ -1185,10 +1192,10 @@ SP has timeouted, then:
   \begin{itemize}
   
   \item
-    \(\sigma_{5, c, \overline{\mathrm{n}}} = -\) the customer ends up in disadvantaged position.
+    \(\sigma_{5, c, \overline{\mathrm{n}}} = -\) the customer ends up in a disadvantaged position.
   \item
     \(\sigma_{5, s, \overline{\mathrm{n}}} = +\) the SP ends up in
-    advantaged position as he received the payment.
+    an advantaged position as he received the payment.
   \end{itemize}
 \item
   Starting a dispute:
@@ -1197,10 +1204,10 @@ SP has timeouted, then:
   
   \item
     \(\sigma_{5, c, \overline{\mathrm{d}}} = •\) the customer wins the
-    case and end up in neutral position.
+    case and end up in a neutral position.
   \item
     \(\sigma_{5, s, \overline{\mathrm{d}}} = -\) the SP loses the case
-    and end up in disadvantaged position.
+    and end up in a disadvantaged position.
   \end{itemize}
 \end{itemize}
 
@@ -1209,8 +1216,8 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can do nothing if the SP follows the protocol, because it
-  will ultimately put him in advantaged position
+  The customer can do nothing if the SP follows the protocol because it
+  will ultimately put him in an advantaged position
   \(\sigma_{7, c, \mathrm{n}} = +\), otherwise, in case of the SP not
   following the protocol, the customer can start a dispute and terminate
   in non-disadvantaged position
@@ -1227,9 +1234,9 @@ Fairness:
 
 
 \noindent \textbf
-{Step 6. customer turn: pull proof-of-provision}\label{step-6-pull-proof-of-provision}
+{Step 6. customer turn: pull proof of provision}\label{step-6-pull-proof-of-provision}
 
-SP has published results on time, then:
+SP has uploaded the result on time, then:
 
 \begin{itemize}
 \item
@@ -1239,7 +1246,7 @@ SP has published results on time, then:
   
   \item
     \(\sigma_{6, c, \mathrm{n}} = -\) the customer gets hash of the
-    results but not the results yet.
+    result but not the result yet.
   \item
     \(\sigma_{6, s, \mathrm{n}} = +\) the SP position hasn't changed.
   \end{itemize}
@@ -1280,10 +1287,10 @@ Customer has timeouted, then:
   
   \item
     \(\sigma_{6, c, \overline{\mathrm{d}}} = •\) the customer wins the
-    case and end up in neutral position.
+    case and end up in a neutral position.
   \item
     \(\sigma_{6, s, \overline{\mathrm{d}}} = -\) the SP loses the case
-    and end up in disadvantaged position.
+    and end up in a disadvantaged position.
   \end{itemize}
 \end{itemize}
 
@@ -1294,20 +1301,20 @@ Fairness:
 \item
   The customer can follow the protocol to the position
   \(\sigma_{6, c, \mathrm{n}} = -\), which let's him move the protocol
-  to non-disadvantaged termination position
+  to a non-disadvantaged termination position
   \(\sigma_{7, c, \mathrm{n}} = +\), or in case the SP haven't followed
   the protocol start a dispute and win the case
   \(\sigma_{6, c, \overline{\mathrm{d}}} = \sbullet\).
 \item
-  The SP can do nothing and end up in non-disadvantaged position
+  The SP can do nothing and end up in a non-disadvantaged position
   \(\sigma_{6, s, \mathrm{n}} = +\), or
   \(\sigma_{6, s, \overline{\mathrm{n}}} = +\).
 \end{itemize}
 
 \noindent \textbf
-{Step 7. Customer turn: retrieval of results}\label{step-7-retrieval-of-results}
+{Step 7. Customer turn: result download}\label{step-7-retrieval-of-results}
 
-SP has published \textbf{correct} results on time:
+SP has published the \textbf{correct} result on time:
 
 \begin{itemize}
 \item
@@ -1317,7 +1324,7 @@ SP has published \textbf{correct} results on time:
   
   \item
     \(\sigma_{7, c, \mathrm{n}} = +\) the customer gets the correct
-    results. Therefore, he moves to advantaged position.
+    result. Therefore, he moves to an advantaged position.
   \item
     \(\sigma_{7, s, \mathrm{n}} = +\) the SP position hasn't changed.
   \end{itemize}
@@ -1335,7 +1342,7 @@ SP has published \textbf{correct} results on time:
   \end{itemize}
 \end{itemize}
 
-SP has published \textbf{incorrect} results on time:
+SP has published the \textbf{incorrect} result on time:
 
 \begin{itemize}
 \item
@@ -1344,7 +1351,7 @@ SP has published \textbf{incorrect} results on time:
   \begin{itemize}
   
   \item
-    \(\sigma_{7, c, \overline{\mathrm{n}}} = -\) customer end up in disadvantaged position, as he ends up with incorrect results.
+    \(\sigma_{7, c, \overline{\mathrm{n}}} = -\) the customer ends up in a disadvantaged position, as he ends up with incorrect result.
   \item
     \(\sigma_{7, c, \overline{\mathrm{n}}} = +\) SP ends up in advantaged
     position as he received the payment but didn't spend his resources.
@@ -1355,9 +1362,9 @@ SP has published \textbf{incorrect} results on time:
   \begin{itemize}
   
   \item
-    \(\sigma_{7, c, \overline{\mathrm{d}}} = •\) customer wins the case and ends up in neutral position.
+    \(\sigma_{7, c, \overline{\mathrm{d}}} = •\) the customer wins the case and ends up in a neutral position.
   \item
-    \(\sigma_{7, c, \overline{\mathrm{d}}} = -\) SP lose the case and end up in disadvantaged position.
+    \(\sigma_{7, c, \overline{\mathrm{d}}} = -\) SP loses the case and ends up in a disadvantaged position.
   \end{itemize}
 \end{itemize}
 
@@ -1366,14 +1373,14 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can follow the protocol to the non-disadvantaged termination position \(\sigma_{7, c, \mathrm{n}} = +\), or in case the SP haven't followed the protocol start a dispute and win the case \(\sigma_{7, c, \overline{\mathrm{d}}} = •\).
+  The customer can follow the protocol to the non-disadvantaged termination position \(\sigma_{7, c, \mathrm{n}} = +\), or in case the SP hasn't followed the protocol start a dispute and win the case \(\sigma_{7, c, \overline{\mathrm{d}}} = •\).
 \item
-  The SP can do nothing and end up in non-disadvantaged position \(\sigma_{7, s, \mathrm{n}} = +\).
+  The SP can do nothing and ends up in a non-disadvantaged position \(\sigma_{7, s, \mathrm{n}} = +\).
 \end{itemize}
 
 \subsection{Example scenarios}\label{example-scenarios}
 
-The diagram below shows the path of positions when SP try to misbehave and don't execute service after receiving the payment. The protocol ends up in neutral to customer and disadvantaged to SP positions.
+The diagram below shows the path of positions when SP tries to misbehave and doesn't execute service after receiving the payment. The protocol ends up neutral to customer and disadvantaged to SP positions.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-misbehaviour-path.png}
@@ -1387,47 +1394,51 @@ Ultimately, the rational path for both parties is to follow the protocol as show
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-rational-path.png}
 \centering
-\caption{Scenario of path where both the customer and  the SP are behaving correctly}
+\caption{The scenario of path where both the customer and  the SP are behaving correctly}
 \label{fig:well-behaviour}
 \end{figure}
 
-\subsection{Results}\label{results}
+%\subsection{Results}\label{results}
 
-With the fairness definition stated in equation, and the assumptions stated in \ref{assumptions}, our analysis indicate that the protocol achieve fairness.
+With the fairness definition stated in the equation and the assumptions stated in Section \ref{assumptions}, our analysis indicates that the protocol achieves fairness.
 
 
 
-\section{Future work}\label{sec:future-work}
+\section{Future work}
+\label{sec:future-work}
+
 \subsection{Justice}\label{justice}
 
-Justice is the one biggest obstacle in achieving system that complies with Web3 postulates~\cite{Web3Wiki71}.
+Justice is the one biggest obstacle in achieving a system that complies with Web3 postulates~\cite{Web3Wiki71}.
 
-The possible directions for mitigation of such issue are to either (1) replace justice with decentralised autonomous organisations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (2) make it infeasible to provide incorrect results.
+The possible directions for mitigation of such issues are to either (1) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (2) make it infeasible to provide incorrect result.
 
-The first approach is more feasible in the near future. It would require creating large pool of experts in a field, that in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivised to participate in the pool by the system of fees. Their honest behaviour would be incentivised by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
+The first approach is more feasible shortly. It would require creating a large pool of experts in a field, that in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivized to participate in the pool by the system of fees. Their honest behavior would be incentivized by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
 
-The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer to take a sample, discrete it and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
+The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
 
 
-\subsection{Provable availability of
-results}\label{cryptographically-provable-availability-of-results}
+\subsection{Provable availability of the
+result}\label{cryptographically-provable-availability-of-results}
 
-Currently, the SP has to publish the results into a p2p content addressable storage network, e.g., IPFS. The problem is that, nothing prevent the SP from publishing the results, receiving the cid, publishing $\mathrm{PoP}$, and immediately after removing the results from the local storage. In case of dispute the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour, other than putting the customer in disadvantaged position caused by the lost dispute. We see possible prevention of this misbehaviour by the usage of Filecoin---an incentive layer on top of IPFS that guarantee the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantee the results availability until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
+Currently, the SP has to publish the result into a peer-to-peer content-addressable storage network, e.g., IPFS. The problem is that nothing prevents the SP from publishing the result, receiving the cid, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehavior, other than putting the customer in a disadvantaged position caused by the lost dispute. We see possible prevention of this misbehavior by the usage of Filecoin---an incentive layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantees the result availability until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
 
 \subsection{Paying with cash}\label{paying-with-cash}
 
-Without lose of generality the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain an information that the transaction has been paid with cash; therefore, Steps 1 and 2 could be merged together and realised in one step. In case of dispute the payment disclosure would be in included in $\mathrm{PoD}$.
+Without loss of generality, the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain information that the transaction has been paid with cash; therefore, Steps 1 and 2 could be merged and realized in one step. In case of dispute, the payment disclosure would be included in $\mathrm{PoD}$.
 
 \subsection{Anonymous delivery}\label{anonymous-delivery}
 
-We assumed the customer to deliver the package to the SP personally or via trusted person. However the system could be extended to support anonymous delivery system as proposed in Lelantos~\cite{altawy2017lelantos}.
+We assumed the customer to deliver the package to the SP personally or via a trusted person. However, the system could be extended to support an anonymous delivery system as proposed in Lelantos~\cite{altawy2017lelantos}.
 
 \section{Conclusions}\label{sec:conclusion}
-In this paper, we have proposed a anonymity- preserving blockchain-based protocol for local services provision. The protocol can be employed by any local service provider to provide services without collecting any personal information. The payment is handled by anonymous cryptocurrencies. Proof of delivery and proof of provision are published on message board blockchain. The results are published on content addressable p2p network. The dispute can be settled by disclosing proofs to justice. Assuming the definition~\ref{fairness} we showed that the protocol achieve fairness. Finally, we pinpointed further improvements like decentralised dispute resolution, provable  availability of results, paying with cash, and anonymous delivery via courier.
+In this paper, we have proposed anonymity-preserving blockchain-based protocol for services provision. The protocol can be employed to provide services without collecting any personal information. The payment is handled by anonymous cryptocurrencies. Proof of delivery and proof of provision are published on the message board blockchain. The result is published on a content-addressable p2p network. The dispute can be settled by disclosing proof to justice. 
+Using the definition~\ref{fairness} we showed that the protocol achieves fairness. Finally, we pinpointed further improvements like decentralized dispute resolution, provable availability of the result, paying with cash, and anonymous delivery via courier.
 
 \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{bibliography}
+%JS uporządkować bibliografię
 \EOD
 
 \end{document}
