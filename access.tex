@@ -618,7 +618,7 @@ Symbolically:
 \]
 
 \noindent \textbf
-{Step 5. Proof of provision publication}\label{step-5-proof-of-provision-publication}
+{Step 5. Proof of provision}\label{step-5-proof-of-provision-publication}
 
 When the result is published, the SP performs proof of provision by publishing $\mathrm{cid}$ along with $\mathrm{nonce}$ and signature $\mathrm{sig}_\mathrm{SP}$.
 
@@ -631,7 +631,7 @@ Symbolically:
 \]
 
 \noindent \textbf
-{Step 6. Proof-of-provision notification}\label{step-6-proof-of-provision-notification}
+{Step 6. Pull proof of provision}\label{step-6-proof-of-provision-notification}
 
 After delivering the package and paying for the transaction, the customer subscribes to the message board and waits until the SP publishes the proof of provision. The subscription is for the SP public key $\mathrm{pk}(\mathrm{SP}$ and transaction's $\mathrm{nonce}$.
 
@@ -741,8 +741,7 @@ for the analysis purpose.
 
 \subsection{Steps}\label{steps}
 
-Figure~\ref{fig:positions} 
-shows the positions of each party after each possible action taken.
+Figure~\ref{fig:positions} shows the positions of each party after each possible action taken.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-table-of-positions.png}
@@ -754,9 +753,8 @@ shows the positions of each party after each possible action taken.
 
 Below we describe each step and rationale of the outcome position.
 
-
 \noindent \textbf
-{Step 1. Customer turn: deliver package}\label{step-1-deliver-package}
+{Step 1. Customer turn: package delivery}\label{step-1-deliver-package}
 
 The customer has delivered the package:
 
@@ -769,7 +767,7 @@ The customer has delivered the package:
   \item
     \(\sigma_{1, c, \mathrm{n}} = \sbullet\), the customer has risked its materials but has not paid anything, so we assume he is in a neutral position. One would argue that the customer has put effort into delivering the materials to the SP or that the sample is valuable. We assume that the sample without personal information is useless, and the effort to deliver the package is negligible.
   \item
-    \(\sigma_{1, s, \mathrm{n}} = \sbullet\), the SP is in the neutral position as he did not put any effort also the package has not brought any value to the SP.
+    \(\sigma_{1, s, \mathrm{n}} = \sbullet\), the SP is in a neutral position as he did not put any effort, and the package has not brought any value to the SP.
   \end{itemize}
 \item
   Starting a dispute:
@@ -794,7 +792,7 @@ Fairness:
 \end{itemize}
 
 \noindent \textbf
-{Step 2. Customer turn: pay for invoice}\label{step-2-pay-for-invoice}
+{Step 2. Customer turn: payment}\label{step-2-pay-for-invoice}
 
 The customer has paid the invoice:
 
@@ -1025,7 +1023,7 @@ Fairness:
 \end{itemize}
 
 \noindent \textbf
-{Step 5. SP turn: publication of proof-of-provision}\label{step-5-publication-of-proof-of-provision}
+{Step 5. SP turn: Proof of provision}\label{step-5-publication-of-proof-of-provision}
 
 The SP has published proof of provision on time:
 
@@ -1185,7 +1183,7 @@ Fairness:
 \end{itemize}
 
 \noindent \textbf
-{Step 7. Customer turn: result download}\label{step-7-retrieval-of-results}
+{Step 7. Customer turn: download result}\label{step-7-retrieval-of-results}
 
 The SP has published the correct result on time:
 
