@@ -825,7 +825,7 @@ The customer has paid the invoice:
   \end{itemize}
 \end{itemize}
 
-The customer has timeouted, then:
+The customer has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -872,7 +872,7 @@ Fairness:
 \noindent \textbf
 {Step 3. SP turn: provision of service}\label{step-3-provision-of-service}
 
-The SP has done the provision of service:
+The SP has made the provision of service:
 
 \begin{itemize}
 \item
@@ -902,7 +902,7 @@ The SP has done the provision of service:
   \end{itemize}
 \end{itemize}
 
-SP has timeouted, then:
+The SP has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -953,7 +953,7 @@ Fairness:
 \noindent \textbf
 {Step 4. SP turn: upload result}\label{step-4-publication-of-results}
 
-SP has uploaded the result on time:
+The SP has uploaded the result on time:
 
 \begin{itemize}
 \item
@@ -981,7 +981,7 @@ SP has uploaded the result on time:
   \end{itemize}
 \end{itemize}
 
-SP has timeouted, then:
+The SP has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -1063,7 +1063,7 @@ The SP has published proof of provision on time:
   \end{itemize}
 \end{itemize}
 
-SP has timeouted, then:
+The SP has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -1116,7 +1116,7 @@ Fairness:
 \noindent \textbf
 {Step 6. customer turn: pull proof of provision}\label{step-6-pull-proof-of-provision}
 
-SP has uploaded the result on time, then:
+The SP has uploaded the result on time, then:
 
 \begin{itemize}
 \item
@@ -1144,7 +1144,7 @@ SP has uploaded the result on time, then:
   \end{itemize}
 \end{itemize}
 
-Customer has timeouted, then:
+The customer has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -1194,7 +1194,7 @@ Fairness:
 \noindent \textbf
 {Step 7. Customer turn: result download}\label{step-7-retrieval-of-results}
 
-SP has published the \textbf{correct} result on time:
+The SP has published the correct result on time:
 
 \begin{itemize}
 \item
@@ -1222,7 +1222,7 @@ SP has published the \textbf{correct} result on time:
   \end{itemize}
 \end{itemize}
 
-SP has published the \textbf{incorrect} result on time:
+The customer has acted abnormally, then:
 
 \begin{itemize}
 \item
@@ -1260,7 +1260,7 @@ Fairness:
 
 \subsection{Example scenarios}\label{example-scenarios}
 
-The diagram below shows the path of positions when SP tries to misbehave and doesn't execute service after receiving the payment. The protocol ends up neutral to customer and disadvantaged to SP positions.
+The diagram below shows the path of positions when the SP tries to misbehave and does not execute service after receiving the payment. The protocol ends up neutral to the customer and disadvantaged to the SP positions.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-misbehaviour-path.png}
@@ -1289,19 +1289,19 @@ With the fairness definition stated in the equation and the assumptions stated i
 
 \subsection{Justice}\label{justice}
 
-Justice is the one biggest obstacle in achieving a system that complies with Web3 postulates~\cite{Web3Wiki71}.
+Justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{Web3Wiki71}.
 
-The possible directions for mitigation of such issues are to either (1) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (2) make it infeasible to provide incorrect result.
+The possible directions for mitigation of such issues are to either (1) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (2) make it infeasible to provide incorrect results.
 
-The first approach is more feasible shortly. It would require creating a large pool of experts in a field, that in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. Keeping the case fully confidential. The experts would be incentivized to participate in the pool by the system of fees. Their honest behavior would be incentivized by the stake they would have to lock, and punishment they would get by judging incorrectly, where the ``correctly'' is determined by the quorum of votes.
+The first approach is more feasible in the near future. It would require creating a large pool of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the ``correctly'' is determined by the quorum of votes.
 
-The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. To do so the whole service examination would have to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to digitally represent blood?''. If we could represent urine, blood, saliva, or any other physical material in binary format, and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
+The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
 
 
 \subsection{Provable availability of the
 result}\label{cryptographically-provable-availability-of-results}
 
-Currently, the SP has to publish the result into a peer-to-peer content-addressable storage network, e.g., IPFS. The problem is that nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehavior, other than putting the customer in a disadvantaged position caused by the lost dispute. We see possible prevention of this misbehavior by the usage of Filecoin---an incentive layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantees the result availability until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
+Currently, the SP has to publish the result into a peer-to-peer content-addressable storage network, e.g., IPFS. The problem is that nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour other than putting the customer in a disadvantaged position caused by the lost dispute. We see possible prevention of this misbehaviour by the usage of Filecoin—an incentive layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantees the availability of the result until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
 
 \subsection{Paying with cash}\label{paying-with-cash}
 
@@ -1312,7 +1312,7 @@ Without loss of generality, the payment can be made with cash. The customer can 
 We assumed the customer to deliver the package to the SP personally or via a trusted person. However, the system could be extended to support an anonymous delivery system as proposed in Lelantos~\cite{altawy2017lelantos}.
 
 \section{Conclusions}\label{sec:conclusion}
-In this paper, we have proposed protocol for services provision that simultaneously achieves anonymity, fairness, dispute resolution, TTP-less, and support physical materials. The protocol can be employed to provide services without collecting any personal information. The payment is handled by anonymous cryptocurrencies. The protocol achieves fairness by the proof of delivery, payment attestation, and proof of provision published on the message board blockchain. The result of the service is published on a content-addressable p2p network. The dispute can be settled by disclosing the collected proofs to justice. 
+In this paper, we have proposed the protocol for services provision that simultaneously achieves anonymity, fairness, dispute resolution, TTP-less, and support physical materials. The protocol can be employed to provide services without collecting any personal information. The payment is handled by anonymous cryptocurrencies. The protocol achieves fairness by the proof of delivery, payment attestation, and proof of provision published on the message board blockchain. The result of the service is published on a content-addressable p2p network like IPFS. The dispute can be settled by disclosing the collected proofs to justice. 
 Using the definition~\ref{fairness} we showed that the protocol achieves fairness. Finally, we pinpointed further improvements like decentralized dispute resolution, provable availability of the result, paying with cash, and anonymous delivery via courier.
 
 \bibliographystyle{IEEEtran}
