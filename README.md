@@ -11,7 +11,7 @@ Install Filecoin local-net:
 ### Install Monero testnet
 
 1. Download and install Monero CLI wallet binaries: https://www.getmonero.org/downloads/  
-2. Compile and install Monero(needed for xmrblocks) following https://github.com/moneroexamples/monero-compilation
-3. Compile and install Monero block exploler (xmrblocks) following https://github.com/moneroexamples/onion-monero-blockchain-explorer
+2. Compile and install Monero (libs are needed for xmrblocks) following https://github.com/moneroexamples/monero-compilation
+3. Compile and install xmrblocs—Monero block exploler—following https://github.com/moneroexamples/onion-monero-blockchain-explorer
  
 
