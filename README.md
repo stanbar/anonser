@@ -2,5 +2,13 @@
 
 ## Installation
 
-1. Follow lotus instalation https://lotus.filecoin.io/developers/local-network/#lotus-node-setup
+### Install Lotus localnet
+
+We use Filecoin local-net:
+
+1. Follow lotus local-net installation https://lotus.filecoin.io/developers/local-network/#lotus-node-setup
+
+### Install Monero testnet
+
+1. 
 
