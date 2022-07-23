@@ -7,6 +7,7 @@
 Install Filecoin local-net:
 
 1. Follow lotus local-net installation https://lotus.filecoin.io/developers/local-network/#lotus-node-setup
+2. Use `lotus` to interact with daemon https://lotus.filecoin.io/lotus/install/linux/#interact-with-the-daemon
 
 ### Install Monero testnet
 
