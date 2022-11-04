@@ -7,37 +7,38 @@ contract AnonSer {
     uint256 issueTime;
     uint256 paymentDeadlineTime;
     uint256 provisionDeadlineTime;
-    uint price;
-    uint paid;
+    bool paidWithCash;
+    bytes proofOfPayment;
     uint256 dealId;
     uint256 cid;
     uint256 paidTxid;
   }
 
-	mapping (address => mapping (bytes20 => Provision)) provisions;
+	mapping (address => mapping (uint256 => Provision)) provisions;
 
-  function proofOfDelivery(uint256 paidWithCash) public returns (bytes20 provisionId) {
-    Provision provision = new Provision({
+  // Should the provisionId be of service provider and a clinet?
+  // We don't want to allow a client to mess with someone's service
+  function proofOfDelivery(bool didPaidWithCash) public returns (uint256 provisionId) {
+    provisionId = keccak256(msg.sender, block.blockhash(block.number - 1));
+    provisions[msg.sender][provisionId] = Provision({
       issue_time: block.timestamp,
       payment_deadline_time: block.timestamp + 1 days,
       provision_deadline_time: block.timestamp + 8 days,
-      price: 1_000_000,
-      paid: paidWithCash
+      paidWithCash: didPaidWithCash
     });
-    provisionId = bytes20(keccak256(msg.sender, block.blockhash(block.number - 1)));
-    provisions[msg.sender][provisionId] = provision;
   }
 
   function proofOfDelivery() public returns (bytes20 provisionId) {
     return proofOfDelivery(0);
   }
 
-  function paymentWithEther(address serviceProvider, uint256 provisionId) public {
-    Provision provision = provisions[serviceProvider][provisionId];
+  // https://ethereum.stackexchange.com/a/74443/33935
+  function proofOfPayment(address serviceProvider, uint256 provisionId, bytes memory proofOfPayment) public {
+    Provision storage provision = provisions[serviceProvider][provisionId];
     if(provision.length == 0) {
       return;
     }
-    provision.paid += msg.value;
+    provision.proofOfPayment = proofOfPayment;
   }
 
   function paymentWithExternal(uint256 txid, address serviceProvider, uint256 provisionId) public {
@@ -56,20 +57,10 @@ contract AnonSer {
     if(provision.length == 0) {
       return;
     }
+
     if(provision.paid >= provision.price) {
       payable(serviceProvider).transfer(provision.paid);
     }
   }
 
-	function sendCoin(address receiver, uint amount) public returns(bool sufficient) {
-		if (balances[msg.sender] < amount) return false;
-		balances[msg.sender] -= amount;
-		balances[receiver] += amount;
-		emit Transfer(msg.sender, receiver, amount);
-		return true;
-	}
-
-	function getBalance(address addr) public view returns(uint) {
-		return balances[addr];
-	}
 }
