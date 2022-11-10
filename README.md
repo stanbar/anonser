@@ -47,7 +47,7 @@ You can use two types of network: mainnet with lite-node or localnet with full-n
 # Components
 
 Client's app is responsible for:
-- Generating random keypair and random provisionId 
+- Generating random keypair and random provisionId https://www.npmjs.com/package/randombytes
 - Encoding publicKey and provisionId Generating QR code and downloading it as a printable label. https://www.npmjs.com/package/react-qr-code
 - Listening on Service Provider's smart contract events.
 - Fetching and decrypting the provision result from IPFS/Lotus network.
