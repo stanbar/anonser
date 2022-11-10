@@ -47,8 +47,8 @@ You can use two types of network: mainnet with lite-node or localnet with full-n
 # Components
 
 Client's app is responsible for:
-- Generating random keypair and random provisionId
-- Encoding publicKey and provisionId Generating QR code and downloading it as a printable label.
+- Generating random keypair and random provisionId 
+- Encoding publicKey and provisionId Generating QR code and downloading it as a printable label. https://www.npmjs.com/package/react-qr-code
 - Listening on Service Provider's smart contract events.
 - Fetching and decrypting the provision result from IPFS/Lotus network.
 
@@ -69,15 +69,12 @@ SP is responsible for:
 - Accepting the package with printed QR code label.
 - Sending 
 
-
-
 Client App
 - init create-react-app
 - add web3js https://web3js.readthedocs.io/en/v1.8.0/getting-started.html#adding-web3
 - connect to local-network where the smart contract is deployed.
 - user opens the app, there is a button with "Start new provision" and "Check provision status".
 - ... TODO
-
 
 Server App
 - Accept package
