@@ -7,12 +7,10 @@ import { Stack, Typography } from '@mui/material';
 import Html5QrcodePlugin from '../../Html5QrcodePlugin';
 
 function ServiceProvider() {
-    const [decodedResults, setDecodedResults] = useState<string>();
     const [address, setAddress] = useState<string>();
     const [provisionId, setProvisionId] = useState<string>();
-    const onNewScanResult = (decodedText: any, decodedResult: string) => {
-        console.log("App [result]", decodedResult);
-        const [address, provisionId] = decodedResult.split('||');
+    const onNewScanResult = (decodedText: string, decodedResult: string) => {
+        const [address, provisionId] = decodedText.split('||');
         setAddress(address);
         setProvisionId(provisionId);
     };
@@ -22,18 +20,20 @@ function ServiceProvider() {
             <Typography variant='h1'>
                 Accept a package
             </Typography>
+            <br />
+            <br />
             <Html5QrcodePlugin
-                    fps={10}
-                    qrbox={250}
-                    disableFlip={false}
-                    qrCodeSuccessCallback={onNewScanResult}
-                />
-                <Typography variant='body1'>
-                    Address: {address}
-                </Typography>
-                <Typography variant='body1'>
-                    ProvisionID: {provisionId}
-                </Typography>
+                fps={10}
+                qrbox={250}
+                disableFlip={false}
+                qrCodeSuccessCallback={onNewScanResult}
+            />
+            <Typography variant='body1'>
+                Address: {address}
+            </Typography>
+            <Typography variant='body1'>
+                ProvisionID: {provisionId}
+            </Typography>
         </Stack>
     );
 }
