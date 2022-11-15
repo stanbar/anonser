@@ -9,7 +9,7 @@ export default function Root() {
         <Container maxWidth="sm">
             <Box sx={{ my: 4 }}>
                 <Typography variant="h4" component="h1" gutterBottom>
-                   Anonser
+                   Anonymous services provisioning
                 </Typography>
                 <Outlet />
             </Box>

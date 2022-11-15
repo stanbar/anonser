@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-function App() {
+function Index() {
     return (
         <ul>
             <li>
@@ -17,4 +17,9 @@ function App() {
     );
 }
 
-export default App;
+export default Index;
+export { default as Root } from "./root";
+export { default as Client } from "./client";
+export { default as ClientNew } from "./client/new";
+export { default as ClientStatus } from "./client/status";
+export { default as ServiceProvider } from "./sp";
