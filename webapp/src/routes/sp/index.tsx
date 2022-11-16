@@ -1,41 +1,87 @@
-import { useState } from 'react';
-import QRCode from 'react-qr-code';
-import randomBytes from 'randombytes';
-import { web3 } from '../../ethereum';
-import { Web3Account } from 'web3-eth-accounts';
-import { Stack, Typography } from '@mui/material';
-import Html5QrcodePlugin from '../../Html5QrcodePlugin';
+import { Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
+import { useState, FC } from "react";
+import ServiceProviderAccept from "src/components/ServiceProviderAccept";
+import ServiceProviderPoD from "src/components/ServiceProviderPoD";
+import ServiceProviderSubmitResults from "src/components/ServiceProviderSubmitResults";
+import { Provision } from "../../Provision";
+import ServiceProviderPoP from "src/components/ServiceProviderPoP";
 
-function ServiceProvider() {
-    const [address, setAddress] = useState<string>();
-    const [provisionId, setProvisionId] = useState<string>();
-    const onNewScanResult = (decodedText: string, decodedResult: string) => {
-        const [address, provisionId] = decodedText.split('||');
-        setAddress(address);
-        setProvisionId(provisionId);
-    };
-
-    return (
-        <Stack>
-            <Typography variant='h1'>
-                Accept a package
-            </Typography>
-            <br />
-            <br />
-            <Html5QrcodePlugin
-                fps={10}
-                qrbox={250}
-                disableFlip={false}
-                qrCodeSuccessCallback={onNewScanResult}
-            />
-            <Typography variant='body1'>
-                Address: {address}
-            </Typography>
-            <Typography variant='body1'>
-                ProvisionID: {provisionId}
-            </Typography>
-        </Stack>
-    );
+export type StepperComponentProps = {
+    onNext: () => void;
+    onBack: () => void;
+    provision: Provision | null;
+    setProvision: (provision: Provision | null) => void;
 }
 
+type Step = {
+    label: string;
+    component: FC<StepperComponentProps>;
+    description: string;
+}
+
+const steps: Step[] = [
+    {
+        label: 'Scan QR code',
+        description: `Scan the QR code from the package you want to accept`,
+        component: (props) => (<ServiceProviderAccept {...props} />),
+    },
+    {
+        label: 'Proof of delivery',
+        description:
+            'Publish a proof of delivery to the blockchain. This will be used to verify the package was delivered.',
+        component: (props) => (<ServiceProviderPoD {...props} />),
+    },
+    {
+        label: 'Publish results',
+        description: 'Publish the encrypted results to the content-addressable network.',
+        component: (props) => (<ServiceProviderSubmitResults {...props} />),
+    },
+    {
+        label: 'Proof of provision',
+        description: `Publish a proof of provision to the blockchain. This will be used to verify the provision was completed in time.`,
+        component: (props) => (<ServiceProviderPoP {...props} />),
+    },
+];
+
+function ServiceProvider() {
+
+    const [provision, setProvision] = useState<Provision | null>(null);
+    const [activeStep, setActiveStep] = useState(0);
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+    };
+
+    console.log('activeStep', activeStep);
+    console.log('steps[activeStep]', steps[activeStep]);
+
+    return (
+        <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((step, index) => (
+                <Step key={step.label}>
+                    <StepLabel
+                        optional={
+                        activeStep === (steps.length-1) ? (
+                                <Typography variant="caption">Last step</Typography>
+                            ) : null
+                        }
+                    >
+                        {step.label}
+                    </StepLabel>
+                    <StepContent>
+                        <Typography>{step.description}</Typography>
+                        {index == activeStep && steps[activeStep].component({ provision, setProvision, onNext: handleNext, onBack: handleBack })}
+                    </StepContent>
+                </Step>
+            ))}
+        </Stepper>
+    )
+}
 export default ServiceProvider;
