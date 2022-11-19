@@ -57,6 +57,7 @@ module.exports = {
    * $ truffle test --network <network-name>
    */
 
+  contracts_build_directory: "../webapp/src/contracts",
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
@@ -65,7 +66,7 @@ module.exports = {
     // options below to some value.
     //
     development: {
-     host: "127.0.0.1",     // Localhost (default: none)
+      host: "anton.gbaranski.com",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },

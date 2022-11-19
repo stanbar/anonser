@@ -20,10 +20,7 @@ contract AnonSer {
 
   // Should the provisionId be of service provider and a clinet?
   // We don't want to allow a client to mess with someone's service
-  function proofOfDelivery(address clientPubKey, bool didPaidWithCash) public returns (bytes32 provisionId) {
-
-    provisionId = keccak256(abi.encodePacked(clientPubKey, blockhash(block.number - 1)));
-
+  function proofOfDelivery(address clientPubKey, bytes32 provisionId, bool didPaidWithCash) public {
     provisions[clientPubKey][provisionId] = Provision({
       exist: true,
       issueTime: block.timestamp,
