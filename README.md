@@ -17,7 +17,13 @@ Follow the installation `https://github.com/textileio/powergate#localnet-mode`
 
 https://github.com/trufflesuite/ganache/tree/master#docker
 
-1. start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest --accounts 10 --debug`
+1. start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
+
+### Deploy smart contract
+
+1. Go to smartcontracts directory `cd smartcontracts`.
+2. Connect truffle console connecting to ganache blockchain `truffle console`.
+3. Deploy the smartcontracts `migrate --project development`.
  
 # Flow
 
