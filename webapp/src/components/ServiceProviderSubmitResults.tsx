@@ -2,9 +2,11 @@ import { Stack, Typography } from '@mui/material';
 import { StepperComponentProps } from 'src/routes/sp';
 import FileUpload from './FileUpload';
 import { useState } from 'react';
+import { usePow } from 'src/contexts/Powergate/PowContext';
 
 
 function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack }: StepperComponentProps) {
+    const pow = usePow();
 
     const [newUserInfo, setNewUserInfo] = useState({
         profileImages: []

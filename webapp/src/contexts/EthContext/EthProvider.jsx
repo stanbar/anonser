@@ -9,7 +9,7 @@ function EthProvider({ children }) {
   const init = useCallback(
     async artifact => {
       if (artifact) {
-        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        const web3 = new Web3(Web3.givenProvider || `ws://${process.env.REACT_APP_ETHEREUM_NODE_ADDRESS}`);
         console.log("web3", web3);
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();

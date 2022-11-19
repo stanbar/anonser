@@ -15,6 +15,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { EthProvider } from './contexts/EthContext';
+import { PowProvider } from './contexts/Powergate/PowContext';
 
 
 const router = createBrowserRouter([
@@ -52,10 +53,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <EthProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <PowProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </PowProvider>
     </EthProvider>
   </React.StrictMode>
 );
