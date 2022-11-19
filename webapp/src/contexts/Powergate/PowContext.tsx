@@ -11,6 +11,9 @@ if (!process.env.REACT_APP_POWERGATE_USER_TOKEN) {
     throw new Error("REACT_APP_POWERGATE_USER_TOKEN is not set")
 }
 
+console.log(process.env.REACT_APP_POWERGATE_USER_TOKEN)
+
+pow.setAdminToken(process.env.REACT_APP_POWERGATE_USER_TOKEN);
 pow.setToken(process.env.REACT_APP_POWERGATE_USER_TOKEN);
 
 const PowContext = createContext<Pow>(
