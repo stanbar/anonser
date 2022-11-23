@@ -1,13 +1,14 @@
-import { useReducer, useCallback, useEffect } from "react";
+import { useReducer, useCallback, useEffect, Reducer } from "react";
 import Web3 from "web3";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
+
 
 function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = useCallback(
-    async artifact => {
+    async (artifact) => {
       if (artifact) {
         const web3 = new Web3(Web3.givenProvider || `ws://${process.env.REACT_APP_ETHEREUM_NODE_ADDRESS}`);
         console.log("web3", web3);
