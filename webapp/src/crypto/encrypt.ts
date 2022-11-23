@@ -3,11 +3,27 @@ import { encrypt as _encrypt, decrypt as _decrypt } from '@futuretense/secret-bo
 
 const secp256k1 = new ec('secp256k1');
 
-type Hex = string
+const normaliseHex = (hex: string): string => {
+    if (hex.startsWith('0x')) {
+        return hex.slice(2)
+    } 
+    return hex
+}
 
-export const deriveKey = (privateKey: string, publicKey: string): Buffer => {
+const deriveKey = (privateKey: string, publicKey: string): Buffer => {
+    privateKey = normaliseHex(privateKey)
+    publicKey = normaliseHex(publicKey)
+
+    if(Buffer.from(privateKey, 'hex').length !== 20) {
+        console.error('Invalid private key, it should be 20 bytes long', Buffer.from(privateKey, 'hex').length)
+    }
+    if(Buffer.from(publicKey, 'hex').length !== 33) {
+        console.error('Invalid public key, it should be 33 bytes long', Buffer.from(publicKey, 'hex').length)
+    }
+
     const receiver = secp256k1.keyFromPublic(publicKey, 'hex')
-    return secp256k1.keyFromPrivate(privateKey).derive(receiver.getPublic()).toBuffer()
+    const derived = secp256k1.keyFromPrivate(privateKey).derive(receiver.getPublic())
+    return Buffer.from(derived.toString('hex'), 'hex')
 }
 
 export const encrypt = async (msg: Uint8Array, privateKey: string, publicKey: string): Promise<Uint8Array> => {
