@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
-import randomBytes from 'randombytes';
 import { Container } from '@mui/system';
-import { useEth } from 'src/contexts/EthContext';
+import { genKeypair, rand } from 'src/crypto';
 
 function ClientNew() {
-    const eth = useEth();
+    const [keypair, setKeypair] = useState(genKeypair());
+    const [provisionId, setProvisionId] = useState<Buffer>(rand(32));
 
-    const [keypair, setKeypair] = useState(eth.state.web3.eth.accounts.create());
-    const [provisionId, setProvisionId] = useState<string>(eth.state.web3.utils.randomHex(32));
-
-    const value = keypair?.address + '||' + provisionId;
+    const value = '0x'+keypair?.getPublic(true, 'hex') + '||' + '0x'+provisionId.toString('hex');
 
     return (
         <Container>

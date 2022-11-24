@@ -1,23 +1,27 @@
 import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import Html5QrcodePlugin from '../Html5QrcodePlugin';
-import { Provision } from '../Provision';
 import { StepperComponentProps } from '../routes/sp';
 
-function ServiceProviderAccept({ provision, setProvision, onNext, onBack }: StepperComponentProps) {
+function ServiceProviderAccept({ setProvision }: StepperComponentProps) {
+    const [clientPubKey, setClientPubKey] = useState<string|null>(null);
+    const [provisionId, setProvisionId] = useState<string|null>(null);
 
     const onNewScanResult = (decodedText: string, decodedResult: string) => {
-        const [address, provisionId] = decodedText.split('||');
-        setProvision(new Provision(address, provisionId));
+        const [clientPubKey, provisionId] = decodedText.split('||');
+        setClientPubKey(clientPubKey);
+        setProvisionId(provisionId);
     };
 
     const acceptPackage = () => {
-        console.log('acceptPackage');
-        onNext();
+        if (provisionId && clientPubKey) {
+            setProvision({clientPubKey, provisionId});
+        }
     };
 
     return (
         <Stack>
-            {!provision && (
+            {(!clientPubKey || !provisionId) && (
                 <Html5QrcodePlugin
                     fps={10}
                     qrbox={250}
@@ -25,16 +29,16 @@ function ServiceProviderAccept({ provision, setProvision, onNext, onBack }: Step
                     qrCodeSuccessCallback={onNewScanResult}
                 />
             )}
-            {provision && (
+            {(clientPubKey && provisionId) && (
                 <>
                     <Typography variant='body1'>
-                        Client public key: {provision.clientPubKey}
+                        Client public key: {clientPubKey}
                     </Typography>
                     <Typography variant='body1'>
-                        ProvisionID: {provision.provisionId}
+                        ProvisionID: {provisionId}
                     </Typography>
                     <ButtonGroup>
-                        <Button onClick={() => setProvision(null)} variant="outlined">
+                        <Button onClick={() => setProvision(undefined)} variant="outlined">
                             Scan again
                         </Button>
                         <Button onClick={() => acceptPackage()} variant="contained">

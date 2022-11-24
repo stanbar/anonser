@@ -3,21 +3,25 @@ import { StepperComponentProps } from 'src/routes/sp';
 import { useEffect, useState } from 'react';
 import { usePow } from 'src/contexts/Powergate/PowContext';
 import { powTypes } from '@textile/powergate-client';
+import { encrypt } from 'src/crypto/encrypt';
+import { useEth } from 'src/contexts/EthContext';
+import { Provision, upgradeToUploaded } from 'src/Provision';
 
 
-function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack }: StepperComponentProps) {
+function ServiceProviderSubmitResults({ provision, setProvision }: StepperComponentProps) {
     const pow = usePow();
+    const { state: { contract, accounts } } = useEth();
     const [loadedBuffer, setLoadedBuffer] = useState<ArrayBuffer | null | undefined | string>(null)
-    const [cid, setCid] = useState<string|null>(null)
-    const [jobId, setJobId] = useState<string|null>(null)
-    const [jobStatus, setJobStatus] = useState<string|null>(null)
-    const [jobLogEvent, setJobLogEvent] = useState<string|null>(null)
-    const [dealId, setDealID] = useState<string|null>(null)
-    const [cidInfo, setCidInfo] = useState<string|null>(null)
+    const [encryptedBuffer, setEncryptedBuffer] = useState<Uint8Array | null>(null)
+    const [cid, setCid] = useState<string | null>(null)
+    const [jobId, setJobId] = useState<string | null>(null)
+    const [jobStatus, setJobStatus] = useState<string | null>(null)
+    const [jobLogEvent, setJobLogEvent] = useState<string | null>(null)
+    const [cidInfo, setCidInfo] = useState<powTypes.CidInfo.AsObject | undefined>(undefined)
 
     useEffect(() => {
         let jobsCancel: any = null;
-        if (jobId){
+        if (jobId && provision) {
             // watch the job status to see the storage process progressing
             jobsCancel = pow.storageJobs.watch((job) => {
                 if (job.status === powTypes.JobStatus.JOB_STATUS_CANCELED) {
@@ -33,6 +37,7 @@ function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack 
 
         let logsCancel: any = null
         if (cid) {
+            getCidInfo(cid)
             // watch all log events for a cid
             logsCancel = pow.data.watchLogs((logEvent) => {
                 console.log(`received event for cid ${logEvent.cid}`, logEvent)
@@ -46,33 +51,64 @@ function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack 
         }
     }, [jobId, cid, pow.data, pow.storageJobs])
 
+    useEffect(() => {
+        if (provision && cidInfo){
+            const proposal = cidInfo?.currentStorageInfo?.cold?.filecoin?.proposalsList[0]
+            const dealId = proposal?.dealId
+            const miner = proposal?.miner
+            if (dealId && miner) {
+                setProvision(upgradeToUploaded(provision, cidInfo.cid, dealId, miner));
+            }
+        }
+    }, [cidInfo])
+
+    useEffect(() => {
+        if (provision) {
+            getProvisionFromSmartContract(provision)
+                .then((result: any) => {
+                    console.log(result)
+                    if (result.exist && result.cid && result.dealId) {
+                        const delivered = upgradeToUploaded(provision, result.cid, result.dealId, result.miner);
+                        console.log({delivered})
+
+                        setProvision(delivered);
+                    } else {
+                        console.log('no provision found on blockchain')
+                    }
+                })
+        }
+    }, [provision])
+
 
     if (!provision) {
-        onBack()
         return (<div>No provision</div>);
     }
 
+    const getProvisionFromSmartContract = (provision: Provision) =>
+        contract.methods.provisions(provision.clientPubKey, provision.provisionId).call();
+
+    const encryptBuffer = async () => {
+        if (loadedBuffer && typeof loadedBuffer === "object") {
+            const encrypted = await encrypt(new Uint8Array(loadedBuffer), accounts[0], provision.clientPubKey)
+            setEncryptedBuffer(encrypted)
+        }
+    }
+
     const publishResult = async () => {
-        if(loadedBuffer && typeof loadedBuffer === "object") {
-            const { cid } = await pow.data.stage(loadedBuffer as Uint8Array)
+        if (encryptedBuffer && typeof encryptedBuffer === "object") {
+            const { cid } = await pow.data.stage(encryptedBuffer as Uint8Array)
             setCid(cid);
             const { jobId } = await pow.storageConfig.apply(cid, { override: true, })
             setJobId(jobId);
         }
     }
 
-    const getCidInfo = async () => {
+    const getCidInfo = async (cid: string|null) => {
         if (cid) {
             const { cidInfo } = await pow.data.cidInfo(cid)
-            setCidInfo(JSON.stringify(cidInfo, null, 2));
-            const dealRecords = await pow.deals.storageDealRecords({ includeFinal: true })
-            console.log("deal records", dealRecords)
-            dealRecords.recordsList.forEach((record) => {
-                console.log("record", record)
-            })
+            setCidInfo(cidInfo);
         }
     }
-
 
     const onChangeHandler = async (event: any) => {
         const file = event.target.files[0];
@@ -80,11 +116,12 @@ function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack 
             const buffer = await readArrayBuffer(file)
             setLoadedBuffer(buffer)
             console.log("loaded buffer", buffer)
-        } catch(e){
+        } catch (e) {
             console.error(e)
         }
     }
-    const readArrayBuffer = async (file: File): Promise<ArrayBuffer|null|undefined|string> =>
+
+    const readArrayBuffer = async (file: File): Promise<ArrayBuffer | null | undefined | string> =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (e) => { resolve(e.target?.result) };
@@ -103,13 +140,15 @@ function ServiceProviderSubmitResults({ provision, setProvision, onNext, onBack 
                     ProvisionID: {provision.provisionId}
                 </Typography>
                 <input type="file" name="file" onChange={onChangeHandler} />
-                {loadedBuffer && <Button onClick={publishResult}>Publish result</Button>}
+
+                {loadedBuffer && <Button onClick={encryptBuffer}>Encrypt</Button>}
+                {encryptedBuffer && <Typography>Encrypted length: {encryptedBuffer.length}</Typography>}
+
+                {encryptedBuffer && <Button onClick={publishResult}>Publish encrypted result</Button>}
                 {cid && <Typography>cid: {cid}</Typography>}
                 {jobId && <Typography>jobId: {jobId}</Typography>}
                 {jobLogEvent && <Typography>jobLogEvent: {jobLogEvent}</Typography>}
                 {jobStatus && <Typography>jobStatus: {jobStatus}</Typography>}
-                {cid && <Button onClick={getCidInfo}>Get cid info</Button>}
-                {cidInfo && <pre>cid info: {cidInfo}</pre>}
             </>
         </Stack>
     );

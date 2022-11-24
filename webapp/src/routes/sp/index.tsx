@@ -1,16 +1,14 @@
 import { Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import ServiceProviderAccept from "src/components/ServiceProviderAccept";
 import ServiceProviderPoD from "src/components/ServiceProviderPoD";
 import ServiceProviderSubmitResults from "src/components/ServiceProviderSubmitResults";
-import { Provision } from "../../Provision";
+import { Provision, getStatus } from "../../Provision";
 import ServiceProviderPoP from "src/components/ServiceProviderPoP";
 
 export type StepperComponentProps = {
-    onNext: () => void;
-    onBack: () => void;
-    provision: Provision | null;
-    setProvision: (provision: Provision | null) => void;
+    provision: Provision | undefined;
+    setProvision: (provision: Provision | undefined) => void;
 }
 
 type Step = {
@@ -41,23 +39,39 @@ const steps: Step[] = [
         description: `Publish a proof of provision to the blockchain. This will be used to verify the provision was completed in time.`,
         component: (props) => (<ServiceProviderPoP {...props} />),
     },
+    {
+        label: 'Done',
+        description: `Provision completed`,
+        component: (props) => (<Typography>Provision finished</Typography>),
+    },
 ];
 
 function ServiceProvider() {
-
-    const [provision, setProvision] = useState<Provision | null>(null);
+    const [provision, setProvision] = useState<Provision | undefined>();
     const [activeStep, setActiveStep] = useState(0);
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+    useEffect(() => {
+        if (!provision) {
+            console.log("provision is null");
+            setActiveStep(0);
+        } else {
+            const status = getStatus(provision);
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+            console.log("provision status is now: ", status);
+            if (status === 'Unknown') {
+                setActiveStep(0);
+            } else if (status === 'Prepared') {
+                setActiveStep(1);
+            } else if (status === 'Delivered') {
+                setActiveStep(2);
+            } else if (status === 'Uploaded') {
+                setActiveStep(3);
+            }else if (status === 'Provisioned') {
+                setActiveStep(4);
+            }
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
+        }
+    }, [provision]);
+
 
     console.log('activeStep', activeStep);
     console.log('steps[activeStep]', steps[activeStep]);
@@ -68,7 +82,7 @@ function ServiceProvider() {
                 <Step key={step.label}>
                     <StepLabel
                         optional={
-                        activeStep === (steps.length-1) ? (
+                            activeStep === (steps.length - 1) ? (
                                 <Typography variant="caption">Last step</Typography>
                             ) : null
                         }
@@ -77,7 +91,7 @@ function ServiceProvider() {
                     </StepLabel>
                     <StepContent>
                         <Typography>{step.description}</Typography>
-                        {index == activeStep && steps[activeStep].component({ provision, setProvision, onNext: handleNext, onBack: handleBack })}
+                        {index == activeStep && steps[activeStep].component({ provision, setProvision })}
                     </StepContent>
                 </Step>
             ))}

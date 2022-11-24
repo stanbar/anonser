@@ -1,80 +1,58 @@
 import { Button, ButtonGroup, Stack, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useEth } from 'src/contexts/EthContext';
-import { setSyntheticLeadingComments } from 'typescript';
-import Html5QrcodePlugin from '../Html5QrcodePlugin';
 import { Provision } from '../Provision';
 import { StepperComponentProps } from '../routes/sp';
+import { upgradeToProvisioned } from "../Provision";
 
-function ServiceProviderPoP({ provision, setProvision, onNext, onBack }: StepperComponentProps) {
-    const [inputValue, setInputValue] = useState("");
-    const [dealId, setDealId] = useState("");
-    const [cid, setCid] = useState("");
+function ServiceProviderPoP({ provision, setProvision }: StepperComponentProps) {
     const { state: { contract, accounts } } = useEth();
 
-    const proofOfProvision = async () => {
-        if (inputValue === "") {
-            alert("Please enter a value to write.");
-            return;
+    const getProvisionFromSmartContract = (provision: Provision) =>
+        contract.methods.provisions(provision.clientPubKey, provision.provisionId).call();
+
+    useEffect(() => {
+        if (provision) {
+            getProvisionFromSmartContract(provision)
+                .then((result: any) => {
+                    if (result.exist && result.cid && result.dealId) {
+                        const delivered = upgradeToProvisioned(provision);
+                        setProvision(delivered);
+                    }
+                })
         }
-        const newValue = parseInt(inputValue);
-        await contract.methods.proofOfProvision(newValue).send({ from: accounts[0] });
+    }, [provision])
+
+    const proofOfProvision = async () => {
+        if (provision) {
+            const result = await contract.methods.proofOfProvision(provision.clientPubKey, provision.provisionId, provision.cid, provision.dealId).send({ from: accounts[0] });
+            console.log({ result })
+            const provisionFromBc = result.events.ProofOfProvision.returnValues;
+            if (provisionFromBc.exist && provisionFromBc.cid && provisionFromBc.dealId) {
+                setProvision(upgradeToProvisioned(provision))
+            }
+        }
     }
 
     if (!provision) {
-        onBack()
         return (<div>No provision</div>);
+    } else {
+        return (
+            <Stack>
+                <Typography variant='body1'>
+                    Client public key: {provision.clientPubKey}
+                </Typography>
+                <Typography variant='body1'>
+                    ProvisionID: {provision.provisionId}
+                </Typography>
+                <ButtonGroup>
+                    <Button onClick={() => proofOfProvision()} variant="outlined">
+                        Submit
+                    </Button>
+                </ButtonGroup>
+            </Stack>
+        )
     }
-    const onNewScanResult = (decodedText: string, decodedResult: string) => {
-        const [address, provisionId] = decodedText.split('||');
-        setProvision(new Provision(address, provisionId));
-    };
-
-    const acceptPackage = () => {
-        console.log('acceptPackage');
-        onNext();
-    };
-
-    return (
-        <Stack>
-            {!provision && (
-                <Html5QrcodePlugin
-                    fps={10}
-                    qrbox={250}
-                    disableFlip={false}
-                    qrCodeSuccessCallback={onNewScanResult}
-                />
-            )}
-            {provision && (
-                <>
-                    <Typography variant='body1'>
-                        Client public key: {provision.clientPubKey}
-                    </Typography>
-                    <Typography variant='body1'>
-                        ProvisionID: {provision.provisionId}
-                    </Typography>
-
-                    <TextField
-                        id="outlined-name"
-                        label="CID"
-                        value={cid}
-                        onChange={(e)=> setCid(e.target.value)}
-                    />
-                    <TextField
-                        id="outlined-name"
-                        label="Deal ID"
-                        value={dealId}
-                        onChange={(e) => setDealId(e.target.value)}
-                    />
-                    <ButtonGroup>
-                        <Button onClick={() => proofOfProvision()} variant="outlined">
-                            Submit
-                        </Button>
-                    </ButtonGroup>
-                </>
-            )}
-        </Stack>
-    );
 }
 
 export default ServiceProviderPoP;
