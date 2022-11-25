@@ -7,9 +7,10 @@ contract AnonSer {
         uint256 paymentDeadlineTime;
         uint256 provisionDeadlineTime;
         bool paidWithCash;
-        string dealId;
         string cid;
         bool exist;
+        uint256 dealId;
+        string minerId;
     }
 
     mapping(bytes => mapping(bytes32 => Provision)) public provisions;
@@ -36,8 +37,9 @@ contract AnonSer {
             paymentDeadlineTime: block.timestamp + 1 days,
             provisionDeadlineTime: block.timestamp + 8 days,
             paidWithCash: didPaidWithCash,
-            dealId: "",
-            cid: ""
+            dealId: 0,
+            cid: "",
+            minerId: ""
             // should we put here a client's signature?
         });
         provisions[clientPubKey][provisionId] = provision;
@@ -55,14 +57,16 @@ contract AnonSer {
         bytes indexed clientPubKey,
         bytes32 indexed provisionId,
         string cid,
-        string dealId
+        uint256 dealId,
+        string minerId
     );
 
     function proofOfProvision(
         bytes memory clientPubKey,
         bytes32 provisionId,
         string memory cid,
-        string memory dealId
+        uint256 dealId,
+        string memory minerId
     ) public {
         Provision storage provision = provisions[clientPubKey][provisionId];
         if (!provision.exist) {
@@ -71,7 +75,8 @@ contract AnonSer {
 
         provision.cid = cid;
         provision.dealId = dealId;
-        emit ProofOfProvision(clientPubKey, provisionId, cid, dealId);
+        provision.minerId = minerId;
+        emit ProofOfProvision(clientPubKey, provisionId, cid, dealId, minerId);
     }
 
     function getProvision(bytes memory clientPubKey, bytes32 provisionId)

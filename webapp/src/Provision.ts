@@ -8,7 +8,7 @@ export interface Provision {
     provisioned?: boolean;
     dealId?: number;
     cid?: string;
-    miner?: string;
+    minerId?: string;
 }
 
 
@@ -22,20 +22,20 @@ export function upgradeToDelivered(provision: Provision, issueTime: number, paym
     }
 }
 
-export function upgradeToUploaded(provision: Provision, cid: string, dealId: number, miner: string): Provision {
+export function upgradeToUploaded(provision: Provision, cid: string, dealId: number, minerId: string): Provision {
     if (getStatus(provision) === "Delivered") {
         return {
             ...provision,
             cid,
             dealId,
-            miner
+            minerId
         }
-    } else { 
+    } else {
         return {
             ...provision,
             cid,
             dealId,
-            miner
+            minerId
         }
     }
 }
@@ -55,10 +55,10 @@ export function upgradeToProvisioned(provision: Provision): Provision {
 
 export function getStatus(provision: Provision): "Prepared" | "Delivered" | "Uploaded" | "Unknown" | "Provisioned" {
     console.log(provision)
-    if (provision.clientPubKey && provision.provisionId) {
+    if (provision.clientPubKey.length == 68 && provision.provisionId.length == 66) {
         if (provision.issueTime && provision.paymentDeadlineTime && provision.provisionDeadlineTime) {
-            if (provision.dealId && provision.cid) {
-                if(provision.provisioned){
+            if (provision.minerId && provision.dealId && provision.cid?.length == 46) {
+                if (provision.provisioned) {
                     return "Provisioned";
                 } else {
                     return "Uploaded";

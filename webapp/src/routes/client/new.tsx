@@ -2,6 +2,7 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Container } from '@mui/system';
 import { genKeypair, rand } from 'src/crypto';
+import { Typography } from '@mui/material';
 
 function ClientNew() {
     const [keypair, setKeypair] = useState(genKeypair());
@@ -22,6 +23,8 @@ function ClientNew() {
                     viewBox={`0 0 256 256`}
                 />
             </div>
+            <Typography>Private key: 0x{keypair.getPrivate("hex")}</Typography>
+            
         </Container>
     );
 }

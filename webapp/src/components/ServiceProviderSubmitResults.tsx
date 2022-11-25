@@ -5,7 +5,7 @@ import { usePow } from 'src/contexts/Powergate/PowContext';
 import { powTypes } from '@textile/powergate-client';
 import { encrypt } from 'src/crypto/encrypt';
 import { useEth } from 'src/contexts/EthContext';
-import { Provision, upgradeToUploaded } from 'src/Provision';
+import { getStatus, Provision, upgradeToUploaded } from 'src/Provision';
 
 
 function ServiceProviderSubmitResults({ provision, setProvision }: StepperComponentProps) {
@@ -52,12 +52,18 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
     }, [jobId, cid, pow.data, pow.storageJobs])
 
     useEffect(() => {
-        if (provision && cidInfo){
+        if (provision && cidInfo) {
             const proposal = cidInfo?.currentStorageInfo?.cold?.filecoin?.proposalsList[0]
             const dealId = proposal?.dealId
             const miner = proposal?.miner
+            console.log("proposal", proposal)
+            console.log("dealId", dealId)
+            console.log("miner", miner)
+            console.log("cid", cidInfo.cid)
             if (dealId && miner) {
-                setProvision(upgradeToUploaded(provision, cidInfo.cid, dealId, miner));
+                const upgraded = upgradeToUploaded(provision, cidInfo.cid, dealId, miner)
+                console.log("upgraded", upgraded)
+                setProvision(upgraded);
             }
         }
     }, [cidInfo])
@@ -66,14 +72,14 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
         if (provision) {
             getProvisionFromSmartContract(provision)
                 .then((result: any) => {
-                    console.log(result)
-                    if (result.exist && result.cid && result.dealId) {
+                    if (result.miner && result.dealId && result?.cid?.length == 46){
                         const delivered = upgradeToUploaded(provision, result.cid, result.dealId, result.miner);
-                        console.log({delivered})
-
+                        console.log({ delivered })
                         setProvision(delivered);
-                    } else {
+                    } else if (!result) {
                         console.log('no provision found on blockchain')
+                    } else {
+                        console.log('unknown structure fetched from blockchain', result)
                     }
                 })
         }
@@ -103,7 +109,7 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
         }
     }
 
-    const getCidInfo = async (cid: string|null) => {
+    const getCidInfo = async (cid: string | null) => {
         if (cid) {
             const { cidInfo } = await pow.data.cidInfo(cid)
             setCidInfo(cidInfo);
@@ -149,6 +155,7 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
                 {jobId && <Typography>jobId: {jobId}</Typography>}
                 {jobLogEvent && <Typography>jobLogEvent: {jobLogEvent}</Typography>}
                 {jobStatus && <Typography>jobStatus: {jobStatus}</Typography>}
+                {cid && <Button onClick={()=>getCidInfo(cid)}>Get CID Info</Button>}
             </>
         </Stack>
     );

@@ -18,7 +18,9 @@
     "@types/react-dom": "^18.0.8",
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
+    "crypto-js": "^4.1.1",
     "elliptic": "^6.5.4",
+    "file-saver": "^2.0.5",
     "html5-qrcode": "^2.3.0",
     "randombytes": "^2.1.0",
     "react": "^18.2.0",
@@ -56,7 +58,9 @@
     ]
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/elliptic": "^6.4.14",
+    "@types/file-saver": "^2.0.5",
     "@types/randombytes": "^2.0.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",

@@ -15,22 +15,27 @@ function ServiceProviderPoP({ provision, setProvision }: StepperComponentProps) 
         if (provision) {
             getProvisionFromSmartContract(provision)
                 .then((result: any) => {
-                    if (result.exist && result.cid && result.dealId) {
+
+                    if (result.miner && result.dealId && result?.cid?.length == 46){
                         const delivered = upgradeToProvisioned(provision);
                         setProvision(delivered);
+                    } else {
+                        console.log('unknown structure fetched from blockchain', result)
                     }
                 })
         }
     }, [provision])
 
     const proofOfProvision = async () => {
-        if (provision) {
-            const result = await contract.methods.proofOfProvision(provision.clientPubKey, provision.provisionId, provision.cid, provision.dealId).send({ from: accounts[0] });
-            console.log({ result })
+        if (provision && provision.minerId && provision.dealId && provision?.cid?.length == 46){
+            const result = await contract.methods.proofOfProvision(provision.clientPubKey, provision.provisionId, provision.cid, provision.dealId, provision.minerId).send({ from: accounts[0] });
+            console.log({ result, provision })
             const provisionFromBc = result.events.ProofOfProvision.returnValues;
-            if (provisionFromBc.exist && provisionFromBc.cid && provisionFromBc.dealId) {
+            if (provisionFromBc.cid && provisionFromBc.dealId && provisionFromBc.dealId) {
                 setProvision(upgradeToProvisioned(provision))
             }
+        } else {
+            console.log("Unknown structure", provision)
         }
     }
 
