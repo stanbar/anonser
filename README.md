@@ -6,18 +6,19 @@
 
 Follow the installation `https://github.com/textileio/powergate#localnet-mode`
 
-### Install Monero testnet
+### Install Ganache — Ethereum development blockchain
+
+https://github.com/trufflesuite/ganache/tree/master#docker
+
+1. Start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
+
+### Install Monero
 
 1. Download and install Monero CLI wallet binaries: https://www.getmonero.org/downloads/  
 2. Compile and install Monero (libs are needed for xmrblocks) following https://github.com/moneroexamples/monero-compilation
 3. Compile and install xmrblocs—Monero block exploler—following https://github.com/moneroexamples/onion-monero-blockchain-explorer
 4. Use `monero-wallet-cli` to interact with daemon https://www.getmonero.org/resources/user-guides/monero-wallet-cli.html
 
-### Install Ganache — Ethereum development blockchain
-
-https://github.com/trufflesuite/ganache/tree/master#docker
-
-1. Start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
 
 ### Deploy smart contract
 
@@ -30,7 +31,6 @@ https://github.com/trufflesuite/ganache/tree/master#docker
 1. Go to webapp directory `cd webapp`.
 2. Start an npm server `npm start`.
 
- 
 # Flow
 
 1. Client opens the web app. The app generate keypair in DHKE complaint way and a random provisionId.
