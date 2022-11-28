@@ -1,5 +1,6 @@
 import { ec } from 'elliptic'
 import { encrypt as _encrypt, decrypt as _decrypt } from '@futuretense/secret-box'
+import CryptoJS from 'crypto-js';
 
 const secp256k1 = new ec('secp256k1');
 
@@ -34,12 +35,23 @@ export const deriveKey = (privateKey: string, publicKey: string): Buffer => {
     return key
 }
 
-export const encrypt = async (msg: Uint8Array, privateKey: string, publicKey: string): Promise<Uint8Array> => {
+export const encrypt = async (msg: Uint8Array| string, iv: Uint8Array, privateKey: string, publicKey: string): Promise<string> => {
     const key = deriveKey(privateKey, publicKey)
-    return _encrypt(msg, key, null, false)
+
+    if (msg instanceof Uint8Array) {
+        msg = Buffer.from(msg.slice(0,16)).toString('hex')
+    }
+
+    return CryptoJS.AES.encrypt(msg, key.toString("utf-8")).toString()
 }
 
-export const decrypt = async (msg: Uint8Array, privateKey: string, publicKey: string): Promise<Uint8Array> => {
+export const decrypt = async (msg: Uint8Array | string, iv: Uint8Array, privateKey: string, publicKey: string): Promise<string> => {
     const key = deriveKey(privateKey, publicKey)
-    return _decrypt(msg, key, null, false)
+
+    if (msg instanceof Uint8Array) {
+        msg = Buffer.from(msg.slice(0,16)).toString('hex')
+    }
+
+    const decrypted = CryptoJS.AES.decrypt(msg, key.toString("utf8"))
+    return decrypted.toString(CryptoJS.enc.Utf8)
 }
