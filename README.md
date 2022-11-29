@@ -13,15 +13,13 @@ https://github.com/trufflesuite/ganache/tree/master#docker
 1. Start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
 
 ### Install Monero
-From https://monero.stackexchange.com/a/9869/14294
 
 1. Download and install Monero CLI wallet binaries: https://www.getmonero.org/downloads/  
 2. Use `monero-wallet-cli` to interact with daemon https://www.getmonero.org/resources/user-guides/monero-wallet-cli.html
 
 Start 2 nodes of a stagenet which only like talking to each other:
 ```
-monerod --stagenet --no-igd --hide-my-port --data-dir node1 --p2p-bind-ip 127.0.0.1 --p2p-bind-port 48080 --rpc-bind-port 48081 --zmq-rpc-bind-port 48082 --add-exclusive-node 127.0.0.1:38080
-monerod --stagenet --no-igd --hide-my-port --data-dir node2 --p2p-bind-ip 127.0.0.1 --rpc-bind-ip 0.0.0.0 --confirm-external-bind --add-exclusive-node 127.0.0.1:48080
+monerod --stagenet
 ```
 
 Then start client's cli wallet on the same machine:
