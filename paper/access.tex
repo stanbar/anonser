@@ -630,6 +630,91 @@ Symbolically:
 \mathrm{result} \gets \mathrm{D}_{\mathrm{key}}(\mathrm{download}(\mathrm{cid}))
 \]
 
+\section{Experiments}\label{sec:experiments}
+
+\subsection*{Setup}
+
+We have developed a prototype of our protocol using the following technologies:
+
+\begin{itemize}
+  \item{Anonymous payments} — we use the Monero blockchain \cite{monero-blockchain}.
+  \item{Storage netowork} — we use the Powergate, which is a wrapper around Filecoin and IPFS \cite{ipfs}.
+  \item{Message board} — we use the Ethereum blockchain \cite{ethereum-blockchain}; concretely, Truffle Ganache and Solidity language.
+  \item{Customer and SP} — we create client-side web application (webapp) using React for UI, web3.js for interaction with Ethereum, and crypto-js for encryption. We use MetaMask browser extension for signing and submiting transactions to Ethereum's node. We use `monerod` and `monero-wallet-cli' command-line tools for interacting with Monero blockchain.
+\end{itemize}
+
+The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
+
+We developed and tested our prototype in the following environment:
+
+\begin{itemize}
+  \item{OS} — Arch Linux 5.11.8
+  \item{Docker} — 20.10.5
+  \item{CPU} — Intel(R) Core(TM) i7-4790 (8) 4.00~GHz
+  \item{RAM} — 16 GB DDR3
+  \item{Storage} — Samsung PM85 256~GB SSD
+
+  \item{monerod and monero-wallet-cli} — v0.18.1.2-release
+  \item{Powergate} — v0.1.6 // get the version from `docker ps`
+  \item{Ganache} — v7.5.0
+  \item{Solidity} — v0.8.17
+  \item{ReactJS} — v18.0.25
+  \item{web3.js} — v1.8.1
+  \item{crypto-js} — v4.1.1
+\end{itemize}
+
+For simplicity, all components run on one, mentioned above, physical machine; and all processes are managed by Docker. 
+
+Moreover, Powergate (storage network) is configured to use local Filecoin and IPFS networks.
+For Ethereum blockchain we use Truffle Ganache, which is a local Ethereum blockchain for development and testing purposes. 
+Monero is configured to use the public stage network.
+
+\subsection*{Experiments}
+
+\paragraph{Preparation}
+
+Both customer and SP create a Monero wallets using `monero-wallet-cli' command-line tool.
+
+Service provider deploys the smart contract using the `truffle migrate --network development` command, which deploys the smart contract to the local Ethereum blockchain. The webapp is configured to use the latest deployed smart contract address.
+
+Customer get some testing funds using \url{https://community.rino.io/faucet/stagenet/} faucet service.
+
+Next, the customer enable per-transaction proof generation by setting `set store-tx-info 1` for his wallet.  The proof generation is required to verify the payment in case of dispute.
+
+At this point both the customer and the SP are ready to start the protocol.
+
+\paragraph{Experiment}
+
+Service Provider (SP) and Customer (C) are two different users of our prototype, but for simplicity they use the same machine and the same web application.
+
+Now we describe the experiments we performed to test our protocol.
+
+1. The protocol starts with the Customer opening the webapp and creating new provision. 
+The app generates random ECDSA (secp256k1) client's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the client's public key. 
+The private key must be stored and provided later for the decryption of the results.
+
+2. The Customer prints the QR code and put it on a package.
+
+3. The Customer delivers his package to the SP either: in person, via trusted party, or delivery agency.
+
+4. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
+
+5. Since (in this experiment) the provision has not been paid in cash, the SP submits a Proof of Delivery transaction to the Ethereum blockchain, indicating that fact setting the `paid` flag to `false`, and `paymentAddress` field with dedicated Monero address using `monero-wallet-cli integrated-address`.
+ If the provision is paid with cash, the SP proceed to the step 8. Otherwise, the SP waits until the Customer pays for the provision.
+
+6. The Customer (using the webapp) check the transaction status on the Ethereum blockchain invoking `getProvision(clientPubKey, provisionID)`.
+
+7. The Customer (using the `monero-wallet-cli transfer`) sends the payment to the designated in the smart contract `paymentAddress` and stores the .
+
+8. The SP starts providing the service and outputs the file `result.pdf`.
+
+9. The SP uploads the file `result.pdf` on the Filecoin and IPFS networks using Powergate. In result, SP gets the content identifier (`cid`), and `dealID`.
+
+10. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking `proofOfProvision(clientPubKey, provisionID, cid, dealID)`.
+
+11. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
+ Once the Proof Of Provision is published the Customer downloads the result using either: IPFS network via https://dweb.link/<cid> or Lotus network using `lotus retreive <cid> <minerID>'. Then the results are decrypted using previously stored client's private key.
+
 
 \section{Fairness analysis}\label{sec:fairness-analysis}
 
@@ -733,7 +818,92 @@ Figure~\ref{fig:positions} shows the positions of each party after each possible
 \label{fig:positions}
 \end{figure}
 
+The description of each step and the rationale of the outcome position is given in the appendix in section \ref{sec:proof-of-fairness}.
 
+\subsection{Example scenarios}\label{example-scenarios}
+
+The figure~\ref{fig:misbehaviour} shows the transitions of positions when the SP tries to misbehave and does not execute service after receiving the payment. The customer reacts by starting a dispute and the protocol ends up neutral to the customer and disadvantaged to the SP positions.
+
+\begin{figure}[h!]
+\includegraphics[width=9cm]{formal-misbehaviour-path.png}
+\centering
+\caption{Transitions of positions where the SP is misbehaving and the customer starts a dispute}
+\label{fig:misbehaviour}
+\end{figure}
+
+Ultimately, the rational path for both parties is to follow the protocol as shown in the figure~\ref{fig:rational}.
+
+\begin{figure}[h!]
+\includegraphics[width=9cm]{formal-rational-path.png}
+\centering
+\caption{Transitions of positions where where both the customer and the SP are behaving correctly}
+\label{fig:rational}
+\end{figure}
+
+Using the fariness definition~\ref{def:fairness} and the assumptions stated in section~\ref{assumptions}, our analysis indicates that the protocol achieves fairness.
+
+
+\section{Future work}
+\label{sec:future-work}
+
+\subsection{Justice}\label{justice}
+
+Justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{Web3Wiki71}.
+
+The possible directions for mitigation of such issues are to either (i) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (ii) make it infeasible to provide incorrect results.
+
+The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the ``correctly'' is determined by the quorum of votes.
+
+The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
+
+
+\subsection{Provable availability of the
+result}\label{cryptographically-provable-availability-of-results}
+
+Currently, the SP has to publish the result into a peer-to-peer content-addressable storage network, e.g., IPFS. The problem is that nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour other than putting the customer in a disadvantaged position caused by the lost dispute. We see possible prevention of this misbehaviour by the usage of Filecoin—an incentive layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantees the availability of the result until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
+
+\subsection{Paying with cash}\label{paying-with-cash}
+
+Without loss of generality, the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain information that the transaction has been paid with cash; therefore, steps one and two could be merged and realized in one step. In case of dispute, the payment disclosure would be included in $\mathrm{PoD}$.
+
+\subsection{Anonymous delivery}\label{anonymous-delivery}
+
+We assumed the customer to deliver the package to the SP personally or via a trusted person. However, the system could be extended to support an anonymous delivery system as proposed in Lelantos~\cite{altawy2017lelantos}. One modification to the protocol would be to publish $\mathrm{PoD}$ on the message board, similarly to $\mathrm{PoP}$.
+
+\section{Conclusions}\label{sec:conclusion}
+In this paper, we have proposed the protocol for service provision that simultaneously achieves anonymity, fairness, dispute resolution, TTP-less, and support physical materials. The protocol can be employed to provide services without collecting any personal information. Payments are handled by anonymous cryptocurrencies. The result of the service is published on a content-addressable p2p network like IPFS. The dispute can be settled by disclosing the collected proofs to justice. 
+Using the definition~\ref{def:fairness} we showed that the protocol achieves fairness by the proof of delivery, payment attestation, and proof of provision published on the message board blockchain. Finally, we pinpointed further improvements like decentralized dispute resolution, provable availability of the result, paying with cash, and anonymous package delivery via courier.
+
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{bibliography}
+\EOD
+
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{a1.jpg}}]{Stanis\l{}aw Bara{\'n}ski} received BEng in 2019 and MSc in 2020 in informatics at Gdańsk University of Technology. 
+Currently, he is a PhD candidate at the Department of Computer Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology.
+
+His research interests include blockchains and cryptography, especially the issue of blockchain-based internet voting and mitigation of content poisoning attacks via blockchain.
+
+He likes to develop his ideas right up to the commercialization stage. He is the author of multiple mobile and web applications that have reached success on the market. His blockchain-based internet voting project has been funded by the Stellar Community Fund for the most useful Stellar application. 
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{js access.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
+He is currently with the Department of Computer
+Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology. He addresses the problems of knowledge representation, methods of lexical knowledge acquisition, and linguistic data utilization.
+His research results find applications in web search engines and systems of automated text categorization. He manages research projects for processing the information in Wikipedia, where the main goal is to extract and structuralize textual knowledge and construct interfaces capable of communicating in natural language. Besides his research in information retrieval domain, he was involved in projects related to cognitive science. His mainstream of this research is building semantic memory models that improve natural language processing. He also worked on analyzing
+human emotions, by mining EEG signals. His results are implemented in
+the form of brain-machine interfaces for disabled people. He also works
+on analyzing data within the IoT domain and its secure storage on the blockchain. 
+He is involved in project, where acquisition of data from sensors placed in beehives  allows one to predict apiary development and detect abnormalities. 
+
+He was a committee member and reviewer in  many international
+conferences as well as served as guest editor preparing special issues of prestigious journals. 
+
+\end{IEEEbiography}
+
+\section*{Appendix A: Proof of fairness}\label{sec:proof-of-fairness}
 Below we describe each step and rationale of the outcome position.
 
 \noindent \textbf
@@ -1146,88 +1316,6 @@ Fairness:
   The SP can do nothing and ends up in the non-disadvantaged position \(\operatorname{\sigma_{7, s, n} = +}\).
 \end{itemize}
 
-\subsection{Example scenarios}\label{example-scenarios}
-
-The figure~\ref{fig:misbehaviour} shows the transitions of positions when the SP tries to misbehave and does not execute service after receiving the payment. The customer reacts by starting a dispute and the protocol ends up neutral to the customer and disadvantaged to the SP positions.
-
-\begin{figure}[h!]
-\includegraphics[width=9cm]{formal-misbehaviour-path.png}
-\centering
-\caption{Transitions of positions where the SP is misbehaving and the customer starts a dispute}
-\label{fig:misbehaviour}
-\end{figure}
-
-Ultimately, the rational path for both parties is to follow the protocol as shown in the figure~\ref{fig:rational}.
-
-\begin{figure}[h!]
-\includegraphics[width=9cm]{formal-rational-path.png}
-\centering
-\caption{Transitions of positions where where both the customer and the SP are behaving correctly}
-\label{fig:rational}
-\end{figure}
-
-Using the fariness definition~\ref{def:fairness} and the assumptions stated in section~\ref{assumptions}, our analysis indicates that the protocol achieves fairness.
-
-
-\section{Future work}
-\label{sec:future-work}
-
-\subsection{Justice}\label{justice}
-
-Justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{Web3Wiki71}.
-
-The possible directions for mitigation of such issues are to either (i) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{meng2019themis} or Kleros~\cite{lesaege2018kleros}; or (ii) make it infeasible to provide incorrect results.
-
-The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the ``correctly'' is determined by the quorum of votes.
-
-The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben2013snarks} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
-
-
-\subsection{Provable availability of the
-result}\label{cryptographically-provable-availability-of-results}
-
-Currently, the SP has to publish the result into a peer-to-peer content-addressable storage network, e.g., IPFS. The problem is that nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour other than putting the customer in a disadvantaged position caused by the lost dispute. We see possible prevention of this misbehaviour by the usage of Filecoin—an incentive layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{benetfilecoin}. With the help of Filecoin, the SP would be obligated to create a deal that guarantees the availability of the result until the deadline of the transaction. Moreover, since Filecoin is a blockchain by itself, it could play both roles of message board and storage network.
-
-\subsection{Paying with cash}\label{paying-with-cash}
-
-Without loss of generality, the payment can be made with cash. The customer can exchange the cash with SP together with delivering the package. The $\mathrm{PoD}$ would contain information that the transaction has been paid with cash; therefore, steps one and two could be merged and realized in one step. In case of dispute, the payment disclosure would be included in $\mathrm{PoD}$.
-
-\subsection{Anonymous delivery}\label{anonymous-delivery}
-
-We assumed the customer to deliver the package to the SP personally or via a trusted person. However, the system could be extended to support an anonymous delivery system as proposed in Lelantos~\cite{altawy2017lelantos}. One modification to the protocol would be to publish $\mathrm{PoD}$ on the message board, similarly to $\mathrm{PoP}$.
-
-\section{Conclusions}\label{sec:conclusion}
-In this paper, we have proposed the protocol for service provision that simultaneously achieves anonymity, fairness, dispute resolution, TTP-less, and support physical materials. The protocol can be employed to provide services without collecting any personal information. Payments are handled by anonymous cryptocurrencies. The result of the service is published on a content-addressable p2p network like IPFS. The dispute can be settled by disclosing the collected proofs to justice. 
-Using the definition~\ref{def:fairness} we showed that the protocol achieves fairness by the proof of delivery, payment attestation, and proof of provision published on the message board blockchain. Finally, we pinpointed further improvements like decentralized dispute resolution, provable availability of the result, paying with cash, and anonymous package delivery via courier.
-
-\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{bibliography}
-\EOD
-
-
-
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{a1.jpg}}]{Stanis\l{}aw Bara{\'n}ski} received BEng in 2019 and MSc in 2020 in informatics at Gdańsk University of Technology. 
-Currently, he is a PhD candidate at the Department of Computer Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology.
-
-His research interests include blockchains and cryptography, especially the issue of blockchain-based internet voting and mitigation of content poisoning attacks via blockchain.
-
-He likes to develop his ideas right up to the commercialization stage. He is the author of multiple mobile and web applications that have reached success on the market. His blockchain-based internet voting project has been funded by the Stellar Community Fund for the most useful Stellar application. 
-\end{IEEEbiography}
-
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{js access.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
-He is currently with the Department of Computer
-Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology. He addresses the problems of knowledge representation, methods of lexical knowledge acquisition, and linguistic data utilization.
-His research results find applications in web search engines and systems of automated text categorization. He manages research projects for processing the information in Wikipedia, where the main goal is to extract and structuralize textual knowledge and construct interfaces capable of communicating in natural language. Besides his research in information retrieval domain, he was involved in projects related to cognitive science. His mainstream of this research is building semantic memory models that improve natural language processing. He also worked on analyzing
-human emotions, by mining EEG signals. His results are implemented in
-the form of brain-machine interfaces for disabled people. He also works
-on analyzing data within the IoT domain and its secure storage on the blockchain. 
-He is involved in project, where acquisition of data from sensors placed in beehives  allows one to predict apiary development and detect abnormalities. 
-
-He was a committee member and reviewer in  many international
-conferences as well as served as guest editor preparing special issues of prestigious journals. 
-
-\end{IEEEbiography}
 
 \end{document}
 
