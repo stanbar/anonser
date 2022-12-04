@@ -2,6 +2,7 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.spl
 *.synctex.gz
 *.tex.bak
 *.tex.backup
