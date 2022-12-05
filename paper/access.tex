@@ -43,7 +43,7 @@ Service providers like lawyers, laboratories, auditors, or banks, to provide ser
 We propose a protocol for coordinating anonymous service provision. Our proposal uses blockchain for both anonymous payments and proofs of existence (so-called message board) and content-addressable network (e.g.~IPFS) for results delivery.
 A service provider can employ our protocol to provide services without collecting personal information. Possible applications for this protocol include anonymous tests for drugs, venereal diseases, paternity, and steroids, or anonymous legal advice.
 In case of dispute, either due to exceeding deadlines or providing incorrect results, the customer can disclose the whole interaction and prove to justice (police or court) the misbehaviour of the service provider.
-We analyze the protocol in the context of fairness and discuss further extensions to an anonymous delivery system, payment with cash, and a decentralized conflict resolution system.
+We analyze the protocol in the context of fairness and discuss further extensions to an anonymous delivery system, and a decentralized conflict resolution system.
 Our protocol may enable various services currently based on unacceptable trust assumptions to the service providers.
 \end{abstract}
 
@@ -125,7 +125,7 @@ at each step of the protocol, both parties are incentivized to act accordingly t
 \item Dispute resolution: at each step of the protocol, the customer can start a dispute and win the case if and only if the SP misbehaved.
 
 \item TTP-less: 
-our protocol does not rely on a trusted third party to conduct transactions fairly. Only in case of dispute the centralized justice is involved (the justice decentralization is discussed in section ~\ref{sec:future-work}.
+our protocol does not rely on a trusted third party to conduct transactions fairly. Only in case of dispute the centralized justice is involved (the justice decentralization is discussed in section ~\ref{sec:discussion}.
 \item Physical materials: our protocol allows providing not only digital but also physical materials to the service provider.
 \end{itemize} 
 
@@ -140,7 +140,7 @@ In section~\ref{sec:related-works} we briefly review related works.
 Section~\ref{sec:building-blocks} explains the building blocks of fair exchanges, blockchain, storage network, anonymity and confidentiality.
 Section~\ref{sec:protocol} describes how the protocol works in detail.
 Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
-Section~\ref{sec:future-work} discuss possible improvements. 
+Section~\ref{sec:discussion} discuss possible improvements. 
 Finally, section~\ref{sec:conclusion} concludes the paper.
 
 
@@ -289,7 +289,7 @@ Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on t
 Such a decentralized, voluntary, and anonymous dispute resolution system might work for simple contracts violations like an eBay seller sending broken or wrong products or an Airbnb apartment being inadequate to the photos in the offer. However, it is hard to realize such decentralized evaluation of heath or legal services quality when expertise and privacy concerns are taken into account. Therefore, in our protocol, we take the more conservative approach and resolve disputes using local
 justice system (police or court).
 
-Possible directions toward semi-autonomous decentralized resolution system are discussed in section ~\ref{sec:future-work}.
+Possible directions toward semi-autonomous decentralized resolution system are discussed in section ~\ref{sec:discussion}.
 
 \subsection{Fairness}\label{fairness}
 
@@ -554,7 +554,7 @@ They protocol starts once the customer delivers package $\mathrm{pkg}$ and the S
 
 We assume this step to be entirely physical, i.e., $\mathrm{pkg}$ consists of physical materials, $\mathrm{PoD}$ is in the form of, e.g., QR code printed on a paper receipt. 
 
-$\mathrm{PoD}$ could be published on a message board (similarly to $\mathrm{PoP}$); however, since the $\mathrm{pkg}$ is delivered personally or via a trusted person, the confirmation can be issued in person. If we would like to hire a courier to deliver our $\mathrm{pkg}$, then the $\mathrm{PoD}$ would have to be published on the message board (further extension to the anonymous delivery system is discussed in section \ref{sec:future-work}).
+$\mathrm{PoD}$ could be published on a message board (similarly to $\mathrm{PoP}$); however, since the $\mathrm{pkg}$ is delivered personally or via a trusted person, the confirmation can be issued in person. If we would like to hire a courier to deliver our $\mathrm{pkg}$, then the $\mathrm{PoD}$ would have to be published on the message board (further extension to the anonymous delivery system is discussed in section \ref{sec:discussion}).
 
 Symbolically: 
 \[
@@ -629,95 +629,6 @@ Symbolically:
 \[
 \mathrm{result} \gets \mathrm{D}_{\mathrm{key}}(\mathrm{download}(\mathrm{cid}))
 \]
-
-\section{Experiments}\label{sec:experiments}
-
-\subsection*{Setup}
-
-We have developed a prototype of our protocol using the following technologies:
-
-\begin{itemize}
-  \item{Anonymous payments} — we use the Monero blockchain \cite{noetherRingSignatureConfidential2015}.
-  \item{Storage netowork} — we use the Powergate\footnote{https://github.com/textileio/powergate}, which is a wrapper around Filecoin and IPFS.
-  \item{Message board} — we use the Ethereum blockchain \cite{woodEthereumSecureDecentralised2014}; concretely, Truffle Ganache\footnote{https://trufflesuite.com/ganache/} and Solidity language.
-  \item{Customer and SP} — we create client-side web application (webapp) using React for UI, web3.js for interaction with Ethereum, and crypto-js for encryption. We use MetaMask browser extension for signing and submiting transactions to Ethereum's node. We use `monerod` and `monero-wallet-cli' command-line tools for interacting with Monero blockchain.
-\end{itemize}
-
-The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
-
-We developed and tested our prototype in the following environment:
-
-\begin{itemize}
-  \item{OS} — Arch Linux 5.11.8
-  \item{Docker} — 20.10.5
-  \item{CPU} — Intel(R) Core(TM) i7-4790 (8) 4.00~GHz
-  \item{RAM} — 16 GB DDR3
-  \item{Storage} — Samsung PM85 256~GB SSD
-
-  \item{monerod and monero-wallet-cli} — v0.18.1.2-release
-  \item{Powergate} — v0.1.6 // get the version from `docker ps`
-  \item{Ganache} — v7.5.0
-  \item{Solidity} — v0.8.17
-  \item{ReactJS} — v18.0.25
-  \item{web3.js} — v1.8.1
-  \item{crypto-js} — v4.1.1
-\end{itemize}
-
-For simplicity, all components run on one, mentioned above, physical machine; and all processes are managed by Docker. 
-
-Moreover, Powergate is configured to use local Filecoin and IPFS networks.
-For Ethereum blockchain we use Truffle Ganache, which is a local Ethereum blockchain for development and testing purposes. 
-Monero is configured to use the public stage network.
-
-\subsection*{Experiments}
-
-\paragraph{Preparation}
-
-Both customer and SP create a Monero wallets using `monero-wallet-cli' command-line tool.
-
-Service provider deploys the smart contract using the `truffle migrate --network development` command, which deploys the smart contract to the local Ethereum blockchain. The webapp is configured to use the latest deployed smart contract address.
-
-Customer get some testing funds using \url{https://community.rino.io/faucet/stagenet/} faucet service.
-
-Next, the customer enable per-transaction proof generation by setting `set store-tx-info 1` for his wallet.  The proof generation is required to verify the payment in case of dispute.
-
-At this point both the customer and the SP are ready to start the protocol.
-
-\paragraph{Experiment}
-
-Service Provider (SP) and Customer (C) are two different users of our prototype, but for simplicity they use the same machine and the same web application.
-
-Now we describe the experiments we performed to test our protocol.
-
-\begin{itemize}
-  \item 1. The protocol starts with the Customer opening the webapp and creating new provision. 
-The app generates random ECDSA (secp256k1) client's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the client's public key. 
-The private key must be stored and provided later for the decryption of the results.
-
-  \item 2. The Customer prints the QR code and put it on a package.
-
-  \item 3. The Customer delivers his package to the SP either: in person, via trusted party, or delivery agency.
-
-  \item 4. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
-
-  \item 5. Since (in this experiment) the provision has not been paid in cash, the SP submits a Proof of Delivery transaction to the Ethereum blockchain, indicating that fact setting the `paid` flag to `false`, and `paymentAddress` field with dedicated Monero address using `monero-wallet-cli integrated-address`.
- If the provision is paid with cash, the SP proceed to the step 8. Otherwise, the SP waits until the Customer pays for the provision.
-
-  \item 6. The Customer (using the webapp) check the transaction status on the Ethereum blockchain invoking `getProvision(clientPubKey, provisionID)`.
-
-  \item 7. The Customer (using the `monero-wallet-cli transfer`) sends the payment to the designated in the smart contract `paymentAddress` and stores the .
-
-  \item 8. The SP starts providing the service and outputs the file `result.pdf`.
-
-  \item 9. The SP uploads the file `result.pdf` on the Filecoin and IPFS networks using Powergate. In result, SP gets the content identifier (`cid`), and `dealID`.
-
-  \item 10. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking `proofOfProvision(clientPubKey, provisionID, cid, dealID)`.
-
-  \item 11. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
- Once the Proof Of Provision is published the Customer downloads the result using either: IPFS network via https://dweb.link/<cid> or Lotus network using `lotus retreive <cid> <minerID>'. Then the results are decrypted using previously stored client's private key.
-
-\end{itemize}
-
 \section{Fairness analysis}\label{sec:fairness-analysis}
 
 We analyze the fairness of the protocol by representing it as an interactive non-cooperative game.
@@ -783,7 +694,7 @@ A protocol achieve fariness iff
 
 \subsection{Assumptions}\label{assumptions}
 
-Below  we listed assumptions we took for the analysis purpose.  
+Below we listed assumptions we took for the analysis purpose.  
 
 \begin{itemize}
 
@@ -798,7 +709,7 @@ Below  we listed assumptions we took for the analysis purpose.
 \item
     Repeating the first step starts a new transaction. Repeating any other step is considered abnormal and gets ignored. For example, paying for the invoice twice does not cause any effect on the curse of the protocol.
 \item 
-    Once published, the result is available to the customer on the storage network. The idea of guaranteeing it cryptographically is discussed in section~\ref{sec:future-work}.
+    Once published, the result is available to the customer on the storage network. The idea of guaranteeing it cryptographically is discussed in section~\ref{sec:discussion}.
     
 \item
     Winning the dispute leads to a neutral position (•).
@@ -844,19 +755,118 @@ Ultimately, the rational path for both parties is to follow the protocol as show
 
 Using the fariness definition~\ref{def:fairness} and the assumptions stated in section~\ref{assumptions}, our analysis indicates that the protocol achieves fairness.
 
+\section{Experiments}\label{sec:experiments}
 
-\section{Future work}
-\label{sec:future-work}
+\subsection*{Setup}
+
+We have developed a prototype of our protocol using the following technologies:
+
+\begin{itemize}
+  \item{Anonymous payments} — we use the Monero blockchain \cite{noetherRingSignatureConfidential2015}.
+  \item{Storage netowork} — we use the Powergate\footnote{https://github.com/textileio/powergate}, which is a wrapper around Filecoin and IPFS.
+  \item{Message board} — we use the Ethereum blockchain \cite{woodEthereumSecureDecentralised2014}; concretely, Truffle Ganache\footnote{https://trufflesuite.com/ganache/} and Solidity language.
+  \item{Customer and SP} — we create client side web application (webapp) using \texttt{React}\footnote{https://reactjs.org} for creating UI, \texttt{web3.js}\footnote{https://web3js.org} for interaction with Ethereum, and \texttt{crypto-js}\footnote{https://github.com/brix/crypto-js} for encryption. We use \texttt{MetaMask}\footnote{https://metamask.io} browser extension for signing and submiting transactions to Ethereum's node. We use \texttt{monerod}\footnote{https://monerodocs.org/interacting/monerod-reference/} network client and \texttt{monero-wallet-cli}\footnote{https://monerodocs.org/interacting/monero-wallet-cli-reference/} command-line interface for interacting with Monero blockchain.
+\end{itemize}
+
+The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
+
+We developed and tested our prototype in the following environment:
+
+\begin{itemize}
+  \item{OS} — Arch Linux 5.11.8
+  \item{Docker} — 20.10.5
+  \item{CPU} — Intel(R) Core(TM) i7-4790 (8) 4.00~GHz
+  \item{RAM} — 16 GB DDR3
+  \item{Storage} — Samsung PM85 256~GB SSD
+
+  \item{monerod and monero-wallet-cli} — v0.18.1.2-release
+  \item{Powergate} — v2.6.2-7-gfd1d093-dirty
+  \item{Ganache} — v7.5.0
+  \item{Solidity} — v0.8.17
+  \item{ReactJS} — v18.0.25
+  \item{web3.js} — v1.8.1
+  \item{crypto-js} — v4.1.1
+\end{itemize}
+
+For simplicity, all components run on one, mentioned above, physical machine; and all processes are managed by Docker. 
+
+Moreover, Powergate is configured to use local Filecoin and IPFS networks.
+For Ethereum blockchain we use Truffle Ganache, which is a local Ethereum blockchain for development and testing purposes. 
+Monero is configured to use the public stage network.
+We assume service provider offers only one type of service, which is offered for a fixed public price, hence we omit the type of service and price from the protocol.
+
+\subsection*{Preparation}
+
+Both the customer and the SP create a Monero wallets using \texttt{monero-wallet-cli} command-line tool.
+
+Service provider deploys the smart contract using the \texttt{truffle migrate --network development} command, which deploys the smart contract to the Ethereum blockchain. The webapp is configured to use the latest deployed smart contract address.
+
+Customer gets some testing Monero funds using \url{https://community.rino.io/faucet/stagenet/} faucet service.
+
+Next, the customer enable per-transaction proof generation (payment \texttt{attestation}) by setting \texttt{set store-tx-info 1} for his wallet. The proof generation is required to verify the payment in case of dispute.
+
+At this point both the customer and the SP are ready to start the protocol.
+
+\subsection*{Experiment}
+
+The customer and the SP are two different users of our prototype, but for simplicity they use the same machine and the same web application.
+
+Now we describe the experiments we performed to test our protocol.
+
+\begin{itemize}
+  \item 1. The protocol starts with the customer opening the webapp and creating new provision. 
+The app generates random ECDSA (secp256k1) customer's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the customer's public key. 
+The customer's private key must be downloaded and provided later for the decryption of the results.
+
+  \item 2. The customer prints the QR code and put it on a package.
+
+  \item 3. The customer delivers his package to the SP either: in person, via trusted party, or delivery agency.
+
+  \item 4. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
+
+  \item 5. Since (in this experiment) the provision has not been paid in cash, the SP submits a Proof of Delivery transaction to the Ethereum blockchain, indicating that fact setting the \texttt{paid} flag to \texttt{false}, and \texttt{paymentAddress} field with dedicated Monero address using \texttt{monero-wallet-cli integrated-address}. 
+  Then SP waits until the customer pays for the provision. If the provision would have been paid with cash, the SP would proceed to the step 8.
+
+  \item 6. The customer (using the webapp) check the transaction status on the Ethereum blockchain invoking \texttt{getProvision(customerPubKey, provisionID)}.
+
+  \item 7. The customer (using the \texttt{monero-wallet-cli transfer}) sends the payment to the designated in the smart contract \texttt{paymentAddress} and stores the payment attestation (using \texttt{get\_tex\_key <tx-id>}) in case of dispute.
+
+  \item 8. Once SP notice the payment on Monero blockchain it starts providing the service and outputs the file \texttt{result.pdf}.
+
+  \item 9. The SP uploads the file \texttt{result.pdf} on the Filecoin and IPFS networks using Powergate. In result, the SP gets the content identifier \texttt{cid}, and \texttt{dealID}.
+
+  \item 10. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking \texttt{proofOfProvision} with arguments \texttt{customerPubKey}, \texttt{provisionID}, \texttt{cid}, and \texttt{dealID}.
+
+  \item 11. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
+ Once the Proof Of Provision is published the Customer downloads the result using either: IPFS network via \texttt{https://dweb.link/<cid>} or Lotus network using \texttt{lotus retreive <cid> <minerID>}. 
+ 
+  \item 12. Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
+
+\end{itemize}
+
+\subsection*{Results}
+
+Deploying smart contract consumed 1456577 gas.
+Proof of delivery consumed 129649 gas.
+Proof of provision consumed 149130 gas.
+The price of gas at the time of the experiment (03.01.2023) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$\footnote{https://etherscan.io/gastracker}, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
+In result, the cost of 
+1) deploying the smart contract was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 1456577 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 4.09 \mathrm{USD}$; 
+2) Proof of delivery was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 129649 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.29 \mathrm{USD}$; 
+3) Proof of provision was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 149130 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.33 \mathrm{USD}$.
+
+\section{Discussion}
+\label{sec:discussion}
 
 \subsection{Justice}\label{justice}
 
 Justice is the biggest obstacle in achieving a system that complies with Web 3.0 postulates\footnote{https://en.wikipedia.org/wiki/Web3}.
 
-The possible directions for mitigation of such issues are to either (i) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{mengThemisDecentralizedEscrow2019} or Kleros~\cite{bergollaKlerosSociolegalCase2022}; or (ii) make it infeasible to provide incorrect results.
+The possible directions for mitigation of such issues are to either (i) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022}, or Aragon Court\footnote{https://aragon.org/aragon-court}; or (ii) make it infeasible to provide incorrect results.
 
-The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the ``correctly'' is determined by the quorum of votes.
+The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{attestation}$ as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the ``correctly'' is determined by the quorum of votes.
 
-The second approach is more philosophical and visionary. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben-sassonSNARKsVerifyingProgram2013} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
+The second approach is more futuristic. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben-sassonSNARKsVerifyingProgram2013} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP by himself, then the whole chain of integrity could be ensured. Therefore, wrong service provision would be infeasible.
 
 
 \subsection{Provable availability of the
@@ -890,7 +900,7 @@ His research interests include blockchains and cryptography, especially the issu
 He likes to develop his ideas right up to the commercialization stage. He is the author of multiple mobile and web applications that have reached success on the market. His blockchain-based internet voting project has been funded by the Stellar Community Fund for the most useful Stellar application. 
 \end{IEEEbiography}
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{julina.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{julian.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
 He is currently with the Department of Computer
 Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology. He addresses the problems of knowledge representation, methods of lexical knowledge acquisition, and linguistic data utilization.
 His research results find applications in web search engines and systems of automated text categorization. He manages research projects for processing the information in Wikipedia, where the main goal is to extract and structuralize textual knowledge and construct interfaces capable of communicating in natural language. Besides his research in information retrieval domain, he was involved in projects related to cognitive science. His mainstream of this research is building semantic memory models that improve natural language processing. He also worked on analyzing
