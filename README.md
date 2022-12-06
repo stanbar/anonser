@@ -11,6 +11,7 @@ Follow the installation `https://github.com/textileio/powergate#localnet-mode`
 https://github.com/trufflesuite/ganache/tree/master#docker
 
 1. Start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
+2. Import one of the generated accounts into Metamask.
 
 ### Install Monero
 
