@@ -34,8 +34,8 @@ it("Encryption works for key derived from ECDH", async () => {
     const msg = new Uint8Array(Array.from({ length: 1000 }, (v, i) => i % 255))
     const msgString = Buffer.from(msg).toString('hex')
 
-    const encrypted = await encrypt(msgString, provisionId, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
-    const decrypted = await decrypt(encrypted, provisionId, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
+    const encrypted = encrypt(msgString, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
+    const decrypted = decrypt(encrypted, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
     expect(decrypted).toEqual(msgString)
 })
 
