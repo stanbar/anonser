@@ -1,20 +1,20 @@
 import { createContext, useContext } from "react";
 import { createPow, Pow } from "@textile/powergate-client"
+import { REACT_APP_POWERGATE_NODE_ADDRESS, REACT_APP_POWERGATE_USER_TOKEN } from "src/Constants";
 
-if (!process.env.REACT_APP_POWERGATE_NODE_ADDRESS) {
-    throw new Error("REACT_APP_POWERGATE_NODE_ADDRESS is not set")
-}
 
-const pow: Pow = createPow({ host: process.env.REACT_APP_POWERGATE_NODE_ADDRESS })
+const pow: Pow = createPow({ host: REACT_APP_POWERGATE_NODE_ADDRESS })
 
-if (!process.env.REACT_APP_POWERGATE_USER_TOKEN) {
-    throw new Error("REACT_APP_POWERGATE_USER_TOKEN is not set")
-}
+pow.setAdminToken(REACT_APP_POWERGATE_USER_TOKEN);
+pow.setToken(REACT_APP_POWERGATE_USER_TOKEN);
 
-console.log(process.env.REACT_APP_POWERGATE_USER_TOKEN)
+pow.buildInfo().then((info) => {
+    console.log(`Connected to powergate with version: ${info.version} `)
+}).catch(console.error);
 
-pow.setAdminToken(process.env.REACT_APP_POWERGATE_USER_TOKEN);
-pow.setToken(process.env.REACT_APP_POWERGATE_USER_TOKEN);
+pow.userId().then((userId) => {
+    console.log(`Connected to powergate with user id: ${userId.id} `)
+}).catch(console.error);
 
 const PowContext = createContext<Pow>(
     pow

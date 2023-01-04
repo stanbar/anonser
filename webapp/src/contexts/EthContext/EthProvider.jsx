@@ -2,6 +2,7 @@ import { useReducer, useCallback, useEffect, Reducer } from "react";
 import Web3 from "web3";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
+import { REACT_APP_ETHEREUM_NODE_ADDRESS } from "src/Constants";
 
 
 function EthProvider({ children }) {
@@ -10,7 +11,7 @@ function EthProvider({ children }) {
   const init = useCallback(
     async (artifact) => {
       if (artifact) {
-        const web3 = new Web3(Web3.givenProvider || `ws://${process.env.REACT_APP_ETHEREUM_NODE_ADDRESS}`);
+        const web3 = new Web3(Web3.givenProvider || `ws://${REACT_APP_ETHEREUM_NODE_ADDRESS}`);
         console.log("web3", web3);
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();
