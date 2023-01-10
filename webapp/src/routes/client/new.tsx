@@ -9,6 +9,8 @@ function ClientNew() {
     const [keypair, setKeypair] = useState(genKeypair());
     const [provisionId, setProvisionId] = useState<Buffer>(rand(32));
     const [activeStep, setActiveStep] = useState(0);
+    const [downloadedQrCode, setDownloadedQrCode] = useState(false);
+    const [downloadedDecyptionKey, setDownloadedDecyptionKey] = useState(false);
 
     const value = '0x' + keypair?.getPublic(true, 'hex') + '||' + '0x' + provisionId.toString('hex');
 
@@ -20,7 +22,10 @@ function ClientNew() {
         element.download = "decryption_key.txt";
         document.body.appendChild(element); // Required for this to work in FireFox
         element.click();
-        setActiveStep(2)
+        setDownloadedDecyptionKey(true);
+        if (downloadedQrCode) {
+            setActiveStep(1)
+        }
     }
 
     const downloadQrCode = (e: any) => {
@@ -39,7 +44,10 @@ function ClientNew() {
             downloadLink.download = "provision.png";
             downloadLink.href = `${pngFile}`;
             downloadLink.click();
-            setActiveStep(1)
+            setDownloadedQrCode(true);
+            if (downloadedDecyptionKey) {
+                setActiveStep(1)
+            }
         };
         img.src = `data:image/svg+xml;base64,${btoa(svgData)}`;
     }
@@ -65,16 +73,13 @@ function ClientNew() {
                         </div>
 
                         <Button onClick={downloadQrCode}>Download QR code</Button>
+                        <br/>
+                        <Typography>Download the decryption key, you will need it to decrypt the results.</Typography>
+                        <Button onClick={downloadDecryptionKey}>Download decryption key</Button>
                     </Stack>
                     ),
                     label: "Generate provision request",
                     description: "This QR code allows you to identify your service anonymously. Keep it in a safe place to track your order process.",
-                    isLast: false
-                })}
-                {StepWrapper({
-                    children: (<Button onClick={downloadDecryptionKey}>Download decryption key</Button>),
-                    label: "Download decryption key",
-                    description: "Download the decryption key, you will need it to decrypt the results.",
                     isLast: false
                 })}
 

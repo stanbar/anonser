@@ -1,11 +1,12 @@
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Link, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { usePow } from 'src/contexts/Powergate/PowContext';
 import { Provision, ProvisionProvisioned, recreateFromBlockchain } from 'src/Provision';
 import { useEth } from 'src/contexts/EthContext';
-import { deriveKey } from 'src/crypto/encrypt';
+import { decrypt, deriveKey } from 'src/crypto/encrypt';
 import { REACT_APP_SERVICE_PROVIDER_SEC_KEY } from 'src/Constants';
 import aesjs from 'aes-js';
+import DownloadIcon from '@mui/icons-material/Download';
 
 function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: string, clientPubKey: string, provisionId: string }) {
     const pow = usePow();
@@ -37,9 +38,8 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
         }
         if (provision && provision instanceof ProvisionProvisioned) {
             const rawData = await pow.data.get(provision.cid)
-            const key = deriveKey(REACT_APP_SERVICE_PROVIDER_SEC_KEY, provision.clientPubKey);
-            const aesCtr = new aesjs.ModeOfOperation.ctr(key);
-            const decrypted = aesCtr.decrypt(rawData)
+
+            const decrypted = decrypt(rawData, REACT_APP_SERVICE_PROVIDER_SEC_KEY, provision.clientPubKey)
 
             var fileDec = new Blob([decrypted]);
             var a = document.createElement("a");
@@ -76,7 +76,7 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
                         {JSON.stringify(provision, null, 2)}
                     </pre>
 
-                    {provision instanceof ProvisionProvisioned && <Button onClick={saveFile}>Download the result</Button>}
+                    {provision instanceof ProvisionProvisioned && (<Button startIcon={<DownloadIcon />} onClick={saveFile}>Download</Button>)}
                 </>
             )}
             {error && (error)}

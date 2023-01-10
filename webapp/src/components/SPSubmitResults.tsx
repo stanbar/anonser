@@ -33,6 +33,7 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
                     setJobStatus(`Failed with message: ${job.errorCause}`)
                 } else if (job.status === powTypes.JobStatus.JOB_STATUS_SUCCESS) {
                     setJobStatus("Succesfully stored result on IPFS and Filecoin")
+                    refreshCidInfo(job.cid)
                     console.log(job.dealInfoList)
                 }
             }
@@ -113,9 +114,14 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
         const { jobId } = await pow.storageConfig.apply(cid, { override: true, })
         setJobId(jobId);
 
+        refreshCidInfo(cid)
+    }
+
+    const refreshCidInfo = async (cid: string) => {
         const { cidInfo } = await pow.data.cidInfo(cid)
         setCidInfo(cidInfo);
     }
+        
 
     return (
         <Stack>
