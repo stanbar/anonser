@@ -72,9 +72,9 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
                         Status: {provision.status()}
                     </Typography>
 
-                    <br />
-                    Provision:
-                    <pre>
+                    <pre style={{
+                        overflow: 'auto',
+                    }}>
                         {JSON.stringify(provision, null, 2)}
                     </pre>
 
