@@ -4,9 +4,9 @@ import { Provision, ProvisionBase, recreateFromBlockchain } from 'src/Provision'
 import Html5QrcodePlugin from '../Html5QrcodePlugin';
 import { StepperComponentProps } from '../routes/sp';
 
-function ServiceProviderAccept({ setProvision }: StepperComponentProps<undefined, Provision >) {
-    const [clientPubKey, setClientPubKey] = useState<string|undefined>(undefined);
-    const [provisionId, setProvisionId] = useState<string|undefined>(undefined);
+function ServiceProviderAccept({ setProvision }: StepperComponentProps<undefined, Provision>) {
+    const [clientPubKey, setClientPubKey] = useState<string | undefined>(undefined);
+    const [provisionId, setProvisionId] = useState<string | undefined>(undefined);
     const { state: { contract } } = useEth();
 
     const onNewScanResult = (decodedText: string, decodedResult: string) => {
@@ -43,12 +43,12 @@ function ServiceProviderAccept({ setProvision }: StepperComponentProps<undefined
     };
 
     return (
-            <Html5QrcodePlugin
-                fps={10}
-                qrbox={250}
-                disableFlip={false}
-                qrCodeSuccessCallback={onNewScanResult}
-            />
+        <Html5QrcodePlugin
+            fps={10}
+            qrbox={250}
+            disableFlip={false}
+            qrCodeSuccessCallback={onNewScanResult}
+        />
     );
 }
 

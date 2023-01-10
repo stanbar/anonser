@@ -1,16 +1,14 @@
-import { Stack, Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
+import { Step, StepContent, StepLabel, Stepper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import ServiceProviderAccept from "src/components/SPAccept";
 import ServiceProviderPoD from "src/components/SPProofOfDelivery";
 import ServiceProviderSubmitResults from "src/components/SPSubmitResults";
 import { ProvisionBase, ProvisionDelivered, ProvisionProvisioned, Provision } from "../../Provision";
-import ServiceProviderPoP from "src/components/SPProofOfProvision";
-import { useEth } from "src/contexts/EthContext";
 import ProvisionState from "src/components/ProvisionState";
 import { REACT_APP_SERVICE_PROVIDER_SEC_KEY } from "src/Constants";
 
 
-export type StepperComponentProps<IN extends Provision|undefined, OUT extends Provision> = {
+export type StepperComponentProps<IN extends Provision | undefined, OUT extends Provision> = {
     provision: IN;
     setProvision: (provision: OUT) => void;
 }
@@ -59,7 +57,7 @@ function ServiceProvider() {
                 label: "Provision",
                 isLast: false,
                 children: (
-                        provision instanceof ProvisionDelivered && <ServiceProviderSubmitResults provision={provision} setProvision={setProvision} />
+                    provision instanceof ProvisionDelivered && <ServiceProviderSubmitResults provision={provision} setProvision={setProvision} />
                 ),
             }))}
 
@@ -68,7 +66,7 @@ function ServiceProvider() {
                 description: "Provision completed",
                 isLast: true,
                 children: (
-                    provision instanceof ProvisionProvisioned && <ProvisionState privKey={REACT_APP_SERVICE_PROVIDER_SEC_KEY} clientPubKey={provision.clientPubKey} provisionId={provision.provisionId} /> 
+                    provision instanceof ProvisionProvisioned && <ProvisionState privKey={REACT_APP_SERVICE_PROVIDER_SEC_KEY} clientPubKey={provision.clientPubKey} provisionId={provision.provisionId} />
                 ),
             }))}
         </Stepper>

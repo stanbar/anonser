@@ -2,7 +2,6 @@ import { createContext, useContext } from "react";
 import { createPow, Pow } from "@textile/powergate-client"
 import { REACT_APP_POWERGATE_NODE_ADDRESS, REACT_APP_POWERGATE_USER_TOKEN } from "src/Constants";
 
-
 const pow: Pow = createPow({ host: REACT_APP_POWERGATE_NODE_ADDRESS })
 
 pow.setAdminToken(REACT_APP_POWERGATE_USER_TOKEN);

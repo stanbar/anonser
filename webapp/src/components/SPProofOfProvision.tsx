@@ -25,16 +25,15 @@ function ServiceProviderPoP({ cid, minerId, dealId, provision, setProvision }: S
 
     if (!provision) {
         return (<div>No provision</div>);
-    } else {
-        return (
-            <Stack>
-                <Typography>Publish a proof of provision to the blockchain. This will be used to verify the provision was completed in time.</Typography>
-                    <Button onClick={proofOfProvision} variant="outlined">
-                        Submit
-                    </Button>
-            </Stack>
-        )
     }
+    return (
+        <Stack>
+            <Typography>Publish a proof of provision to the blockchain. This will be used to verify the provision was completed in time.</Typography>
+            <Button onClick={proofOfProvision} variant="outlined">
+                Submit
+            </Button>
+        </Stack>
+    )
 }
 
 export default ServiceProviderPoP;

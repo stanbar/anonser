@@ -20,7 +20,7 @@ function ClientNew() {
         element.download = "decryption_key.txt";
         document.body.appendChild(element); // Required for this to work in FireFox
         element.click();
-            setActiveStep(2)
+        setActiveStep(2)
     }
 
     const downloadQrCode = (e: any) => {

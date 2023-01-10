@@ -4,17 +4,14 @@ import { useEffect, useState } from 'react';
 import { usePow } from 'src/contexts/Powergate/PowContext';
 import { powTypes } from '@textile/powergate-client';
 import { deriveKey } from 'src/crypto/encrypt';
-import { useEth } from 'src/contexts/EthContext';
-import { ProvisionBase, ProvisionDelivered, ProvisionProvisioned } from 'src/Provision';
+import { ProvisionDelivered, ProvisionProvisioned } from 'src/Provision';
 import { REACT_APP_SERVICE_PROVIDER_SEC_KEY } from 'src/Constants';
 import aesjs from 'aes-js';
 import ServiceProviderPoP from './SPProofOfProvision';
 import UploadIcon from '@mui/icons-material/Upload';
 
-
 function ServiceProviderSubmitResults({ provision, setProvision }: StepperComponentProps<ProvisionDelivered, ProvisionProvisioned>) {
     const pow = usePow();
-    const { state: { contract } } = useEth();
     const [encryptedBuffer, setEncryptedBuffer] = useState<Uint8Array | null>(null)
     const [cid, setCid] = useState<string | null>(null)
     const [dealId, setDealId] = useState<number | undefined>(undefined)
@@ -22,13 +19,11 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
 
     const [jobId, setJobId] = useState<string | null>(null)
     const [jobStatus, setJobStatus] = useState<string | null>(null)
-    const [jobLogEvent, setJobLogEvent] = useState<string | null>(null)
     const [cidInfo, setCidInfo] = useState<powTypes.CidInfo.AsObject | undefined>(undefined)
 
     useEffect(() => {
         let jobsCancel: any = null;
-        if (jobId && provision) {
-            // watch the job status to see the storage process progressing
+        if (jobId) {
             const handleJob = (job: powTypes.StorageJob.AsObject | undefined) => {
                 if (!job) return;
 
@@ -41,6 +36,8 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
                     console.log(job.dealInfoList)
                 }
             }
+
+            // watch the job status to see the storage process progressing
             jobsCancel = pow.storageJobs.watch(handleJob, jobId)
 
             // if the deal is already stored there will be no storage job logs,
@@ -54,7 +51,7 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
             // watch all log events for a cid
             logsCancel = pow.data.watchLogs((logEvent) => {
                 console.log(`received event for cid ${logEvent.cid}`, logEvent)
-                setJobLogEvent(logEvent.message)
+                console.log(logEvent.message)
                 if (logEvent.message === "Deal finalized") {
                     setJobStatus("Deal finalized")
                 }
@@ -85,11 +82,6 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
     if (!provision) {
         return (<div>No provision</div>);
     }
-
-    const getProvisionFromSmartContract = (provision: ProvisionBase) =>
-        contract.methods.provisions(provision.clientPubKey, provision.provisionId).call();
-
-
 
     const onChangeHandler = async (event: any) => {
         const file = event.target.files[0];
@@ -127,22 +119,19 @@ function ServiceProviderSubmitResults({ provision, setProvision }: StepperCompon
 
     return (
         <Stack>
-            <>
-                <Typography>Once payment has been received, start the service and upload the results.</Typography>
-                <Button component="label" startIcon={<UploadIcon />}>
-                    Upload
-                    <input type="file" name="file" accept="application/pdf" hidden onChange={onChangeHandler} />
-                </Button>
-                {encryptedBuffer && <Button variant='outlined' onClick={publishResult}>Publish encrypted result</Button>}
-                <br/>
-                {cid && (
-                    <><span>Content Identifier (cid):</span> <Typography variant="body2">{cid}</Typography></>
-                    )}
-                {jobStatus && <Typography>Status: {jobStatus}</Typography>}
+            <Typography>Once payment has been received, start the service and upload the results.</Typography>
+            <Button component="label" startIcon={<UploadIcon />}>
+                Upload
+                <input type="file" name="file" accept="application/pdf" hidden onChange={onChangeHandler} />
+            </Button>
+            {encryptedBuffer && <Button variant='outlined' onClick={publishResult}>Publish encrypted result</Button>}
+            <br />
+            {cid && (
+                <><span>Content Identifier (cid):</span> <Typography variant="body2">{cid}</Typography></>
+            )}
+            {jobStatus && <Typography>Status: {jobStatus}</Typography>}
 
-
-                {cid && minerId && dealId && <><br/><ServiceProviderPoP cid={cid} minerId={minerId} dealId={dealId} provision={provision} setProvision={setProvision} /></>}
-            </>
+            {cid && minerId && dealId && <><br /><ServiceProviderPoP cid={cid} minerId={minerId} dealId={dealId} provision={provision} setProvision={setProvision} /></>}
         </Stack>
     );
 }

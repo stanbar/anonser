@@ -4,7 +4,6 @@ import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
 import { REACT_APP_ETHEREUM_NODE_ADDRESS } from "src/Constants";
 
-
 function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 

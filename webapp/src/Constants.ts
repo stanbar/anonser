@@ -1,4 +1,4 @@
-const requires = (envVar: string| undefined) : string => {
+const requires = (envVar: string | undefined): string => {
     if (!envVar) {
         throw new Error(`${envVar} not set`);
     }

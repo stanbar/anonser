@@ -13,7 +13,6 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
     const [provision, setProvision] = useState<Provision | undefined>(undefined);
     const [error, setError] = useState<string>("")
 
-
     useEffect(() => {
         if (provisionId && clientPubKey) {
             getProvisionFromSmartContract(clientPubKey, provisionId)
@@ -37,7 +36,6 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
             return;
         }
         if (provision && provision instanceof ProvisionProvisioned) {
-
             const rawData = await pow.data.get(provision.cid)
             const key = deriveKey(REACT_APP_SERVICE_PROVIDER_SEC_KEY, provision.clientPubKey);
             const aesCtr = new aesjs.ModeOfOperation.ctr(key);

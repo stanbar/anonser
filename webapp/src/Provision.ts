@@ -38,19 +38,19 @@ export class ProvisionDelivered extends ProvisionBase {
     issueTime: number;
     paymentDeadlineTime: number;
     provisionDeadlineTime: number;
-    paidInCash: boolean;
+    paidWithCash: boolean;
     paymentAddress: string;
 
-    constructor(clientPubKey: string, provisionId: string, issueTime: number, paymentDeadlineTime: number, provisionDeadlineTime: number, paidInCash: boolean, paymentAddress: string) {
+    constructor(clientPubKey: string, provisionId: string, issueTime: number, paymentDeadlineTime: number, provisionDeadlineTime: number, paidWithCash: boolean, paymentAddress: string) {
         super(clientPubKey, provisionId);
         this.issueTime = issueTime;
         this.paymentDeadlineTime = paymentDeadlineTime;
         this.provisionDeadlineTime = provisionDeadlineTime;
-        this.paidInCash = paidInCash;
+        this.paidWithCash = paidWithCash;
         this.paymentAddress = paymentAddress;
     }
     public upgradeToUploaded(cid: string, dealId: number, minerId: string) {
-        return new ProvisionProvisioned(this.clientPubKey, this.provisionId, this.issueTime, this.paymentDeadlineTime, this.provisionDeadlineTime, this.paidInCash, this.paymentAddress, cid, dealId, minerId)
+        return new ProvisionProvisioned(this.clientPubKey, this.provisionId, this.issueTime, this.paymentDeadlineTime, this.provisionDeadlineTime, this.paidWithCash, this.paymentAddress, cid, dealId, minerId)
     }
     public status(): string {
         return "Delivered";
