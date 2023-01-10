@@ -8,4 +8,5 @@
 *.tex.backup
 *.tex.swp
 *.toc
-*.pdf
+access.pdf
+grabs.pdf

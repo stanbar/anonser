@@ -6,6 +6,7 @@
 \usepackage{caption}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{pdfpages}
 \usepackage[english]{babel}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -813,34 +814,49 @@ The customer and the SP are two different users of our prototype, but for simpli
 
 Now we describe the experiments we performed to test our protocol.
 
+\begin{figure*}[ht]
+  \begin{center}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{experiment1.pdf}
+  \end{center}
+\end{figure*}
+\begin{figure*}[ht]
+  \begin{center}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{experiment2.pdf}
+  \end{center}
+\end{figure*}
+
 \begin{itemize}
   \item 1. The protocol starts with the customer opening the webapp and creating new provision. 
 The app generates random ECDSA (secp256k1) customer's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the customer's public key. 
 The customer's private key must be downloaded and provided later for the decryption of the results.
 
-  \item 2. The customer prints the QR code and put it on a package.
+  \item 2. The customer prints the QR code, stick it on a package, and delivers the package to the SP either: in person, via trusted party, or delivery agency.
 
-  \item 3. The customer delivers his package to the SP either: in person, via trusted party, or delivery agency.
+  \item 3. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
 
-  \item 4. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
+  \item 4. Since (in this experiment) the provision has not been paid in cash, the SP generate unique Monero payment address using $\mathtt{monero-wallet-cli integrated_address}$ command, and submits the proof of delivery to the Ethereum blockchain. 
 
-  \item 5. Since (in this experiment) the provision has not been paid in cash, the SP submits a Proof of Delivery transaction to the Ethereum blockchain, indicating that fact setting the \texttt{paid} flag to \texttt{false}, and \texttt{paymentAddress} field with dedicated Monero address using \texttt{monero-wallet-cli integrated-address}. 
-  Then SP waits until the customer pays for the provision. If the provision would have been paid with cash, the SP would proceed to the step 8.
+  % monero-wallet-cli --stagenet --wallet-file sp --password "" integrated_address
+  % Random payment ID: <2b6d65d7d48b7896>
+  % Matching integrated address: 5LHmrsVsQM2Q2TgqufX4A5gKPpxy1czHULDyVc84omvnh1nQLVmqXk4VBuy8WnX1AXfKxDx7xuASAc6svkZqGVkL1XkUBWT7QejHymEaYM
+  \item 5. The customer (using the webapp) check the transaction status on the Ethereum blockchain invoking $\mathtt{getProvision(customerPubKey, provisionID)}$.
+  % monero-wallet-cli --stagenet --wallet-file customer --password "" transfer 5LHmrsVsQM2Q2TgqufX4A5gKPpxy1czHULDyVc84omvnh1nQLVmqXk4VBuy8WnX1AXfKxDx7xuASAc6svkZqGVkL1XkUBWT7QejHymEaYM 1
+  % Transaction successfully submitted, transaction <7d89c04de458cfb76a811d5eb325075dec59f7a993c3bf7ce37f9e3a1630af65>
+  % monero-wallet-cli --stagenet --wallet-file customer --password "" get_tx_key 7d89c04de458cfb76a811d5eb325075dec59f7a993c3bf7ce37f9e3a1630af65
+  % Tx key: 1364dc848a752bf52011f4a63d98bcb16091cacd985713b6b5264b3ede6de40f
 
-  \item 6. The customer (using the webapp) check the transaction status on the Ethereum blockchain invoking \texttt{getProvision(customerPubKey, provisionID)}.
+  \item 6. The customer (using the \texttt{monero-wallet-cli transfer}) sends the payment to the designated in the smart contract \texttt{paymentAddress} and stores the payment attestation (using \texttt{monero-wallet-cli get\_tex\_key <tx-id>}) in case of dispute.
 
-  \item 7. The customer (using the \texttt{monero-wallet-cli transfer}) sends the payment to the designated in the smart contract \texttt{paymentAddress} and stores the payment attestation (using \texttt{get\_tex\_key <tx-id>}) in case of dispute.
+  \item 7. Once SP notice the payment on Monero blockchain it starts providing the service and outputs the file \texttt{result.pdf}.
 
-  \item 8. Once SP notice the payment on Monero blockchain it starts providing the service and outputs the file \texttt{result.pdf}.
+  \item 8. The SP uploads the file \texttt{result.pdf} on the Filecoin and IPFS networks using Powergate. In result, the SP gets the content identifier \texttt{cid}, and \texttt{dealID} and \texttt{minerID}.
 
-  \item 9. The SP uploads the file \texttt{result.pdf} on the Filecoin and IPFS networks using Powergate. In result, the SP gets the content identifier \texttt{cid}, and \texttt{dealID}.
+  \item 9. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking \texttt{proofOfProvision} with arguments \texttt{customerPubKey}, \texttt{provisionID}, \texttt{cid}, and \texttt{dealID}.
 
-  \item 10. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking \texttt{proofOfProvision} with arguments \texttt{customerPubKey}, \texttt{provisionID}, \texttt{cid}, and \texttt{dealID}.
-
-  \item 11. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
+  \item 10. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
  Once the Proof Of Provision is published the Customer downloads the result using either: IPFS network via \texttt{https://dweb.link/<cid>} or Lotus network using \texttt{lotus retreive <cid> <minerID>}. 
  
-  \item 12. Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
+  \item 11. Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
 
 \end{itemize}
 
