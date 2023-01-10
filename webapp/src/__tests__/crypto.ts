@@ -30,13 +30,11 @@ it("ECDH works for secp256k1 compressed", () => {
 it("Encryption works for key derived from ECDH", async () => {
     const alice = secp256k1.keyFromPrivate(rand(32))
     const bob = secp256k1.keyFromPrivate(rand(32))
-    const provisionId = rand(32)
     const msg = new Uint8Array(Array.from({ length: 1000 }, (v, i) => i % 255))
-    const msgString = Buffer.from(msg).toString('hex')
 
-    const encrypted = encrypt(msgString, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
+    const encrypted = encrypt(msg, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
     const decrypted = decrypt(encrypted, alice.getPrivate('hex'), bob.getPublic().encode('hex', true))
-    expect(decrypted).toEqual(msgString)
+    expect(decrypted).toEqual(msg)
 })
 
 it("Encryption works with CryptoJS for larger bytes and default values", async () => {
@@ -58,7 +56,7 @@ it("Encryption works for a README.md file with internal encryption", async () =>
     const bob = secp256k1.keyFromPrivate(rand(32))
 
     const file = readFileSync('README.md', null)
-    
+
     const msg = file.toString('hex')
 
     const alicePrivate = alice.getPrivate('hex')

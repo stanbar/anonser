@@ -21,8 +21,6 @@
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
     "aes-js": "^3.1.2",
-    "crypto-es": "^1.2.7",
-    "crypto-js": "^4.1.1",
     "elliptic": "^6.5.4",
     "file-saver": "^2.0.5",
     "html5-qrcode": "^2.3.0",
@@ -65,7 +63,6 @@
   },
   "devDependencies": {
     "@types/aes-js": "^3.1.1",
-    "@types/crypto-js": "^4.1.1",
     "@types/elliptic": "^6.4.14",
     "@types/file-saver": "^2.0.5",
     "@types/randombytes": "^2.0.0",
