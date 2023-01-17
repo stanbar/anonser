@@ -1,11 +1,10 @@
-import { Button, Link, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { usePow } from 'src/contexts/Powergate/PowContext';
-import { Provision, ProvisionProvisioned, recreateFromBlockchain } from 'src/Provision';
+import { Provision, ProvisionDelivered, ProvisionProvisioned, recreateFromBlockchain } from 'src/Provision';
 import { useEth } from 'src/contexts/EthContext';
-import { decrypt, deriveKey } from 'src/crypto/encrypt';
+import { decrypt } from 'src/crypto/encrypt';
 import { REACT_APP_SERVICE_PROVIDER_SEC_KEY } from 'src/Constants';
-import aesjs from 'aes-js';
 import DownloadIcon from '@mui/icons-material/Download';
 
 function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: string, clientPubKey: string, provisionId: string }) {
@@ -21,6 +20,9 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
                     console.log("results from blockchain", result)
                     const bcProvision = recreateFromBlockchain(provisionId, clientPubKey, result)
                     console.log("Set provision recreated from blockchain", bcProvision)
+                    //TODO: force provision type to ProvisionDelivered
+                    // const p = bcProvision as ProvisionDelivered;
+                    // setProvision(new ProvisionDelivered(p.clientPubKey, p.provisionId, p.issueTime, p.paymentDeadlineTime, p.provisionDeadlineTime, p.paidWithCash, p.paymentAddress));
                     setProvision(bcProvision);
 
                     setError("");
@@ -70,11 +72,14 @@ function ProvisionState({ privKey, clientPubKey, provisionId }: { privKey: strin
                         Status: {provision.status()}
                     </Typography>
 
+                    {provision instanceof ProvisionDelivered && provision.status() == "Delivered" && !provision.paidWithCash && (<p style={{ whiteSpace: 'nowrap', overflow: 'auto'}}>Payment address: {provision.paymentAddress}</p>)}
+
                     <pre style={{
                         overflow: 'auto',
                     }}>
                         {JSON.stringify(provision, null, 2)}
                     </pre>
+
 
                     {provision instanceof ProvisionProvisioned && (<Button startIcon={<DownloadIcon />} onClick={saveFile}>Download</Button>)}
                 </>
