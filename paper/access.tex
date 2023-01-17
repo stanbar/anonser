@@ -610,7 +610,7 @@ The customer collects all the $\mathrm{materials}$ required by the SP, generates
 \noindent \textbf
 {Step 1. Package delivery}\label{step-1-package-delivery}
 
-The protocol starts once the customer delivers package $\mathrm{pkg}$ to the SP and its content gets accepted. As a result, $\mathrm{PoD}$ is created with predefined payment deadline $\mathrm{T}_\mathrm{pay}$, service provision deadline $\mathrm{T}_\mathrm{provide}$, and current time $\mathrm{T}_\mathrm{issue}$. Also $\mathrm{PoD}$ embodies the information whether the service has been paid in cash or should be paid by the customer using the anonymous blockchain account. In the latter case, the SP's payment address is included in the $\mathrm{PoD}$.
+The protocol starts once the customer delivers package $\mathrm{pkg}$ to the SP and its content gets accepted. As a result, $\mathrm{PoD}$ is created with predefined payment deadline $\mathrm{T}_\mathrm{pay}$, service provision deadline $\mathrm{T}_\mathrm{provide}$, and current time $\mathrm{T}_\mathrm{issue}$. Also $\mathrm{PoD}$ embodies the information whether the service has been paid in cash or should be paid by the customer using the anonymous blockchain account. In the latter case, the SP's payment $\mathrm{address}$ is included in the $\mathrm{PoD}$.
 
 The digital signature $\mathrm{sig}_{\mathrm{sk}(\mathrm{SP})}$ on the $\mathrm{PoD}$ created with the SP's secret key $\mathrm{sk}(\mathrm{SP})$ guarantee non-repudiation.
 
@@ -793,7 +793,7 @@ Below we listed assumptions we took for the analysis purpose.
     Both the customer and the SP are rational (selfish). They always prefer to go from the worst position to a better position, but also risk a temporary worst position in favour of a later better position if and only if it is assured that they will not be stuck in the worst position.
 \end{itemize}
 
-\subsection{Steps}\label{steps}
+\subsection{Steps}\label{sec:steps}
 
 Figure~\ref{fig:positions} shows the positions of each party after each possible action taken.
 
@@ -897,51 +897,72 @@ Now we describe the experiments we performed to test our protocol.
   \end{center}
 \end{figure*}
 
-\begin{itemize}
-  \item 1. The protocol starts with the customer opening the webapp and creating new provision. 
+\begin{description}
+  \item[0.] The protocol starts with the customer opening the webapp and creating new provision. 
 The app generates random ECDSA (secp256k1) customer's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the customer's public key. 
 The customer's private key must be downloaded and provided later for the decryption of the results.
 
-  \item 2. The customer prints the QR code, stick it on a package, and delivers the package to the SP either: in person, via trusted party, or delivery agency.
+  \item[1.] The customer prints the QR code, stick it on a package, and delivers the package to the SP either: in person, via trusted party, or delivery agency.
 
-  \item 3. The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
+  \item[2.1.] The SP opens the app, scans the QR code decoding the provisionID and the client's public key.
 
-  \item 4. Since (in this experiment) the provision has not been paid in cash, the SP generate unique Monero payment address using \texttt{monero-wallet-cli integrated\_address} command, and submits the proof of delivery to the Ethereum blockchain. 
+  \item[2.2.] Since (in this experiment) the provision has not been paid in cash, the SP generate unique Monero payment address using \texttt{monero-wallet-cli integrated\_address} 
+  \item[2.3.] The SP submits the proof of delivery to the Ethereum blockchain using MetaMask interface. 
 
   % monero-wallet-cli --stagenet --wallet-file sp --password "" integrated_address
   % Random payment ID: <2b6d65d7d48b7896>
   % Matching integrated address: 5LHmrsVsQM2Q2TgqufX4A5gKPpxy1czHULDyVc84omvnh1nQLVmqXk4VBuy8WnX1AXfKxDx7xuASAc6svkZqGVkL1XkUBWT7QejHymEaYM
-  \item 5. The customer (using the webapp) check the transaction status on the Ethereum blockchain invoking \texttt{getProvision(customerPubKey, provisionID)}.
+  \item[3.] The customer (using the webapp) check the transaction status on the Ethereum blockchain invoking \texttt{getProvision} with arguments \texttt{customerPubKey} and \texttt{provisionID}.
   % monero-wallet-cli --stagenet --wallet-file customer --password "" transfer 5LHmrsVsQM2Q2TgqufX4A5gKPpxy1czHULDyVc84omvnh1nQLVmqXk4VBuy8WnX1AXfKxDx7xuASAc6svkZqGVkL1XkUBWT7QejHymEaYM 1
   % Transaction successfully submitted, transaction <7d89c04de458cfb76a811d5eb325075dec59f7a993c3bf7ce37f9e3a1630af65>
   % monero-wallet-cli --stagenet --wallet-file customer --password "" get_tx_key 7d89c04de458cfb76a811d5eb325075dec59f7a993c3bf7ce37f9e3a1630af65
   % Tx key: 1364dc848a752bf52011f4a63d98bcb16091cacd985713b6b5264b3ede6de40f
 
-  \item 6. The customer (using the \texttt{monero-wallet-cli transfer}) sends the payment to the designated in the smart contract \texttt{paymentAddress} and stores the payment attestation (using \texttt{monero-wallet-cli get\_tex\_key <tx-id>}) in case of dispute.
+  \item[4.] The customer (using the \texttt{monero-wallet-cli transfer}) sends the payment to the designated in the smart contract \texttt{paymentAddress} and stores the payment attestation (using \texttt{monero-wallet-cli get\_tex\_key <tx-id>}) in case of dispute.
 
-  \item 7. Once SP notice the payment on Monero blockchain it starts providing the service and outputs the file \texttt{result.pdf}.
+  \item[5.] Once SP notice the payment on Monero blockchain it starts providing the service and outputs the file \texttt{result.pdf}.
 
-  \item 8. The SP uploads the file \texttt{result.pdf} on the Filecoin and IPFS networks using Powergate. In result, the SP gets the content identifier \texttt{cid}, and \texttt{dealID} and \texttt{minerID}.
+  \item[6.] The SP uploads the file \texttt{result.pdf} on the Filecoin and IPFS networks using Powergate. In result, the SP gets the content identifier \texttt{cid}, and \texttt{dealID} and \texttt{minerID}.
 
-  \item 9. The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking \texttt{proofOfProvision} with arguments \texttt{customerPubKey}, \texttt{provisionID}, \texttt{cid}, and \texttt{dealID}.
+  \item[7.] The SP submits a Proof of Provision transaction to the Ethereum blockchain by invoking \texttt{proofOfProvision} with arguments \texttt{customer\-PubKey}, \texttt{provisionID}, \texttt{cid}, and \texttt{dealID}.
 
-  \item 10. Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
+  \item[8.] Meantime, the Customer subscribes to the Ethereum and waits until the SP publishes the Proof Of Provision.
  Once the Proof Of Provision is published the Customer downloads the result using either: IPFS network via \texttt{https://dweb.link/<cid>} or Lotus network using \texttt{lotus retreive <cid> <minerID>}. 
  
-  \item 11. Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
+  \item[9.] Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
 
-\end{itemize}
+\end{description}
 
-\subsection*{Results}
+\subsection{Results}
 
+
+\paragraph{Fariness}
+As showed in Section~\ref{sec:steps} and Appendix~\ref{app:fairness}, the protocol is fair. It is achieved by a undeniable hand-shake mechanism in which the SP first publishes $\mathrm{PoD}$ (step 2.) commiting to package delivery and deadlines of the service, and then the customer accepts it by paying for the service or not (step 3.).
+
+Once the payment is made, the SP stays in the advantaged position. Since he has agreed on the deadlines of the provision of the service, he is incentivised to provide the serice and publish the resutlts and PoP before the deadline (step 7.); because otherwise the customer—having all the evidences—can initiate a dispute and punish the SP, therefore rational parties will follow the protocol.
+
+Non-repudiation without TTP is achieved by using the blockchain and digital signatures. 
+
+\paragraph{Provable Results Availability}
+Content addressable networks such as IPFS can not guarantee the availability of the content. However, the Filecoin network, which works as an incentivisation layer on top of IPFS that guarantees the content availability via economic incentivisations~\cite{protocollabsFilecoinDecentralizedStorage2017} can guarantee the availability of the content.
+
+The SP uploads the result on both IPFS and Filecoin networks (via Powergate) making the result available even in case of the SP stop serving the result from his node.
+
+\paragraph{Anonymity}
+We achieved anonymity by using anonymous payment methods such as cash or privacy-preserving payment blockchains (e.g. Monero), and decentralised storage networks like IPFS and Filecoin, allowing the customer to interact with the protocol without revealing his identity at any step of the protocol.
+
+\paragraph{Costs}
 Deploying smart contract consumed 1456577 gas.
 Proof of delivery consumed 129649 gas.
 Proof of provision consumed 149130 gas.
 The price of gas at the time of the experiment (03.01.2023) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$\footnote{https://etherscan.io/gastracker}, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
 In result, the cost of 
-1) deploying the smart contract was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 1456577 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 4.09 \mathrm{USD}$; 
-2) Proof of delivery was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 129649 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.29 \mathrm{USD}$; 
-3) Proof of provision was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \times 149130 \mathrm{gas} \times 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.33 \mathrm{USD}$.
+\begin{itemize}
+  \item deploying the smart contract was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \cdot 1456577 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 4.09 \mathrm{USD}$; 
+  \item Proof of delivery was $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 129649 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.29 \mathrm{USD}$; 
+  \item Proof of provision was $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 149130 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.33 \mathrm{USD}$.
+\end{itemize}
+
 
 \section{Discussion}
 \label{sec:discussion}
@@ -1054,7 +1075,7 @@ The SP has published proof of delivery:
   \item
     \(\operatorname{\sigma_{2, c, n} = \sbullet}\), the customer remains in the neutral position as the PoD allows him to pay for the transaction but does not obligate him to anything.
   \item
-    \(\operatorname{\sigma_{2, s, n} = \sbullet}\), the SP is in a neutral position as she did not put any effort to provide the service, and the package has not brought any value to the SP.
+    \(\operatorname{\sigma_{2, s, n} = \sbullet}\), the SP is in a neutral position because the package has not brought her any value and she did not put any effort to provide the service yet
   \end{itemize}
 \item
   Starting a dispute:
@@ -1175,7 +1196,7 @@ The customer has paid the invoice:
   Following protocol:
   \begin{itemize}
   \item
-    \(\operatorname{\sigma_{2, c, n} = -}\), the customer has spent his funds but has not received the result.
+    \(\operatorname{\sigma_{2, c, n} = -}\), the customer has spent his funds but has not received the result yet.
   \item
     \(\operatorname{\sigma_{2, s, n} = +}\), the SP has received the payment but has not spent his resources yet.
   \end{itemize}
