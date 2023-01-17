@@ -5,16 +5,21 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{url}
-\usepackage{amsmath}
+\usepackage{listings}
 \usepackage{pdfpages}
 \usepackage[english]{babel}
 \usepackage{xcolor,colortbl}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \usepackage{scalerel}
-\newcommand\sbullet[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
+
+\newcommand\neutral[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
   \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
 }
+
+\newcommand{\plus}{+}
+\newcommand{\minus}{-}
+
 \usepackage{textcomp}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -88,30 +93,34 @@ By exposing our identity we trust that the lawer will not use that information f
 Our protocol would allow taking such advice anonymously, eliminating the strong trust assumption put on the lawyers and their IT systems.
 \end{itemize}
 
+% We observe
+We observe that the issue of anonymous service provision can be seen as a problem of fair exchange where parties exchange some goods fairly, i.e., either both parties obtain the goods, or they both obtain nothing.
+
+In our case, the customer who wants to use the service, exchanges his materials and money with the SP for the result of the service.
+
+% Therefore we propose
 We propose a protocol for anonymously provisioning services that require the delivery of physical materials. A service provider employing our protocol can provide services without collecting any personal information from customers.
 
-In case of dispute, either due to exceeding deadlines or providing an incorrect result, the customer can disclose the whole interaction and prove to justice (police or court) the misbehaviour of the SP.
+In case of dispute, either due to exceeding deadlines or providing an incorrect result, the customer can disclose the whole interaction and prove to justice the misbehaviour of the SP.
 
 To achieve these objectives, we use:
 \begin{itemize}
-    \item Privacy-preserving cryptocurrency, to allow customers anonymously pay for the services.
-    \item Message board blockchain, to achieve fairness, i.e., as a means for proving that certain actions took place at a certain moment without the trusted third party (TTP).
-    \item Content-addressable peer-to-peer storage network to provide results to customers. 
+    \item Blockchain (aka message board), to achieve fairness, i.e., as a means for proving that certain actions took place at a certain moment without the trusted third party (TTP).
+    \item Anonymous payment methods, like cash or privacy-preserving cryptocurrencies, allowing customers to pay for the services anonymously.
+    \item Content-addressable decentralised storage network (like IPFS) to anonymously provide results to customers. 
+    \item Provable storage network (like Filecoin) to guarantee that the results are available to the customer even in case of the SP deny of service.
     \item Cryptography
     \begin{itemize}
         \item Symmetric encryption, to encrypt and decrypt results published on the public networks.
-        \item Public-key cryptography, to derive shared secrets for symmetric encryption.
+        \item Public-key cryptography, and Diffie-Helman key exchange (DHKE) to derive shared secrets for symmetric encryption.
         \item Digital signatures, to achieve authentication and non-repudiation of actions. 
     \end{itemize}
     
 \end{itemize}
 
-We observe that the issue of anonymous service provision can be seen as a problem of fair exchange where parties exchange some goods fairly, i.e., either both parties obtain the goods, or they both obtain nothing.
-
-In our case, the customer who wants to use the service, exchanges his materials and cryptocurrencies with the SP for the result of the service.
 
 %\paragraph{Contributions}
-We contribute to the field of fair exchanges by proposing a simple, practical, and anonymous protocol that does not rely on the centralized TTP, but uses decentralized blockchain and
+We contribute to the field of fair exchanges by proposing a simple, practical, and anonymous protocol that does not rely on centralized TTP, but uses decentralized blockchain and
 distributed content-addressable storage network.
 
 Also, we support physical materials delivery, which was rarely targeted by other researchers or based on strong and unpractical assumptions.
@@ -120,19 +129,16 @@ Our protocol simultaneously provides five main properties:
 
 \begin{itemize}
 \item Anonymity: the customer stays anonymous to all external observers throughout the transaction.
-\item Fairness:
-at each step of the protocol, both parties are incentivized to act accordingly to the protocol; otherwise, the misbehaving party ends up in a disadvantaged position.
+\item Fairness: at each step of the protocol, both parties are incentivized to act accordingly to the protocol; otherwise, the misbehaving party ends up in a disadvantaged position.
 \item Dispute resolution: at each step of the protocol, the customer can start a dispute and win the case if and only if the SP misbehaved.
 
 \item TTP-less: 
-our protocol does not rely on a trusted third party to conduct transactions fairly. Only in case of dispute the centralized justice is involved (the justice decentralization is discussed in section ~\ref{sec:discussion}.
+our protocol does not rely on a trusted third party to conduct transactions fairly. Only in case of a dispute, the centralised justice is involved, which can be instantiated either with courts and polices, or blockchain-based dispute resolution mechanisms as discussed in Section~\ref{sec:justice}.
 \item Physical materials: our protocol allows providing not only digital but also physical materials to the service provider.
 \end{itemize} 
 
-Some authors have proposed blockchain-based fair-exchange systems that could be adapted to service provision; however, to our best knowledge, we are the first to propose a system that satisfies all five properties stated above using blockchain technology. Especially anonymity and physical materials delivery were rarely addressed together, and if so, the protocol was based on TTP and impractical assumptions on banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict
-between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
+Some authors have proposed blockchain-based fair-exchange systems that could be adapted to service provision; however, to our best knowledge, we are the first to propose a system that satisfies all five properties stated above. Especially anonymity and physical materials delivery were rarely addressed together, and if so, the protocol was based on TTP and impractical assumptions on banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
 
-Our protocol may enable various services currently based on unacceptable trust assumptions to the SP.
 
 %\paragraph{Organisation}
 The remainder of this paper is organized as follows.
@@ -322,9 +328,9 @@ The comparision of the protocols is presented in table~\ref{tab:comparision}.
 Disputes are an inevitable part of all human transactions. Whether intentional or accidental, the system should prevent violation of agreed contract rules or local jurisdiction. The rules are specified by law and implemented by the police.
 
 The vision of smart contracts was to replace the legal contract with
-programmable and autonomous contracts. The smart contract code encompasses the contract's specifications, hence the slogan \textit{code as a law}. 
-
-Nevertheless, the blockchain paradigm has its limitations. Blockchain can assure the correctness of data existing only on the blockchain. The problem arises in the contact between blockchain and the real world, when we want the smart contract to decide based on some input from outside the blockchain. The technique of providing real-world data to the blockchain is called oracle. Oracle provides data based on a decentralized network of mediators; therefore, the trust is also decentralized.
+programmable and autonomous contracts. The smart contract code encompasses the contract's specifications, hence the slogan \textit{code as a law}. Moreover, smart contracts are automatically executed merging together the gap of law and its enforcment by police~\cite{allenGovernanceBlockchainDispute2019}. However, the blockchain paradigm has its limitations. 
+ 
+Blockchain can assure the correctness of data existing only on the blockchain. The problem arises in the contact between blockchain and the real world, when we want the smart contract to decide based on some input from outside the blockchain. The technique of providing real-world data to the blockchain is called oracle. Oracle provides data based on a decentralized network of mediators; therefore, the trust is also decentralized.
 
 Some oracles provide the data like weather, soccer match result, stock
 price, train delay, election results, others—and they are the ones we
@@ -342,7 +348,7 @@ Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on t
 Such a decentralized, voluntary, and anonymous dispute resolution system might work for simple contracts violations like an eBay seller sending broken or wrong products or an Airbnb apartment being inadequate to the photos in the offer. However, it is hard to realize such decentralized evaluation of heath or legal services quality when expertise and privacy concerns are taken into account. Therefore, in our protocol, we take the more conservative approach and resolve disputes using local
 justice system (police or court).
 
-Possible directions toward semi-autonomous decentralized resolution system are discussed in section ~\ref{sec:discussion}.
+Possible directions toward semi-autonomous decentralized resolution system are discussed in Section~\ref{sec:decentralised-justice}.
 
 \subsection{Fairness}\label{fairness}
 
@@ -886,18 +892,20 @@ The customer and the SP are two different users of our prototype, but for simpli
 
 Now we describe the experiments we performed to test our protocol.
 
+
 \begin{figure*}[ht]
   \begin{center}
-  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{experiment1.pdf}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{anonser-experiment1.pdf}
   \end{center}
 \end{figure*}
 \begin{figure*}[ht]
   \begin{center}
-  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{experiment2.pdf}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{anonser-experiment2.pdf}
   \end{center}
 \end{figure*}
 
-\begin{description}
+\begin{enumerate}
+  \setcounter{enumi}{0}
   \item[0.] The protocol starts with the customer opening the webapp and creating new provision. 
 The app generates random ECDSA (secp256k1) customer's keypair and random 32 bytes provisionID, then display QR code that encodes both the provisionID and the customer's public key. 
 The customer's private key must be downloaded and provided later for the decryption of the results.
@@ -931,7 +939,7 @@ The customer's private key must be downloaded and provided later for the decrypt
  
   \item[9.] Results are then decrypted using previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise the Customer can initiate a dispute.
 
-\end{description}
+\end{enumerate}
 
 \subsection{Results}
 
@@ -967,11 +975,11 @@ In result, the cost of
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Justice}\label{justice}
+\subsection{Justice}\label{sec:decentralised-justice}
 
 Justice is the biggest obstacle in achieving a system that complies with Web 3.0 postulates\footnote{https://en.wikipedia.org/wiki/Web3}.
 
-The possible directions for mitigation of such issues are to either (i) replace justice with decentralized autonomous organizations (DAO) like proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022}, or Aragon Court\footnote{https://aragon.org/aragon-court}; or (ii) make it infeasible to provide incorrect results.
+The possible directions for mitigation of such issues are to either (i) replace local justice with Online Dispute Resolution systems like proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court\footnote{Aragon Court, Decentralized Dispute Resolution Protocol, https://aragon.org/aragon-court, (last visited Jan. 10, 2023)}, LTO Network\footnote{LTO Network, 2019, https://lto.network/, (last visited Jan. 17, 2023)}, and other blockchain dispute resolution platforms~\cite{allenGovernanceBlockchainDispute2019}; or (ii) make it infeasible to provide incorrect results.
 
 The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{attestation}$ as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honesty by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the correctness is determined by the quorum of votes.
 
@@ -1035,9 +1043,9 @@ The customer has delivered the package:
 \item Agreeable path:
   \begin{itemize}
   \item
-    \(\operatorname{\sigma_{1, c, n} = \sbullet}\), the customer has risked its materials but has not paid for the transaction, so we assume he is in the neutral position \footnote{One would argue that the customer has put effort into delivering the materials to the SP or that the sample is valuable. We assume that the sample without personal information is useless, and the effort to deliver the package is negligible.}.
+    \(\operatorname{\sigma_{1, c, n} = \neutral}\), the customer has risked its materials but has not paid for the transaction, so we assume he is in the neutral position \footnote{One would argue that the customer has put effort into delivering the materials to the SP or that the sample is valuable. We assume that the sample without personal information is useless, and the effort to deliver the package is negligible.}.
   \item
-    \(\operatorname{\sigma_{1, s, n} = \sbullet}\), the SP is in a neutral position as she did not put any effort, and the package has not brought any value to the SP.
+    \(\operatorname{\sigma_{1, s, n} = \neutral}\), the SP is in a neutral position as she did not put any effort, and the package has not brought any value to the SP.
   \end{itemize}
 \item
   Starting a dispute:
@@ -1047,7 +1055,7 @@ The customer has delivered the package:
   \item
     \(\operatorname{\sigma_{1, c, d} = -}\), the customer loses the case as the SP has still an opportunity to publish proof of provision within the timeframe.
   \item
-    \(\operatorname{\sigma_{1, s, d} = \sbullet}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{1, s, d} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1056,7 +1064,7 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can follow the protocol to the non-disadvantaged position \(\operatorname{\sigma_{1, c, n} = \sbullet}\).
+  The customer can follow the protocol to the non-disadvantaged position \(\operatorname{\sigma_{1, c, n} = \neutral}\).
 \item
   The SP can do nothing and always ends up in the non-disadvantaged position.
 \end{itemize}
@@ -1073,9 +1081,9 @@ The SP has published proof of delivery:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{2, c, n} = \sbullet}\), the customer remains in the neutral position as the PoD allows him to pay for the transaction but does not obligate him to anything.
+    \(\operatorname{\sigma_{2, c, n} = \neutral}\), the customer remains in the neutral position as the PoD allows him to pay for the transaction but does not obligate him to anything.
   \item
-    \(\operatorname{\sigma_{2, s, n} = \sbullet}\), the SP is in a neutral position because the package has not brought her any value and she did not put any effort to provide the service yet
+    \(\operatorname{\sigma_{2, s, n} = \neutral}\), the SP is in a neutral position because the package has not brought her any value and she did not put any effort to provide the service yet
   \end{itemize}
 \item
   Starting a dispute:
@@ -1085,7 +1093,7 @@ The SP has published proof of delivery:
   \item
     \(\operatorname{\sigma_{2, c, d} = -}\), the customer loses the case as the SP didn't receive the payment on time.
   \item
-    \(\operatorname{\sigma_{2, s, d} = \sbullet}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{2, s, d} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1098,9 +1106,9 @@ The SP has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{2, c, \overline{n}} = \sbullet}\), the customer remains in the neutral position as he is not obligated agree with the incorrect $\mathrm{PoD}$.
+    \(\operatorname{\sigma_{2, c, \overline{n}} = \neutral}\), the customer remains in the neutral position as he is not obligated agree with the incorrect $\mathrm{PoD}$.
   \item
-    \(\operatorname{\sigma_{2, s, \overline{n}} = \sbullet}\), the SP is in a neutral position as she did not put any effort to provide the service, and the package has not brought any value to the SP.
+    \(\operatorname{\sigma_{2, s, \overline{n}} = \neutral}\), the SP is in a neutral position as she did not put any effort to provide the service, and the package has not brought any value to the SP.
   \end{itemize}
 \item
   Starting a dispute:
@@ -1110,7 +1118,7 @@ The SP has acted abnormally, then:
   \item
     \(\operatorname{\sigma_{2, c, \overline{d}} = -}\), the customer loses the case as the SP is not obligated to publish correct $\mathrm{PoD}$.
   \item
-    \(\operatorname{\sigma_{2, s, \overline{d}} = \sbullet}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{2, s, \overline{d}} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1119,7 +1127,7 @@ Fairness:
 \begin{itemize}
 
 \item The customer can do nothing and always ends up in a non-disadvantaged position.
-\item The SP can follow the protocol ends up in the non-disadvantaged position \(\operatorname{\sigma_{2, s, n} = \sbullet}\).
+\item The SP can follow the protocol ends up in the non-disadvantaged position \(\operatorname{\sigma_{2, s, n} = \neutral}\).
 
 \end{itemize}
 
@@ -1135,9 +1143,9 @@ The customer has got the PoD, then:
   \begin{itemize}
   
   \item
-    $\operatorname{\sigma_{3, c, n} = \sbullet}$, the customer has the opportunity to pay for the transaction, but since he didn't put any effort, he is in the neutral position.
+    $\operatorname{\sigma_{3, c, n} = \neutral}$, the customer has the opportunity to pay for the transaction, but since he didn't put any effort, he is in the neutral position.
   \item
-    $\operatorname{\sigma_{3, s, n} = \sbullet}$, the SP position has not changed.
+    $\operatorname{\sigma_{3, s, n} = \neutral}$, the SP position has not changed.
   \end{itemize}
 \item
   Starts a dispute:
@@ -1147,7 +1155,7 @@ The customer has got the PoD, then:
   \item
     $\operatorname{\sigma_{3, c, d} = -}$, the customer loses the case as the SP didn't receive the payment on time.
   \item
-    $\operatorname{\sigma_{3, s, d} = \sbullet}$, the SP win the case for the same reason.
+    $\operatorname{\sigma_{3, s, d} = \neutral}$, the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1160,9 +1168,9 @@ The customer has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{3, c, \overline{n}} = \sbullet}\), the customer can not follow the protocol but since he didn't put any efford he is in the neutral position.
+    \(\operatorname{\sigma_{3, c, \overline{n}} = \neutral}\), the customer can not follow the protocol but since he didn't put any efford he is in the neutral position.
   \item
-    \(\operatorname{\sigma_{3, s, \overline{n}} = \sbullet}\), the SP position has not changed.
+    \(\operatorname{\sigma_{3, s, \overline{n}} = \neutral}\), the SP position has not changed.
   \end{itemize}
 \item
   Starts a dispute:
@@ -1172,7 +1180,7 @@ The customer has acted abnormally, then:
   \item
     \(\operatorname{\sigma_{3, c, \overline{d}} = -}\), the customer loses the case as the SP is not obligated to do anything before the payment is made.
   \item
-    \(\operatorname{\sigma_{3, s, \overline{d}} = \sbullet}\), the SP wins the case and ends up in the neutral position.
+    \(\operatorname{\sigma_{3, s, \overline{d}} = \neutral}\), the SP wins the case and ends up in the neutral position.
   \end{itemize}
 \end{itemize}
 
@@ -1180,7 +1188,7 @@ Fairness:
 
 \begin{itemize}
 
-\item The customer can follow the protocol to the non-disadvantaged position \(\operatorname{\sigma_{3, c, n} = \sbullet}\).
+\item The customer can follow the protocol to the non-disadvantaged position \(\operatorname{\sigma_{3, c, n} = \neutral}\).
 \item The SP can do nothing and always ends up in a non-disadvantaged position.
 \end{itemize}
 
@@ -1207,7 +1215,7 @@ The customer has paid the invoice:
   \item
     \(\operatorname{\sigma_{2, c, d} = -}\), the customer loses the case as the SP has still an opportunity to publish proof of provision before the deadline.
   \item
-    \(\operatorname{\sigma_{2, s, d} = +}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{2, s, d} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1218,9 +1226,9 @@ The customer has acted abnormally, then:
   Following protocol:
   \begin{itemize}
   \item
-    \(\operatorname{\sigma_{2, c, \overline{n}} = \sbullet}\), the customer ends up in the neutral position as he did not spend his funds.
+    \(\operatorname{\sigma_{2, c, \overline{n}} = \neutral}\), the customer ends up in the neutral position as he did not spend his funds.
   \item
-    \(\operatorname{\sigma_{2, s, \overline{n}} = \sbullet}\), the SP ends up in a neutral position as he did not receive the payment, nor spent his resources.
+    \(\operatorname{\sigma_{2, s, \overline{n}} = \neutral}\), the SP ends up in a neutral position as he did not receive the payment, nor spent his resources.
   \end{itemize}
 \item
   Starting a dispute:
@@ -1230,7 +1238,7 @@ The customer has acted abnormally, then:
   \item
     \(\operatorname{\sigma_{2, c, \overline{d}} = -}\), the customer loses the case as he can not prove the payment before the time limit.
   \item
-    \(\operatorname{\sigma_{2, s, \overline{d}} = \sbullet}\), the SP is not charged to justice due to a lack of proof.
+    \(\operatorname{\sigma_{2, s, \overline{d}} = \neutral}\), the SP is not charged to justice due to a lack of proof.
   \end{itemize}
 \end{itemize}
 
@@ -1239,9 +1247,9 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can move the protocol forward to step 3, where if the SP follows the protocol then the customer can push the protocol forward up to the last termination step \(\operatorname{\sigma_{7, c, n} = +}\), otherwise if at any step the SP does not follow the protocol the customer can start a dispute which terminates the protocol at the non-disadvantaged position, i.e., \(\operatorname{\sigma_{3, c, \overline{d}} = \sbullet}\), \(\operatorname{\sigma_{4, c, \overline{d}} = \sbullet}\), \(\operatorname{\sigma_{5, c, \overline{d}} = \sbullet}\).
+  The customer can move the protocol forward to step 3, where if the SP follows the protocol then the customer can push the protocol forward up to the last termination step \(\operatorname{\sigma_{7, c, n} = +}\), otherwise if at any step the SP does not follow the protocol the customer can start a dispute which terminates the protocol at the non-disadvantaged position, i.e., \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\), \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\), \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\).
 \item
-  The SP can do nothing and end up in the non-disadvantaged position \(\operatorname{\sigma_{2, s, n} = +}\), \(\operatorname{\sigma_{2, s, d} = +}\), \(\operatorname{\sigma_{2, s, \overline{n}} = \sbullet}\), \(\operatorname{\sigma_{2, s, \overline{d}} = \sbullet}\).
+  The SP can do nothing and end up in the non-disadvantaged position \(\operatorname{\sigma_{2, s, n} = +}\), \(\operatorname{\sigma_{2, s, d} = +}\), \(\operatorname{\sigma_{2, s, \overline{n}} = \neutral}\), \(\operatorname{\sigma_{2, s, \overline{d}} = \neutral}\).
 \end{itemize}
 
 \noindent \textbf
@@ -1268,7 +1276,7 @@ The SP has made the provision of service:
   \item
     \(\operatorname{\sigma_{3, c, d} = -}\), the customer loses the case as the SP has still the opportunity to publish proof of provision within the timeframe. 
   \item
-    \(\operatorname{\sigma_{3, s, d} = +}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{3, s, d} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1291,7 +1299,7 @@ The SP has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{3, c, \overline{d}} = \sbullet}\), the customer wins the case and ends up in the neutral position.
+    \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
   \item
     \(\operatorname{\sigma_{3, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
   \end{itemize}
@@ -1302,7 +1310,7 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can do nothing if the SP follows the protocol, which will ultimately put him in the advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{3, c, \overline{d}} = \sbullet}\).
+  The customer can do nothing if the SP follows the protocol, which will ultimately put him in the advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\).
 \item
   The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{3, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{3, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{3, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
 \end{itemize}
@@ -1311,6 +1319,7 @@ Fairness:
 {Step 6. SP turn: upload result}\label{step-6-publication-of-results}
 
 The SP has uploaded the result on time:
+
 
 \begin{itemize}
 \item
@@ -1331,7 +1340,7 @@ The SP has uploaded the result on time:
   \item
     \(\operatorname{\sigma_{4, c, d} = -}\), the customer loses the case as the SP has still an opportunity to publish proof of provision within the timeframe. 
   \item
-    \(\operatorname{\sigma_{4, s, d} = +}\), the SP win the case for the same reason.
+    \(\operatorname{\sigma_{4, s, d} = \neutral}\), the SP win the case for the same reason.
   \end{itemize}
 \end{itemize}
 
@@ -1354,7 +1363,7 @@ The SP has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{4, c, \overline{d}} = \sbullet}\), the customer wins the case and ends up in a neutral position. 
+    \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in a neutral position. 
   \item
     \(\operatorname{\sigma_{4, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
   \end{itemize}
@@ -1365,7 +1374,7 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can do nothing if the SP follows the protocol, which will ultimately put him in an advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{4, c, \overline{d}} = \sbullet}\).
+  The customer can do nothing if the SP follows the protocol, which will ultimately put him in an advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\).
 \item
   The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{4, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{4, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{4, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
 \end{itemize}
@@ -1417,7 +1426,7 @@ The SP has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{5, c, \overline{d}} = \sbullet}\), the customer wins the case and ends up in the neutral position. 
+    \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position. 
   \item
     \(\operatorname{\sigma_{5, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
   \end{itemize}
@@ -1429,7 +1438,7 @@ Fairness:
 
 \item
   The customer can do nothing if the SP follows the protocol because it will ultimately put him in the advantaged position \(\operatorname{\sigma_{7, c, n} = +}\); otherwise, in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position.
-  \(\operatorname{\sigma_{5, c, \overline{d}} = \sbullet}\).
+  \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\).
 \item
   The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{5, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{5, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{5, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
 \end{itemize}
@@ -1482,7 +1491,7 @@ The customer has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{6, c, \overline{d}} = \sbullet}\), the customer wins the case and ends up in the neutral position.
+    \(\operatorname{\sigma_{6, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
   \item
     \(\operatorname{\sigma_{6, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position.
   \end{itemize}
@@ -1493,7 +1502,7 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can follow the protocol to the position \(\operatorname{\sigma_{6, c, n} = -}\), which lets him move the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{6, c, \overline{d}} = \sbullet}\).
+  The customer can follow the protocol to the position \(\operatorname{\sigma_{6, c, n} = -}\), which lets him move the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{6, c, \overline{d}} = \neutral}\).
 \item
   The SP can do nothing and end up in a non-disadvantaged position \(\operatorname{\sigma_{6, s, n} = +}\), or \(\operatorname{\sigma_{6, s, \overline{n}} = +}\).
 \end{itemize}
@@ -1545,7 +1554,7 @@ The customer has acted abnormally, then:
   \begin{itemize}
   
   \item
-    \(\operatorname{\sigma_{7, c, \overline{d}} = \sbullet}\), the customer wins the case and ends up in the neutral position.
+    \(\operatorname{\sigma_{7, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
   \item
     \(\operatorname{\sigma_{7, c, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position.
   \end{itemize}
@@ -1556,11 +1565,133 @@ Fairness:
 \begin{itemize}
 
 \item
-  The customer can follow the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{7, c, \overline{d}} = \sbullet}\).
+  The customer can follow the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{7, c, \overline{d}} = \neutral}\).
 \item
   The SP can do nothing and ends up in the non-disadvantaged position \(\operatorname{\sigma_{7, s, n} = +}\).
 \end{itemize}
 
+
+% \section{Appendix B: Smart contract code}\label{appendix-b-smart-contract-code}
+
+% \input{solidity-highlighting.tex}
+% \begin{lstlisting}[language=Solidity]
+% // SPDX-License-Identifier: MIT
+% pragma solidity >=0.4.22 <0.9.0;
+
+% contract AnonSer {
+%     struct Provision {
+%         uint256 issueTime;
+%         uint256 paymentDeadlineTime;
+%         uint256 provisionDeadlineTime;
+%         bool paidInCash;
+%         string paymentAddress;
+%         string cid;
+%         bool exist;
+%         uint256 dealId;
+%         string minerId;
+%     }
+
+%     mapping(bytes => mapping(bytes32 => Provision)) public provisions;
+
+%     address private _owner;
+
+%     event ProofOfDelivery(
+%         bytes indexed clientPubKey,
+%         bytes32 indexed provisionId,
+%         uint256 issueTime,
+%         uint256 paymentDeadlineTime,
+%         uint256 provisionDeadlineTime,
+%         bool paidInCash,
+%         string paymentAddress
+%     );
+
+%     constructor() {
+%         _owner = msg.sender;
+%     }
+
+%     modifier onlyOwner() {
+%         require(
+%             _owner == msg.sender,
+%             "Ownership Assertion: Caller of the function is not the owner."
+%         );
+%         _;
+%     }
+
+%     function proofOfDelivery(
+%         bytes memory clientPubKey,
+%         bytes32 provisionId,
+%         bool paidInCash,
+%         string memory paymentAddress
+%     ) public onlyOwner {
+%         if (provisions[clientPubKey][provisionId].exist) {
+%             revert("Provision already exists");
+%         }
+%         if (paidInCash && bytes(paymentAddress).length > 0) {
+%             revert("Payment address should be empty if paid in cash");
+%         }
+%         if (!paidInCash && bytes(paymentAddress).length == 0) {
+%             revert(
+%                 "Payment address should not be empty if didn't paid in cash"
+%             );
+%         }
+%         Provision memory provision = Provision({
+%             exist: true,
+%             issueTime: block.timestamp,
+%             paymentDeadlineTime: block.timestamp + 1 days,
+%             provisionDeadlineTime: block.timestamp + 8 days,
+%             paidInCash: paidInCash,
+%             paymentAddress: paymentAddress,
+%             dealId: 0,
+%             cid: "",
+%             minerId: ""
+%         });
+%         provisions[clientPubKey][provisionId] = provision;
+%         emit ProofOfDelivery(
+%             clientPubKey,
+%             provisionId,
+%             provision.issueTime,
+%             provision.paymentDeadlineTime,
+%             provision.provisionDeadlineTime,
+%             provision.paidInCash,
+%             provision.paymentAddress
+%         );
+%     }
+
+%     event ProofOfProvision(
+%         bytes indexed clientPubKey,
+%         bytes32 indexed provisionId,
+%         string cid,
+%         uint256 dealId,
+%         string minerId
+%     );
+
+%     function proofOfProvision(
+%         bytes memory clientPubKey,
+%         bytes32 provisionId,
+%         string memory cid,
+%         uint256 dealId,
+%         string memory minerId
+%     ) public onlyOwner {
+%         Provision storage provision = provisions[clientPubKey][provisionId];
+%         if (!provision.exist) {
+%             revert("Provision must be created with proof of delivery first");
+%         }
+
+%         provision.cid = cid;
+%         provision.dealId = dealId;
+%         provision.minerId = minerId;
+%         emit ProofOfProvision(clientPubKey, provisionId, cid, dealId, minerId);
+%     }
+
+%     function getProvision(bytes memory clientPubKey, bytes32 provisionId)
+%         public
+%         view
+%         returns (Provision memory)
+%     {
+%         return provisions[clientPubKey][provisionId];
+%     }
+% }
+% \end{lstlisting}
 
 \end{document}
 
