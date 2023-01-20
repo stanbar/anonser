@@ -22,6 +22,18 @@
   \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
 }
 
+\newcommand{\customer}{customer}
+\renewcommand{\sp}{SP}
+
+\newcommand{\normal}{n}
+\newcommand{\dispute}{d}
+\newcommand{\abnormal}{\overline{n}}
+\newcommand{\abdispute}{\overline{d}}
+
+\newcommand{\PoD}{$\mathrm{PoD}$}
+\newcommand{\PoP}{$\mathrm{PoP}$}
+\newcommand{\cid}{$\mathrm{cid}$}
+
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
@@ -791,33 +803,21 @@ A protocol achieve fariness iff
 \end{definition}
 
 
-\subsection{Assumptions}\label{assumptions}
+\subsection{Assumptions}\label{sec:assumptions}
 
 Below we listed assumptions we took for the analysis purpose.  
 
-\begin{itemize}
-
-\item
-    Both parties start from a neutral position (•).
-\item
-    After completing a transaction, both parties end up in advantaged positions (+). In other words, they have intrinsic motivation to initialize and complete the transaction.
-\item
-    The protocol steps are atomic—there are no intermediate steps.
-\item 
-    The protocol can go only forward—there is no way of reverting any action.
-\item
-    Repeating the first step starts a new transaction. Repeating any other step is considered abnormal and gets ignored. For example, paying for the invoice twice does not cause any effect on the curse of the protocol.
-\item 
-    Once published, the result is available to the customer on the storage network. The idea of guaranteeing it cryptographically is discussed in section~\ref{sec:discussion}.
-    
-\item
-    Winning the dispute leads to a neutral position (•).
-
-\item
-    Losing the dispute leads to a punishment greater than any reward, leading to a disadvantaged position (-). Hence, the rational customer will not start a dispute that he is unsure of winning.
-\item
-    Both the customer and the SP are rational (selfish). They always prefer to go from the worst position to a better position, but also risk a temporary worst position in favour of a later better position if and only if it is assured that they will not be stuck in the worst position.
-\end{itemize}
+\begin{enumerate}
+\item Both parties start from a neutral position $\neutral$.
+\item After completing a transaction, both parties end up in advantaged positions (\plus{}). In other words, they have intrinsic motivation to initialize and complete the transaction.
+\item The protocol steps are atomic—there are no intermediate steps.
+\item The protocol can go only forward—there is no way of reverting any action.
+\item Repeating the first step starts a new transaction. Repeating any other step is considered abnormal and gets ignored. For example, paying for the invoice twice does not cause any effect on the curse of the protocol.
+\item Once published, the result is available to the customer on the storage network. The idea of guaranteeing it cryptographically is discussed in section~\ref{sec:discussion}.
+\item Winning the dispute leads to a neutral position ($\neutral$).
+\item Losing the dispute leads to a punishment greater than any reward, leading to a disadvantaged position (\minus{}). Hence, the rational customer will not start a dispute that he is unsure of winning.
+\item Both the customer and the SP are rational (selfish). They always prefer to go from the worst position (\minus{} or $\neutral${}) to a better position ($\neutral$ or \plus), but also risk a temporary worst position in favour of a later better position if and only if at any time they can get out of the worst position; in particular, at any time the customer can start a dispute and, if the SP has misbehaved, get out of disadvantaged position (\minus) to the neutral position ($\neutral$).
+\end{enumerate}
 
 \subsection{Steps}\label{sec:steps}
 
@@ -852,7 +852,7 @@ Ultimately, the rational path for both parties is to follow the protocol as show
 \label{fig:rational}
 \end{figure}
 
-Using the fariness definition~\ref{def:fairness} and the assumptions stated in section~\ref{assumptions}, our analysis indicates that the protocol achieves fairness.
+Using the fariness definition~\ref{def:fairness} and the assumptions stated in Section~\ref{sec:assumptions}, our analysis indicates that the protocol achieves fairness.
 
 \section{Experiments}\label{sec:experiments}
 
@@ -1030,30 +1030,26 @@ Below we describe each step and rationale of the outcome position.
 We use the notation introduced in Section~\ref{sec:fairness-model} to analise each position in the protocol and fariness Definition~\ref{def:fairness} to show the fairness of the protocol.
 
 
-\newcommand{\customer}{customer}
-\renewcommand{\sp}{SP}
 \newcommand{\AgreeablePath}{Agreeable path:}
-\newcommand{\DisputePath}{The customer starts a dispute:}
+\newcommand{\DisputePath}{The \customer{} starts a dispute:}
 \newcommand{\Fairness}{Fairness:}
-\newcommand{\CustomerTurn}[0]{\expandafter\MakeUppercase customer turn:}
+\newcommand{\CustomerTurn}[0]{\expandafter\MakeUppercase \customer{} turn:}
 \newcommand{\SPTurn}[0]{\sp{} turn:}
 
 \newcommand{\CanFollowToOne}[2]{The #1 can follow the protocol to the non-disadvantaged position #2}
-\newcommand{\CanDoNothing}[1]{The #1 can do nothing and always end up in the non-disadvantaged position}
-\newcommand{\CanDoAnything}[1]{The #1 can do anything and always end up in the non-disadvantaged position}
+\newcommand{\CanDoNothing}[1]{The #1 can do nothing and always ends up in the non-disadvantaged position}
+\newcommand{\CanDoAnything}[1]{The #1 can do anything and always ends up in the non-disadvantaged position}
 \newcommand{\Pos}[4]{$\operatorname{\sigma_{#1, #2, #3} = #4}$}
 \newcommand{\WinForTheSameReason}[1]{The #1 wins the dispute for the same reason}
+\newcommand{\LoseForTheSameReason}[1]{The #1 loses the dispute for the same reason}
+\newcommand{\ActedAbnormallyThen}[1]{The #1 acted abnormally, then:}
+\newcommand{\CustomerPaidButDidntGetResult}{the customer ends up in a disadvantaged position as he paid in advance but didn't receive the result}
+\newcommand{\SpReceivedThePayment}{the SP ends up in the advantaged position as she received the payment}
+
 
 \newcommand{\CustomerLosesBeforePayment}{The customer loses the dispute because the SP is not obligated to do anything until the transaction is paid}
 \newcommand{\CustomerLosesBeforePoP}{The customer loses the dispute because the SP still can publish the PoP within the agreed timeframe}
 
-\newcommand{\normal}{n}
-\newcommand{\dispute}{d}
-\newcommand{\abnormal}{\overline{n}}
-\newcommand{\abdispute}{\overline{d}}
-
-\newcommand{\PoD}{$\mathrm{PoD}$}
-\newcommand{\PoP}{$\mathrm{PoP}$}
 
 \newcommand{\RemainsIn}[2]{The #1 remains in the #2 position}
 
@@ -1101,7 +1097,7 @@ The SP publishes the PoD, then:
     \end{itemize}
 \end{itemize}
 
-The SP acted abnormally, then:
+\ActedAbnormallyThen{\sp}
 
 \begin{itemize}
 \item \AgreeablePath
@@ -1120,11 +1116,11 @@ The SP acted abnormally, then:
 
 \begin{itemize}
   \item \CanDoAnything{SP}.
-  \item The customer can either wait (in case of the SP following the protocol), or abandon the transaction (in case of the SP acting abnormally). In both cases the customer ends up in non-disadvantaged position \Pos{2}{c}{\normal}{\neutral} or \Pos{2}{c}{\abnormal}{\neutral}
+  \item The customer can either wait (in case of the SP following the protocol), or abandon the transaction (in case of the SP acting abnormally). In both cases the customer ends up in non-disadvantaged position \Pos{2}{c}{\normal}{\neutral} or \Pos{2}{c}{\abnormal}{\neutral}.
 \end{itemize}
 
 
-\subsubsection{Step 3. \CustomerTurn\ Get Proof of Delivery}\label{step-3-get-proof-of-delivery}
+\subsubsection*{Step 3. \CustomerTurn{} Get Proof of Delivery}\label{step-3-get-proof-of-delivery}
 
 The customer got the \PoD, then:
 
@@ -1141,7 +1137,8 @@ The customer got the \PoD, then:
   \end{itemize}
 \end{itemize}
 
-The customer acted abnormally, then:
+\ActedAbnormallyThen{\customer}
+
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
@@ -1158,15 +1155,15 @@ The customer acted abnormally, then:
 \Fairness
 
 \begin{itemize}
-  \item The customer can follow the protocol to the non-disadvantaged position \Pos{3}{c}{\normal}{\neutral}.
+  \item \CanFollowToOne{customer}{\Pos{3}{c}{\normal}{\neutral}}.
   \item \CanDoNothing{SP}.
 \end{itemize}
 
 
 
-\subsubsection{Step 4. \CustomerTurn{} Payment}
+\subsubsection*{Step 4. \CustomerTurn{} Payment}
 
-The customer paid the transaction:
+The customer paid the transaction, then:
 
 \begin{itemize}
 \item \AgreeablePath
@@ -1181,238 +1178,233 @@ The customer paid the transaction:
   \end{itemize}
 \end{itemize}
 
-The customer acted abnormally, then:
+\ActedAbnormallyThen{\customer}
 
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
     \item \Pos{4}{c}{\abnormal}{\neutral}, the customer ends up in the neutral position as he did not spend his funds.
-    \item \Pos{4}{s}{\abnormal}{\neutral}, the SP ends up in a neutral position as he did not receive the payment, nor spent his resources.
+    \item \Pos{4}{s}{\abnormal}{\neutral}, the SP ends up in the neutral position as she neither received the payment nor spent her resources.
   \end{itemize}
 \item \DisputePath
   \begin{itemize}
-    \item \(\operatorname{\sigma_{2, c, \overline{d}} = -}\), the customer loses the case as he can not prove the payment before the time limit.
-    \item \(\operatorname{\sigma_{2, s, \overline{d}} = \neutral}\), the SP is not charged to justice due to a lack of proof.
+    \item \Pos{4}{c}{\abdispute}{\minus}, \CustomerLosesBeforePayment{}.
+    \item \Pos{4}{s}{\abdispute}{\neutral}, \WinForTheSameReason{SP}.
+  \end{itemize}
+\end{itemize}
+
+\Fairness
+
+\newcommand{\CustomerRiskTemporaryDisadvantagedPosition}[1]{The customer, following the 9th assumption described in Section~\ref{sec:assumptions}, risk the temporary disadvantaged position #1 in faviour of a later better position \Pos{9}{s}{\normal}{\plus}; meanwhile being able to get out of the disadvantaged position if the SP misbehave in one of the following steps.}
+
+\begin{itemize}
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{4}{c}{\normal}{\minus}}.
+  \item \CanDoNothing{SP}.
+\end{itemize}
+
+
+
+\subsubsection*{Step 5. \SPTurn{} Provision of service}
+
+The \sp{} did the provision of service, then:
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{5}{c}{\normal}{\minus}, \RemainsIn{\customer}{disadvantaged} as he did not receive the result.
+    \item \Pos{5}{s}{\normal}{\plus}, \RemainsIn{\sp}{advantaged} as she received the payment.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{5}{c}{\dispute}{\minus}, \CustomerLosesBeforePoP{}.
+    \item \Pos{5}{s}{\dispute}{\neutral}, \WinForTheSameReason{SP}.
+  \end{itemize}
+\end{itemize}
+
+\ActedAbnormallyThen{\sp}
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{5}{c}{\abnormal}{\minus}, \CustomerPaidButDidntGetResult{}. 
+    \item \Pos{5}{s}{\abnormal}{\plus}, \SpReceivedThePayment{}.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{5}{c}{\abdispute}{\neutral} The customer wins the dispute because the SP did not provide the service within the time agreed upon in the \PoD{}, and so the SP will not be able to upload the result and publish the \PoP{} on time.
+    \item \Pos{5}{s}{\abdispute}{\minus}, \LoseForTheSameReason{SP}.
+  \end{itemize}
+\end{itemize}
+
+\Fairness
+\newcommand{\SPCanDoBothButFollowIsSafe}[1]{The SP can follow the protocol and move to the advantaged position \Pos{#1}{s}{\normal}{\plus}, or act abnormally (not provide the service) and also move to the advantaged position \Pos{#1}{s}{\abnormal}{\plus}; however, the second option puts her at risk of terminating the protocol at \Pos{#1}{s}{\abdispute}{\minus} if the customer is rational and starts a dispute; hence, the SP should choose the first option}
+
+\begin{itemize}
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{5}{c}{\normal}{\minus}}.
+  \item \SPCanDoBothButFollowIsSafe{5}.
+\end{itemize}
+
+\subsubsection*{Step 6. \SPTurn{} Upload result}\label{step-6-publication-of-results}
+
+The SP uploaded the result on time, then:
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{6}{c}{\normal}{\minus}, \RemainsIn{\customer}{disadvantaged} as he did not receive the result.
+    \item \Pos{6}{s}{\normal}{\plus}, \RemainsIn{SP}{advantaged} as she received the payment.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{6}{c}{\dispute}{\minus}, \CustomerLosesBeforePoP{}.
+    \item \Pos{6}{s}{\dispute}{\neutral}, \WinForTheSameReason{SP}.
+
+  \end{itemize}
+\end{itemize}
+
+\ActedAbnormallyThen{\sp}
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{6}{c}{\abnormal}{\minus}, \CustomerPaidButDidntGetResult{}.
+    \item \Pos{6}{s}{\abnormal}{\plus}, \SpReceivedThePayment{}.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{6}{c}{\abdispute}{\neutral}, the customer wins the dispute because the SP did not upload the service within the time agreed upon in the \PoD{}, and so the SP will not be able to publish the \PoP{} on time.
+    \item \Pos{6}{s}{\abdispute}{\minus}, \LoseForTheSameReason{SP}.
   \end{itemize}
 \end{itemize}
 
 \Fairness
 
 \begin{itemize}
-  \item The customer can move the protocol forward to step 3, where if the SP follows the protocol then the customer can push the protocol forward up to the last termination step \(\operatorname{\sigma_{7, c, n} = +}\), otherwise if at any step the SP does not follow the protocol the customer can start a dispute which terminates the protocol at the non-disadvantaged position, i.e., \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\), \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\), \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\).
-  \item The SP can do nothing and end up in the non-disadvantaged position \(\operatorname{\sigma_{2, s, n} = +}\), \(\operatorname{\sigma_{2, s, d} = +}\), \(\operatorname{\sigma_{2, s, \overline{n}} = \neutral}\), \(\operatorname{\sigma_{2, s, \overline{d}} = \neutral}\).
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{6}{c}{\normal}{\minus}}.
+  \item \SPCanDoBothButFollowIsSafe{6}.
 \end{itemize}
 
-\subsubsection{Step 5. SP turn: Provision of service}
+\subsubsection*{Step 7. \SPTurn{} Proof of provision}\label{step-7-publication-of-proof-of-provision}
 
-The SP has made the provision of service:
+The SP published \PoP{} on time, then:
 
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{3, c, n} = -}\), the customer has not received the result, so he remains in the disadvantaged position. 
-    \item \(\operatorname{\sigma_{3, s, n} = +}\), the SP has fulfilled the contract on time.
-  \end{itemize}
-\item \DisputePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{3, c, d} = -}\), the customer loses the case as the SP has still the opportunity to publish proof of provision within the timeframe. 
-    \item \(\operatorname{\sigma_{3, s, d} = \neutral}\), the SP win the case for the same reason.
-  \end{itemize}
-\end{itemize}
-
-The SP has acted abnormally, then:
-
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{3, c, \overline{n}} = -}\), the customer ends up in a disadvantaged position.
-    \item \(\operatorname{\sigma_{3, s, \overline{n}} = +}\), the SP ends up in the advantaged position as he received the payment. 
-  \end{itemize}
-\item \DisputePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
-    \item \(\operatorname{\sigma_{3, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
-  \end{itemize}
-\end{itemize}
-
-\Fairness
-
-\begin{itemize}
-  \item The customer can do nothing if the SP follows the protocol, which will ultimately put him in the advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{3, c, \overline{d}} = \neutral}\).
-  \item The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{3, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{3, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{3, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
-\end{itemize}
-
-\subsubsection{Step 6. SP turn: Upload result}\label{step-6-publication-of-results}
-
-The SP has uploaded the result on time:
-
-
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-  
-  \item
-    \(\operatorname{\sigma_{4, c, n} = -}\), the customer has not received the result, so he remains in the disadvantaged position. 
-  \item
-    \(\operatorname{\sigma_{4, s, n} = +}\), the SP has fulfilled the contract on time.
-  \end{itemize}
-\item \DisputePath
-
-  \begin{itemize}
-  
-  \item
-    \(\operatorname{\sigma_{4, c, d} = -}\), the customer loses the case as the SP has still an opportunity to publish proof of provision within the timeframe. 
-  \item
-    \(\operatorname{\sigma_{4, s, d} = \neutral}\), the SP win the case for the same reason.
-  \end{itemize}
-\end{itemize}
-
-The SP has acted abnormally, then:
-
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{4, c, \overline{n}} = -}\), the customer ends up in the disadvantaged position. 
-    \item \(\operatorname{\sigma_{4, s, \overline{n}} = +}\), the SP ends up in the advantaged position as he received the payment. 
-  \end{itemize}
-\item \DisputePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in a neutral position. 
-    \item \(\operatorname{\sigma_{4, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
-  \end{itemize}
-\end{itemize}
-
-\Fairness
-
-\begin{itemize}
-  \item The customer can do nothing if the SP follows the protocol, which will ultimately put him in an advantaged position \(\operatorname{\sigma_{7, c, n} = +}\), or in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position \(\operatorname{\sigma_{4, c, \overline{d}} = \neutral}\).
-  \item The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{4, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{4, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{4, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
-\end{itemize}
-
-\subsubsection{Step 7. SP turn: Proof of provision}\label{step-7-publication-of-proof-of-provision}
-
-The SP has published PoP on time:
+\newcommand{\CustomerLosesBecauseSPCanProveBeingCorrect}{the \customer{} loses the dispute as the \sp{} has published all evidences to prove her correct behaviour}
 
 \begin{itemize}
   \item \AgreeablePath
     \begin{itemize}
-      \item \(\operatorname{\sigma_{5, c, n} = -}\), the customer has not received the result. Therefore, he remains in the disadvantaged position. 
-      \item \(\operatorname{\sigma_{5, s, n} = +}\), the SP has fulfilled the contract on time.
+      \item \Pos{7}{c}{\normal}{\minus}, the customer has not received the result. Therefore, he remains in the disadvantaged position. 
+      \item \Pos{7}{s}{\normal}{\plus}, the SP has published all evidences to prove her correct behaviour, therefore she remains in advantaged position fot the rest of the protocol.
     \end{itemize}
   \item \DisputePath
     \begin{itemize}
-      \item \(\operatorname{\sigma_{5, c, d} = -}\), the customer loses the case as the SP can prove the publication of proof of provision. 
-      \item \(\operatorname{\sigma_{5, s, d} = +}\), the SP win the case for the same reason.
+      \item \Pos{7}{c}{\dispute}{\minus}, \CustomerLosesBecauseSPCanProveBeingCorrect{}.
+      \item \Pos{7}{s}{\dispute}{\plus}, \WinForTheSameReason{SP}.
     \end{itemize}
 \end{itemize}
 
-The SP has acted abnormally, then:
+\ActedAbnormallyThen{\sp}
 
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item \(\operatorname{\sigma_{5, c, \overline{n}} = -}\), the customer ends up in the disadvantaged position.
-    \item \(\operatorname{\sigma_{5, s, \overline{n}} = +}\), the SP ends up in the advantaged position as he received the payment.
+    \item \Pos{7}{c}{\abnormal}{\minus}, \CustomerPaidButDidntGetResult{}.
+    \item \Pos{7}{s}{\abnormal}{\plus}, \SpReceivedThePayment{}.
   \end{itemize}
 \item \DisputePath
   \begin{itemize}
-    \item \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position. 
-    \item \(\operatorname{\sigma_{5, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position. 
-  \end{itemize}
-\end{itemize}
-
-Fairness:
-
-\begin{itemize}
-  \item The customer can do nothing if the SP follows the protocol because it will ultimately put him in the advantaged position \(\operatorname{\sigma_{7, c, n} = +}\); otherwise, in case of the SP not following the protocol, the customer can start a dispute and terminate in the non-disadvantaged position.  \(\operatorname{\sigma_{5, c, \overline{d}} = \neutral}\).
-  \item The SP can follow the protocol and move to the non-disadvantaged position \(\operatorname{\sigma_{5, s, n} = +}\), or not follow the protocol and also end up at the non-disadvantaged position \(\operatorname{\sigma_{5, s, \overline{n}} = +}\), but the second option puts him at risk of terminating the protocol at \(\operatorname{\sigma_{5, s, \overline{n}} = +}\), if the customer is rational and starts a dispute.
-\end{itemize}
-
-
-\subsubsection{Step 8. customer turn: Get Proof of Provision}\label{step-8-pull-proof-of-provision}
-
-The SP has uploaded the result on time, then:
-
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{6, c, n} = -}\), the customer gets a hash of the result but not the result yet.
-    \item \(\operatorname{\sigma_{6, s, n} = +}\), the SP position has not changed.
-  \end{itemize}
-\item \DisputePath
-
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{6, c, d} = -}\), the customer loses the case as the SP can prove the publication of proof of provision. 
-    \item \(\operatorname{\sigma_{6, s, d} = +}\), the SP win the case for the same reason.
-  \end{itemize}
-\end{itemize}
-
-The customer has acted abnormally, then:
-
-\begin{itemize}
-\item \AgreeablePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{6, c, \overline{n}} = -}\), the customer does not have the access to $cid$, and hence, can not get the result from the storage network.
-    \item \(\operatorname{\sigma_{6, s, \overline{n}} = +}\), the SP ends up in the advantaged position as he received the payment but did not spend his resources.
-  \end{itemize}
-\item \DisputePath
-  \begin{itemize}
-    \item \(\operatorname{\sigma_{6, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
-    \item \(\operatorname{\sigma_{6, s, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position.
+    \item \Pos{7}{c}{\abdispute}{\neutral}, the customer wins the dispute because the SP did not publish the correct \PoP{} on time.
+    \item \Pos{7}{s}{\abdispute}{\minus}, \LoseForTheSameReason{SP}.
   \end{itemize}
 \end{itemize}
 
 \Fairness
 
 \begin{itemize}
-  \item The customer can follow the protocol to the position \(\operatorname{\sigma_{6, c, n} = -}\), which lets him move the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{6, c, \overline{d}} = \neutral}\).
-  \item The SP can do nothing and end up in a non-disadvantaged position \(\operatorname{\sigma_{6, s, n} = +}\), or \(\operatorname{\sigma_{6, s, \overline{n}} = +}\).
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{7}{c}{\normal}{\minus}}.
+  \item \SPCanDoBothButFollowIsSafe{7}.
 \end{itemize}
 
-\subsubsection{Step 9. Customer turn: Download resul}\label{step-9-retrieval-of-results}
 
-The SP has published the correct result on time:
+\subsubsection*{Step 8. \CustomerTurn{} Get Proof of Provision}\label{step-8-pull-proof-of-provision}
+
+The customer got the \PoP{}, then:
 
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item \(\operatorname{\sigma_{7, c, n} = +}\), the customer gets the correct result. Therefore, he moves to the advantaged position. 
-    \item \(\operatorname{\sigma_{7, s, n} = +}\), the SP position has not changed. 
+    \item \Pos{8}{c}{\normal}{\minus}, the customer gets the \cid{}, but not the result yet.
+    \item \Pos{8}{s}{\normal}{\plus}, \RemainsIn{\sp}{advantaged}.
   \end{itemize}
 \item \DisputePath
+
   \begin{itemize}
-    \item \(\operatorname{\sigma_{7, c, d} = -}\), the customer loses the case as the SP can prove the publication of proof of provision. 
-    \item \(\operatorname{\sigma_{7, s, d} = +}\), the SP win the case for the same reason.
+    \item \Pos{8}{c}{\dispute}{\minus}, \CustomerLosesBecauseSPCanProveBeingCorrect{}.
+    \item \Pos{8}{s}{\dispute}{\plus}, \WinForTheSameReason{SP}.
   \end{itemize}
 \end{itemize}
 
-The customer has acted abnormally, then:
+\ActedAbnormallyThen{\customer}
 
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item \(\operatorname{\sigma_{7, c, \overline{n}} = -}\), the customer ends up in a disadvantaged position, as he ends up with the incorrect result.
-    \item \(\operatorname{\sigma_{7, c, \overline{n}} = +}\), the SP ends up in the advantaged position as he received the payment but did not spend his resources.
+    \item \Pos{8}{c}{\abnormal}{\minus}, the customer paid for the transaction but does not have the access to $cid$, and hence, can not get the result from the storage network.
+    \item \Pos{8}{s}{\abnormal}{\plus}, \SpReceivedThePayment{}.
   \end{itemize}
 \item \DisputePath
-
   \begin{itemize}
-  
-  \item
-    \(\operatorname{\sigma_{7, c, \overline{d}} = \neutral}\), the customer wins the case and ends up in the neutral position.
-  \item
-    \(\operatorname{\sigma_{7, c, \overline{d}} = -}\), the SP loses the case and ends up in the disadvantaged position.
+    \item \Pos{8}{c}{\abdispute}{\minus}, \CustomerLosesBecauseSPCanProveBeingCorrect{}
+    \item \Pos{8}{s}{\abdispute}{\neutral}, \WinForTheSameReason{SP}.
   \end{itemize}
 \end{itemize}
 
-Fairness:
+
+\Fairness
 
 \begin{itemize}
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{8}{c}{\normal}{\minus}}.
+  \item \CanDoNothing{} \Pos{8}{s}{\normal}{\plus} or \Pos{8}{s}{\abnormal}{\plus}.
+\end{itemize}
 
-\item
-  The customer can follow the protocol to the non-disadvantaged termination position \(\operatorname{\sigma_{7, c, n} = +}\), or in case the SP has not followed the protocol start a dispute and win the case \(\operatorname{\sigma_{7, c, \overline{d}} = \neutral}\).
-\item
-  The SP can do nothing and ends up in the non-disadvantaged position \(\operatorname{\sigma_{7, s, n} = +}\).
+\subsubsection*{Step 9. \CustomerTurn{} Download result}\label{step-9-retrieval-of-results}
+
+The customer downloaded the result, then:
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{9}{c}{\normal}{\plus}, the customer got the result, therefore he terminate the protocol in advantaged position.
+    \item \Pos{9}{s}{\normal}{\plus}, \RemainsIn{\sp}{advantaged}.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{9}{c}{\dispute}{\minus}, \CustomerLosesBecauseSPCanProveBeingCorrect{}.
+    \item \Pos{9}{s}{\dispute}{\plus}, \WinForTheSameReason{SP}.
+  \end{itemize}
+\end{itemize}
+
+\ActedAbnormallyThen{\customer}
+
+
+\begin{itemize}
+\item \AgreeablePath
+  \begin{itemize}
+    \item \Pos{9}{c}{\abnormal}{\minus},the customer ends up in a disadvantaged position, as he ends up with the incorrect result.
+    \item \Pos{9}{s}{\abnormal}{\plus}, the SP ends up in the advantaged position as he received the payment but did not spend his resources.
+  \end{itemize}
+\item \DisputePath
+  \begin{itemize}
+    \item \Pos{9}{c}{\abdispute}{\neutral}, the customer wins the case and ends up in the neutral position.
+    \item \Pos{9}{s}{\abdispute}{\minus}, the SP loses the case and ends up in the disadvantaged position.
+  \end{itemize}
+\end{itemize}
+
+\Fairness
+
+\begin{itemize}
+  \item \CanFollowToOne{\customer}{\Pos{9}{c}{\normal}{\plus}}.
+  \item \CanDoNothing{} \Pos{9}{s}{\normal}{\plus} or \Pos{9}{s}{\abnormal}{\plus}. 
 \end{itemize}
 
 
