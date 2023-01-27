@@ -842,8 +842,7 @@ The figure~\ref{fig:misbehaviour} shows the transitions of positions when the SP
 \caption{Transitions of positions where the SP is misbehaving and the customer starts a dispute}
 \label{fig:misbehaviour}
 \end{figure}
-
-Ultimately, the rational path for both parties is to follow the protocol as shown in the figure~\ref{fig:rational}.
+the rational path for both parties is to follow the protocol as shown in the figure~\ref{fig:rational}.
 
 \begin{figure}[h!]
 \includegraphics[width=9cm]{formal-rational-path.png}
@@ -971,26 +970,48 @@ Once the payment is made, the SP stays in the advantaged position. Since he has 
 
 Non-repudiation without TTP is achieved by using the blockchain and digital signatures. Blockchain guarantees that each change to the state of the smart contract is visible to everyone and only the SP is allowed to modify its state. 
 
-\paragraph{Provable Results Availability}
-Content addressable networks such as IPFS can not guarantee the availability of the content\footnote{Nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour other than putting the customer in a disadvantaged position caused by the lost dispute.}. However, the Filecoin network, which works as an incentivisation layer on top of IPFS, increases the content availability via economic incentivisations (i.e., punishment in case of lack of proof of storage of the content)~\cite{protocollabsFilecoinDecentralizedStorage2017}.
-
-The SP uploads the result on both IPFS and Filecoin networks (via Powergate) making the result available even in case of the SP stop serving the result from his node.
-
 \paragraph{Anonymity}
 We achieved anonymity by using anonymous payment methods such as cash or privacy-preserving payment blockchains (e.g. Monero), and decentralised storage networks like IPFS and Filecoin, allowing the customer to interact with the protocol without revealing his identity at any step of the protocol.
 
+\paragraph{Provable Results Availability}
+Content addressable networks such as IPFS can not guarantee the availability of the content\footnote{Nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehaviour other than putting the customer in a disadvantaged position caused by the lost dispute.}. However, the Filecoin network, which works as an incentivisation layer on top of IPFS, increases the content availability via economic incentivisations (i.e., punishment in case of lack of proof of storage of the content\footnote{Filecoin, Slashing, \url{https://docs.filecoin.io/storage-provider/rewards/slashing}, (last visited Jan. 03, 2023)})~\cite{protocollabsFilecoinDecentralizedStorage2017}.
+
+The SP uploads the result on both IPFS and Filecoin networks (via Powergate) making the result available even in case of the SP stop serving the result from his node.
+
 \paragraph{Costs}
+Deploying smart contract and invoking functions on the Ethereum blockchain costs gas. The cost of gas is proportional to the amount of computation required to execute a transaction. 
+
 Deploying smart contract consumed 1456577 gas.
 Proof of delivery consumed 129649 gas.
 Proof of provision consumed 149130 gas.
-The price of gas at the time of the experiment (Jan. 03, 2023) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$\footnote{Etherscan, Ethereum Gas Tracker, \url{https://etherscan.io/gastracker}, (last visited Jan. 03, 2023)}, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
-In result, the cost of 
+
+Although our experiment was conducted on testnet, the amount of gas is the same on mainnet.
+
+The cost of gas is denominated in $\mathrm{ETH}$. The price of gas at the time of the experiment (Jan. 03, 2023) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$\footnote{Etherscan, Ethereum Gas Tracker, \url{https://etherscan.io/gastracker}, (last visited Jan. 03, 2023)}, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
+
+In result, the cost of:
 \begin{itemize}
   \item deploying the smart contract was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \cdot 1456577 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 4.09 \mathrm{USD}$; 
   \item Proof of delivery was $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 129649 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.29 \mathrm{USD}$; 
   \item Proof of provision was $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 149130 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} = 0.33 \mathrm{USD}$.
 \end{itemize}
 
+% Storing data in and retreiving data from Filecoin costs FIL cryptocurrency. Interacting with Filecoin is done via deals, which cost some FIL coins. 
+% Deals are made in a free market, where miners compete for the best price.
+
+% Selecting miners is not part of the Filecoin protocol. It is up to the customer to select the miners. 
+
+% The list of all miners can be obtained by either quering Filecoin node or by visiting webpages like \url{https://filrep.io}.
+
+% Once we select a miner, we can use the \texttt{lotus} CLI to query it for the price of the deal. The price of the deal is determined by the miner and depends on the size of the payload, the duration of the deal, and the miner configuration. The price of the deal is denominated in FIL. 
+% At the of the experiment (Jan. 03, 2023) the price for one FIL coin was $5.28 \mathrm{USD}$\footnote{CoinMarketCap, Cryptocurrency Prices, \url{https://coinmarketcap.com/currencies/filecoin/}, (last visited Jan. 03, 2023)}.
+% Because of the volatilaty of all the deal's parameters, the price is hard to predict. However, we can assume that the size of the result document is 1MiB, and the duration of the deal is 180 days (minimal duration), sector size is 256KiB,  and the miner price is .
+
+% Moreover, Filecoin allows publishing deals for free by using reputation based incentivisation layer\footnote{Filecoin, Filecoin Plus Overview, \url{https://docs.filecoin.io/store/filecoin-plus/overview/}, (last visited Jan. 04, 2023)}.
+
+% Since the price is dynamic 
+% Each miner publishes the 
+% Deals are executed in a free market 
 
 \section{Discussion}
 \label{sec:discussion}
