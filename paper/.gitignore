@@ -3,6 +3,7 @@ grabs.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
+*.abs
 *.lof
 *.log
 *.lot
