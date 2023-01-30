@@ -1,0 +1,114 @@
+\documentclass{ieeeaccess}
+\usepackage{cite}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{float}
+
+\usepackage{caption}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage{scalerel}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\input{constants.tex}
+
+\newcommand{\plus}{+}
+\newcommand{\minus}{-}
+\newcommand\neutral[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
+  \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
+}
+
+\newcommand{\customer}{customer}
+\renewcommand{\sp}{SP}
+
+\newcommand{\normal}{n}
+\newcommand{\dispute}{d}
+\newcommand{\abnormal}{\overline{n}}
+\newcommand{\abdispute}{\overline{d}}
+
+\newcommand{\PoD}{$\mathrm{PoD}$}
+\newcommand{\PoP}{$\mathrm{PoP}$}
+\newcommand{\cid}{$\mathrm{cid}$}
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
+\doi{10.1109/ACCESS.2022.0122113}
+\title{\TITLE}
+
+\author{\uppercase{\STANLONG} \authorrefmark{1},
+\uppercase{\JULLONG{}} \authorrefmark{1}} 
+ 
+
+\address[1]{Department of Electronic, Telecommunication and Informatics, Gdansk University of Technology, Narutowicza 11/12 Gdansk Poland (e-mail: stanislaw.baranski@pg.edu.pl, julian.szymanski@eti.pg.edu.pl}
+
+ 
+
+\tfootnote{The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.}
+
+\markboth{\STAN{}, \JUL{} : \TITLE}
+{\STAN{}, \JUL{} : \TITLE}
+
+\corresp{Corresponding author: Stanislaw Baranski (e-mail: stanislaw.baranski@pg.edu.pl).}
+
+\begin{abstract}
+  \ABSTRACT{}
+\end{abstract}
+
+\newcommand{\sep}{,}
+\begin{keywords}
+Anonymity\sep{} blockchain\sep{} fair-exchange\sep{} physical delivery\sep{} privacy\sep{} services
+\end{keywords}
+
+\titlepgskip=-21pt
+
+\maketitle
+
+\def\JOURNALIEEE{IEEE}
+\def\JOURNALELS{ELS}
+
+\def\JOURNAL{\JOURNALIEEE}
+
+\input{content}
+
+\EOD
+
+
+\bibliographystyle{IEEEtran}
+
+% Loading bibliography database
+\bibliography{bibliography}
+
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{stanislaw.jpg}}]{Stanis\L{}aw Bara{\'n}ski} received BEng in 2019 and MSc in 2020 in informatics at Gdańsk University of Technology. 
+Currently, he is a PhD student at the Department of Computer Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology.
+
+His research interests include blockchains, applied cryptography, and secure computation; particularly the issue of blockchain-based internet voting, but also other areas that currently depend on trusted third parties.
+
+He likes to validate his ideas in practice, developing them up to the commercialization stage. He is the author of multiple software products that have reached success in the market. His blockchain-based internet voting project has been funded by the Stellar Community Fund for the most useful Stellar application.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{julian.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
+He is currently with the Department of Computer
+Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology. He addresses the problems of knowledge representation, methods of lexical knowledge acquisition, and linguistic data utilization.
+His research results find applications in web search engines and systems of automated text categorization. He manages research projects for processing the information in Wikipedia, where the main goal is to extract and structuralize textual knowledge and construct interfaces capable of communicating in natural language. Besides his research in the information retrieval domain, he was involved in projects related to cognitive science. His mainstream of this research is building semantic memory models that improve natural language processing. He also worked on analyzing human emotions, by mining EEG signals. His results are implemented in the form of brain-machine interfaces for disabled people. He also works on analyzing data within the IoT domain and its secure storage on the blockchain. 
+He is involved in the project, where acquisition of data from sensors placed in beehives  allows one to predict apiary development and detect abnormalities. 
+
+He was a committee member and reviewer in  many international
+conferences as well as served as guest editor preparing special issues of prestigious journals. 
+\end{IEEEbiography}
+
+\end{document}

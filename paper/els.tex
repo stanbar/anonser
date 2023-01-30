@@ -1,0 +1,63 @@
+\documentclass[preprint,3p]{elsarticle}
+
+\journal{Computers in Industry}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{float}
+
+\usepackage{caption}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage[english]{babel}
+\usepackage{xcolor,colortbl}
+\usepackage{scalerel}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\input{constants.tex}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{\TITLE}
+
+% \author[gda1]{\STANLONG}
+% \ead{stanislaw.baranski@pg.edu.pl} 
+
+
+% \author[gda1]{\JULLONG}
+% \ead{julian.szymanski@eti.pg.gda.pl}
+
+
+% \address[gda1]{Faculty of Electronics, Telecommunications and Informatics\\ 
+% Department of Computer Architecture \\Gda{\'n}sk University of Technology, Poland}
+
+\begin{abstract}
+\ABSTRACT{}
+\end{abstract}
+
+\begin{keyword}
+Anonymity\sep blockchain\sep diagnosis\sep e-commerce\sep fair-exchange\sep physical delivery\sep privacy\sep 
+\end{keyword}
+
+\end{frontmatter}
+
+\def\JOURNALIEEE{IEEE}
+\def\JOURNALELS{ELS}
+
+\def\JOURNAL{\JOURNALELS}
+\newcommand{\printbibliography}{
+\bibliographystyle{elsarticle-harv}
+\bibliography{bibliography}
+}
+
+
+\input{content}
+
+
+\end{document}

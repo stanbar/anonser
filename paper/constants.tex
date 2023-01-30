@@ -1,0 +1,51 @@
+\newcommand{\customer}{customer}
+\renewcommand{\sp}{SP}
+
+\newcommand{\normal}{n}
+\newcommand{\dispute}{d}
+\newcommand{\abnormal}{\overline{n}}
+\newcommand{\abdispute}{\overline{d}}
+
+\newcommand{\PoD}{$\mathrm{PoD}$}
+\newcommand{\PoP}{$\mathrm{PoP}$}
+\newcommand{\cid}{$\mathrm{cid}$}
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+\newcommand{\plus}{+}
+\newcommand{\minus}{-}
+\newcommand\neutral[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
+  \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
+}
+
+\newcommand\TITLE{Anonymous provision of privacy-sensitive services using distributed networks}
+% \newcommand\TITLE{Privacy-preserving physical delivery service provisioning using distributed networks}
+\newcommand\STANLONG{Stanis\l{}aw Bara{\'n}ski}
+\newcommand\JULLONG{Julian Szyma{\'n}ski}
+\newcommand\STAN{S. Bara{\'n}ski}
+\newcommand\JUL{J. Szyma{\'n}ski}
+
+\newcommand\ABSTRACT{%
+Service providers like lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data often associated with their personal information.
+This information puts suppliers at risk of breaking GDPR, CPAA, or other privacy regulations, and puts customers at risk of privacy violations.
+
+However, most service providers use personal information merely for logistic operations like payments and communication and could provide services anonymously if other means of logistics exist.
+We propose an anonymous protocol for coordinating service provision using blockchain for both anonymous payments and proofs of existence and content-addressable network for results delivery.
+% Less important
+Service providers may use our protocol to provide services without collecting personal information. Enabling provision of services that were previously limited by a high level of trust.
+% Even less important
+Possible applications for this protocol include anonymous genetic tests, tests for paternity, venereal diseases, HIV, drugs, and steroids, or anonymous legal advice.
+
+Compared to other works, our protocol achieves stronger anonimity by accepting payments in either cash or privacy-preserving blockchains. It supports physical materials, dispute resolution, and does not require customers to submit any transaction to the message board, indicating higher practicality.
+
+We provide the fairness analysis and an implementation of the protocol using Ethereum as a message board, Monero as a privacy-preserving blockchain, and Powergate (IPFS and Filecoin) as a content-addressable network.
+We discuss further extensions to an anonymous delivery system, self-sovereign identifiers, and a decentralized conflict resolution system.
+%JS tu należałoby dodac kilka słów na temat rozwiazania i jak zostało ono zwalidowane czemu jest lepsze od innych
+}
+
+\newcommand\ACKNOWLEDGEMENTS{
+The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.
+}
+
+\newcommand\LASTVISITED{(last visited Jan. 31, 2023)}
