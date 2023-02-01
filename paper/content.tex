@@ -106,7 +106,7 @@ Then, in section~\ref{sec:building-blocks} we discuss the building blocks of a d
 Section~\ref{sec:protocol} describes how the protocol works in detail.
 Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
 In Section~\ref{sec:experiments} we present the implementation of the protocol and results of our experiments.
-Section~\ref{sec:discussion} discuss possible improvements in terms of crowd-sourced dispute resolution or dispute avoidance, self-sovereign identities (SSI), and anonymous delivery.
+Section~\ref{sec:discussion} discuss possible improvements in terms of crowd-sourced dispute resolution or dispute avoidance, self-sovereign identities (SSI), anonymous delivery, and formal verification.
 Finally, section~\ref{sec:conclusion} concludes the paper.
 
 
@@ -206,35 +206,19 @@ In this case, the role of blockchain is to certify the existence of the decrypti
 
 Themis~\cite{mengThemisDecentralizedEscrow2019} is a fair exchange protocol that uses blockchain instead of TTP. It provides an escrow service for the secure exchange of cryptocurrencies and digital goods. Also, it provides a decentralized dispute resolution system for resolving conflicts.
 
-Two parties say, Alice and Bob, can create an escrow by generating
-2-of-2 (not 2-of-3 as it is other TTP-based systems) threshold account
-using Thresh-Key-Gen protocol. Alice and Bob generate secret keys
-\(x_A\) and \(x_B\) accordingly, the shared account public key becomes
-\(y = g^{x_A+x_B}\); only the access to both Alice's and Bob's secrets
-grants access to the shared account.
+The protocol works as follows:
+\begin{enumerate}
+    \item Alice and Bob generate a 2-of-2 threshold escrow account using Thresh-Key-Gen protocol and send funds to it.
+    \item Alice and Bob split their secret keys into \(n=2t+1\) secret shares using Shamir Secret Shamir protocol, where \(n\) is the number of mediators that participate in the decentralized network and \(t+1\) becomes the threshold of a sufficient number of mediators to reconstruct the secret key.
+    \item Alice and Bob encrypt each \textit{i}-th key share using public key of \textit{i}-th mediator.
+    \item Alice and Bob exchange the sets of encrypted key shares with each other and send funds to the escrow account.
+\end{enumerate}
 
-Then, both Alice and Bob take their keys and split them into
-\(n=2t+1\) secret shares using Shamir Secret Shamir protocol, where
-\(n\) is the number of mediators that participate in the decentralized
-network and \(t+1\) becomes the threshold of a sufficient number of mediators to reconstruct the secret key.
+The escrow is secure as long as \(t+1\) of mediators does not collude, which would let them recreate both \(x_A\) and \(x_B\). 
 
-Next, both Alice and Bob, take their key shares and encrypt each
-\textit{i}-th key share using public key of \textit{i}-th mediator. As a result
-Alice's secret \(x_A\) becomes \({c^A_1, c^A_2,...,c^A_n}\), and Bob's
-secret \(x_B\) becomes \({c^B_1, c^B_2,...,c^B_n}\), where
-\(c_i = E_{M_i}(P_i)\) is the encrypted \(i\)-th key share using
-\(i\)-th mediator public key \(M_i\).
+To ensure that parties exchange actual key shares, they send witnesses generated with the Feldman VSS scheme and zero-knowledge proofs to guarantee the consistency between witnesses and key shares.
 
-Next, both Alice and Bob exchange the sets of encrypted key shares with
-each other, and send funds to the escrow account.
-
-The escrow is secure as long as \(t+1\) of mediators does not collude,
-which would let them recreate both \(x_A\) and \(x_B\). To ensure
-that parties exchange actual key shares, they send witnesses
-generated with the Feldman VSS scheme and zero-knowledge proofs to guarantee the consistency between witnesses and key shares.
-
-In case of dispute, the decentralized network of mediators settles the conflict and grand one winning party, the other party secret key,
-letting him withdraw the funds.
+In case of dispute, the decentralized network of mediators settles the conflict and grand one winning party the other party secret key, allowing it to withdraw the funds.
 
 The monetary incentivization and reputation system guarantee the honesty of mediators.
 
@@ -252,9 +236,9 @@ However, since the system uses Ethereum, it achieves pseudonymity rather than an
 
 We considered only protocols that achieve fair exchange as it is the fundamental feature of such protocols.
 
-
-
 Bîrjoveanu, 2015~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} is the closest to our protocol, however, it uses TTP and does not consider disputes between parties.
+
+The authors proposed many extensions to the protocol, namely, in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend the anonymity for both customers and SPs, and in~\cite{birjoveanuFairExchangeECommerce2020} they propose a protocol that supports chained transactions (involving multiple active intermediaries). However, none of them is relevant to our use case. We want the SP to remain public so that the anonymous customer can easily start a dispute. We assume just one package of physical materials. Moreover, the package is delivered from the customer to the SP, not the other way around — as it's the case for most e-commerce transactions.
 
 Hinarejos et al., 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not consider anonymity, disputes between parties nor physical material exchange.
 
@@ -262,9 +246,6 @@ Meng et al., 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous
 
 Altawy et al., 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that does not provide dispute resolution but provides anonymous physical delivery by using onion routing and anonymous blockchain interaction assuming unlinkability between pseudonyms and real identities.
 
-The authors proposed many extensions to the protocol, namely, in ~\cite{birjoveanuPreservingAnonymityFair2018} they proposed a anonymous e-commerce protocol that govers complex transactions, in ~\cite{birjoveanuAnonymityComplexTransactions2019} they extend the anonimity for both customers and SPs, and in ~\cite{birjoveanuFairExchangeECommerce2020} they propose a protocol that supports chained transactions (involving multiple active intermediares). However none of them is relevant to our use case.
-
-We want the SP to remain public so that the anonymous customer can easily start a dispute. We assume just one package of physical materials. Moreover, the package is delivered from the customer to the SP, not the other way around — as it's the case for most e-commerce transactions.
 
 Our protocol achieves stronger anonymity guarantees. Namely, we achieve anonymity by using either cash or privacy-preserving blockchains. Moreover, our protocol does not require a customer to submit any transaction to the message board, which may be the weakest link in the anonymity of the aforementioned protocols.
 
@@ -458,7 +439,7 @@ At the time of writing, we see the following technologies that fulfill the requi
 \section{The Protocol}\label{sec:protocol}
 In this section, we propose an abstract protocol for anonymous service provisioning without any assumptions about the underlying technologies. We define the requirements for each role and leave the choice of the technology to the developer. Later in the paper (section~\ref{sec:experiments}) we describe our implementation used for conducting experiments.
 
-\subsection{Prerequisites}
+\subsection{Assumptions}
 
 \begin{itemize}
 \item There exists PKI infrastructure:
@@ -997,10 +978,12 @@ One promising solution would be to use Self-sovereign identities (SSI)~\cite{muh
 However, since SSI is a relatively new technology and the government has not yet adopted it, we decided to postpone the discussion of this topic to future work.
 
 \subsection{Anonymous delivery}\label{sec:anonymous-delivery}
+We assume the customer being able to anonymously deliver the materials to the SP. The assumption is reasonable as the customer stays anonymous and the SP stays public. As a result, the customer can use any delivery service that does not require revealing the personal information, e.g., a trusted person, a drop box, or a post office.
 
-We assumed the customer to deliver the package to the SP anonymously via the SP's drop box, or via a trusted person.
-However since the delivery is from the anonymous customer to the public SP, achieving the anonymity of just the sender is much easier than the other way around as proposed in Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} or ~\cite{birjoveanuFairExchangeECommerce2020}.
+The protocols for e-commerce transactions can not rely on this assumption because the customer is the recipent of the package and the SP is the sender. Therefore, there arises the problem of hiding the customer's identity from the SP. The problem is not trivial as the SP needs to know the customer's address to deliver the package. The problem is discussed in~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
 
+\subsection{Formal Verification}\label{sec:formal-verification}
+Following the work of~\cite{birjoveanuFormalVerificationMultiparty2022}, the security analysis of our protocol could be improved by the usage of tools for the automatic formal verification, e.g., AVISPA~\cite{armandoAVISPAToolAutomated2005}. It would require specifying the protocol using High-Level Protocol Specification Language (HLPSL)~\cite{chevalierHighLevelProtocol2004}. The specification would be then translated to the AVISPA's intermediate language and verified using the AVISPA's theorem prover. The verification would be performed by the AVISPA's model checker, which would check the protocol against the security properties.
 
 \section{Conclusions}\label{sec:conclusion}
 In this work, we have focused on enabling service provision without the collection of personal data. Our aim was to enable services such as genetic tests, tests for paternity, venereal diseases, HIV, drugs, and steroids, or anonymous legal advice.
