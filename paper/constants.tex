@@ -19,6 +19,11 @@
   \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
 }
 
+\def\SINGLECOLUMN{SINGLE}
+\def\DOUBLECOLUMN{DOUBLE}
+\def\JOURNALIEEE{IEEE}
+\def\JOURNALELS{ELS}
+
 \newcommand\TITLE{Anonymous provision of privacy-sensitive services using distributed networks}
 % \newcommand\TITLE{Privacy-preserving physical delivery service provisioning using distributed networks}
 \newcommand\STANLONG{Stanis\l{}aw Bara{\'n}ski}
@@ -26,23 +31,42 @@
 \newcommand\STAN{S. Bara{\'n}ski}
 \newcommand\JUL{J. Szyma{\'n}ski}
 
-\newcommand\ABSTRACT{%
-Service providers like lawyers, laboratories, auditors, or banks, to provide services, require customers to submit data often associated with their personal information.
-This information puts suppliers at risk of breaking GDPR, CPAA, or other privacy regulations, and puts customers at risk of privacy violations.
+\newcommand\ABSTRACTPOL{%
+Swiadczenie wrazliwych uslug takich jak testy genetyczne, testy na rodzicielstwo, testy na choroby weneryczne, porady prawne, czy oszacowanie zdolnosci kredytowej, czesto wymaga dostarczenia danych zawierających dane osobiste.
 
-However, most service providers use personal information merely for logistic operations like payments and communication and could provide services anonymously if other means of logistics exist.
-We propose an anonymous protocol for coordinating service provision using blockchain for both anonymous payments and proofs of existence and content-addressable network for results delivery.
-% Less important
-Service providers may use our protocol to provide services without collecting personal information. Enabling provision of services that were previously limited by a high level of trust.
-% Even less important
-Possible applications for this protocol include anonymous genetic tests, tests for paternity, venereal diseases, HIV, drugs, and steroids, or anonymous legal advice.
+Przetwarzanie danych osobistych, szczególnie przy śwaidczeniu usług wykorzystujacych wrazliwe dane (np. health records, biological materials, or legal documents), naraza zarówno uzytkownikow jak i dostawcow uslug (SP) na ryzyko.
 
-Compared to other works, our protocol achieves stronger anonimity by accepting payments in either cash or privacy-preserving blockchains. It supports physical materials, dispute resolution, and does not require customers to submit any transaction to the message board, indicating higher practicality.
+SPs narazeni sa na zlamanie GDPR, CPAA, i innych prawnych regulacji, natomiast Klienci narazeni sa na utrate prywatnosci.
 
-We provide the fairness analysis and an implementation of the protocol using Ethereum as a message board, Monero as a privacy-preserving blockchain, and Powergate (IPFS and Filecoin) as a content-addressable network.
-We discuss further extensions to an anonymous delivery system, self-sovereign identifiers, and a decentralized conflict resolution system.
-%JS tu należałoby dodac kilka słów na temat rozwiazania i jak zostało ono zwalidowane czemu jest lepsze od innych
+Obserwujemy ze dane osobiste często wykorzystywane sa jedynie do celów logistycznych jak płatnosci czy komunikacja, i moglyby by być swiadczone anonimowo jeśli takie metody były by dostepne.
+
+W tej pracy proponujemy rozwiazanie pozwalajace na swiadczenie uslug bez zbierania danych osobistych. Wykorzystujemy anonimowe metody platnosci jak gotówka oraz anonimowe kryptowaluty, technologie blockchain do osiągniecia sprawiedliwosci, oraz rozproszone content-addressable storage networks do dostarczania wynikow.
+
+W porownaniu do innych rozwiazan, nasz protokol osiaga anonimowosc przy slabszych zalozeniach, wspiera fizyczne materialy, rozwiazywanie konfliktow, oraz w optymistycznym scenariuszu nie wymaga, aby uzytkownik wchodzil w interakcje z blockchainem, wykazujac lepsza praktycznosc.
+
+W pracy analizujemy sprawiedliwosc naszego protokolu, oraz implementujemy go przy uzyciu technologi Ethereum jako message board, Monero jako anonimowy sposób płatności, and Powergate (IPFS i Filecoin) jako content-addressable network.
+
+Rozpatrujemy dalsze rozszerzenia do anonimowych dostarczycieli, self-sovereign identifiers, oraz zdecentralizowanego rozwiazywania konfliktow.
 }
+
+\newcommand\ABSTRACT{
+Lawyers, laboratories, auditors or banks, in order to provide services, require data often containing sensitive personal information.
+
+Examples of sensitive services are genetic tests, parenthood tests, STD tests, credit score computation or legal advice. 
+
+The processing of personal data, especially when providing services involving sensitive data like health records, biological materials, or legal documents, exposes both users and service providers (SP) to privacy risks.
+
+SPs are at risk of violating GDPR, CPAA, and other legal regulations, while customers are at risk of losing their privacy.
+
+We observe that personal data is often only used for logistical purposes, such as payments or communication, and could be provided anonymously if such methods were available.
+
+In this work, we propose a solution that allows the provision of services without the collection of personal data. We use anonymous payment methods such as cash and anonymous cryptocurrencies, blockchain technology to achieve fairness, and distributed content-addressable storage networks to deliver results.
+
+Compared to other solutions, our protocol achieves anonymity with weaker assumptions, supports physical materials and conflict resolution, and in conflict-free transactions does not require the customer to interact with the blockchain, demonstrating better practicality.
+
+In this work, we analyse the fairness of our protocol and implement it using Ethereum technology as a message board, Monero as an anonymous payment method, and Powergate (IPFS and Filecoin) as a decentralised storage network.
+}
+
 
 \newcommand\ACKNOWLEDGEMENTS{
 The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.
