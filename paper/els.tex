@@ -1,12 +1,13 @@
-\documentclass[preprint,3p]{elsarticle}
+\documentclass[5p,times]{elsarticle}
 
-\journal{Computers in Industry}
+\journal{Future Generation Computer Systems}
 
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{float}
+\usepackage{etoolbox}
 
 \usepackage{caption}
 \usepackage{url}
@@ -42,20 +43,18 @@
 \end{abstract}
 
 \begin{keyword}
-Anonymity\sep blockchain\sep diagnosis\sep e-commerce\sep fair-exchange\sep physical delivery\sep privacy\sep 
+Anonymity\sep blockchain\sep diagnosis\sep e-commerce\sep fair-exchange\sep physical delivery\sep privacy
 \end{keyword}
 
 \end{frontmatter}
 
-\def\JOURNALIEEE{IEEE}
-\def\JOURNALELS{ELS}
 
 \def\JOURNAL{\JOURNALELS}
 \newcommand{\printbibliography}{
 \bibliographystyle{elsarticle-harv}
 \bibliography{bibliography}
 }
-
+\def\FORMAT{\DOUBLECOLUMN}
 
 \input{content}
 

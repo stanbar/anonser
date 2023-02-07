@@ -1,6 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
-Service providers (SPs) like lawyers, laboratories, auditors, or banks, to provide services, require data that is often associated with the user identity.
+Lawyers, laboratories, auditors or banks, in order to provide services, require data often containing sensitive personal information.
+
 
 Providing personal information exposes users to privacy risks, i.e. potential loss of control over personal information~\cite{smithInformationPrivacyResearch2011}.
 %JS co może prowadzic do nieintencjonalnego naruszenia rodo  
@@ -14,53 +15,46 @@ In turn, it can lead to an unintentional violation of the GDPR or CCPA, profiled
 
 Public individuals like influencers, politicians, or celebrities are especially vulnerable to this kind of attack as exposure of their health records, purchase habits, or legal documents can threaten their reputation, position or be used for blackmailing.
 
-% SB START emphasise 
-The problem amplifies when personal information is linked to biological materials like DNA, saliva, or blood, or legal documents like contracts, or wills. 
+The problem amplifies when personal information is linked to health records, or legal documents, or biological materials like DNA, saliva, or blood.
 
 In such situations, customers may be reluctant to provide their personal information to the SP and thus resign from the service. Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients. Both parties are affected as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.
 % SB END emphasise 
 
-The privacy guarantee of personal information is often based merely on trust assumptions and the security of the IT system. However, most SPs do not need the personal information for any other reason than payment or communication, which should be considered secondary compared to actual service provision.
+The guarantee of privacy of personal data is often based solely on trust in the SPs' staff and the security of their IT systems. However, we observe that personal data is often only used for logistical purposes, such as payments or communications, and could be provided anonymously if such methods were available.
 
-It would be desirable for the user to keep his or her identity private while still receiving the service. This could lead to reduced trust that users have to put in SPs and less responsibility borne by SPs.
+It would be desirable for the customers to keep their identities private while still receiving the service. This could lead to reduced trust that customers have to put in SPs and less responsibility borne by SPs.
 
 Examples of services that would benefit from the anonymity property are:
 \begin{itemize}
     \item Patients willing to take a test eg.: for drugs, venereal diseases, paternity or steroids have a strong incentive to keep the whole procedure private. Merely the fact that they took the test—without exposing the result—is suggestive enough to act as a premise in case of a conflict.
 
-Especially %celebrities, politicians, and %js powtorka
-public figures are prone to this kind of problem as such precedent can negatively influence their future career.
-
 Currently, they have to risk that their personal details, materials, and results are stored securely and kept private from any unauthorized actor (both curious employees and malicious attackers).
 
-Our protocol allows taking such services anonymously, eliminating the strong trust assumption put on the service provider's (e.g., laboratory) IT system.
-\item People willing to take risky business activities may be willing to receive the risk estimation and prediction of possible personal repercussions of such action.
+\item Individuals undertaking entrepreneurial activities may wish to obtain estimates of the risks and possible repercussions of the actions taken.
 
-By exposing our identity we trust that the lawyer will not use that information for harmful actions.
-
-Our protocol would allow taking such advice anonymously, eliminating the strong trust assumption put on the lawyers and their IT systems.
+By exposing their identity they trust that the lawyer will not use that information for harmful actions.
 \end{itemize}
 
-%SB GOAL
-In this work, we research the possibility of providing services without the collection of personal information.
+In this work we explore the possibilities of providing services anonymously.
 
 % We observe
 We observe that the issue of anonymous service provision can be seen as a problem of fair exchange where parties exchange some goods fairly, i.e., either both parties obtain the goods, or they both obtain nothing.
 
 In our case, the customer who wants to use the service, exchanges his materials and money with the SP for the result of the service.
 
-Our review of the state of the art indicates that none of the current systems is sufficient to achieve the desired goal. Therefore, we propose a protocol for anonymously provisioning services that require the delivery of physical materials. In case of dispute, either due to exceeding deadlines or providing an incorrect result, the customer can disclose the whole interaction and prove to justice the misbehavior of the SP.
+Our review indicates that none of the current systems is sufficient to achieve the desired goal. We propose a anonymous protocol for provisioning serivces that require physical materials. In case of dispute, either due to exceeding deadlines or providing an incorrect result, the customer can disclose the whole interaction and prove to justice the misbehavior of the SP.
 
 To achieve these objectives, we use:
 \begin{itemize}
-    \item Blockchain (aka message board), to achieve fairness, i.e., as a means for proving that certain actions took place at a certain moment without the trusted third party (TTP).
-    \item Anonymous payment methods, like cash or privacy-preserving cryptocurrencies, allow customers to pay for services anonymously.
-    \item Content-addressable decentralized storage network (e.g., IPFS) to anonymously provide results to customers together with a provable storage network (e.g., Filecoin) to guarantee that the results are available to the customer even in case of the SP denial of service. 
-    \item Cryptography
+    \item \textbf{Blockchain} (aka message board), to achieve fairness, i.e., as a means for proving that certain actions took place at a certain time without the trusted third party (TTP).
+    \item \textbf{Anonymous payment methods}, like cash or anonymous cryptocurrencies, allowing customers to pay for services anonymously.
+    \item \textbf{Decentralized storage network} (e.g., IPFS) to anonymously provide results together with a provable storage network (e.g., Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
+    
+    \item Cryptography:
     \begin{itemize}
-        \item Symmetric encryption, to encrypt and decrypt results published on the public networks.
-        \item Public-key cryptography, and Diffie-Helman key exchange (DHKE) to derive shared secrets for symmetric encryption.
-        \item Digital signatures, to achieve authentication and non-repudiation of actions. 
+        \item \textbf{Symmetric encryption}, to encrypt and decrypt results published on the public networks.
+        \item \textbf{Public-key cryptography}, and \textbf{Diffie-Helman key exchange (DHKE)} to derive shared secrets for symmetric encryption.
+        \item \textbf{Digital signatures}, to achieve authentication and non-repudiation of actions. 
     \end{itemize}
     
 \end{itemize}
@@ -73,15 +67,15 @@ The contribution of our paper is:
 \item proposing a novel protocol that:
   \begin{itemize}
   \item allows \textbf{anonymous} service provision, i.e., the service provider does not need to collect any personal information from the customer.
-  \item achieves \textbf{fairness} by carefully designing the protocol as an interactive non-cooperative game, in which the SP remains in an advantageous position and the customer in a disadvantageous one with the option to start a dispute in case the SP misbehavior.
+  \item achieves \textbf{fairness} by carefully designing the protocol as an interactive non-cooperative game, in which the SP remains in an advantageous position and the customer in a disadvantageous position with an option to start a dispute in case a misbehaviour of SP.
   \item \textbf{does not rely on centralized TTP}, but uses decentralized blockchain and distributed content-addressable storage network.
-  \item abstracts the customers from the blockchain technology used underneath, allowing the use of our protocol for \textbf{non-technical users}.
+  \item In conflict-free transactions does not require customers to interact with the blockchain, achieving better \textbf{user-experience and practicality}.
   \item allows the \textbf{delivery of physical materials}, which was rarely addressed by other researchers or based on strong and unpractical assumptions.
   \item guarantees the \textbf{remote availability of the results}, even in case of the SP denial of service.
   \end{itemize} 
 \item Systemise often misused definitions of anonymity, pseudonymity, linkability, and traceability.
-\item Proposing a framework for analyzing fairness analysis in fair-exchange protocols.
-\item Discuss the possible improvements to the protocol with the use of secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution mechanisms.
+\item Proposing a framework for analyzing fairness in fair-exchange protocols.
+\item Discuss the possible improvements to the protocol with the use of secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution techniques.
 \end{itemize} 
 
 % Our protocol simultaneously provides five main properties:
@@ -101,20 +95,20 @@ Some authors have proposed blockchain-based fair-exchange systems that could be 
 
 %\paragraph{Organisation}
 The rest of this paper is organized as follows.
-In section~\ref{sec:related-works} we review related works. 
-Then, in section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, payment for services, storage network, result availability, anonymity, and confidentiality.
-Section~\ref{sec:protocol} describes how the protocol works in detail.
+In Section~\ref{sec:related-works} we review related works. 
+Then, in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, results availability, and anonymity.
+Section~\ref{sec:protocol} provides detailed description of the protocol.
 Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
 In Section~\ref{sec:experiments} we present the implementation of the protocol and results of our experiments.
 Section~\ref{sec:discussion} discuss possible improvements in terms of crowd-sourced dispute resolution or dispute avoidance, self-sovereign identities (SSI), anonymous delivery, and formal verification.
-Finally, section~\ref{sec:conclusion} concludes the paper.
+Finally, Section~\ref{sec:conclusion} concludes the paper.
 
 
 \section{Related Works}\label{sec:related-works}
-In this section, we review related works on fair exchange, anonymous, and physical delivery protocols. Then we outline the main differences between our protocol and the existing ones.
+In this section, we review related works on fair exchange, anonymous, and physical delivery protocols. Then we outline the main differences between the protocols.
 
 \subsection{Fair exchange, physical delivery}
-The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer, who exchange money for a physical product such as a smartphone. To protect themselves, a seller would want to receive the funds prior to sending the product, while a buyer would want to receive the product prior to paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
+The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer who exchange money for a physical product. To protect themselves the seller want to receive the funds prior to sending the product, while the buyer want to receive the product prior to paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
 
 Authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed an protocol for fair-exchage involving physical materials delivery. The protocol assumes the existence of offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP is in improvement which assumes the TTP being involved only in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP that is involved only in the case of a dispute. The protocol works as follows: 
 \begin{enumerate}
@@ -126,10 +120,6 @@ Authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed an protoco
 \end{enumerate}
 
 However, the protocol relies on strong assumptions, namely, the existence of a trusted third party (TTP) and trusted delivery agent which does not misbehave or collude with any party.
-
-\begin{itemize}
-    \item there exists a trusted third party (TTP) and trusted delivery agent which does not misbehave or collude with any party;
-\end{itemize}
 
 \subsection{Fair exchange, anonymity, and physical products delivery} 
 \label{anonymity-and-fair-exchange-in-e-commerce-protocol-for-physical-products-delivery}
@@ -260,7 +250,13 @@ The comparison of the protocols is presented in table~\ref{tab:comparision}.
 
 
 
-\begin{table}
+\ifdefstring{\FORMAT}{\DOUBLECOLUMN}{\begin{table*}}{\begin{table}}
+% \ifx\FORMAT\DOUBLECOLUMN
+% \begin{table*}
+% \else
+% \begin{table}
+% \fi
+\centering
 \newcommand{\YES}{\cellcolor{green!50}Yes}
 \newcommand{\ID}{\cellcolor{green!25}Identity}
 \newcommand{\PSEUDO}{\cellcolor{green!25}Pseudonym}
@@ -268,15 +264,14 @@ The comparison of the protocols is presented in table~\ref{tab:comparision}.
 \newcommand{\NO}{\cellcolor{red!50}No}
 \newcommand{\TTP}{\cellcolor{red!50}TTP}
 \newcommand{\BC}{\cellcolor{green!50}BC}
-\caption{Comparision of related works}
+\caption{Comparision of related works.}
 \label{tab:comparision}
 \setlength{\tabcolsep}{3pt}
 
-\ifx\JOURNAL\JOURNALIEEE
-\begin{tabular}{|p{40pt}|p{35pt}|p{40pt}|p{35pt}|p{30pt}|p{30pt}|}
-\else
-\begin{tabular}{|c|c|c|c|c|c|}
-\fi
+\ifdefstring{\FORMAT}{\DOUBLECOLUMN}{\begin{tabular}{|c|c|c|c|c|c|}}{\begin{tabular}{|c|c|c|c|c|c|}}
+
+% \begin{tabular}{|p{40pt}|p{35pt}|p{40pt}|p{35pt}|p{30pt}|p{30pt}|}
+
 \hline
 Protocol & Fair exchange & Anonymity & Dispute resolution & Trust & Physical delivery \\
 \hline
@@ -293,8 +288,12 @@ Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} & \YES & \PSEUDO & \N
 This paper & \YES & \YES & \YES & \BC & \YES \\
 \hline
 
+
 \end{tabular}
-\end{table}
+
+\ifdefstring{\FORMAT}{\DOUBLECOLUMN}
+{\end{table*}}
+{\end{table}}
  
 \section{Building Blocks}\label{sec:building-blocks}
 \subsection{Dispute resolution system}
@@ -384,7 +383,8 @@ Figure ~\ref{fig:anonymity-diagram} illustrates relations between these terms.
 
 The privacy-preserving blockchains are the ones that maintain anonymity via untraceability and (ideally) unlikability, not via the assumption that the connection between an address (pseudonym) and the real identity is concealed.   
 
-Examples of blockchains that natively support confidential transactions are: Monero~\cite{vansaberhagenCryptoNote2013} (via Ring Signatures~\cite{noetherRingSignatureConfidential2015} and Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (via zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), and Grin~\cite{fuchsbauerAggregateCashSystems2019} (via Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}).
+Examples of blockchains that natively support confidential transactions are: Monero~\cite{vansaberhagenCryptoNote2013} (using Ring Signatures~\cite{noetherRingSignatureConfidential2015} or Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (using zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), Grin~\cite{fuchsbauerAggregateCashSystems2019} (using Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}), and IronFish~\footnote{IronFish, The Privacy Platform
+for web3, \url{https://ironfish.network}, \LASTVISITED} (using Sapling protocol~\cite{hopwoodZcashSaplingProtocol2022}).
 
 Overly techniques that achieve anonymity on top of non-privacy-preserving blockchains are: Ethereum's Tornado Cash\cite{pertsevTornadoCashPrivacy2019} (via zkSNARK~\cite{grothSizePairingbasedNoninteractive2016} and MiMC~\cite{albrechtMiMCEfficientEncryption2016}), Bitcoin's Wasabi\footnote{Wasabi Wallet, Open-source, non-custodial Bitcoin Wallet for desktop, \url{https://wasabiwallet.io/}, (last visited Nov. 28, 2022)} (via CoinJoin \cite{maxwellCoinJoinBitcoinPrivacy2013}).
 
@@ -768,7 +768,7 @@ Figure~\ref{fig:positions} shows the positions of each party after each possible
 \end{figure}
 
 The detailed description of each step and the justification %JS proof lub justification ?
-of the outcome position is given in Appendix~\ref{app:proof-of-fairness}.
+of the outcome positions is given in~\ref{app:proof-of-fairness}.
 
 \subsection{Example scenarios}\label{example-scenarios}
 
@@ -887,6 +887,7 @@ The customer's private key must be downloaded and provided later for the decrypt
 \end{enumerate}
 
 
+\ifx\FORMAT\SINGLECOLUMN
 \noindent%
 \begin{minipage}{\linewidth}% to keep image and caption on one page
 \makebox[\linewidth]{%        to center the image
@@ -900,8 +901,20 @@ The customer's private key must be downloaded and provided later for the decrypt
 \includegraphics[height=0.95\textheight,keepaspectratio]{anonser-experiment2.pdf}}
 \captionof{figure}{Steps of the experiment, second part.}\label{fig:anonser-experiment2}%      only if needed  
 \end{minipage}
-\subsection{Results}
+\else
+\begin{figure*}
+  \centering
+  \includegraphics[height=0.95\textheight,keepaspectratio]{anonser-experiment1.pdf}
+  \caption{Steps of the experiment, first part.}\label{fig:anonser-experiment1}
+\end{figure*}
 
+\begin{figure*}
+  \includegraphics[height=0.95\textheight,keepaspectratio]{anonser-experiment2.pdf}
+  \caption{Steps of the experiment, second part.}\label{fig:anonser-experiment2}
+\end{figure*}
+
+\fi
+\subsection{Results}
 
 \paragraph{Fariness}
 As shown in Section~\ref{sec:steps} and Appendix~\ref{app:proof-of-fairness}, 
