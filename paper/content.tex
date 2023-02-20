@@ -110,64 +110,62 @@ In this section, we review related works on fair exchange, anonymous, and physic
 \subsection{Fair exchange, physical delivery}
 The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer who exchange money for a physical product. To protect themselves the seller want to receive the funds prior to sending the product, while the buyer want to receive the product prior to paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
 
-Authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed an protocol for fair-exchage involving physical materials delivery. The protocol assumes the existence of offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP is in improvement which assumes the TTP being involved only in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP that is involved only in the case of a dispute. The protocol works as follows: 
+Authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed an protocol for fair-exchage involving physical materials delivery. The protocol assumes the existence of an offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP is in improvement which assumes the TTP being involved only in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP that is involved only in the event of a dispute. The protocol works as follows: 
 \begin{enumerate}
 \item The buyer sends an encrypted payment to the seller along with the proof of validity.
-\item The seller validates the proof which convinces him that the decrypted payment will also be valid.
-\item The seller forwards the physical product to the delivery agent.
+\item The seller validates the proof, which convinces him that the decrypted payment will also be valid.
+\item The seller forwards the physical product to the trusted delivery agent (DA).
 \item The buyer verifies whether the product is the one he ordered.
 \item The buyer creates a proof of delivery and sends it along with the decryption key to the seller.
 \end{enumerate}
 
-However, the protocol relies on strong assumptions, namely, the existence of a trusted third party (TTP) and trusted delivery agent which does not misbehave or collude with any party.
+However, the protocol relies on strong assumptions, namely, the existence of a TTP and an DA, who does not misbehave or collude with either party.
 
 \subsection{Fair exchange, anonymity, and physical products delivery} 
 \label{anonymity-and-fair-exchange-in-e-commerce-protocol-for-physical-products-delivery}
 
-In the previous protocol, the identities of both parties are known. There are however situations where the customer does not want to reveal his identity to the merchant. The problem gets even more challenging when physical products are involved.
+In the previous protocol, both parties of the transaction are known to each other. However, there are situations in which the buyer would prefer not to disclose his identity to the seller. The situation becomes more challenging when the transaction involves physical products.
 
-Authors of~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} proposed a protocol for the fair exchange of physical products and electronic payments, which guarantees both customer and merchant anonymity. They achieve it by introducing online TTPs that validate coins and provide fair exchange guarantees.
+Authors of~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} proposed a protocol involving physical products, which guarantees anonymity of both buyer and seller. They achieve it with the introduction of an online TTP that validates coins and guarantees fairness.
 
-The anonymity is ensured by assuming the existence of a source cabinet (SC), delivery cabinet (DC), and a trusted delivery agent who take a product from an SC and provide it to a DC.
-Both cabinets provide access to the product by passwords to conceal
-the identity of the customer and the merchant.
+Anonymity is ensured by assuming the existence of a source cabinet (SC), delivery cabinet (DC), and a trusted delivery agent (DA) who take a product from the SC and provide it to the DC.
+Both cabinets provide access to the product by passwords to conceal the identity of the buyer and the seller.
 
 The protocol works as follows: \begingroup
 \renewcommand{\labelenumii}{\arabic{enumii}.}
 
 \begin{enumerate}
     \item Both parties agree on the purchase details.
-    \item The customer buys a digital coin from his bank and validates it with the TTP.
-    \item The customer sends the merchant the purchase order and the digital signature made by TTP on the encrypted coin.
-    \item The merchant post the product to the SC.
-    \item Delivery agent collects the product from the SC and posts it to the DC.
-    \item Customer collects the product from the DC using a password.
-    \item The customer checks if the product is the ordered one.
+    \item The buyer buys a digital coin from his bank and validates it with the TTP.
+    \item The buyer sends to the seller the purchase order and the digital signature made by TTP on the encrypted coins.
+    \item The seller posts the product to the SC.
+    \item The DA collects the product from the SC and posts it to the DC.
+    \item The buyer collects the product from the DC using a password.
+    \item The buyer checks if the product is the ordered one.
     \begin{itemize}
     \item[-] if yes 
         \begin{enumerate}
         \setcounter{enumii}{7}
-        \item the customer sends the acknowledgment to the DC and decryption key to the merchant.
-        \item The merchant redeems the coins from the bank.
+        \item The buyer sends the acknowledgment to the DC and decryption key to the seller.
+        \item The seller redeems the coins from the bank.
         \end{enumerate}
     \item[-] if no
         \begin{enumerate}
         \setcounter{enumii}{7}
-        \item the DC is equipped with a video camera that records the moment when the customer opens the package and lets the customer signal the invalidity of the product, and so, sending the encrypted recording to the TTP. 
-        \item the dispute is settled via TTP, optionally letting each party reveal its identity.
+        \item The DC is equipped with a video camera that records the moment when the buyer opens the package and lets the buyer signal the invalidity of the product, and so, sending the encrypted recording to the TTP. 
+        \item The dispute is settled via TTP, optionally letting each party reveal its identity.
     \end{enumerate}
     \end{itemize}
 \end{enumerate}
 \endgroup
 
-Besides the assumptions of the existence of TTP and trusted delivery agent (similar to the previous protocol~\cite{mohammedalarajFairnessPhysicalProducts2012}), the protocol also assumes:
+Besides the assumptions of the existence of the TTP and DA (similar to the previous protocol~\cite{mohammedalarajFairnessPhysicalProducts2012}), the protocol also assumes:
 
 \begin{itemize}
-    \item there exists an anonymous communication channel 
-    \item the customer's and merchant's banks enable confidential transactions, and both share a commit buffer where the value is locked until the transaction is finished;
+    \item the buyer's and seller's banks enable confidential transactions, and both share a commit buffer where the value is locked until the transaction is finished;
     \item all banks maintain a global list of coins' serial numbers to prevent double-spending problems;
-    \item the SC and DC exist, and in both, the access is protected by a password;
-    \item the DC is equipped with a video camera that records the moment when the customer opens the package and provides a way to submit the video to TTP in case of a dispute;
+    \item there exists an anonymous communication channel, and the SC and the DC protected by a passwords;
+    \item the DC is equipped with a video camera that records the moment when the buyer opens the package and provides a way to submit the video to TTP in case of a dispute;
 \end{itemize}
 
 
@@ -215,10 +213,9 @@ The monetary incentivization and reputation system guarantee the honesty of medi
 \subsection{Blockchain, anonymity, and physical delivery}\label{lelantos-a-blockchain-based-anonymous-physical-delivery-system}
 
 Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based anonymous
-physical delivery system. The protocol achieves anonymity by employing onion routing (similar to the Tor network) to connect physical delivery providers. The whole route from a merchant to a customer is split into multiple steps, and each step is undertaken by the different randomly selected delivery providers. As long as the delivery providers do not collude, a merchant neither can learn the identity nor destination address of the customer.
+physical delivery system. The protocol achieves anonymity by employing onion routing (similar to the Tor network) to connect physical delivery providers. The whole route from a seller to a buyer is split into multiple steps, and each step is undertaken by the different randomly selected delivery providers. As long as the delivery providers do not collude, the seller neither can learn the identity nor destination address of the buyer.
 
-A smart-contract is used to coordinate the whole process and
-mediate communication between customers and delivery providers.
+A smart-contract is used to coordinate the whole process and mediate communication between the buyer and delivery providers.
 
 However, since the system uses Ethereum, it achieves pseudonymity rather than anonymity (see section~\ref{sec:pseudo-anon}). Also, the protocol does not cover disputes between the parties.
 
@@ -228,13 +225,13 @@ We considered only protocols that achieve fair exchange as it is the fundamental
 
 Bîrjoveanu, 2015~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} is the closest to our protocol, however, it uses TTP and does not consider disputes between parties.
 
-The authors proposed many extensions to the protocol, namely, in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend the anonymity for both customers and SPs, and in~\cite{birjoveanuFairExchangeECommerce2020} they propose a protocol that supports chained transactions (involving multiple active intermediaries). However, none of them is relevant to our use case. We want the SP to remain public so that the anonymous customer can easily start a dispute. We assume just one package of physical materials. Moreover, the package is delivered from the customer to the SP, not the other way around — as it's the case for most e-commerce transactions.
+The authors proposed many extensions to the protocol, namely, in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend the anonymity for both buyers and sellers (in our case SPs), and in~\cite{birjoveanuFairExchangeECommerce2020} they proposed a protocol that supports chained transactions (involving multiple active intermediaries). However, none of them is relevant to our use case. We want the SP to remain public so that the anonymous buyer can easily start a dispute. We assume just one package of physical materials. Moreover, the package is delivered from the buyer to the SP, not the other way around — as it's the case for most e-commerce transactions.
 
 Hinarejos et al., 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not consider anonymity, disputes between parties nor physical material exchange.
 
 Meng et al., 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous protocol by the crowdsourced dispute resolution system. However, it does not take anonymity into consideration.
 
-Altawy et al., 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that does not provide dispute resolution but provides anonymous physical delivery by using onion routing and anonymous blockchain interaction assuming unlinkability between pseudonyms and real identities.
+Altawy et al., 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that provides anonymous physical delivery by using onion routing and anonymous blockchain interaction assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
 
 
 Our protocol achieves stronger anonymity guarantees. Namely, we achieve anonymity by using either cash or privacy-preserving blockchains. Moreover, our protocol does not require a customer to submit any transaction to the message board, which may be the weakest link in the anonymity of the aforementioned protocols.
@@ -246,7 +243,7 @@ Also, our protocol does not provide its own dispute-resolution mechanism as Them
 It can be instantiated with either the local court or police, or one of the blockchain
 dispute resolution services like Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court\footnote{Aragon Court, Decentralized Dispute Resolution Protocol, https://aragon.org/aragon-court, (last visited Jan. 10, 2023)}, LTO Network\footnote{LTO Network, a hybrid blockchain application development platform for securing, verifying, and exchanging enterprise information, https://lto.network/, (last visited Jan. 17, 2023)}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
 
-The comparison of the protocols is presented in table~\ref{tab:comparision}.
+The comparison of the protocols is presented in Table~\ref{tab:comparision}.
 
 
 
