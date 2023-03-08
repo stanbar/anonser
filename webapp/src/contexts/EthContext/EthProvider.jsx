@@ -3,6 +3,7 @@ import Web3 from "web3";
 import EthContext from "./EthContext";
 import { reducer, actions, initialState } from "./state";
 import { REACT_APP_ETHEREUM_NODE_ADDRESS } from "src/Constants";
+import is from "is_js";
 
 function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,19 +49,26 @@ function EthProvider({ children }) {
       init(state.artifact);
     };
 
-    events.forEach(e => window.ethereum.on(e, handleChange));
-    return () => {
-      events.forEach(e => window.ethereum.removeListener(e, handleChange));
-    };
+    if (window.ethereum) {
+      events.forEach(e => window.ethereum.on(e, handleChange));
+      return () => {
+        events.forEach(e => window.ethereum.removeListener(e, handleChange));
+      };
+    } else {
+      console.log("window.ethereum not found");
+    }
   }, [init, state.artifact]);
 
+  const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari']) || is.safari();
+  console.log("isSafari", isSafari)
   return (
-    <EthContext.Provider value={{
-      state,
-      dispatch
-    }}>
-      {children}
-    </EthContext.Provider>
+    isSafari ? <div>Sorry, this dapp does not support Safari. Please use Chrome, Brave or Firefox.</div> : (
+      <EthContext.Provider value={{
+        state,
+        dispatch
+      }}>
+        {children}
+      </EthContext.Provider>)
   );
 }
 
