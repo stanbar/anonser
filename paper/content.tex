@@ -207,7 +207,7 @@ Moreover, none of them directly address our use case. We want the SP to remain p
 
 Also, our protocol does not provide its own dispute-resolution mechanism as Themis does. However, we assume the existence of an abstract justice that accepts evidence and punishes the misbehaving party. 
 It can be instantiated with either the local court or police, or one of the blockchain
-dispute resolution services like Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court\footnote{Aragon Court, Decentralized Dispute Resolution Protocol, https://aragon.org/aragon-court, (last visited Jan. 10, 2023)}, LTO Network\footnote{LTO Network, a hybrid blockchain application development platform for securing, verifying, and exchanging enterprise information, https://lto.network/, (last visited Jan. 17, 2023)}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
+dispute resolution services like Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B,ltonetworkOnchainIdentitiesCredentials}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
 
 
 The comparison of the protocols is presented in Table~\ref{tab:comparision}.
@@ -262,7 +262,7 @@ This paper & \YES & \YES & \YES & \BCBUT & \YES \\
 The use cases we address in this paper use physical materials like blood, urine, hair, and other biological materials.
 This requirement, combined with the requirement of anonymity, is a challenging part of the fair-exchange protocols. The problem arises when the seller wants to sent the product to the buyer who wants to remain anonymous. Most of the existing protocols either assume the existence of trusted delivery agent~\cite{mohammedalarajFairnessPhysicalProducts2012,birjoveanuAnonymityFairexchangeEcommerce2015}, or use complex delivery mechanism similar to onion rounting involving multiple many delivery services~\cite{altawyLelantosBlockchainBasedAnonymous2017}. 
 
-However, our use case is different in that the physical materials are transfered from the (anonymous) customer to the (public) SP. This, allows for siplification of the delivery process. We assume that there is a way to anonymously deliver a package without revealing the customer personal information either via SP's drop box, Parcel Locker services (e.g. Amazon Locker, InPost\footnote{InPost, Parcel locker service, \url{https://inpost.pl/en}, \LASTVISITED}), a customer's trusted party, of even post office.
+However, our use case is different in that the physical materials are transfered from the (anonymous) customer to the (public) SP. This, allows for siplification of the delivery process. We assume that there is a way to anonymously deliver a package without revealing the customer personal information either via SP's drop box, Parcel Locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), a customer's trusted party, of even post office.
 
 \subsection{Dispute resolution system}
 \label{sec:dispute-resolution}
@@ -279,11 +279,7 @@ price, train delay, election results, and others—and they are the ones we
 are interested in—provide the settlement of a submitted dispute.
 
 Themis~\cite{mengThemisDecentralizedEscrow2019} besides providing fair exchange protocol,
-also offers a semi-autonomous decentralized dispute resolution system that complies with the Web3 postulates of a decentralized web. Themis
-resolve disputes by a set of voluntary anonymous mediators participating
-in voting and deciding whether a party misbehaved. The honesty of
-mediators is achieved by the monetary incentivization and reputation
-system.
+also offers a semi-autonomous decentralized dispute resolution system that complies with the Web3 postulates of a decentralized web~\cite{ethereumWhatWeb3Why}. Themis resolve disputes by a set of voluntary anonymous mediators participating in voting and deciding whether a party misbehaved. The honesty of mediators is achieved by the monetary incentivization and reputation system.
 
 Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on the Ethereum platform that mimics in a decentralized and autonomous way how the court works in real life. In Kleros, every process of a dispute like gathering evidence, selecting jurors, and rewarding the winning party is automated by a set of smart contracts. Like Themis, the honesty of the agents voting in a case is achieved by game-theoretical economic incentives.
 
@@ -351,10 +347,9 @@ Figure ~\ref{fig:anonymity-diagram} illustrates relations between these terms.
 
 The privacy-preserving blockchains are the ones that maintain anonymity via untraceability and (ideally) unlikability, not via the assumption that the connection between an address (pseudonym) and the real identity is concealed.   
 
-Examples of blockchains that natively support confidential transactions are: Monero~\cite{vansaberhagenCryptoNote2013} (using Ring Signatures~\cite{noetherRingSignatureConfidential2015} or Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (using zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), Grin~\cite{fuchsbauerAggregateCashSystems2019} (using Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}), and IronFish~\footnote{IronFish, The Privacy Platform
-for web3, \url{https://ironfish.network}, \LASTVISITED} (using Sapling protocol~\cite{hopwoodZcashSaplingProtocol2022}).
+Examples of blockchains that natively support confidential transactions are: Monero~\cite{vansaberhagenCryptoNote2013} (using Ring Signatures~\cite{noetherRingSignatureConfidential2015} or Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (using zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), Grin~\cite{fuchsbauerAggregateCashSystems2019} (using Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}), and IronFish~\cite{ironfishPrivateAnonymousEasy} (using Sapling protocol~\cite{hopwoodZcashSaplingProtocol2022}).
 
-Overly techniques that achieve anonymity on top of non-privacy-preserving blockchains are: Ethereum's Tornado Cash\cite{pertsevTornadoCashPrivacy2019} (via zkSNARK~\cite{grothSizePairingbasedNoninteractive2016} and MiMC~\cite{albrechtMiMCEfficientEncryption2016}), Bitcoin's Wasabi\footnote{Wasabi Wallet, Open-source, non-custodial Bitcoin Wallet for desktop, \url{https://wasabiwallet.io/}, (last visited Nov. 28, 2022)} (via CoinJoin \cite{maxwellCoinJoinBitcoinPrivacy2013}).
+Overly techniques that achieve anonymity on top of non-privacy-preserving blockchains are: Ethereum's Tornado Cash~\cite{pertsevTornadoCashPrivacy2019} (via zkSNARK~\cite{grothSizePairingbasedNoninteractive2016} and MiMC~\cite{albrechtMiMCEfficientEncryption2016}), Bitcoin's Wasabi~\cite{wasabiwalletBitcoinPrivacyWallet} (via CoinJoin~\cite{maxwellCoinJoinBitcoinPrivacy2013}).
 
 \subsection{Payment for services}\label{payment-for-services}
 Transactions between customers and SPs must be pegged to prevent reusing one payment for multiple transactions. 
@@ -365,13 +360,13 @@ ways:
 
 \begin{itemize}
 
-\item separate address: each transaction uses an unique address associated with the transaction. Such addresses can be derived using Hierarchical Deterministic Wallets (BIP-32)\footnote{Bitcoin Improvement Proposals, Hierarchical Deterministic Wallets, \url{https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki}, (last visited Dec. 03, 2022)} and published on message board, to achieve non-repudiation.
+\item separate address: each transaction uses an unique address associated with the transaction. Such addresses can be derived using Hierarchical Deterministic Wallets~\cite{wuilleBIP32HierarchicalDeterministic2012} and published on message board, to achieve non-repudiation.
 \item memo: the payments are sent to sigle SP account, but contain an extra field named ``memo'' filled with the unique indentifier $\textrm{provisionID}$. 
 \end{itemize}
 
 Each payment containing the $\textrm{provisionID}$ in the memo, or payment to the dedicated address is considered to pay for the transaction. 
 
-In case of a dispute, there must be a way to prove to justice that the customer has paid for the transaction. As the proof of payment is trivial in transparent and trackable blockchains, it gets more complicated when it comes to anonymous blockchains. Monero allows proving and checking payments via dedicated API\footnote{Monero, How to prove payment, \url{https://www.getmonero.org//resources/user-guides/prove-payment.html}, \LASTVISITED}. ZCash provides a mechanism called Payment Disclosure \footnote{Gareth Davies, An Introduction to Payment Disclosure in Zcash, \url{https://garethtdavies.medium.com/an-introduction-to-payment-disclosure-in-zcash-96748c209d49}, \LASTVISITED}. We call the proof of payment a \textit{payment recepit}.
+In case of a dispute, there must be a way to prove to justice that the customer has paid for the transaction. As the proof of payment is trivial in transparent and trackable blockchains, it gets more complicated when it comes to anonymous blockchains. Monero allows proving and checking payments via dedicated API~\cite{moneroHowProvePayment}. ZCash provides a mechanism called Payment Disclosure~\cite{daviesIntroductionPaymentDisclosure2017}. We call the proof of payment a \textit{payment recepit}.
 
 \subsection{Storage network}\label{storage-network}
 Once the SP finishes its service, she has to provide the result to the customer. The most natural approach would be to send the result via e-mail or some dedicated platform. However, the customer wants to stay anonymous and so does not want to expose his e-mail address nor IP address. Moreover, the SP should prove that the result has been provided before the deadline, which brings us to the issue of proof of existence discussed in Section ~\ref{sec:message-board}.
@@ -398,10 +393,9 @@ At the time of writing, we see the following technologies that fulfill the requi
 \item Anonymous payments: Monero \cite{vansaberhagenCryptoNote2013}, ZCash
   \cite{ben-sassonZerocashDecentralizedAnonymous2014}, Grin \cite{fuchsbauerAggregateCashSystems2019},
   Tornado Cash \cite{pertsevTornadoCashPrivacy2019}.
-\item Message board: Open timestamps\footnote{Open timestamps, A timestamping proof standard, \url{https://opentimestamps.org}, \LASTVISITED}, Stampery \cite{crespoStamperyBlockchainTimestamping2017}, Bitcoin blockchain (Proof of Existence~\footnote{Proof of existence, An online service to prove the existence of documents, \url{https://docs.proofofexistence.com}, \LASTVISITED}, Chainpoint~\footnote{Chainpoint, Blockchain Proof and Anchoring Standar, \url{ https://chainpoint.org/}, \LASTVISITED}), Ethereum blockchain, or any other public blockchain that supports attaching extra data along the transaction.
-\item Storage network: IPFS \cite{benetIPFSContentAddressed2014}, Filecoin
-  \cite{protocollabsFilecoinDecentralizedStorage2017}, or Ethereum's
-  Swarm\cite{teamSWARMStorageCommunication2021}.
+\item Message board: Open timestamps~\cite{opentimestampsTimestampingProofStandard}, Stampery \cite{crespoStamperyBlockchainTimestamping2017}, Bitcoin blockchain (Proof of Existence~\cite{proofofexistenceWebApplicationProve}, Chainpoint~\cite{chainpointBlockchainProofAnchoring}), Ethereum blockchain, or any other public blockchain that supports attaching extra data along the transaction.
+\item Storage network: IPFS~\cite{benetIPFSContentAddressed2014}, Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, or Ethereum's
+  Swarm~\cite{teamSWARMStorageCommunication2021}.
 \end{enumerate}
 
 \section{The Protocol}\label{sec:protocol}
@@ -528,7 +522,7 @@ $\mathrm{receipt}$.
 {Result}\label{results} is assumed to be a document in PDF format, but any other format is allowed as long as it can be binary encoded and uploaded to the storage network. We refer to it symbolically as $\mathrm{result}$.
 
 \noindent \textbf
-{Content Identifier (cid)}\label{content-identifier-cid} is a term coined by IPFS\footnote{IPFS, Content addressing and CIDs, \url{https://docs.ipfs.tech/concepts/content-addressing}, (last visited Dec. 01, 2022)}. However, since our protocol does not depend on this particular implementation of the storage network, we let the $\mathrm{cid}$ be any other identifier that securely and uniquely points to the content.
+{Content Identifier (cid)}\label{content-identifier-cid} is a term coined by IPFS~\cite{ipfsContentIdentifiersCIDs}. However, since our protocol does not depend on this particular implementation of the storage network, we let the $\mathrm{cid}$ be any other identifier that securely and uniquely points to the content.
 
 \subsection{Protocol description}\label{protocol-description}
 
@@ -762,9 +756,9 @@ We have developed a prototype of our protocol using the following technologies:
 
 \begin{itemize}
   \item{Anonymous payments} — we use the Monero blockchain \cite{noetherRingSignatureConfidential2015}.
-  \item{Storage netowork} — we use the Powergate\footnote{Powergate, \url{https://github.com/textileio/powergate}, (last visited Dec. 20, 2022)}, which is a wrapper around Filecoin and IPFS.
-  \item{Message board} — we use the Ethereum blockchain \cite{woodEthereumSecureDecentralised2014}; concretely, Truffle Ganache\footnote{Truffle Ganache, \url{https://trufflesuite.com/ganache/}, (last visited Dec. 20, 2022)} and Solidity language.
-  \item{Customer and SP} — we create client side web application (webapp) using \texttt{React}\footnote{React, A JavaScript library for building user interfaces, \url{https://reactjs.org}, (last visited Dec. 20, 2022)} for creating UI, and \texttt{web3.js}\footnote{web3.js, A JavaScript library for building on Ethereum, \url{https://web3js.org}, (last visited Dec. 20, 2022)} for interaction with Ethereum. We use \texttt{MetaMask}\footnote{MetaMask, A crypto wallet \& gateway to blockchain apps, \url{https://metamask.io}, (last visited Dec. 20, 2022)} browser extension for signing and submitting transactions to Ethereum's node. We use \texttt{monerod}\footnote{Monero, The Monero daemon \texttt{monerod}, \url{https://monerodocs.org/interacting/monerod-reference/}, (last visited Dec. 20, 2022)} network client and \texttt{monero-wallet-cli}\footnote{Monero, The CLI client for Monero, \url{https://monerodocs.org/interacting/monero-wallet-cli-reference/}, (last visited Dec. 20, 2022)} command-line interface for interacting with Monero blockchain.
+  \item{Storage netowork} — we use the Powergate~\cite{textilePowergate2023}, which is a wrapper around Filecoin and IPFS.
+  \item{Message board} — we use the Ethereum blockchain \cite{woodEthereumSecureDecentralised2014}; concretely, its local development version Truffle Ganache and Solidity language.
+  \item{Customer and SP} — we create client side web application (webapp) using \texttt{React.js} for creating UI, and \texttt{web3.js} library for interaction with Ethereum. We use \texttt{MetaMask} browser extension for signing and submitting transactions to Ethereum's node. We use \texttt{monerod} network client and \texttt{monero-wallet-cli} command-line interface for interacting with Monero blockchain.
 \end{itemize}
 
 The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
@@ -784,7 +778,7 @@ Both the customer and the SP create Monero wallets using \texttt{monero-wallet-c
 
 The service provider deploys the smart contract using the \texttt{truffle migrate --network development} command, which deploys the smart contract to the Ethereum blockchain. The webapp is configured to use the latest deployed smart contract address.
 
-The customer gets some testing Monero funds using faucet service\footnote{Monero, faucet, \url{https://community.rino.io/faucet/stagenet/}, \LASTVISITED}.
+The customer gets some testing Monero funds using faucet service~\cite{rinoMoneroStagenetFaucet}.
 
 Next, the customer enables per-transaction proof generation (payment \texttt{receipt}) by setting \texttt{set store-tx-info 1} for his wallet. Proof generation is required to verify the payment in case of a dispute.
 
@@ -876,7 +870,7 @@ Non-repudiation without TTP is achieved by using the blockchain and digital sign
 We achieved anonymity by using anonymous payment methods such as cash or privacy-preserving payment blockchains (e.g., Monero), and decentralized storage networks like IPFS and Filecoin, allowing the customer to interact with the protocol without revealing his identity at any step of the protocol.
 
 \paragraph{Provable Results Availability}
-Content addressable networks such as IPFS can not guarantee the availability of the content\footnote{Nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehavior other than putting the customer in a disadvantaged position caused by the lost dispute.}. However, the Filecoin network, which works as an incentivization layer on top of IPFS, increases the content availability via economic incentivisation (i.e., punishment in case of lack of proof of storage of the content\footnote{Filecoin, Slashing, \url{https://docs.filecoin.io/storage-provider/rewards/slashing}, (last visited Jan. 03, 2023)})~\cite{protocollabsFilecoinDecentralizedStorage2017}.
+Content addressable networks such as IPFS can not guarantee the availability of the content\footnote{Nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately after removing the result from the local storage. In case of dispute, the SP can upload the content again, proving its availability. The SP has no motivation to proceed with this kind of misbehavior other than putting the customer in a disadvantaged position caused by the lost dispute.}. However, the Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, which works as an incentivization layer on top of IPFS, increases the content availability via economic incentivisation (i.e., punishment in case of lack of proof of storage of the content~\cite{filecoinSlashing}).
 
 The SP uploads the result on both IPFS and Filecoin networks (via Powergate) making the result available even in case of the SP stops serving the result from his node.
 
@@ -889,7 +883,7 @@ Proof of provision consumed 149130 gas.
 
 Although our experiment was conducted on testnet, the amount of gas is the same on mainnet.
 
-The cost of gas is denominated in $\mathrm{ETH}$. The price of gas at the time of the experiment (Jan. 03, 2023) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$\footnote{Etherscan, Ethereum Gas Tracker, \url{https://etherscan.io/gastracker}, (last visited Jan. 03, 2023)}, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
+The cost of gas is denominated in $\mathrm{ETH}$. The price of gas at the time of the experiment (Jan. 03, 2023, \url{https://etherscan.io/gastracker}) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
 
 In a result, the cost of:
 \begin{itemize}
@@ -904,16 +898,16 @@ In a result, the cost of:
 
 \subsection{Justice}\label{sec:decentralised-justice}
 
-Centralized justice is the biggest obstacle in achieving a system that complies with Web 3.0 postulates\footnote{Web3, \url{https://en.wikipedia.org/wiki/Web3}, (last visited Jan. 05, 2023)}.
+Centralized justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{ethereumWhatWeb3Why}.
 
-The possible directions for mitigation of such issues are to either (i) replace local justice with blockchain dispute resolution systems like those proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court\footnote{Aragon Court, Decentralized Dispute Resolution Protocol, https://aragon.org/aragon-court, (last visited Jan. 10, 2023)}, LTO Network\footnote{LTO Network, a hybrid blockchain application development platform for securing, verifying, and exchanging enterprise information, https://lto.network/, (last visited Jan. 17, 2023)}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}; or (ii) make it infeasible to provide incorrect results.
+The possible directions for mitigation of such issues are to either (i) replace local justice with blockchain dispute resolution systems like those proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}; or (ii) make it infeasible to provide incorrect results.
 
 The first approach is more feasible in the near future. It would require creating a large set of experts in a field that, in case of dispute, would receive all the proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{receipt}$ as well as any other proofs significant to the case) that could be queried by the experts in zero-knowledge fashion, i.e., they could ask a limited number of questions to the proofs and getting yes/no answers. The case would be fully confidential as they would not be able to query personal information. The experts would be incentivized to participate in the pool by the system of fees. They would be incentivized to vote honestly by the stake they would have to lock and reward/punishment they would get by judging correctly/incorrectly, where the correctness is determined by the quorum of votes.
 
 The second approach is more futuristic. Suppose that the service we are undertaking is fully computable. Then, it would be possible by employing proofs of correctness of computations~\cite{ben-sassonSNARKsVerifyingProgram2013} to enforce that only correct computations (hence correct services) are accepted. It would require the complete service examination to be computable, which is hard to achieve in settings where physical materials (like blood) are examined. Concretely, the problem canes down to ``How to represent blood digitally?''. If we could represent urine, blood, saliva, or any other physical material in a binary format and let the customer take a sample, discrete it, and send it to the SP, then the whole chain of integrity could be ensured. Therefore, incorrect service provision would be infeasible, and hence, disputes would be avoided.
 
 \subsection{Self-sovereign identities}
-Our research in the field showed that some jurisdictions require SPs to associate the diagnosis with the customer's personal information. For example, in Poland, all laboratories performing medical diagnostic tests, and collecting the material (except tests for HIV) are obligated to the unambiguous identification and verification of the identity of the patient from whom the material was collected~\footnote{Regulation of the Minister of Health of March 23, 2006, on quality standards for medical diagnostic and microbiological laboratories, \url{https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20060610435}}.
+Our research in the field showed that some jurisdictions require SPs to associate the diagnosis with the customer's personal information. For example, in Poland, all laboratories performing medical diagnostic tests, and collecting the material (except tests for HIV) are obligated to the unambiguous identification and verification of the identity of the patient from whom the material was collected~\cite{ministerstwozdrowiaRegulationMinisterHealth2006}.
 
 This conflicts with the main goal of our protocol, which is to prevent any identification information from being collected.
 
