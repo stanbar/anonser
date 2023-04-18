@@ -50,7 +50,7 @@ To achieve these objectives, we use:
     \item Cryptography:
     \begin{itemize}
         \item \textbf{Symmetric encryption}, to encrypt and decrypt results published on the public networks.
-        \item \textbf{Public-key cryptography}, and \textbf{Diffie-Helman key exchange (DHKE)} to derive shared secrets for symmetric encryption.
+        \item \textbf{Diffie-Helman key exchange (DHKE)} to derive shared secrets for symmetric encryption.
         \item \textbf{Digital signatures}, to achieve authentication and non-repudiation of actions. 
     \end{itemize}
     
@@ -233,19 +233,19 @@ The notation \textit{Pseudonymity} means that the anonymity is based on the assu
 \ifdefstring{\FORMAT}{\DOUBLECOLUMN}{\begin{tabular}{|c|c|c|c|c|c|}}{\begin{tabular}{|c|c|c|c|c|c|}}
 
 \hline
-Protocol & Fair exchange & Anonymity & Dispute resolution & Trust & Physical delivery \\
+Protocol & Fair \newline exchange & Anonymity & Dispute resolution & Trust & Physical \newline delivery \\
 \hline
-Zhang et al. 2006~\cite{zhangPracticalFairExchangeEPayment2006} & \YES & \YESBUT & \YES & \TTP & \YES \\
+\cite{zhangPracticalFairExchangeEPayment2006} (2006) & \YES & \YESBUT & \YES & \TTP & \YES \\
 \hline
-Alaraj, 2012~\cite{mohammedalarajFairnessPhysicalProducts2012} & \YESBUT & \NO & \YES & \TTP & \YES \\
+\cite{mohammedalarajFairnessPhysicalProducts2012} (2012) & \YESBUT & \NO & \YES & \TTP & \YES \\
 \hline
-Lelantos, 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} & \YES & \PSEUDO & \NO & \BC & \YES \\
+Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} (2017) & \YES & \PSEUDO & \NO & \BC & \YES \\
 \hline
-Hinarejos et al., 2019~\cite{hinarejosSolutionSecureCertified2019} & \YES & \NO & \NO & \BC & \NO \\
+\cite{hinarejosSolutionSecureCertified2019} (2019) & \YES & \NO & \NO & \BC & \NO \\
 \hline
-Themis, 2019~\cite{mengThemisDecentralizedEscrow2019} & \YES & \NO & \YES & \BC & \NO \\
+Themis~\cite{mengThemisDecentralizedEscrow2019} (2019) & \YES & \NO & \YES & \BC & \NO \\
 \hline
-PPPDCP, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} & \YES & \YES & \YES & \TTP & \YES \\
+PPPDCP~\cite{birjoveanuTwoPartyECommerceProtocols2022} (2022) & \YES & \YES & \YES & \TTP & \YES \\
 \hline
 This paper & \YES & \YES & \YES & \BCBUT & \YES \\
 \hline
@@ -279,7 +279,7 @@ price, train delay, election results, and others—and they are the ones we
 are interested in—provide the settlement of a submitted dispute.
 
 Themis~\cite{mengThemisDecentralizedEscrow2019} besides providing fair exchange protocol,
-also offers a semi-autonomous decentralized dispute resolution system that complies with the Web3 postulates of a decentralized web~\cite{ethereumWhatWeb3Why}. Themis resolve disputes by a set of voluntary anonymous mediators participating in voting and deciding whether a party misbehaved. The honesty of mediators is achieved by the monetary incentivization and reputation system.
+also offers a semi-autonomous decentralized dispute resolution system that complies with the Web3 postulates of a decentralized web~\cite{ethereumWhatWeb3Why2023}. Themis resolve disputes by a set of voluntary anonymous mediators participating in voting and deciding whether a party misbehaved. The honesty of mediators is achieved by the monetary incentivization and reputation system.
 
 Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on the Ethereum platform that mimics in a decentralized and autonomous way how the court works in real life. In Kleros, every process of a dispute like gathering evidence, selecting jurors, and rewarding the winning party is automated by a set of smart contracts. Like Themis, the honesty of the agents voting in a case is achieved by game-theoretical economic incentives.
 
@@ -474,7 +474,7 @@ It is also an agreement between the customer and the SP, as it includes agreed u
 $\mathrm{PoD}$ is published on the message board by the SP.
 
 \begin{eqnarray}
-\mathrm{PoD} & \equiv & (\begin{array}[t]{l}\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide},\\ \mathrm{address}, \mathrm{provisionID}, \mathrm{pk(C)}, \mathrm{sig}_\mathrm{SP} \; )\end{array}
+\mathrm{PoD} & \equiv & (\begin{array}[t]{l}\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, \\\\ \mathrm{address}, \mathrm{provisionID}, \mathrm{pk(C)}, \mathrm{sig}_\mathrm{SP} \; )\end{array}
 \end{eqnarray}
 
 where:
@@ -725,7 +725,7 @@ Figure~\ref{fig:positions} shows the positions of each party after each possible
 \end{figure}
 
 The detailed description of each step and the justification
-of the outcome positions is given in~\ref{app:proof-of-fairness}.
+of the outcome positions is given in Appendix~\ref{app:proof-of-fairness}.
 
 \subsection{Example scenarios}\label{example-scenarios}
 
@@ -761,7 +761,9 @@ We have developed a prototype of our protocol using the following technologies:
   \item{Customer and SP} — we create client side web application (webapp) using \texttt{React.js} for creating UI, and \texttt{web3.js} library for interaction with Ethereum. We use \texttt{MetaMask} browser extension for signing and submitting transactions to Ethereum's node. We use \texttt{monerod} network client and \texttt{monero-wallet-cli} command-line interface for interacting with Monero blockchain.
 \end{itemize}
 
-The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
+The prototype is available at [blinded for review process]. The source code is available at [blinded for review process].
+
+% The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
 
 We developed and tested our prototype in the following environment: OS — Arch Linux 5.11.8; Docker — 20.10.5; CPU — Intel(R) Core(TM) i7-4790 (8) 4.00~GHz; RAM — 16 GB DDR3; Storage — Samsung PM85 256~GB SSD; monerod and monero-wallet-cli — v0.18.1.2; Powergate — v2.6.2; Ganache — v7.5.0; Solidity — v0.8.17; ReactJS — v18.0.25; web3.js — v1.8.1; crypto-js — v4.1.1.
 
@@ -778,7 +780,7 @@ Both the customer and the SP create Monero wallets using \texttt{monero-wallet-c
 
 The service provider deploys the smart contract using the \texttt{truffle migrate --network development} command, which deploys the smart contract to the Ethereum blockchain. The webapp is configured to use the latest deployed smart contract address.
 
-The customer gets some testing Monero funds using faucet service~\cite{rinoMoneroStagenetFaucet}.
+The customer gets some testing Monero funds using faucet service available at \url{https://community.rino.io/faucet/stagenet/}.
 
 Next, the customer enables per-transaction proof generation (payment \texttt{receipt}) by setting \texttt{set store-tx-info 1} for his wallet. Proof generation is required to verify the payment in case of a dispute.
 
@@ -826,6 +828,7 @@ The customer's private key must be downloaded and provided later for the decrypt
   \item[9.] Results are then decrypted using the previously stored customer's private key. If everything is correct, the Customer is satisfied with the service and the protocol ends, otherwise, the Customer can initiate a dispute.
 
 \end{enumerate}
+
 
 
 \ifx\FORMAT\SINGLECOLUMN
@@ -898,7 +901,7 @@ In a result, the cost of:
 
 \subsection{Justice}\label{sec:decentralised-justice}
 
-Centralized justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{ethereumWhatWeb3Why}.
+Centralized justice is the biggest obstacle in achieving a system that complies with Web3 postulates~\cite{ethereumWhatWeb3Why2023}.
 
 The possible directions for mitigation of such issues are to either (i) replace local justice with blockchain dispute resolution systems like those proposed in Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}; or (ii) make it infeasible to provide incorrect results.
 

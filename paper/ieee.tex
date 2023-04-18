@@ -17,15 +17,6 @@
 \usepackage{scalerel}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
-
-\input{constants.tex}
-
-\newcommand{\plus}{+}
-\newcommand{\minus}{-}
-\newcommand\neutral[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
-  \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
-}
-
 \newcommand{\customer}{customer}
 \renewcommand{\sp}{SP}
 
@@ -41,27 +32,69 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
+\newcommand{\plus}{+}
+\newcommand{\minus}{-}
+\newcommand\neutral[1][.75]{\mathbin{\ThisStyle{\vcenter{\hbox{%
+  \scalebox{#1}{$\SavedStyle\bullet$}}}}}%
+}
+
+\def\SINGLECOLUMN{SINGLE}
+\def\DOUBLECOLUMN{DOUBLE}
+\def\JOURNALIEEE{IEEE}
+\def\JOURNALELS{ELS}
+
+\newcommand\TITLE{Anonymous provision of privacy-sensitive services using blockchain and decentralised storage}
+\newcommand\STANLONG{Stanis\l{}aw Bara{\'n}ski}
+\newcommand\JULLONG{Julian Szyma{\'n}ski}
+\newcommand\HIGILONG{Higinio Mora}
+\newcommand\STAN{S. Bara{\'n}ski}
+\newcommand\JUL{J. Szyma{\'n}ski}
+\newcommand\HIGI{H. Mora}
+
+\newcommand\ABSTRACT{
+Lawyers, laboratories, auditors or banks, in order to provide services, require data often containing sensitive personal information. Examples of sensitive services are genetic tests, parenthood tests, STD tests, credit score computation or legal advice. 
+
+The processing of personal data, especially when providing services involving sensitive data like health records, biological materials, or legal documents, exposes both users and service providers (SP) to privacy risks. SPs are at risk of violating GDPR, CPAA, and other legal regulations, while customers are at risk of losing their privacy.
+
+We observe that personal data is often only used for logistical purposes, such as payments or communication, and could be provided anonymously if such methods were available.
+
+We propose a solution that allows the provision of services without the collection of personal data. We use anonymous payment methods such as cash and anonymous cryptocurrencies, blockchain technology to achieve fairness, and distributed content-addressable storage networks to deliver results.
+
+Compared to other solutions, our protocol achieves anonymity with weaker assumptions, supports physical materials and conflict resolution, and in conflict-free transactions does not require the customer to interact with the blockchain, demonstrating better practicality.
+
+In this work, we analyse the fairness of our protocol and implement it using Ethereum technology as a message board, Monero as an anonymous payment method, and Powergate (IPFS and Filecoin) as a decentralised storage network.
+}
+
+
+\newcommand\ACKNOWLEDGEMENTS{
+The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.
+}
+
+\newcommand\LASTVISITED{(last visited Jan. 31, 2023)}
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \begin{document}
 
 \history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
-\doi{10.1109/ACCESS.2022.0122113}
+\doi{10.1109/ACCESS.2023.0322000}
+
 \title{\TITLE}
 
 \author{\uppercase{\STANLONG} \authorrefmark{1},
-\uppercase{\JULLONG{}} \authorrefmark{1}} 
+\uppercase{\JULLONG{}} \authorrefmark{1},\uppercase{\HIGILONG{}} \authorrefmark{2} } 
  
 
-\address[1]{Department of Electronic, Telecommunication and Informatics, Gdansk University of Technology, Narutowicza 11/12 Gdansk Poland (e-mail: stanislaw.baranski@pg.edu.pl, julian.szymanski@eti.pg.edu.pl}
+\address[1]{Department of Electronic, Telecommunication and Informatics, Gdansk University of Technology, Narutowicza 11/12 80-233 Gdansk Poland (e-mail: \{stanislaw.baranski\}\{julian.szymanski\}@pg.edu.pl)}
 
+\address[2]{Department of Computer Science Technology and Computation, University of Alicante, San Vicente del Raspeig, 03690 Alicante Spain (e-mail: hmora@ua.es)}
  
 
 \tfootnote{The work has been supported partially by the founds of Department of Computer Architecture Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.}
 
-\markboth{\STAN{}, \JUL{} : \TITLE}
-{\STAN{}, \JUL{} : \TITLE}
+\markboth{\STAN{}, et. al. : \TITLE}
+{\STAN{}, et. al. : \TITLE}
 
 \corresp{Corresponding author: Stanislaw Baranski (e-mail: stanislaw.baranski@pg.edu.pl).}
 
@@ -71,38 +104,39 @@
 
 \newcommand{\sep}{,}
 \begin{keywords}
-Anonymity\sep{} blockchain\sep{} fair-exchange\sep{} physical delivery\sep{} privacy\sep{} services
+Anonymity\sep{} blockchain\sep{} diagnosis\sep{} e-commerce\sep{} fair-exchange\sep{} privacy\sep{} services
 \end{keywords}
 
 \titlepgskip=-21pt
 
 \maketitle
 
+
+
 \def\JOURNALIEEE{IEEE}
 \def\JOURNALELS{ELS}
-
-\def\JOURNAL{\JOURNALIEEE}
-
 \def\SINGLECOLUMN{SINGLE}
 \def\DOUBLECOLUMN{DOUBLE}
+
+
+\def\JOURNAL{\JOURNALIEEE}
+\newcommand{\printbibliography}{
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+}
 \def\FORMAT{\DOUBLECOLUMN}
+
 \input{content}
 
 \EOD
 
 
-\bibliographystyle{IEEEtran}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{stanislaw-front-glasses.png}}]{Stanis\l{}aw Bara{\'n}ski} received BEng in 2019 and MSc in 2020 in informatics at the Gdańsk University of Technology. 
+Currently, he is a PhD student at the Department of Computer Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdańsk University of Technology.
 
-% Loading bibliography database
-\bibliography{bibliography}
+His research interests include blockchains, applied cryptography, and secure computation; particularly the issue of blockchain-based internet voting, but also other protocols that currently depend on trusted third parties.
 
-
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{stanislaw.jpg}}]{Stanis\L{}aw Bara{\'n}ski} received BEng in 2019 and MSc in 2020 in informatics at Gdańsk University of Technology. 
-Currently, he is a PhD student at the Department of Computer Architecture, Faculty of Electronics, Telecommunications and Informatics, Gdansk University of Technology.
-
-His research interests include blockchains, applied cryptography, and secure computation; particularly the issue of blockchain-based internet voting, but also other areas that currently depend on trusted third parties.
-
-He likes to validate his ideas in practice, developing them up to the commercialization stage. He is the author of multiple software products that have reached success in the market. His blockchain-based internet voting project has been funded by the Stellar Community Fund for the most useful Stellar application.
+He likes to validate his ideas in practice, developing them up to the commercialization stage. He is the author of multiple software products that have reached success in the market.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{julian.jpg}}]{JULIAN SZYMA{\'N}SKI}  received the PhD degree in 2009 and DSc in 2020 at Gdańsk University of Technology.
@@ -113,6 +147,9 @@ He is involved in the project, where acquisition of data from sensors placed in 
 
 He was a committee member and reviewer in  many international
 conferences as well as served as guest editor preparing special issues of prestigious journals. 
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{higinio.jpg}}]{Higinio Mora} received the B.S. degree in computer science engineering and the B.S. degree in business studies from the University of Alicante, Spain, in 1996 and 1997, respectively, and the Ph.D. degree in computer science from the University of Alicante in 2003. Since 2002, he has a member of the faculty of the Computer Technology and Computation Department, University of Alicante, where he is currently an Associate Professor and a Researcher with the Specialized Processors Architecture Laboratory. His research interests include computer modeling, computer architectures, high-performance computing, embedded systems, the Internet of Things, and cloud computing paradigm.
 \end{IEEEbiography}
 
 \end{document}
