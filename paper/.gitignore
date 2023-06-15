@@ -1,5 +1,7 @@
+main.pdf
 access.pdf
 grabs.pdf
+.DS_Store
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
