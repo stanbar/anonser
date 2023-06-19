@@ -59,97 +59,114 @@
 
 \section{Introduction}
 \label{sec:introduction}
-Diagnostic services such as paternity tests, doping tests, or venereal disease tests are performed at diagnostic centres that require clients to provide biological materials such as blood, urine, stool, or saliva. Unfortunately, to process transactions, clients are often forced to reveal their identities. Such a combination of personal data with biological materials exposes clients to significant privacy risks.
+Diagnostic services such as paternity tests, doping tests or venereal disease tests are carried out in diagnostic centres that require clients to provide biological material such as blood, urine, stool or saliva. Unfortunately, clients are often forced to reveal their identity in order to complete transactions. Such a combination of personal information with biological materials exposes clients to significant privacy risks.
 
-Other examples of sensitive services are, legal services, such as legal advice that may require disclosure of the history of financial transactions and confidential legal documents.
+Other examples of sensitive services include anonymous complaints or legal services, such as legal advice, which may require disclosure of financial transaction history and confidential legal documents. Banking services, such as credit scoring, may require sensitive personal information, such as medical records and financial transaction history.
 
-Banking services, such as credit scoring, may require sensitive personal data, such as medical records, and history of financial transactions.
+Providing personal information exposes users to privacy risks, i.e. the potential loss of control over personal information \cite{smithInformationPrivacyResearch2011}.
 
-Providing personal information exposes users to privacy risks, i.e. potential loss of control over personal information \cite{smithInformationPrivacyResearch2011}.
+Such personal information can be used deliberately or by accident (e.g. theft) for insider disclosure, unauthorised access or commercial gain. For example, by reselling it to marketers, financial institutions, other businesses, government agencies or even cybercriminals. 
+This, in turn, can lead to unintentional GDPR or CCPA breaches, profiled advertising, or even criminal activity such as identity theft or illegal tracking and surveillance~\cite{smithInformationPrivacyResearch2011}.
 
-Such personal information can be used deliberately or accidentally (e.g., by theft) 
-for insider disclosure, unauthorized access, or commercial gains. For example, by reselling it to marketers, financial institutions, other businesses, government agencies, or even cybercriminals. 
-In turn, it can lead to an unintentional violation of the GDPR or CCPA, profiled advertisements or even criminal activities like identity theft or illegal tracking and surveillance~\cite{smithInformationPrivacyResearch2011}.
+Public figures such as influencers, politicians or celebrities are particularly vulnerable to this type of attack, as exposure of their health records, purchasing habits or legal documents can threaten their reputation, position or be used for blackmail.
 
-Public individuals like influencers, politicians, or celebrities are especially vulnerable to this kind of attack as exposure of their health records, purchase habits, or legal documents can threaten their reputation, position or be used for blackmailing.
+The problem is compounded when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood.
+In such situations, clients may be reluctant to provide their personal information to the SP and therefore withdraw from the service. Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.
 
-The problem amplifies when personal information is linked to health records, or legal documents, or biological materials like DNA, saliva, or blood.
+The guarantee of privacy of personal data is often based solely on trust in the SP's staff and the security of their IT systems. However, we observe that personal data is often used only for logistical purposes, such as payment or communication, and could be provided anonymously if such methods were available.
 
-In such situations, customers may be reluctant to provide their personal information to the SP and thus resign from the service. Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients. Both parties are affected as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.
-
-The guarantee of privacy of personal data is often based solely on trust in the SPs' staff and the security of their IT systems. However, we observe that personal data is often only used for logistical purposes, such as payments or communications, and could be provided anonymously if such methods were available.
-
-It would be desirable for the customers to keep their identities private while still receiving the service. This could lead to reduced trust that customers have to put in SPs and less responsibility borne by SPs.
+It would be desirable for customers to keep their identity private while still receiving the service. This could lead to a reduction in the trust that customers need to place in SPs and a reduction in the responsibility that SPs bear.
 
 Examples of services that would benefit from the anonymity property are:
 \begin{itemize}
-    \item Patients willing to take a test eg.: for drugs, venereal diseases, paternity or steroids have a strong incentive to keep the whole procedure private. Merely the fact that they took the test—without exposing the result—is suggestive enough to act as a premise in case of a conflict.
+    \item Patients who are willing to take a test, e.g. for drugs, STDs, paternity or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict.
 
-Currently, they have to risk that their personal details, materials, and results are stored securely and kept private from any unauthorized actor (both curious employees and malicious attackers).
+    Currently, they have to take the risk that their personal data, materials and results will be stored securely and kept secret from any unauthorised actor (both curious employees and malicious attackers).
 
-\item Individuals undertaking entrepreneurial activities may wish to obtain estimates of the risks and possible repercussions of the actions taken.
 
-By exposing their identity they trust that the lawyer will not use that information for harmful actions.
+\item Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions.
+
+By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
 \end{itemize}
 
-According to Solove's Taxonomy of privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks:
+Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks:
 \begin{itemize}
-    \item Identification, linking of information to a particular individual;
-    \item Secondary use, using personal information for a purpose other than the purpose it was collected; 
-    \item Breach of confidentiality, breaking a promise to keep a person's information confidential;
-    \item Disclosure, revealing truthful information about a person that impacts the ways others judge their character.
+    \item \textbf{Breach of confidentiality}, breaking a promise to keep an individual's information confidential;
+    \item \textbf{Disclosure}, revealing true information about a person that affects the way others judge their character;
+    \item \textbf{Identification}, linking information to a specific individual;
+    \item \textbf{Secondary use}, using personal information for a purpose other than that for which they were collected.
 \end{itemize}
 
-In this work we explore the possibilities of providing services anonymously.
-
-We observe that the issue of anonymous service provision can be seen as a problem of fair exchange where parties exchange some goods fairly, i.e., either both parties obtain the goods, or they both obtain nothing.
-
-In our case, the customer who wants to use the service, exchanges his materials and money with the SP for the result of the service.
-
-Our review indicates that none of the current systems is sufficient to achieve the desired goal. We propose a anonymous protocol for provisioning serivces that require physical materials. In case of dispute, either due to exceeding deadlines or providing an incorrect result, the customer can disclose the whole interaction and prove to justice the misbehavior of the SP.
-
-To achieve these objectives, we use:
+We consider the following adversaries:
 \begin{itemize}
-    \item \textbf{Blockchain} (aka message board), to achieve fairness, i.e., as a means for proving that certain actions took place at a certain time without the trusted third party (TTP).
-    \item \textbf{Anonymous payment methods}, like cash or anonymous cryptocurrencies, allowing customers to pay for services anonymously.
-    \item \textbf{Decentralized storage network} (e.g., IPFS) to anonymously provide results together with a provable storage network (e.g., Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
+    \item \textbf{Malicious insiders}: Individuals or entities with authorised access to the protocol's systems or data who may abuse their privileges to compromise customer privacy. This could include employees, contractors or service providers;
+    \item \textbf{Government agencies}: Depending on the jurisdiction and the nature of the protocol, government agencies may have legal powers or national security interests that could affect customer privacy. For example, the potential for surveillance, data requests or legal intervention;
+    \item \textbf{Malicious third-party services}: If the protocol relies on third party services or APIs, the privacy of customer data could be at risk if these services have inadequate security measures in place or if they engage in data sharing or tracking without the consent of the customer;
+    \item \textbf{Hackers and cybercriminals}: Individuals or organised groups with malicious intent who may exploit vulnerabilities in the protocol's implementation, infrastructure, or supporting systems to gain unauthorised access to customer information.
+\end{itemize}
+
+In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves customer privacy even in the event of a successful attack. Under realistic operational assumptions, we believe that decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity.
+
+However, a protocol that hides a customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is no one to accuse.
+
+We observe that the problem of anonymous service provision can be seen as a problem of fair exchange, where parties exchange some goods fairly, i.e. either both parties obtain the goods, or they both obtain nothing.
+
+In our case, the customer who wants to use the service exchanges his materials and money with the SP for the result of the service.
+
+Our review shows that none of the current systems is sufficient to achieve the desired goal. We propose an anonymous protocol for the provision of services that require physical materials. In the event of a dispute, either due to missed deadlines or incorrect results, the customer can disclose the entire interaction, prove the SP's misbehaviour to justice, and win the dispute.
+
+To achieve this goal we use
+\begin{itemize}
+    \item \textbf{Blockchain}, to achieve fairness, i.e. as a means of proving that certain actions took place at a certain time without the Trusted Third Party (TTP).
+    \item \textbf{Anonymous payment methods}, such as cash or anonymous cryptocurrencies, which allow customers to pay for services anonymously.
+\item \textbf{Decentralised storage network} (e.g. IPFS) to provide results together with a provable storage network (e.g. Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
     
     \item Cryptography:
     \begin{itemize}
-        \item \textbf{Symmetric encryption}, to encrypt and decrypt results published on the public networks.
-        \item \textbf{Diffie-Helman key exchange (DHKE)} to derive shared secrets for symmetric encryption.
+        \item \textbf{Symmetric encryption}, to encrypt and decrypt the results published on the public networks.
+        \item \textbf{Diffie-Helman key exchange (DHKE)}, to derive shared secrets for symmetric encryption.
         \item \textbf{Digital signatures}, to achieve authentication and non-repudiation of actions. 
     \end{itemize}
     
 \end{itemize}
 
+Figure~\ref{fig:protocol-overview} shows a simplified diagram of the protocol.
 
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{protocol-overview.pdf}
+\centering
+\caption{A simplified diagram of the protocol. The first step involves the delivery of the materials to the SP. The second step involves anonymous payment. The third step involves the delivery of the results to the customer. Each step is proven on the message board, protecting the fair party in a conflict situation.}
+
+\label{fig:protocol-overview}
+\end{figure}
+
+\paragraph{}
 The contribution of our paper is:
 \begin{itemize}
-\item proposing a novel protocol that:
+\item we propose a protocol that upon a realistic operational and threat model:
   \begin{itemize}
-  \item allows \textbf{anonymous} service provision, i.e., the service provider does not need to collect any personal information from the customer.
-  \item achieves \textbf{fairness} by carefully designing the protocol as an interactive non-cooperative game, in which the SP remains in an advantageous position and the customer in a disadvantageous position with an option to start a dispute in case a misbehaviour of SP.
-  \item \textbf{does not rely on centralized TTP}, but uses decentralized blockchain and distributed content-addressable storage network.
-  \item In conflict-free transactions does not require customers to interact with the blockchain, achieving better \textbf{user-experience and practicality}.
-  \item allows the \textbf{delivery of physical materials}, which was rarely addressed by other researchers or based on strong and unpractical assumptions.
+  \item allows \textbf{anonymous} service provision involving \textbf{physical materials}, i.e., the service provider does not need to collect any personal information from the customer;
+  \item achieves \textbf{fairness} by the use of blockchain and cryptographic proofs. We model the protocol as an interactive non-cooperative game and show fairness at each of its steps.
+  \item \textbf{does not rely on a centralised TTP}, but uses a decentralised blockchain and a distributed content-addressable storage network;
+  \item in conflict-free transactions does not require customers to interact with the blockchain, achieving better \textbf{user experience and practicality};
   \item guarantees the \textbf{remote availability of the results}, even in case of the SP denial of service.
   \end{itemize} 
-\item Systematise often misused definitions of anonymity, pseudonymity, linkability, and traceability.
-\item Proposing a framework for analyzing fairness in fair-exchange protocols.
-\item Discuss the possible improvements to the protocol with the use of secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution techniques.
-\end{itemize} 
+\item We implement a working prototype of the protocol and provide open source code.
+\item We systematise often misused definitions of anonymity, pseudonymity, linkability and traceability.
+\item We propose a framework for analysing fairness in fair exchange protocols and use it to prove the fairness of our protocol.
+\item We discuss possible improvements to the protocol using secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution techniques.
+\end{itemize}
 
-Some authors have proposed blockchain-based fair-exchange systems that could be adapted to service provision; however, to our best knowledge, we are the first to propose a system that satisfies all the properties stated above. Especially anonymity and physical materials delivery were rarely addressed together, and if so, the protocol was based on TTP and impractical assumptions on banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
+Some authors have proposed blockchain-based fair exchange systems that could be adapted to service provision; however, to the best of our knowledge, we are the first to propose a system that satisfies all of the above properties. In particular, anonymity and physical delivery have rarely been addressed together, and if so, the protocol was based on TTP and impractical assumptions about the banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
 
 
-The rest of this paper is organized as follows.
+The rest of this paper is organised as follows.
 In Section~\ref{sec:related-works} we review related works. 
-Then, in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, results availability, and anonymity.
-Section~\ref{sec:protocol} provides detailed description of the protocol.
+Then in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, availability of results and anonymity.
+Section~\ref{sec:protocol} provides a detailed description of the protocol.
 Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
-In Section~\ref{sec:experiments} we present the implementation of the protocol and results of our experiments.
-Section~\ref{sec:discussion} discuss possible improvements in terms of crowd-sourced dispute resolution or dispute avoidance, self-sovereign identities (SSI), anonymous delivery, and formal verification.
+Section~\ref{sec:experiments} presents the implementation of the protocol and the results of our experiments.
+Section~\ref{sec:discussion} discusses possible improvements in terms of crowdsourced dispute resolution or dispute avoidance, self-sovereign identities (SSIs), anonymous delivery, and formal verification.
 Finally, Section~\ref{sec:conclusion} concludes the paper.
 
 
@@ -157,128 +174,124 @@ Finally, Section~\ref{sec:conclusion} concludes the paper.
 In this section, we review related works on fair exchange, anonymous, and physical delivery protocols. Then we outline the main differences between the protocols.
 
 \subsection{Fair exchange, physical delivery}
-The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer who exchange money for a physical product. To protect themselves the seller want to receive the funds prior to sending the product, while the buyer want to receive the product prior to paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
+The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer exchanging money for a physical product. To protect themselves, the seller wants to receive the funds before sending the product, while the buyer wants to receive the product before paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
 
-To our best knowledge, the first system that allowed for fair exchange of physical products was proposed by Zhang et al. in 2006~\cite{zhangPracticalFairExchangeEPayment2006}. The protocol uses buyer's bank as TTP, and assumes no coalition between parties to achieve anonymity. 
+To the best of our knowledge, the first system allowing fair exchange of physical products was proposed by Zhang et al. in 2006~\cite{zhangPracticalFairExchangeEPayment2006}. The protocol uses the buyer's bank as the TTP and assumes no coalition between the parties to achieve anonymity. 
 
-Authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed an protocol for fair-exchange involving physical materials delivery. The protocol assumes the existence of an offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP is in improvement which assumes the TTP being involved only in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP that is involved only in the event of a dispute. The protocol works as follows: 
+The authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed a protocol for fair exchange involving the delivery of physical materials. The protocol assumes the existence of an offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP which assumes the TTP is only involved in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP only gets involved in the event of a dispute. The protocol works as follows 
 \begin{enumerate}
-\item The buyer sends an encrypted payment to the seller along with the proof of validity.
-\item The seller validates the proof, which convinces him that the decrypted payment will also be valid.
-\item The seller forwards the physical product to the trusted delivery agent (DA).
-\item The buyer verifies whether the product is the one he ordered.
-\item The buyer creates a proof of delivery and sends it along with the decryption key to the seller.
+\item The buyer sends an encrypted payment to the seller along with proof of validity.
+\item The seller validates the proof, which convinces him that the decrypted payment is also valid.
+\item The seller forwards the physical product to the trusted Delivery Agent (DA).
+\item The buyer verifies that the product is the one ordered.
+\item The buyer creates a proof of delivery and sends it to the seller along with the decryption key.
 \end{enumerate}
 
-However, the protocol relies on strong assumptions, namely, the existence of a TTP and an DA, who does not misbehave or collude with either party. Also the fairness is obtained assuming resilient communication channels.
+However, the protocol relies on strong assumptions, namely the existence of a TTP and a DA that do not misbehave or collude with either party. Fairness is also achieved by assuming resilient communication channels.
 
 \subsection{Fair exchange, anonymity, dispute resolution, and physical products delivery} 
 \label{anonymity-and-fair-exchange-in-e-commerce-protocol-for-physical-products-delivery}
 
 In the previous protocol, both parties of the transaction are known to each other. However, there are situations in which the buyer would prefer not to disclose his identity to the seller. The situation becomes more challenging when the transaction involves physical products.
+In the previous protocol, both parties to the transaction are known to each other. However, there are situations where the buyer would prefer not to reveal his identity to the seller. The situation becomes more difficult when the transaction involves physical products.
 
-Authors of~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} proposed a protocol involving physical products, which guarantees anonymity of both buyer and seller. They achieve it with the introduction of an online TTP that validates coins and guarantees fairness. Later, they proposed many extensions to the protocol, namely, in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend the anonymity for both buyers and sellers (in our case SPs), and in~\cite{birjoveanuFairExchangeECommerce2020} they proposed a protocol that supports chained transactions (involving multiple active intermediaries). Finally in~\cite{birjoveanuTwoPartyECommerceProtocols2022} they proposed improved protocol named PPPDCP (Protocol with Physical Product Delivery Providing Customer's Privacy).
+The authors of~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} proposed a protocol for physical products that guarantees the anonymity of both buyer and seller. They achieve this by introducing an online TTP that validates coins and guarantees fairness. Later they proposed many extensions to the protocol, namely in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend anonymity for both buyers and sellers (in our case SPs), and in~\cite{birjoveanuFairExchangeECommerce2020} they proposed a protocol that supports chained transactions (involving multiple active intermediaries). Finally, in~\cite{birjoveanuTwoPartyECommerceProtocols2022} they proposed an improved protocol called PPPDCP (Protocol with Physical Product Delivery Providing Customer's Privacy).
 
-Anonymity is ensured by using anonymous communication channel over Tor~\cite{dingledineTorSecondGenerationOnion2004} and blind signatures~\cite{chaumSecurityIdentificationTransaction1985}. Fair exchange, physical delivery, and dispute resolution is achieved using delivery cabinet (DC) under the seller's control (e.g. Amazon Locker) and offline TTP that intervenes only in the case of a dispute.
+Anonymity is ensured by using an anonymous communication channel over Tor~\cite{dingledineTorSecondGenerationOnion2004} and blind signatures~\cite{chaumSecurityIdentificationTransaction1985}. Fair exchange, physical delivery and dispute resolution are achieved using a Delivery Cabinet (DC) under the control of the seller (e.g. Amazon Locker) and an offline TTP that only intervenes in the event of a dispute.
 
-The protocol works as follows: 
+The protocol works as follows 
 
 \begin{enumerate}
-    \item The buyer buys a digital coin from his bank. Blind signature is used to preserve privacy.
-    \item The buyer sends to the seller the purchase details, address of DC, customer's bank signature, and some meta data to preserve the integrity of transaction, communication is done over Tor.
-    \item The seller request a redemption of the digital coin.
-    \item The seller posts the product to the DC via delivery serivice.
-    \item The DA collects the product from the seller's cabinet and posts it to the DC.
+    \item The buyer buys a digital coin from their bank. A blind signature is used to ensure privacy.
+    \item The buyer sends the seller the purchase details, the address of the DC, the signature of the customer's bank and some metadata to preserve the integrity of the transaction, communication is done over Tor.
+    \item The seller requests redemption of the digital coin.
+    \item The seller posts the product to the DC via the delivery service.
+    \item The Delivery Agent (DA) collects the product from the seller's locker and posts it to the DC.
     \item The buyer collects the product from the DC using a password.
-    \item The buyer checks if the product is the ordered one, if not, opens a dispute to TTP.
+    \item The buyer verifies that the product is the one ordered, if not, opens a dispute with TTP.
 \end{enumerate}
 
 Besides the assumptions of the existence of the TTP, the protocol also assumes:
 
 \begin{itemize}
-    \item the buyer's and seller's banks enable confidential transactions, and both share a commit buffer where the value is locked until the transaction is finished;
-    \item banks maintain a global list of coins' serial numbers to prevent double-spending problems;
-    \item there exists an anonymous communication channel, and the SC and the DC protected by a passwords;
-    \item the DC is equipped with a video camera that records the moment when the buyer opens the package and provides a way to submit the video to TTP in case of a dispute;
+    \item The buyer's and seller's banks allow confidential transactions, and both share a commit buffer where the value is locked until the transaction is complete;
+    \item The banks maintain a global list of coin serial numbers to prevent problems with double spending;
+    \item there is an anonymous communication channel and the SC and DC are password protected;
+    \item The DC is equipped with a video camera that records the moment the buyer opens the package and provides a means to submit the video to TTP in the event of a dispute;
 \end{itemize}
 
-
 \subsection{Fair exchange and blockchain}
+The problem of TTPs in fair exchange protocols has been solved by the use of decentralised networks, in particular blockchain technology.
 
-The issue of TTPs in fair exchange protocols has been solved by the usage of decentralized networks, especially blockchain technology.
+The simplest example of a blockchain-based fair exchange protocol is the certified email protocol, where neither the sender can deny sending the email nor the recipient can deny receiving it. As this service is widely used in the paper world, achieving it for emails has not yet been agreed upon by the scientific community. The main problem has been the reliance on TTP, which significantly reduces the performance, security and robustness of such protocols. The protocols that do not use TTP suffer from high computational and communication overhead~\cite{hinarejosSolutionSecureCertified2019}.
 
-The simplest example of blockchain-based fair exchange protocol is certified electronic mail protocol in which neither the sender can deny sending the mail, nor the receiver can deny receiving it. As the service is widely used in the paper world, achieving it for e-mails has not yet met agreement across the scientific community. The main problem was the dependency on TTP, which significantly reduced the performance, security, and robustness of such protocols. The protocols that do not use TTP struggle with high computation and communication overhead~\cite{hinarejosSolutionSecureCertified2019}.
+The authors of ~\cite{hinarejosSolutionSecureCertified2019} have replaced TTP with blockchain (specifically the bitcoin blockchain as a reference implementation), which acts as a secure, verifiable and decentralised TTP.
 
-Authors of ~\cite{hinarejosSolutionSecureCertified2019} replaced the TTP with blockchain (concretely Bitcoin blockchain as a reference implementation) that acts as a secure, verifiable, and decentralized TTP.
-
-The idea behind certified e-mails and any other fair exchange protocols is the following:
+The idea behind certified email and any other fair exchange protocol is as follows:
 \begin{enumerate}
-    \item The sender sends an encrypted and signed message to the receiver.
-    \item The receiver returns a proof of delivery (a signature) of the encrypted message to the sender.
-    \item The sender publishes proof of delivery and the decryption key on a blockchain (or TTP in general).
-    \item The receiver decrypts the encrypted message using the published decryption key.
+    \item The sender sends an encrypted and signed message to the recipient.
+    \item The recipient returns a proof of delivery (a signature) of the encrypted message to the sender.
+    \item The sender publishes the proof of delivery and the decryption key on a blockchain (or TTP in general).
+    \item The recipient decrypts the encrypted message using the published decryption key.
 \end{enumerate}
 
-The non-repudiation requirement is achieved by the receiver sending the proof of delivery prior to having access to the decrypted message and the sender publishing the decryption key together with the proof of delivery on the blockchain (or TTP) so that the receiver can deny neither receiving the message nor having access to the decryption key—because it is publicly available.
+The non-repudiation requirement is achieved by the receiver sending the proof of delivery before having access to the decrypted message, and the sender publishing the decryption key together with the proof of delivery on the blockchain (or TTP), so that the receiver cannot deny having received the message or having access to the decryption key—because it is publicly available.
 
-In this case, the role of blockchain is to certify the existence of the decryption key at a certain time.
+In this case, the role of the blockchain is to certify the existence of the decryption key at a given point in time.
 
 \subsection{Fair-exchange, blockchain, and decentralized dispute resolution}
 \label{themis-towards-decentralized-escrow-of-cryptocurrencies-without-trusted-third-parties}
-
-Themis~\cite{mengThemisDecentralizedEscrow2019} is a fair exchange protocol that uses blockchain instead of TTP. It provides an escrow service for the secure exchange of cryptocurrencies and digital goods. Also, it provides a decentralized dispute resolution system for resolving conflicts.
+Themis~\cite{mengThemisDecentralizedEscrow2019} is a fair exchange protocol that uses blockchain instead of TTP. It provides an escrow service for the secure exchange of cryptocurrencies and digital goods. It also provides a decentralised dispute resolution system for resolving conflicts.
 
 The protocol works as follows:
 \begin{enumerate}
-    \item Alice and Bob generate a 2-of-2 threshold escrow account using Thresh-Key-Gen protocol and send funds to it.
-    \item Alice and Bob split their secret keys into \(n=2t+1\) secret shares using Shamir Secret Sharing protocol, where \(n\) is the number of mediators that participate in the decentralized network and \(t+1\) becomes the threshold of a sufficient number of mediators to reconstruct the secret key.
-    \item Alice and Bob encrypt each \textit{i}-th key share using public key of \textit{i}-th mediator.
-    \item Alice and Bob exchange the sets of encrypted key shares with each other and send funds to the escrow account.
+    \item Alice and Bob create a 2-of-2 threshold escrow account using the Thresh-Key-Gen protocol and send funds to it.
+\item Alice and Bob split their secret keys into \(n=2t+1\) secret shares using Shamir Secret Sharing protocol, where \(n\) is the number of mediators participating in the decentralised network and \(t+1\) is the threshold for a sufficient number of mediators to reconstruct the secret key.
+    \item Alice and Bob encrypt each \textit{i}-th key share with the public key of \textit{i}-th mediator.
+\item Alice and Bob exchange the sets of encrypted key shares and send funds to the escrow account.
 \end{enumerate}
 
-The escrow is secure as long as \(t+1\) of mediators does not collude, which would let them recreate both \(x_A\) and \(x_B\). 
+The escrow is secure as long as \(t+1\) of the mediators do not collude, which would allow them to reconstruct both \(x_A\) and \(x_B\). 
 
-To ensure that parties exchange actual key shares, they send witnesses generated with the Feldman VSS scheme and zero-knowledge proofs to guarantee the consistency between witnesses and key shares.
+To ensure that the parties exchange real key shares, they send witnesses generated using the Feldman VSS scheme and zero-knowledge proofs to guarantee consistency between witnesses and key shares.
 
-In case of dispute, the decentralized network of mediators settles the conflict and grand one winning party the other party secret key, allowing it to withdraw the funds.
+In the event of a dispute, the decentralised network of mediators resolves the conflict and grants the winning party the other party's secret key, allowing it to withdraw the funds.
 
-The monetary incentivization and reputation system guarantee the honesty of mediators.
+The financial incentives and the reputation system guarantee the honesty of the mediators.
 
 \subsection{Blockchain, anonymity, and physical delivery}\label{lelantos-a-blockchain-based-anonymous-physical-delivery-system}
 
-Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based anonymous
-physical delivery system. The protocol achieves anonymity by employing onion routing (similar to the Tor network) to connect physical delivery providers. The whole route from a seller to a buyer is split into multiple steps, and each step is undertaken by the different randomly selected delivery providers. As long as the delivery providers do not collude, the seller neither can learn the identity nor destination address of the buyer.
+Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based anonymous physical delivery system. The protocol achieves anonymity by using onion routing (similar to the Tor network) to connect physical delivery providers. The entire path from a seller to a buyer is divided into multiple steps, and each step is performed by randomly selected delivery providers. As long as the couriers do not collude, the seller cannot learn the identity or destination address of the buyer.
 
-A smart-contract is used to coordinate the whole process and mediate communication between the buyer and delivery providers.
+A smart contract is used to coordinate the whole process and mediate communication between the buyer and the delivery providers.
 
-However, since the system uses Ethereum, it achieves pseudonymity rather than anonymity (see Section~\ref{sec:pseudo-anon}). Also, the protocol does not cover disputes between the parties.
+However, because the system uses Ethereum, it achieves pseudonymity rather than anonymity (see section~\ref{sec:pseudo-anon}). Also, the protocol does not cover disputes between the parties.
 
 \subsection{Comparision}
 
-We considered only protocols that achieve fair exchange as it is the fundamental feature of such protocols.
+We only considered protocols that achieve fair exchange, as this is the fundamental feature of such protocols.
 
-Also, we didn't put much attention to the protocols for buying digital products as they are not relevant to our use case. The comprehensive analysis of such protocols is avaiable in~\cite{birjoveanuTwoPartyECommerceProtocols2022}.
+We also didn't focus on protocols for buying digital products, as they are not relevant to our use case. A more comprehensive analysis of such protocols is available in~\cite{birjoveanuTwoPartyECommerceProtocols2022}.
 
-Altawy et al., 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that provides anonymous physical delivery by using onion routing and anonymous blockchain interaction assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
+Altawy et al. 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that provides anonymous physical delivery using onion routing and anonymous blockchain interaction, assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
 
-Hinarejos et al., 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not consider anonymity, disputes between parties nor physical material exchange.
+Hinarejos et al. 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not take into account anonymity, disputes between parties, or the exchange of physical material.
 
-Meng et al., 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous protocol by the crowd-sourced dispute resolution system. However, it does not take anonymity into consideration.
+Meng et al. 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous protocol through the crowd-sourced dispute resolution system. However, it does not take anonymity into account.
 
-Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, however, it is based on strong assumptions, namely, existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coins' serial numbers.
+Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, but it is based on strong assumptions, namely the existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coin serial numbers.
 
-Our protocol achieves anonymity by using either cash or privacy-preserving blockchains. Moreover, our protocol does not require a customer to submit any transaction to the message board, which in other protocols may be the weakest link in achieving the anonymity.
+Our protocol achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require a customer to submit a transaction to the bulletin board, which may be the weakest link in achieving anonymity in other protocols.
 
-Moreover, none of them directly address our use case. We want the SP to remain public so that the anonymous buyer can easily start a dispute. We assume just one package of physical materials. Moreover, the package is delivered from the buyer to the SP, not the other way around — as it's the case for most e-commerce transactions.
+Furthermore, none of them directly address our use case. We want the SP to remain public so that the anonymous buyer can easily start a dispute. We assume a single package of physical materials. Also, the package is delivered from the buyer to the SP, not the other way around–as in most e-commerce transactions.
 
-Also, our protocol does not provide its own dispute-resolution mechanism as Themis does. However, we assume the existence of an abstract justice that accepts evidence and punishes the misbehaving party. 
-It can be instantiated with either the local court or police, or one of the blockchain
-dispute resolution services like Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B,ltonetworkOnchainIdentitiesCredentials}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
-
+Also, our protocol does not have its own dispute resolution mechanism, as Themis does. However, we assume the existence of an abstract justice that accepts evidence and punishes the misbehaving party. 
+This can be instantiated either with the local court or police, or with one of the blockchain's
+dispute resolution services such as Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B,ltonetworkOnchainIdentitiesCredentials}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
 
 The comparison of the protocols is presented in Table~\ref{tab:comparision}.
 
-The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol uses a trusted third party; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature, but is based on strong or unpractical assumptions.
+The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol uses a trusted third party; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature but is based on strong or impractical assumptions.
 
 
 {\begin{table*}
@@ -316,114 +329,103 @@ This paper & \YES & \YES & \YES & \BC & \YES \\
 \section{Building Blocks}\label{sec:building-blocks}
 
 \subsection{Physical products}\label{sec:physical-products}
-The use cases we address in this paper use physical materials like blood, urine, hair, and other biological materials.
-This requirement, combined with the requirement of anonymity, is a challenging part of the fair-exchange protocols. The problem arises when the seller wants to sent the product to the buyer who wants to remain anonymous. Most of the existing protocols either assume the existence of trusted delivery agent~\cite{mohammedalarajFairnessPhysicalProducts2012,birjoveanuAnonymityFairexchangeEcommerce2015}, or use complex delivery mechanism similar to onion routing involving multiple many delivery services~\cite{altawyLelantosBlockchainBasedAnonymous2017}. 
+The use cases discussed in this paper use physical materials such as blood, urine, hair and other biological materials.
+This requirement, combined with the need for anonymity, is a challenging part of fair exchange protocols. The problem arises when the seller wants to send the product to the buyer who wants to remain anonymous. Most of the existing protocols either assume the existence of a trusted delivery agent~\cite{mohammedalarajFairnessPhysicalProducts2012,birjoveanuAnonymityFairexchangeEcommerce2015}, or use a complex delivery mechanism similar to onion routing involving multiple many delivery services~\cite{altawyLelantosBlockchainBasedAnonymous2017}. 
 
-However, our use case is different in that the physical materials are transferred from the (anonymous) customer to the (public) SP. This, allows for simplification of the delivery process. We assume that there is a way to anonymously deliver a package without revealing the customer personal information either via SP's drop box, Parcel Locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), a customer's trusted party, of even post office.
+However, our use case is different in that the physical materials are transferred from the (anonymous) customer to the (public) SP. This allows a simplification of the delivery process. We assume that there is a way to deliver a package anonymously without revealing the customer's personal information, either via the SP's drop box, parcel locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), a customer's trusted Delivery Agent, or even the post office.
 
 \subsection{Dispute resolution system}
 \label{sec:dispute-resolution}
-
-Disputes are an inevitable part of all human transactions. Whether intentional or accidental, the system should prevent violation of agreed contract rules or local jurisdiction. The rules are specified by law and implemented by the police.
+Disputes are an inevitable part of all human transactions. Whether intentional or accidental, the system should prevent violations of agreed contract rules or local jurisdiction. The rules are set by law and enforced by the police.
 
 The vision of smart contracts was to replace the legal contract with
-programmable and autonomous contracts. The smart contract code encompasses the contract's specifications, hence the slogan \textit{code as a law}. Moreover, smart contracts are automatically executed merging together the gap between law and its enforcement by police~\cite{allenGovernanceBlockchainDispute2019}. However, the blockchain paradigm has its limitations. 
+programmable and autonomous contracts. The code of the smart contract contains the specifications of the contract, hence the slogan \textit{code as law}. In addition, smart contracts are executed automatically, bridging the gap between law and its enforcement by police~\cite{allenGovernanceBlockchainDispute2019}. However, the blockchain paradigm has its limitations. 
  
-Blockchain can assure the correctness of data existing only on the blockchain. The problem arises in the contact between the blockchain and the real world when we want the smart contract to decide based on some input from outside the blockchain. The technique of providing real-world data to the blockchain is called an oracle. Oracle provides data based on a decentralized network of mediators; therefore, the trust is also decentralized~\cite{breidenbachChainlinkNextSteps2021}.
+Blockchains can only guarantee the correctness of the data and calculations that exist on the blockchain. The problem arises when we want the smart contract to make decisions based on some input from outside the blockchain. The technique for providing real-world data to the blockchain is called \textit{oracle}. An oracle provides data based on a decentralised network of mediators, so the trust is also decentralised~\cite{breidenbachChainlinkNextSteps2021}.
 
-Some oracles provide the data like weather, soccer match result, stock
-price, train delay, election results, and others—and they are the ones we
-are interested in—provide the settlement of a submitted dispute.
+Some oracles provide data such as weather, football results, stock prices, train delays, election results and others-and these are the ones we are interested in-provide the resolution of a submitted dispute.
 
-Themis~\cite{mengThemisDecentralizedEscrow2019} besides providing fair exchange protocol,
-also offers a semi-autonomous decentralized dispute resolution system that complies with the Web3 postulates of a decentralized web~\cite{ethereumWhatWeb3Why2023}. Themis resolve disputes by a set of voluntary anonymous mediators participating in voting and deciding whether a party misbehaved. The honesty of mediators is achieved by the monetary incentivization and reputation system.
+Themis~\cite{mengThemisDecentralizedEscrow2019} not only provides a fair exchange protocol, it also provides a semi-autonomous decentralised dispute resolution system that complies with the Web3 postulates of a decentralised Web~\cite{ethereumWhatWeb3Why2023}. Themis resolves disputes through a set of voluntary, anonymous mediators who take part in voting and decide whether a party has misbehaved. The honesty of the mediators is achieved through a monetary incentive and reputation system.
 
-Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on the Ethereum platform that mimics in a decentralized and autonomous way how the court works in real life. In Kleros, every process of a dispute like gathering evidence, selecting jurors, and rewarding the winning party is automated by a set of smart contracts. Like Themis, the honesty of the agents voting in a case is achieved by game-theoretical economic incentives.
+Kleros~\cite{bergollaKlerosSociolegalCase2022} is a smart contract deployed on the Ethereum platform that mimics, in a decentralised and autonomous way, how the court works in real life. In Kleros, every process of a dispute, such as gathering evidence, selecting jurors and rewarding the winning party, is automated by a set of smart contracts. As in Themis, the honesty of the agents voting in a case is achieved through game-theoretic economic incentives.
 
-Such a decentralized, voluntary, and anonymous dispute resolution system might work for simple contracts violations like an eBay seller sending broken or wrong products or an Airbnb apartment being inadequate to the photos in the offer. However, it is hard to realize such a decentralized evaluation of health or legal services quality when expertise and privacy concerns are taken into account. Therefore, in our protocol, we take a more conservative approach and resolve disputes by recording evidence on blockchain and then using the local justice system (police or court) to settle the conflict.
+Such a decentralised, voluntary and anonymous dispute resolution system might work for simple breaches of contract, such as an eBay seller sending broken or wrong products, or an Airbnb apartment that does not match the photos in the listing. However, it is difficult to implement such a decentralised assessment of the quality of health or legal services when expertise and privacy concerns are taken into account. Therefore, our protocol takes a more conservative approach and resolves disputes by recording evidence on the blockchain and then using the local justice system (police or courts) to resolve the conflict.
 
-Possible directions toward semi-autonomous decentralized resolution system are discussed in Section~\ref{sec:decentralised-justice}.
+Possible directions towards a semi-autonomous decentralised resolution system are discussed in Section~\ref{sec:decentralised-justice}.
 
 \subsection{Fairness}\label{fairness}
 
-In case of dispute, the customer can prove to justice (police or court) convincing evidence for the honesty of the customer and the misbehavior of the SP. 
-Because the customer is anonymous, the SP can not start a dispute---there is no means to identify the customer.
+In the event of a dispute, the customer can provide convincing evidence of the customer's honesty and the SP's misbehaviour to the judicial authorities (police or court). 
+Because the customer is anonymous, the SP cannot start a dispute - there is no way to identify the customer.
 
-To mitigate the issue, we designed the protocol so that the SP who follows the protocol is always in an advantaged position; therefore, she has no reason to start a dispute. On the other hand, the customer can start a dispute at any time of the protocol, but only the actual misbehavior of the SP makes him win the case.
+To mitigate this problem, we have designed the protocol in such a way that the SP who follows the protocol is always in an advantageous position and therefore has no reason to start a dispute. On the other hand, the customer can start a dispute at any point in the protocol, but only the actual misbehaviour of the SP will allow him to win the case.
 
-Abstracting from the services the SP is providing, each party should be able to prove its honest behavior in case of a dispute. We introduce three proofs that should be disclosed to justice in case of a dispute:
+Abstracting from the services provided by the SP, each party should be able to prove its honest behaviour in case of a dispute. We present three pieces of evidence that should be disclosed to the judiciary in the event of a dispute:
 
 \begin{enumerate}
-    \item Proof of delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer that proves that the customer has delivered to the SP a complete (according to the SP requirements) package, and the SP accepted it. It consists of the current time, the deadline to pay for the transaction, the deadline to provide a result of the service, the randomly generated number uniquely identifying the transaction, and the SP's signature guaranteeing non-repudiation. The formal definition of the $\mathrm{PoD}$ is presented in section ~\ref{proof-of-delivery}.
+    \item Proof of Delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer proving that the customer has delivered a complete (according to the SP's requirements) package to the SP and that the SP has accepted it. It consists of i) the current time, ii) the deadline to pay for the transaction, iii) the deadline to provide a result of the service, iv) the transaction identifier ($\textrm{provisionID}$) randomly generated by the customer, v) and the signature of the SP guaranteeing non-repudiation. The formal definition of $\mathrm{PoD}$ is given in Section~\ref{proof-of-delivery}.
     
-    \item Payment $\mathrm{receipt}$ is confirmation that the customer has paid for the transaction at a certain time. The actual implementation depends on the particular cryptocurrency and is discussed further Section~\ref{payment-for-services}.
+    \item Payment $\mathrm{receipt}$ is the confirmation that the customer has paid for the transaction at some point in time. The actual implementation depends on the cryptocurrency and is discussed further in Section~\ref{payment-for-services}.
     
-    \item Proof of provision ($\mathrm{PoP}$) is proof that the SP published the result at a certain time. It defends the SP in case the customer unjustly starts a dispute after the result has been published. It consists of a content identifier as specified in section ~\ref{storage-network}, the $\mathrm{nonce}$ uniquely identifying the transaction previously generated in $\mathrm{PoD}$, and the SP's signature guaranteeing authentication. The connection between $\mathrm{PoP}$ and the result is created by the content identifier ($\mathrm{cid}$) that uniquely identifies the result (it is some kind of a hash of the result) such that the result can not be forged after the $\mathrm{PoP}$ has been published.
+    \item Proof of Provision ($\mathrm{PoP}$) is the proof that the SP has published the result at a given time. It defends the SP in case the customer unjustifiably starts a dispute after the result has been published. It consists of i) a content identifier (as specified in Section ~\ref{storage-network}), ii) the $\textrm{provisionID}$ that uniquely identifies the transaction, and iii) the SP's signature that guarantees authentication. The link between $\mathrm{PoP}$ and the results is provided by the content identifier ($\mathrm{cid}$) that uniquely identifies the result (it is a kind of hash of the result), so that the result cannot be forged after the $\mathrm{PoP}$ is published.
 \end{enumerate}
 
 \subsection{Message Board}\label{sec:message-board}
-The proof of provision that we coined for the purpose of this protocol is generally called the proof of existence~\cite{crespoStamperyBlockchainTimestamping2017}.
+The Proof of Provision ($\mathrm{PoP}$) that we have coined for the purposes of this protocol is commonly called Proof of Existence~\cite{crespoStamperyBlockchainTimestamping2017}.
 
-The idea behind proof of existence is to certify that some information
-has existed at a certain moment, in such a way that nobody can
-undermine its existence, integrity, and ownership (also called the
-non-repudiation requirement).
+The idea behind Proof of Existence is to certify that a piece of information existed at a certain point in time, in such a way that nobody can undermine its existence, integrity or ownership (also called the non-repudiation property).
 
 
-We need this functionality for two reasons: (1) communicate the existence of the result to the customer to whom the SP has no other communication medium as the customer stays anonymous; (2) let the SP proof the publication of the result within the agreed with customer deadline. 
+We need this functionality for two reasons: (1) to communicate the existence of the results to the customer, to whom the SP has no other means of communication, since the customer remains anonymous; (2) to let the SP prove the publication of the result within the deadline agreed with the customer. 
 
-By publishing the $\mathrm{PoP}$ on the blockchain, the SP can not falsify the time at which the result has been provided because the block creation time proves that. Blockchain acts as a global clock that securely timestamps everything that gets into the block, so the $\mathrm{PoP}$ that was included in a block will be associated with the time when the block has been created. Moreover, since the blockchain is public, everyone (including justice) can be convinced that the SP indeed published the result at that time.
+By publishing the $\mathrm{PoP}$ on the blockchain, the SP cannot falsify the time at which the results were provided, as the block creation time proves it. The blockchain acts as a global clock that securely timestamps everything that goes into the block, so the $\mathrm{PoP}$ included in a block is associated with the time the block was created. Moreover, since the blockchain is public, anyone (including the judiciary) can be convinced that the SP did indeed publish the result at that time.
 
-Without such proof, there would be no other means to settle the conflict between the customer claiming the result has not been published and the SP claiming the result has been published within the deadline.
+Without such proof, there would be no other way to resolve the conflict between the customer claiming that the results were not published and the SP claiming that the results were published on time.
 
-Depending on the context the platform for achieving it is called bulletin board~\cite{achenbachImprovedCoercionresistantElectronic2015}, trusted timestamping~\cite{gippDecentralizedTrustedTimestamping2015}, or message board~\cite{hinarejosSolutionSecureCertified2019}. In this work, we call it a message board.
+Depending on the context, the platform for achieving this is called bulletin board~\cite{achenbachImprovedCoercionresistantElectronic2015}, trusted timestamping~\cite{gippDecentralizedTrustedTimestamping2015}, or message board~\cite{hinarejosSolutionSecureCertified2019}. In this paper we call it a message board.
 
-We keep the protocol general enough to be implemented using any existing technology to provide message board service, assuming it is decentralized and supports subscribing for the upcoming proofs from a particular address.
+We keep the protocol general enough to be implemented using any existing technology to provide a message board service, provided it is decentralised and supports subscribing to upcoming proofs from a given address.
 
 \subsection{Anonymity, pseudonomity, and confidentality}\label{sec:pseudo-anon}
 
-Privacy is a concept used in almost all social sciences like philosophy, psychology, sociology, and legal. The multidisciplinary nature leads to ambiguous definitions~\cite{smithInformationPrivacyResearch2011}. For our work, we rely on more concrete definitions, i.e.~confidentality, and anonymity.
+Privacy is a concept used in almost all social sciences such as philosophy, psychology, sociology and law. This multidisciplinary nature leads to ambiguous definitions~\cite{smithInformationPrivacyResearch2011}. For our work we rely on more concrete definitions, i.e.~confidentiality and anonymity.
 
-Confidentiality is the ability to hide the details of action from others. Alternatively, we can say that the system guarantees confidentiality if, for all observers, everything they can say about the action is the fact that it happened and nothing more.
+Confidentiality is the ability to hide the details of actions from others. Alternatively, we can say that the system guarantees confidentiality if, for all observers, all they can say about the action is the fact that it happened and nothing more.
 
-Anonymity is the ability to hide one identity from others. More precisely, the inability to correlate actions performed within the system with the user's identity. Alternatively, we can say that the system guarantees anonymity if, for all observers, the actions are equally likely to be associated with any user of the system. However, anonymity is a spectrum rather than a dichotomous classification. One method of quantifying the level of anonymity is \textit{k}-anonymity proposed in~\cite{sweeneyKanonymityModelProtecting2002}. It measures the user's anonymity by the number of other users from whom the user can not be distinguished. Concretely, the user is \textit{k}-anonymous if his actions are equally likely associated with \textit{k}-1 other users; the larger \textit{k}, the higher anonymity.
+Anonymity is the ability to hide one's identity from others. More specifically, it is the inability to correlate actions taken within the system with the identity of the user. Alternatively, we can say that the system guarantees anonymity if, for all observers, the actions are equally likely to be associated with any user of the system. However, anonymity is a spectrum rather than a dichotomous classification. One method of quantifying the level of anonymity is the \textit{k}-anonymity proposed in~\cite{sweeneyKanonymityModelProtecting2002}. It measures the user's anonymity by the number of other users from whom the user is indistinguishable. Specifically, the user is \textit{k}-anonymous if his actions are equally likely to be associated with \textit{k}-1 other users; the larger the \textit{k}, the greater the anonymity.
 
-Some anonymity techniques can be deployed on non-anonymous blockchains. The so-called mixers gather users into an \textit{anonymity set}, which then collude together to launder transactions in such a way that to an observer, the likelihood of the sender of each transaction is equiprobable for any user from the anonymity set.
+Some anonymity techniques can be used on non-anonymous blockchains. The so-called mixers gather users into an anonymity set who then collude to launder transactions in such a way that, to an observer, the likelihood of the sender of each transaction being any user from the anonymity set is equiprobable.
 
-Some systems guarantee pseudonymity rather than anonymity. Pseudonymity allows users to hide their real identity behind pseudonyms. Despite the whole system being transparent and allowing linking actions to pseudonyms, the system is considered anonymous as long as the link between pseudonyms and real identities is secret. This assumption is hard to satisfy in practice, as the KYC (Know Your Customer) and AML (Anti Money Laundering) regulations require users to reveal their real identity to cryptocurrency exchanges, making the user's anonymity dependent on the security of the IT system. Moreover, some correlations can be inferred merely by the analysis of transactions \cite{androulakiEvaluatingUserPrivacy2013, oberStructureAnonymityBitcoin2013}.
+Some systems provide pseudonymity rather than anonymity. Pseudonymity allows users to hide their real identities behind pseudonyms. Although the whole system is transparent and allows actions to be linked to pseudonyms, the system is considered anonymous as long as the link between pseudonyms and real identities is secret. This assumption is difficult to meet in practice, as KYC (Know Your Customer) and AML (Anti Money Laundering) regulations require users to reveal their real identities to cryptocurrency exchanges, exposing users' privacy to government agencies, malicious insiders and cyber criminals. In addition, some correlations can be inferred simply by analysing transactions~\cite{androulakiEvaluatingUserPrivacy2013, oberStructureAnonymityBitcoin2013}.
 
-Figure ~\ref{fig:anonymity-diagram} illustrates relations between these terms.
+Figure~\ref{fig:anonymity-diagram} illustrates the relationships between these terms.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{anonymity-diagram.png}
 \centering
-\caption{Let us assume Alice to be the customer willing to keep her identity anonymous and Bob to be the public SP. Alice controls two addresses, 1 and 2; the connection between her real identity and the first address has been compromised, and therefore the identification is possible; the connection between the second pseudonym is still unknown and therefore anonymous. Alice takes two actions; the first one from the compromised address and the second one from the anonymous one. The first action is confidential; therefore, even though the pseudonym has been compromised, the action can not be associated with Alice. The second action is transparent; therefore, Alice maintains her anonymity as long as the connection to the second pseudonym is concealed.}
+\caption{Suppose Alice is the client who wants to keep her identity anonymous and Bob is the public SP. Alice controls two addresses 1 and 2; the link between her real identity and the first address has been compromised and therefore identification is possible; the link to the second pseudonym is still unknown and therefore anonymous. Alice takes two actions, the first from the compromised address and the second from the anonymous address. The first action is confidential; therefore, even though the pseudonym has been compromised, the action cannot be associated with Alice. The second action is transparent, so Alice maintains her anonymity as long as the link to the second pseudonym is concealed.}
 
 \label{fig:anonymity-diagram}
 \end{figure}
+The privacy-preserving blockchains are those that maintain anonymity through untraceability and (ideally) unlikability - not by assuming that the link between an address (pseudonym) and real identity is hidden.   
 
-The privacy-preserving blockchains are the ones that maintain anonymity via untraceability and (ideally) unlikability, not via the assumption that the connection between an address (pseudonym) and the real identity is concealed.   
+Examples of blockchains that natively support confidential transactions include Monero~\cite{vansaberhagenCryptoNote2013} (using Ring Signatures~\cite{noetherRingSignatureConfidential2015} or Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (using zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), Grin~\cite{fuchsbauerAggregateCashSystems2019} (using Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}), and IronFish~\cite{ironfishPrivateAnonymousEasy} (using Sapling protocol~\cite{hopwoodZcashSaplingProtocol2022}).
 
-Examples of blockchains that natively support confidential transactions are: Monero~\cite{vansaberhagenCryptoNote2013} (using Ring Signatures~\cite{noetherRingSignatureConfidential2015} or Bulletproofs~\cite{bunzBulletproofsShortProofs2018}), ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014} (using zkSNARK~\cite{ben-sassonSNARKsVerifyingProgram2013}), Grin~\cite{fuchsbauerAggregateCashSystems2019} (using Mimblewimble~\cite{jedusorMIMBLEWIMBLE2016}), and IronFish~\cite{ironfishPrivateAnonymousEasy} (using Sapling protocol~\cite{hopwoodZcashSaplingProtocol2022}).
-
-Overly techniques that achieve anonymity on top of non-privacy-preserving blockchains are: Ethereum's Tornado Cash~\cite{pertsevTornadoCashPrivacy2019} (via zkSNARK~\cite{grothSizePairingbasedNoninteractive2016} and MiMC~\cite{albrechtMiMCEfficientEncryption2016}), Bitcoin's Wasabi~\cite{wasabiwalletBitcoinPrivacyWallet} (via CoinJoin~\cite{maxwellCoinJoinBitcoinPrivacy2013}).
+Overly techniques that achieve anonymity on top of non-privacy preserving blockchains are Ethereum's Tornado Cash~\cite{pertsevTornadoCashPrivacy2019} (via zkSNARK~\cite{grothSizePairingbasedNoninteractive2016} and MiMC~\cite{albrechtMiMCEfficientEncryption2016}), Bitcoin's Wasabi~\cite{wasabiwalletBitcoinPrivacyWallet} (via CoinJoin~\cite{maxwellCoinJoinBitcoinPrivacy2013}).
 
 \subsection{Payment for services}\label{payment-for-services}
-Transactions between customers and SPs must be pegged to prevent reusing one payment for multiple transactions. 
-In other words, we need a mechanism that uniquely associates a payment with the corresponding transaction.
+Transactions between customers and SPs need to be linked to prevent the reuse of a payment for multiple transactions. In other words, we need a mechanism that uniquely links the payment to the corresponding transaction.
 
-Depending on the cryptocurrency, the link can be created in different
-ways:
+Depending on the cryptocurrency, this link can be established in different ways:
 
 \begin{itemize}
-
-\item separate address: each transaction uses an unique address associated with the transaction. Such addresses can be derived using Hierarchical Deterministic Wallets~\cite{wuilleBIP32HierarchicalDeterministic2012} and published on message board, to achieve non-repudiation.
-\item memo: the payments are sent to sigle SP account, but contain an extra field named ``memo'' filled with the unique indentifier $\textrm{provisionID}$. 
+\item separate address: each transaction uses a unique address associated with the transaction. Such addresses can be derived using Hierarchical Deterministic Wallets~\cite{wuilleBIP32HierarchicalDeterministic2012} and published on the message board to achieve non-repudiation.
+\item memo: payments are sent to a single SP account, but contain an extra field called ``memo'' filled with the unique identifier $\textrm{provisionID}$. 
 \end{itemize}
 
-Each payment containing the $\textrm{provisionID}$ in the memo, or payment to the dedicated address is considered to pay for the transaction. 
+Any payment that contains $\textrm{provisionID}$ in the memo or is sent to the designated address will be considered payment for the transaction. 
 
-In case of a dispute, there must be a way to prove to justice that the customer has paid for the transaction. As the proof of payment is trivial in transparent and trackable blockchains, it gets more complicated when it comes to anonymous blockchains. Monero allows proving and checking payments via dedicated API~\cite{moneroHowProvePayment}. ZCash provides a mechanism called Payment Disclosure~\cite{daviesIntroductionPaymentDisclosure2017}. We call the proof of payment a \textit{payment recepit}.
+In the event of a dispute, there must be a way to prove to the courts that the customer has paid for the transaction. As proof of payment is trivial in transparent and traceable blockchains, it becomes more complicated when it comes to anonymous blockchains. Monero allows payments to be proven and verified via a dedicated API~\cite{moneroHowProvePayment}. ZCash provides a mechanism called Payment Disclosure~\cite{daviesIntroductionPaymentDisclosure2017}. We call the proof of payment a \textit{payment recepit}.
 
 \subsection{Storage network}\label{storage-network}
 Once the SP finishes its service, she has to provide the result to the customer. The most natural approach would be to send the result via e-mail or some dedicated platform. However, the customer wants to stay anonymous and so does not want to expose his e-mail address nor IP address. Moreover, the SP should prove that the result has been provided before the deadline, which brings us to the issue of proof of existence discussed in Section ~\ref{sec:message-board}.
