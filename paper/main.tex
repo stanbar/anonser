@@ -225,103 +225,25 @@ Finally, Section~\ref{sec:conclusion} concludes the paper.
 
 
 \section{Related Works}\label{sec:related-works}
-In this section, we review related works on fair exchange, anonymous, and physical delivery protocols. Then we outline the main differences between the protocols.
+This section reviews key protocols in fair exchange, anonymity, and physical delivery, highlighting their primary features and differences.
 
-\subsection{Fair exchange, physical delivery}
-The most common application of fair exchange protocols is e-commerce. A typical transaction involves a seller and a buyer exchanging money for a physical product. To protect themselves, the seller wants to receive the funds before sending the product, while the buyer wants to receive the product before paying. The fairness of the protocol should guarantee that either both parties obtain the goods, or they both obtain nothing.
+The most common application of fair exchange protocols
+is e-commerce. A typical transaction involves a seller and
+a buyer exchanging money for a physical product. To pro-
+tect themselves, the seller wants to receive the funds before
+sending the product, while the buyer wants to receive the
+product before paying. The fairness of the protocol should
+guarantee that either both parties obtain the goods, or they
+both obtain nothing.
+Early systems like the one by Zhang et al. (2006)\cite{zhangPracticalFairExchangeEPayment2006} and Mohammedalaraj (2012)\cite{mohammedalarajFairnessPhysicalProducts2012} introduced Trusted Third Parties (TTPs) and Delivery Agents (DAs) to ensure fairness, and relied on strong assumptions about non-collusion and resilient communication channels.
 
-To the best of our knowledge, the first system allowing fair exchange of physical products was proposed by Zhang et al. in 2006~\cite{zhangPracticalFairExchangeEPayment2006}. The protocol uses the buyer's bank as the TTP and assumes no coalition between the parties to achieve anonymity. 
+Protocols like those proposed by Bîrjoveanu et al. (2015-2022)~\cite{birjoveanuAnonymityFairexchangeEcommerce2015, birjoveanuPreservingAnonymityFair2018, birjoveanuAnonymityComplexTransactions2019, birjoveanuFairExchangeECommerce2020, birjoveanuTwoPartyECommerceProtocols2022} focus on anonymity in transactions involving physical products. These protocols utilize TTPs, anonymous communication channels like Tor, and cryptographic techniques like blind signatures to ensure privacy and fairness. However, they depend on the existence of TTPs and secure, confidential transaction systems between banks.
 
-The authors of~\cite{mohammedalarajFairnessPhysicalProducts2012} proposed a protocol for fair exchange involving the delivery of physical materials. The protocol assumes the existence of an offline~\footnote{\textit{Offline} (also called \textit{optimistic}) TTP compared to \textit{online} TTP which assumes the TTP is only involved in the case of a dispute between parties~\cite{rayFairExchangeEcommerce2002}.} TTP only gets involved in the event of a dispute. The protocol works as follows 
-\begin{enumerate}
-\item The buyer sends an encrypted payment to the seller along with proof of validity.
-\item The seller validates the proof, which convinces him that the decrypted payment is also valid.
-\item The seller forwards the physical product to the trusted Delivery Agent (DA).
-\item The buyer verifies that the product is the one ordered.
-\item The buyer creates a proof of delivery and sends it to the seller along with the decryption key.
-\end{enumerate}
+Blockchain technology offers solutions to the TTP dependency in fair exchange protocols. Hinarejos et al. (2019)\cite{hinarejosSolutionSecureCertified2019} demonstrated a blockchain-based protocol for certified email, replacing TTP with a decentralized, verifiable system. Themis (Meng et al., 2019)\cite{mengThemisDecentralizedEscrow2019} further advanced this by incorporating a decentralized dispute resolution mechanism, though it does not address anonymity.
 
-However, the protocol relies on strong assumptions, namely the existence of a TTP and a DA that do not misbehave or collude with either party. Fairness is also achieved by assuming resilient communication channels.
+Lelantos (Altawy et al., 2017)~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a notable example of a blockchain-based system providing anonymous physical delivery. It uses onion routing and smart contracts to ensure anonymity, although it only achieves pseudonymity and lacks a dispute resolution mechanism.
 
-\subsection{Fair exchange, anonymity, dispute resolution, and physical products delivery} 
-\label{anonymity-and-fair-exchange-in-e-commerce-protocol-for-physical-products-delivery}
-
-In the previous protocol, both parties of the transaction are known to each other. However, there are situations in which the buyer would prefer not to disclose his identity to the seller. The situation becomes more challenging when the transaction involves physical products.
-In the previous protocol, both parties to the transaction are known to each other. However, there are situations where the buyer would prefer not to reveal his identity to the seller. The situation becomes more difficult when the transaction involves physical products.
-
-The authors of~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} proposed a protocol for physical products that guarantees the anonymity of both buyer and seller. They achieve this by introducing an online TTP that validates coins and guarantees fairness. Later they proposed many extensions to the protocol, namely in~\cite{birjoveanuPreservingAnonymityFair2018} they proposed an anonymous e-commerce protocol that governs complex transactions, in~\cite{birjoveanuAnonymityComplexTransactions2019} they extend anonymity for both buyers and sellers (in our case SPs), and in~\cite{birjoveanuFairExchangeECommerce2020} they proposed a protocol that supports chained transactions (involving multiple active intermediaries). Finally, in~\cite{birjoveanuTwoPartyECommerceProtocols2022} they proposed an improved protocol called PPPDCP (Protocol with Physical Product Delivery Providing Customer's Privacy).
-
-Anonymity is ensured by using an anonymous communication channel over Tor~\cite{dingledineTorSecondGenerationOnion2004} and blind signatures~\cite{chaumSecurityIdentificationTransaction1985}. Fair exchange, physical delivery and dispute resolution are achieved using a Delivery Cabinet (DC) under the control of the seller (e.g. Amazon Locker) and an offline TTP that only intervenes in the event of a dispute.
-
-The protocol works as follows 
-
-\begin{enumerate}
-    \item The buyer buys a digital coin from their bank. A blind signature is used to ensure privacy.
-    \item The buyer sends the seller the purchase details, the address of the DC, the signature of the customer's bank and some metadata to preserve the integrity of the transaction, communication is done over Tor.
-    \item The seller requests redemption of the digital coin.
-    \item The seller posts the product to the DC via the delivery service.
-    \item The Delivery Agent (DA) collects the product from the seller's locker and posts it to the DC.
-    \item The buyer collects the product from the DC using a password.
-    \item The buyer verifies that the product is the one ordered, if not, opens a dispute with TTP.
-\end{enumerate}
-
-Besides the assumptions of the existence of the TTP, the protocol also assumes:
-
-\begin{itemize}
-    \item The buyer's and seller's banks allow confidential transactions, and both share a commit buffer where the value is locked until the transaction is complete;
-    \item The banks maintain a global list of coin serial numbers to prevent problems with double spending;
-    \item there is an anonymous communication channel and the SC and DC are password protected;
-    \item The DC is equipped with a video camera that records the moment the buyer opens the package and provides a means to submit the video to TTP in the event of a dispute;
-\end{itemize}
-
-\subsection{Fair exchange and blockchain}
-The problem of TTPs in fair exchange protocols has been solved by the use of decentralised networks, in particular blockchain technology.
-
-The simplest example of a blockchain-based fair exchange protocol is the certified email protocol, where neither the sender can deny sending the email nor the recipient can deny receiving it. As this service is widely used in the paper world, achieving it for emails has not yet been agreed upon by the scientific community. The main problem has been the reliance on TTP, which significantly reduces the performance, security and robustness of such protocols. The protocols that do not use TTP suffer from high computational and communication overhead~\cite{hinarejosSolutionSecureCertified2019}.
-
-The authors of ~\cite{hinarejosSolutionSecureCertified2019} have replaced TTP with blockchain (specifically the bitcoin blockchain as a reference implementation), which acts as a secure, verifiable and decentralised TTP.
-
-The idea behind certified email and any other fair exchange protocol is as follows:
-\begin{enumerate}
-    \item The sender sends an encrypted and signed message to the recipient.
-    \item The recipient returns a proof of delivery (a signature) of the encrypted message to the sender.
-    \item The sender publishes the proof of delivery and the decryption key on a blockchain (or TTP in general).
-    \item The recipient decrypts the encrypted message using the published decryption key.
-\end{enumerate}
-
-The non-repudiation requirement is achieved by the receiver sending the proof of delivery before having access to the decrypted message, and the sender publishing the decryption key together with the proof of delivery on the blockchain (or TTP), so that the receiver cannot deny having received the message or having access to the decryption key—because it is publicly available.
-
-In this case, the role of the blockchain is to certify the existence of the decryption key at a given point in time.
-
-\subsection{Fair-exchange, blockchain, and decentralized dispute resolution}
-\label{themis-towards-decentralized-escrow-of-cryptocurrencies-without-trusted-third-parties}
-Themis~\cite{mengThemisDecentralizedEscrow2019} is a fair exchange protocol that uses blockchain instead of TTP. It provides an escrow service for the secure exchange of cryptocurrencies and digital goods. It also provides a decentralised dispute resolution system for resolving conflicts.
-
-The protocol works as follows:
-\begin{enumerate}
-    \item Alice and Bob create a 2-of-2 threshold escrow account using the Thresh-Key-Gen protocol and send funds to it.
-\item Alice and Bob split their secret keys into \(n=2t+1\) secret shares using Shamir Secret Sharing protocol, where \(n\) is the number of mediators participating in the decentralised network and \(t+1\) is the threshold for a sufficient number of mediators to reconstruct the secret key.
-    \item Alice and Bob encrypt each \textit{i}-th key share with the public key of \textit{i}-th mediator.
-\item Alice and Bob exchange the sets of encrypted key shares and send funds to the escrow account.
-\end{enumerate}
-
-The escrow is secure as long as \(t+1\) of the mediators do not collude, which would allow them to reconstruct both \(x_A\) and \(x_B\). 
-
-To ensure that the parties exchange real key shares, they send witnesses generated using the Feldman VSS scheme and zero-knowledge proofs to guarantee consistency between witnesses and key shares.
-
-In the event of a dispute, the decentralised network of mediators resolves the conflict and grants the winning party the other party's secret key, allowing it to withdraw the funds.
-
-The financial incentives and the reputation system guarantee the honesty of the mediators.
-
-\subsection{Blockchain, anonymity, and physical delivery}\label{lelantos-a-blockchain-based-anonymous-physical-delivery-system}
-
-Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based anonymous physical delivery system. The protocol achieves anonymity by using onion routing (similar to the Tor network) to connect physical delivery providers. The entire path from a seller to a buyer is divided into multiple steps, and each step is performed by randomly selected delivery providers. As long as the couriers do not collude, the seller cannot learn the identity or destination address of the buyer.
-
-A smart contract is used to coordinate the whole process and mediate communication between the buyer and the delivery providers.
-
-However, because the system uses Ethereum, it achieves pseudonymity rather than anonymity (see section~\ref{sec:pseudo-anon}). Also, the protocol does not cover disputes between the parties.
-
-\subsection{Comparision}
+\paragraph{Comparison and Our Approach}
 
 We only considered protocols that achieve fair exchange, as this is the fundamental feature of such protocols.
 
@@ -335,16 +257,11 @@ Meng et al. 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous 
 
 Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, but it is based on strong assumptions, namely the existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coin serial numbers.
 
-Our protocol achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require a customer to submit a transaction to the bulletin board, which may be the weakest link in achieving anonymity in other protocols.
+Our protocol differs from existing ones by focusing on anonymity and fair exchange without relying on TTPs or complex banking systems. It achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require a customer to submit a transaction to the bulletin board simplifying the transaction process while maintaining anonymity and fairness.
 
-Furthermore, none of them directly address our use case. We want the SP to remain public so that the anonymous buyer can easily start a dispute. We assume a single package of physical materials. Also, the package is delivered from the buyer to the SP, not the other way around–as in most e-commerce transactions.
+Unlike most protocols, our system is designed for transactions where the package is delivered from the buyer to the Service Provider (SP), and we assume a generic Dispute Resolution Service for handling conflicts .
 
-Also, our protocol does not have its own dispute resolution mechanism, as Themis does. However, we assume the existence of an abstract Dispute Resolution Service that accepts evidence and punishes the misbehaving party. 
-This can be instantiated either with the local court or police, or with one of the blockchain's dispute resolution services such as Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022,gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B,ltonetworkOnchainIdentitiesCredentials}, and other Online Dispute Resolution platforms~\cite{allenGovernanceBlockchainDispute2019}.
-
-The comparison of the protocols is presented in Table~\ref{tab:comparision}.
-
-The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol uses a trusted third party; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature but is based on strong or impractical assumptions.
+To provide a clearer understanding of how our protocol compares with existing work, Table~\ref{tab:comparision} presents a summary of key features and differences among the discussed protocols.
 
 
 {\begin{table*}
@@ -357,7 +274,7 @@ The notation \textit{Pseudonymity} means that the anonymity is based on the assu
 \newcommand{\NO}{\cellcolor{red!50}No}
 \newcommand{\TTP}{\cellcolor{red!50}TTP}
 \newcommand{\BC}{\cellcolor{green!50}BC}
-\caption{Comparision of related works.}
+\caption{Comparison of related works. The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol uses a trusted third party; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature but is based on strong or impractical assumptions.}
 \label{tab:comparision}
 \setlength{\tabcolsep}{3pt}
 
@@ -378,6 +295,7 @@ This paper & \YES & \YES & \YES & \BC & \YES \\
 \end{tabular}
 
 \end{table*}
+ 
  
 \section{Building Blocks}\label{sec:building-blocks}
 
@@ -875,7 +793,7 @@ We have developed a prototype of our protocol using the following technologies:
 \item{Customer and SP} - we create client-side web application (webapp) using \texttt{React.js} and \texttt{web3.js} library for interaction with Ethereum. We use \texttt{MetaMask} browser extension to sign and submit transactions to the Ethereum node. We use \texttt{monerod} network client and \texttt{monero-wallet-cli} command line interface to interact with the Monero blockchain.
 \end{itemize}
 
-The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
+The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonser}.
 
 % The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
 
@@ -1039,16 +957,20 @@ We found that the current state of the art was not sufficient to achieve this go
 
 Payments are made in either cash or anonymous cryptocurrencies. The result of the service is published on a content-addressable p2p network. The dispute can be resolved by submitting the collected evidence to the dispute resolution service. 
 
-Using the definition~\ref{def:fairness}, we showed that the protocol achieves fairness by publishing proof of delivery, proof of payment, and proof of provisioning on the message board. 
+Using the Definition~\ref{def:fairness}, we showed that the protocol achieves fairness by publishing proof of delivery, proof of payment, and proof of provisioning on the message board. 
 
 Finally, we identified other improvements such as decentralised dispute resolution, self-sovereign identifiers, and anonymous courier delivery.
 
-\section*{Data availability}
+\paragraph{Data availability}
 No data was used for the research described in the article.
-
 The prototype is available at \url{https://anonser.stan.bar}. 
+The source code is available at \url{https://github.com/stanbar/anonser}.
 
-The source code is available at \url{https://github.com/stanbar/anonymous-provision-of-services-via-blockchain}.
+\section*{Declarations}
+
+\paragraph{Conflict of interest} The authors declare that they have no competing interests. The authors certify that they have no affiliations with or involvement in any organisation or entity with any financial interest or non-financial interest in the subject matter or materials discussed in this manuscript.
+
+\paragraph{Ethical approval} This article does not contain any studies with human participants or animals performed by any of the authors
 
 
 \appendix
