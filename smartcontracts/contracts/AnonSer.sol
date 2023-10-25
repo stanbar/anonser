@@ -54,7 +54,7 @@ contract AnonSer {
         }
         if (!paidInCash && bytes(paymentAddress).length == 0) {
             revert(
-                "Payment address should not be empty if didn't paid in cash"
+                "Payment address should not be empty if didn't pay in cash"
             );
         }
         Provision memory provision = Provision({
