@@ -128,8 +128,6 @@ Maintaining the privacy of health data seems to be open and active area of resea
 
 Authors of~\cite{blackPresymptomaticTestingConfidentiality2021} highlight that after their organisation adopted Electronic Medical Record (EMR) systems, they could no longer promise the same confidentiality assurances.
 
-Klitzman~\cite{klitzmanExclusionGeneticInformation2010} investigated exclusion of genetic information from the EMR, as patients often do not trust the institutions and withhold genetic tests from physicians, assuming the information will be entered into their EMR. He acknowledged that this may impede continuity of care.
-
 Klitzman~\cite{klitzmanExclusionGeneticInformation2010} examined exclusion of genetic data from EMR, noting that patients frequently distrust healthcare facilities and choose not to share their genetic test results with doctors, fearing that this information might be recorded in their EMR.
  
 In our study, we focus on the possibility of carrying out services without revealing any personal information — solving the problem of privacy at a much earlier stage, before any personal information gets into EMR system.
@@ -596,7 +594,7 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the P
     \EndIf
 
     \If{$paidInCash = \text{TRUE} \oplus paymentAddress$ is not empty}
-        \State \Return Error("Inconsistent payment method and address")
+        \State \Return Error("Pay in cash or specify paymentAddress")
     \EndIf
     
     \State $\mathrm{T}_\mathrm{issue} \gets$ block.timestamp
@@ -675,8 +673,8 @@ The Algorithm~\ref{alg:proofOfProvision} presents the process of processing the 
     \If{not $provision$.exist}
         \State \Return Error("Provision must be created with proof of delivery first")
     \EndIf
-    
     \State Update $provision$ with $\{cid\}$
+    \State provisions[$pk_C$][$provisionId$] $\gets$ $provision$
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
