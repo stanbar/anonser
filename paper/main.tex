@@ -24,7 +24,6 @@
 \usepackage{xcolor,colortbl}
 \usepackage{scalerel}
 
-\newcommand{\customer}{customer}
 \renewcommand{\sp}{SP}
 
 \newcommand{\normal}{n}
@@ -113,7 +112,7 @@ The work has been supported partially by the founds of Department of Computer Ar
 
 \section{Introduction}
 \label{sec:introduction}
-Diagnostic services such as paternity tests, doping tests or venereal disease tests are carried out in diagnostic centres that require clients to provide biological material such as blood, urine, stool or saliva. Unfortunately, clients are often forced to reveal their identity in order to complete transactions. Such a combination of personal information with biological materials exposes clients to significant privacy risks.
+Diagnostic services such as paternity tests, doping tests or venereal disease tests are carried out in diagnostic centres that require customers to provide biological material such as blood, urine, stool or saliva. Unfortunately, customers are often forced to reveal their identity in order to complete transactions. Such a combination of personal information with biological materials exposes customers to significant privacy risks.
 
 Other examples of sensitive services include anonymous complaints or legal services, such as legal advice, which may require disclosure of financial transaction history and confidential legal documents. Banking services, such as credit scoring, may require sensitive personal information, such as medical records and financial transaction history.
 
@@ -121,7 +120,7 @@ Providing personal information exposes users to a myriad of privacy risks, rangi
 
 Public figures such as influencers, politicians or celebrities are particularly vulnerable to this type of attack, as exposure of their health records, purchasing habits or legal documents can threaten their reputation, position or be used for blackmail.
 
-The problem is amplified when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood. In such situations, clients may be reluctant to provide their personal information to the SP and therefore withdraw from the service.  \textbf{Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.}~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}
+The problem is amplified when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood. In such situations, customers may be reluctant to provide their personal information to the SP and therefore withdraw from the service.  \textbf{Both parties are harmed as the customer does not receive a diagnosis relevant to their health and the SP loses potential customers.}~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}
 
 In the majority of healthcare system, the critical data managed typically resides in the Electronic Medical Records (EMRs), which is consistently regarded as confidential information requiring robust security measures~\cite{jinReviewSecurePrivacypreserving2019}~\cite{keshtaSecurityPrivacyElectronic2021}. 
 
@@ -141,20 +140,19 @@ Examples of services that would benefit from the anonymity property are:
 \begin{itemize}
     \item \textbf{Confidentiality in Medical Testing}: Patients who are willing to take a test, e.g. for drugs, STDs, paternity or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict.
 
-    Currently, they have to take the risk that their personal data, materials and results will be stored securely and kept secret from any unauthorised actor (both curious employees and malicious attackers).
+    Currently, they have to take the risk that their personal data, materials and results will be stored securely and kept secret from any unauthorised actor (both curious employees and malicious attackers)~\cite{klitzmanExclusionGeneticInformation2010, blackPresymptomaticTestingConfidentiality2021}.
 
 
 \item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions. By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
 \item \textbf{Whistleblowing Platforms}: Employees or citizens witnessing unethical or illegal activities within organizations can report these anonymously without fear of reprisal, job loss, or social stigma, thereby promoting a more transparent and accountable society.
 \item \textbf{Sexual Health and Reproductive Services}: People seeking advice or services related to sexual health, contraception, or abortion might prefer anonymity due to the sensitive nature of these topics and potential societal judgment.
-\item \textbf{Substance Abuse Rehabilitation Services}: Individuals seeking help for substance abuse might avoid treatment due to the stigma or potential legal implications. Anonymity can facilitate access to necessary health services without fear of personal or professional consequences.
 \end{itemize}
 
 Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks: Breach of confidentiality, Disclosure, Identification, and Secondary use. We consider the following adversaries: Malicious insiders, Government agencies, Malicious third-party services, Hackers and cybercriminals.
 
-In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves customer privacy even in the event of a successful attack. Under realistic operational assumptions, we show that \textbf{decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity}.
+In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves the customer's privacy even in the event of a successful attack. Under realistic operational assumptions, we show that \textbf{decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity}.
 
-However, a protocol that hides a customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is no one to accuse.
+However, a protocol that hides the customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is subject to accuse.
 
 We observe that the problem of anonymous service provision can be seen as a problem of fair exchange, where parties exchange some goods fairly, i.e. either both parties obtain the goods, or they both obtain nothing.
 
@@ -166,7 +164,7 @@ To achieve this goal we use
 \begin{itemize}
     \item \textbf{Blockchain}, to achieve fairness, i.e. as a means of proving that certain actions took place at a certain time without the Trusted Third Party (TTP).
     \item \textbf{Anonymous payment methods}, such as cash or anonymous cryptocurrencies, which allow customers to pay for services anonymously.
-\item \textbf{Decentralised storage network} (e.g. IPFS) to provide results together with a provable storage network (e.g. Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
+    \item \textbf{Decentralised storage network} (e.g. IPFS) to provide results together with a provable storage network (e.g. Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
     
     \item Cryptography:
     \begin{itemize}
@@ -182,7 +180,7 @@ Figure~\ref{fig:protocol-overview} shows a simplified diagram of the protocol.
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{protocol-overview.pdf}
 \centering
-\caption{A simplified diagram of the protocol. The first step involves the delivery of the materials to the SP. The second step involves anonymous payment. The third step involves the delivery of the results to the customer. Each step is proven on the message board, protecting the fair party in a conflict situation.}
+\caption{A simplified diagram of the protocol. The first step involves the delivery of the materials to the SP. The second step involves anonymous payment. The third step involves the delivery of the result to the customer. Each step is proven on the message board, protecting the fair party in a conflict situation.}
 
 \label{fig:protocol-overview}
 \end{figure}
@@ -250,7 +248,7 @@ Meng et al. 2019~\cite{mengThemisDecentralizedEscrow2019} improves the previous 
 
 Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, but it is based on strong assumptions, namely the existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coin serial numbers.
 
-Our protocol differs from existing ones by focusing on anonymity and fair exchange without relying on TTPs or complex banking systems. It achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require a customer to submit a transaction to the bulletin board simplifying the transaction process while maintaining anonymity and fairness.
+Our protocol differs from existing ones by focusing on anonymity and fair exchange without relying on TTPs or complex banking systems. It achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require the customer to submit a transaction to the bulletin board simplifying the transaction process while maintaining anonymity and fairness.
 
 Unlike most protocols, our system is designed for transactions where the package is delivered from the buyer to the Service Provider (SP), and we assume a generic Dispute Resolution Service for handling conflicts .
 
@@ -294,9 +292,9 @@ This paper & \YES & \YES & \YES & \BC & \YES \\
 
 \subsection{Physical products}\label{sec:physical-products}
 The use cases discussed in this paper use physical materials such as blood, urine, hair and other biological materials.
-This requirement, combined with the need for anonymity, is a challenging part of fair exchange protocols. The problem arises when the seller wants to send the product to the buyer who wants to remain anonymous. Most of the existing protocols either assume the existence of a trusted delivery agent~\cite{mohammedalarajFairnessPhysicalProducts2012,birjoveanuAnonymityFairexchangeEcommerce2015}, or use a complex delivery mechanism similar to onion routing involving multiple many delivery services~\cite{altawyLelantosBlockchainBasedAnonymous2017}. 
+This requirement, combined with the need for anonymity, is a challenging part of fair exchange protocols. The problem arises when the seller wants to send the product to the buyer who wants to remain anonymous. Most of the existing protocols either assume the existence of a trusted delivery agent~\cite{mohammedalarajFairnessPhysicalProducts2012,birjoveanuAnonymityFairexchangeEcommerce2015}, or use a complex delivery mechanism similar to onion routing involving multiple delivery services~\cite{altawyLelantosBlockchainBasedAnonymous2017}. 
 
-However, our use case is different in that the physical materials are transferred from the (anonymous) customer to the (public) SP. This allows a simplification of the delivery process. We assume that there is a way to deliver a package anonymously without revealing the customer's personal information, either via the SP's drop box, parcel locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), a customer's trusted Delivery Agent, or even the post office.
+However, our use case is different in that the physical materials are transferred from the (anonymous) customer to the (public) SP. This allows a simplification of the delivery process. We assume that there is a way to deliver a package anonymously without revealing the customer's personal information, either via the SP's drop box, parcel locker services (e.g. Amazon Locker, InPost), the customer's trusted Delivery Agent, or even the post office.
 
 \subsection{Dispute resolution system}
 \label{sec:dispute-resolution}
@@ -322,27 +320,26 @@ Possible directions towards a semi-autonomous decentralised resolution system ar
 In the event of a dispute, the customer can provide convincing evidence of the customer's honesty and the SP's misbehaviour to the judicial authorities (police or court). 
 Because the customer is anonymous, the SP cannot start a dispute - there is no way to identify the customer.
 
-To mitigate this problem, we have designed the protocol in such a way that the SP who follows the protocol is always in an advantageous position and therefore has no reason to start a dispute. On the other hand, the customer can start a dispute at any point in the protocol, but only the actual misbehaviour of the SP will allow him to win the case.
+To mitigate this problem, we have designed the protocol in such a way that the SP who follows the protocol is always in an advantageous position and therefore has no reason to start a dispute. On the other hand, the customer can start a dispute at any point in the protocol, but only the actual misbehaviour of the SP will lead to win the case.
 
-Abstracting from the services provided by the SP, each party should be able to prove its honest behaviour in case of a dispute. We present three pieces of evidence that should be disclosed to the judiciary in the event of a dispute:
+Abstracting from the services provided by the SP, each party should be able to prove its honest behaviour in the event of a dispute. We propose three pieces of evidence that should be disclosed to the judiciary in the event of a dispute:
 
 \begin{enumerate}
-    \item Proof of Delivery ($\mathrm{PoD}$) is a confirmation issued by the SP to the customer proving that the customer has delivered a complete (according to the SP's requirements) package to the SP and that the SP has accepted it. It consists of i) the current time, ii) the deadline to pay for the transaction, iii) the deadline to provide a result of the service, iv) the transaction identifier ($\textrm{provisionID}$) randomly generated by the customer, v) and the signature of the SP guaranteeing non-repudiation. The formal definition of $\mathrm{PoD}$ is given in Section~\ref{proof-of-delivery}.
+    \item \textbf{Proof of Delivery ($\textrm{PoD}$)} is a confirmation issued by the SP to the customer proving that the customer has delivered a complete (according to the SP's requirements) package to the SP and that the SP has accepted it. The formal definition of $\mathrm{PoD}$ is given in Section~\ref{proof-of-delivery}.
     
-    \item Payment $\mathrm{receipt}$ is the confirmation that the customer has paid for the transaction at some point in time. The actual implementation depends on the cryptocurrency and is discussed further in Section~\ref{payment-for-services}.
+    \item \textbf{Payment $\textrm{receipt}$} is the confirmation that the customer has paid for the transaction at some point in time. The actual implementation depends on the cryptocurrency (or cash) and is discussed further in Section~\ref{payment-for-services}.
     
-    \item Proof of Provision ($\mathrm{PoP}$) is the proof that the SP has published the result at a given time. It defends the SP in case the customer unjustifiably starts a dispute after the result has been published. It consists of i) a content identifier (as specified in Section ~\ref{storage-network}), ii) the $\textrm{provisionID}$ that uniquely identifies the transaction, and iii) the SP's signature that guarantees authentication. The link between $\mathrm{PoP}$ and the results is provided by the content identifier ($\mathrm{cid}$) that uniquely identifies the result (it is a kind of hash of the result), so that the result cannot be forged after the $\mathrm{PoP}$ is published.
+    \item \textbf{Proof of Provision ($\textrm{PoP}$)} is the proof that the SP has published the result at a given time. It protects the SP in the event the customer unjustifiably starts a dispute after the result has been published. The formal definition of $\mathrm{PoP}$ is given in Section~\ref{proof-of-provision}.
 \end{enumerate}
 
 \subsection{Message Board}\label{sec:message-board}
-The Proof of Provision ($\mathrm{PoP}$) that we have coined for the purposes of this protocol is commonly called Proof of Existence~\cite{crespoStamperyBlockchainTimestamping2017}.
+The term Proof of Provision ($\mathrm{PoP}$) that we have coined for the purposes of this protocol is often referred to as Proof of Existence~\cite{crespoStamperyBlockchainTimestamping2017}.
 
-The idea behind Proof of Existence is to certify that a piece of information existed at a certain point in time, in such a way that nobody can undermine its existence, integrity or ownership (also called the non-repudiation property).
+Its concept is to certify the existence, integrity and ownership of a particular information at a certain point in time (non-repudiation property).
 
+We use this feature for two purposes: (1) to inform the customer about the existence of the results, with whom the SP cannot communicate via any other means, since the customer remains anonymous; (2) to allow the SP to prove the publication of the results within the deadline agreed with the customer.
 
-We need this functionality for two reasons: (1) to communicate the existence of the results to the customer, to whom the SP has no other means of communication, since the customer remains anonymous; (2) to let the SP prove the publication of the result within the deadline agreed with the customer. 
-
-By publishing the $\mathrm{PoP}$ on the blockchain, the SP cannot falsify the time at which the results were provided, as the block creation time proves it. The blockchain acts as a global clock that securely timestamps everything that goes into the block, so the $\mathrm{PoP}$ included in a block is associated with the time the block was created. Moreover, since the blockchain is public, anyone (including the judiciary) can be convinced that the SP did indeed publish the result at that time.
+By publishing the $\mathrm{PoP}$ on the blockchain, the SP cannot falsify the time at which the results were provided, as the block creation time proves it. The blockchain acts as a global clock that securely timestamps all data included in the block, so the $\mathrm{PoP}$ included in a block is associated with the time the block was created. Also, since the blockchain is public, anyone (including the judiciary) can be convinced that the service provider indeed released the result at that time.
 
 Without such proof, there would be no other way to resolve the conflict between the customer claiming that the results were not published and the SP claiming that the results were published on time.
 
@@ -367,7 +364,7 @@ Figure~\ref{fig:anonymity-diagram} illustrates the relationships between these t
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{anonymity-diagram.png}
 \centering
-\caption{Suppose Alice is the client who wants to keep her identity anonymous and Bob is the public SP. Alice controls two addresses 1 and 2; the link between her real identity and the first address has been compromised and therefore identification is possible; the link to the second pseudonym is still unknown and therefore anonymous. Alice takes two actions, the first from the compromised address and the second from the anonymous address. The first action is confidential; therefore, even though the pseudonym has been compromised, the action cannot be associated with Alice. The second action is transparent, so Alice maintains her anonymity as long as the link to the second pseudonym is concealed.}
+\caption{Suppose Alice is the customer who wants to keep her identity anonymous and Bob is the public SP. Alice controls two addresses 1 and 2; the link between her real identity and the first address has been compromised and therefore identification is possible; the link to the second pseudonym is still unknown and therefore anonymous. Alice takes two actions, the first from the compromised address and the second from the anonymous address. The first action is confidential; therefore, even though the pseudonym has been compromised, the action cannot be associated with Alice. The second action is transparent, so Alice maintains her anonymity as long as the link to the second pseudonym is concealed.}
 
 \label{fig:anonymity-diagram}
 \end{figure}
@@ -505,7 +502,7 @@ The $\mathrm{PoD}$ is published on the message board by the SP.
 where:
 
 \begin{itemize}
-\item $\mathrm{pk_C}$ - the public key of the client used to encrypt the result published on the public storage network.
+\item $\mathrm{pk_C}$ - the public key of the customer used to encrypt the result published on the public storage network.
 \item $\mathrm{provisionID}$ - the number that uniquely identifies the transaction previously generated by the customer.
 \item $\mathrm{sig}_\mathrm{SP}$ - the SP's signature to ensure non-repudiation.
 \item $\mathrm{paymentAddress}$ - payment address of the SP's anonymous blockchain account.
@@ -869,7 +866,7 @@ The experiment was conducted as follows:
 The application generates a random ECDSA (secp256k1) customer keypair and a random 32-byte provisionID, and then displays a QR code that encodes both the provisionID and the customer's public key. 
 The customer's private key must be downloaded and provided later to decrypt the results.
 
-  \item[1.] The customer prints the QR code, sticks it on a parcel and delivers the parcel to the SP either via the SP's drop box, parcel locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), a customer's trusted delivery agent or the post office.
+  \item[1.] The customer prints the QR code, sticks it on a parcel and delivers the parcel to the SP either via the SP's drop box, parcel locker services (e.g. Amazon Locker, InPost~\cite{inpostParcelLockerService}), the customer's trusted delivery agent or the post office.
 
   \item[2.1.] The SP opens the app and scans the QR code, which decodes the provisionID and the customer's public key.
 
@@ -953,7 +950,7 @@ Our research in this area has shown that some jurisdictions require SPs to link 
 
 This conflicts with the main aim of our protocol, which is to prevent the collection of any identifying information.
 
-A promising solution would be to use self-sovereign identities (SSIs)~\cite{muhleSurveyEssentialComponents2018}, especially the verifiable claims. A trusted authority (e.g. a government) would issue a one-time claim for a customer, which would be accepted by the SP as a legitimate personal identification. The SP would associate the diagnosis result with the provided DID. The DID itself would contain no personal information, so the SP would learn nothing about the customer's identity beyond the random-looking identification. The DID could be de-anonymised in cooperation with the government.
+A promising solution would be to use self-sovereign identities (SSIs)~\cite{muhleSurveyEssentialComponents2018}, especially the verifiable claims. A trusted authority (e.g. a government) would issue a one-time claim for the customer, which would be accepted by the SP as a legitimate personal identification. The SP would associate the diagnosis result with the provided DID. The DID itself would contain no personal information, so the SP would learn nothing about the customer's identity beyond the random-looking identification. The DID could be de-anonymised in cooperation with the government.
 
 However, as SSI is a relatively new technology and the government has not yet adopted it, we decided to leave the discussion of this topic for future work.
 
@@ -990,9 +987,9 @@ Below we describe each step and the reasoning behind the outcome position.
 We use the notation introduced in Section~\ref{sec:fairness-model} to analyse each position in the protocol and the fairness Definition~\ref{def:fairness} to show the fairness of the protocol.
 
 \newcommand{\AgreeablePath}{Agreeable path:}
-\newcommand{\DisputePath}{The \customer{} starts a dispute:}
+\newcommand{\DisputePath}{The customer starts a dispute:}
 \newcommand{\Fairness}{Fairness:}
-\newcommand{\CustomerTurn}[0]{\expandafter\MakeUppercase \customer{} turn:}
+\newcommand{\CustomerTurn}[0]{\expandafter\MakeUppercase customer turn:}
 \newcommand{\SPTurn}[0]{\sp{} turn:}
 
 \newcommand{\CanFollowToOne}[2]{The #1 can follow the protocol to the non-disadvantaged position #2}
@@ -1094,7 +1091,7 @@ The customer got the \PoD, then:
   \end{itemize}
 \end{itemize}
 
-\ActedAbnormallyThen{\customer}
+\ActedAbnormallyThen{Customer}
 
 \begin{itemize}
 \item \AgreeablePath
@@ -1135,7 +1132,7 @@ The customer paid the transaction, then:
   \end{itemize}
 \end{itemize}
 
-\ActedAbnormallyThen{\customer}
+\ActedAbnormallyThen{Customer}
 
 \begin{itemize}
 \item \AgreeablePath
@@ -1168,7 +1165,7 @@ The \sp{} did the provision of service, then:
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item \Pos{5}{c}{\normal}{\minus}, \RemainsIn{\customer}{disadvantaged} as he hasn't received the result.
+    \item \Pos{5}{c}{\normal}{\minus}, \RemainsIn{Customer}{disadvantaged} as he hasn't received the result.
     \item \Pos{5}{s}{\normal}{\plus}, \RemainsIn{\sp}{advantaged} as she has received the payment.
   \end{itemize}
 \item \DisputePath
@@ -1208,7 +1205,7 @@ The SP uploaded the result on time, then:
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item \Pos{6}{c}{\normal}{\minus}, \RemainsIn{\customer}{disadvantaged} as he has not received the result.
+    \item \Pos{6}{c}{\normal}{\minus}, \RemainsIn{Customer}{disadvantaged} as he has not received the result.
     \item \Pos{6}{s}{\normal}{\plus}, \RemainsIn{SP}{advantaged} as she has received the payment.
       \end{itemize}
 \item \DisputePath
@@ -1245,7 +1242,7 @@ The SP uploaded the result on time, then:
 
 The SP published \PoP{} on time, then:
 
-\newcommand{\CustomerLosesBecauseSPCanProveBeingCorrect}{the \customer{} loses the dispute as the \sp{} has published all evidences to prove her correct behaviour}
+\newcommand{\CustomerLosesBecauseSPCanProveBeingCorrect}{the customer loses the dispute as the \sp{} has published all evidences to prove her correct behaviour}
 
 \begin{itemize}
   \item \AgreeablePath
@@ -1301,7 +1298,7 @@ The customer got the \PoP{}, then:
   \end{itemize}
 \end{itemize}
 
-\ActedAbnormallyThen{\customer}
+\ActedAbnormallyThen{Customer}
 
 \begin{itemize}
 \item \AgreeablePath
@@ -1341,7 +1338,7 @@ The customer downloaded the result, then:
   \end{itemize}
 \end{itemize}
 
-\ActedAbnormallyThen{\customer}
+\ActedAbnormallyThen{Customer}
 
 
 \begin{itemize}
@@ -1360,7 +1357,7 @@ The customer downloaded the result, then:
 \Fairness
 
 \begin{itemize}
-  \item \CanFollowToOne{\customer}{\Pos{9}{c}{\normal}{\plus}}.
+  \item \CanFollowToOne{Customer}{\Pos{9}{c}{\normal}{\plus}}.
   \item \CanDoNothing{} \Pos{9}{s}{\normal}{\plus} or \Pos{9}{s}{\abnormal}{\plus}. 
 \end{itemize}
 
