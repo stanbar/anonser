@@ -121,46 +121,38 @@ Providing personal information exposes users to a myriad of privacy risks, rangi
 
 Public figures such as influencers, politicians or celebrities are particularly vulnerable to this type of attack, as exposure of their health records, purchasing habits or legal documents can threaten their reputation, position or be used for blackmail.
 
-The problem is amplified when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood.
-In such situations, clients may be reluctant to provide their personal information to the SP and therefore withdraw from the service. \textbf{Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.}
+The problem is amplified when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood. In such situations, clients may be reluctant to provide their personal information to the SP and therefore withdraw from the service.  \textbf{Both parties are harmed as the client does not receive a diagnosis relevant to their health and the SP loses potential clients.}~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}
 
 In the majority of healthcare system, the critical data managed typically resides in the Electronic Medical Records (EMRs), which is consistently regarded as confidential information requiring robust security measures~\cite{jinReviewSecurePrivacypreserving2019}~\cite{keshtaSecurityPrivacyElectronic2021}. 
 
-Mantaining the privacy of health data seems to be open and active area of reserach in the field of Privacy-Preserving Data Mining (PPDM) ~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. The recent reserach in this area focuses on employing methods of anonymisation and hiding sensitive information of the EMRs~\cite{hamdiEnhancingSecurityPrivacy2023, sharmaPrivacyPreservingData2019, wuHidingSensitiveInformation2021}, or securing the interaction between patient and Healthcare system~\cite{zhangPrivacyProtectionTelecare2016, mehmoodAnonymousAuthenticationScheme2018, khasimImprovedFastSecure2022}.
+Maintaining the privacy of health data seems to be open and active area of research in the field of Privacy-Preserving Data Mining (PPDM) ~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. The recent research in this area focuses on employing methods of anonymisation and hiding sensitive information of the EMRs~\cite{hamdiEnhancingSecurityPrivacy2023, sharmaPrivacyPreservingData2019, wuHidingSensitiveInformation2021}, or securing the interaction between patient and Healthcare system~\cite{zhangPrivacyProtectionTelecare2016, mehmoodAnonymousAuthenticationScheme2018, khasimImprovedFastSecure2022}.
 
-However, in our study, we focus on the possibility of carrying out services without revealing any personal information — solving the problem of privacy at a much earlier stage.
+Authors of~\cite{blackPresymptomaticTestingConfidentiality2021} highlight that after their organisation adopted Electronic Medical Record (EMR) systems, they could no longer promise the same confidentiality assurances.
+
+Klitzman~\cite{klitzmanExclusionGeneticInformation2010} investigated exclusion of genetic information from the EMR, as patients often do not trust the institutions and withhold genetic tests from physicians, assuming the information will be entered into their EMR. He acknowledged that this may impede continuity of care.
+
+Klitzman~\cite{klitzmanExclusionGeneticInformation2010} examined exclusion of genetic data from EMR, noting that patients frequently distrust healthcare facilities and choose not to share their genetic test results with doctors, fearing that this information might be recorded in their EMR.
+ 
+In our study, we focus on the possibility of carrying out services without revealing any personal information — solving the problem of privacy at a much earlier stage, before any personal information gets into EMR system.
 
 It would be desirable for customers to keep their identity private while still receiving the service. This could lead to a reduction in the trust that customers need to place in SPs and a reduction in the responsibility that SPs bear.
 
 Examples of services that would benefit from the anonymity property are:
 \begin{itemize}
-    \item Patients who are willing to take a test, e.g. for drugs, STDs, paternity or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict.
+    \item \textbf{Confidentiality in Medical Testing}: Patients who are willing to take a test, e.g. for drugs, STDs, paternity or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict.
 
     Currently, they have to take the risk that their personal data, materials and results will be stored securely and kept secret from any unauthorised actor (both curious employees and malicious attackers).
 
 
-\item Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions.
-
-By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
+\item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions. By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
+\item \textbf{Whistleblowing Platforms}: Employees or citizens witnessing unethical or illegal activities within organizations can report these anonymously without fear of reprisal, job loss, or social stigma, thereby promoting a more transparent and accountable society.
+\item \textbf{Sexual Health and Reproductive Services}: People seeking advice or services related to sexual health, contraception, or abortion might prefer anonymity due to the sensitive nature of these topics and potential societal judgment.
+\item \textbf{Substance Abuse Rehabilitation Services}: Individuals seeking help for substance abuse might avoid treatment due to the stigma or potential legal implications. Anonymity can facilitate access to necessary health services without fear of personal or professional consequences.
 \end{itemize}
 
-Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks:
-\begin{itemize}
-    \item \textbf{Breach of confidentiality}, breaking a promise to keep an individual's information confidential;
-    \item \textbf{Disclosure}, revealing true information about a person that affects the way others judge their character;
-    \item \textbf{Identification}, linking information to a specific individual;
-    \item \textbf{Secondary use}, using personal information for a purpose other than that for which they were collected.
-\end{itemize}
+Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks: Breach of confidentiality, Disclosure, Identification, and Secondary use. We consider the following adversaries: Malicious insiders, Government agencies, Malicious third-party services, Hackers and cybercriminals.
 
-We consider the following adversaries:
-\begin{itemize}
-    \item \textbf{Malicious insiders}: Individuals or entities with authorised access to the protocol's systems or data who may abuse their privileges to compromise customer privacy. This could include employees, contractors or service providers;
-    \item \textbf{Government agencies}: Depending on the jurisdiction and the nature of the protocol, government agencies may have legal powers or national security interests that could affect customer privacy. For example, the potential for surveillance, data requests or legal intervention;
-    \item \textbf{Malicious third-party services}: If the protocol relies on third party services or APIs, the privacy of customer data could be at risk if these services have inadequate security measures in place or if they engage in data sharing or tracking without the consent of the customer;
-    \item \textbf{Hackers and cybercriminals}: Individuals or organised groups with malicious intent who may exploit vulnerabilities in the protocol's implementation, infrastructure, or supporting systems to gain unauthorised access to customer information.
-\end{itemize}
-
-In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves customer privacy even in the event of a successful attack. Under realistic operational assumptions, we believe that decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity.
+In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves customer privacy even in the event of a successful attack. Under realistic operational assumptions, we show that \textbf{decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity}.
 
 However, a protocol that hides a customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is no one to accuse.
 
