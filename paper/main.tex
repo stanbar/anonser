@@ -896,40 +896,77 @@ The customer's private key must be downloaded and provided later to decrypt the 
 
 \subsection{Results}
 
-\paragraph{Fariness}
-As shown in Section~\ref{sec:steps} and~\ref{app:proof-of-fairness}, 
-the protocol is fair. It is achieved by an undeniable hand-shake mechanism in which the SP first publishes $\mathrm{PoD}$ (step 2.), committing to package delivery and service deadlines, and then the customer accepts it by paying for the service or not (step 3.).
+\paragraph{Fairness}
+Fairness within the protocol was demonstrated, as detailed in Section~\ref{sec:steps} and ~\ref{app:proof-of-fairness}. This was achieved through an undeniable handshake mechanism, where the SP first commits to the package delivery and service deadlines by publishing the PoD (as outlined in step 2). The customer then acknowledges this commitment and accepts the terms by proceeding with the payment for the service (step 3).
 
-Once the payment is made, the SP remains in the advantageous position. Having agreed on the service delivery times, the SP is incentivised to to deliver the service and publish the results and the PoP before the deadline (step 7.); otherwise, the customer - having all the evidence - can initiate a dispute and punish the SP, so rational parties will follow the protocol.
+Once payment is confirmed, the SP is incentivized to fulfill the service obligations. The SP must deliver the service and publish both the results and the PoP before the agreed deadline (step 7). Failure to do so allows the customer, equipped with all necessary evidence, to initiate a dispute and potentially penalize the SP. This mechanism ensures that rational parties are motivated to adhere to the protocol.
 
-Non-repudiation without TTP is achieved through the use of blockchain and digital signatures. The blockchain guarantees that any change to the state of the smart contract is visible to everyone, and only the SP is allowed to change its state. 
+The protocol also ensures non-repudiation without the need for a TTP by employing blockchain technology and digital signatures. The blockchain provides a transparent and immutable record, ensuring that any changes to the smart contract's state are publicly visible and can only be made by the SP.
+
 
 \paragraph{Anonymity}
-We achieve anonymity by decoupling personal information from materials, payment and communication. We used anonymous payment methods such as cash or privacy-preserving payment blockchains (e.g. Monero) and decentralised storage networks such as IPFS and Filecoin, allowing the customer to interact with the protocol without revealing their identity at any stage of the protocol.
+Anonymity was achieved through the decoupling of personal information from transactional elements such as materials, payment, and communication. Anonymous payment methods were employed, including cash and privacy-focused cryptocurrencies like Monero, which obscure the details of transactions. Decentralized storage networks, namely IPFS and Filecoin, were also utilized to enhance privacy. These networks enabled the storage and retrieval of information without the need to disclose the customer's identity, ensuring that customers could engage with the protocol anonymously at every stage.
+
 
 \paragraph{Provable Results Availability}\label{sec:provable-results-availability}
-Content addressable networks such as IPFS cannot guarantee the availability of the content\footnote{Nothing prevents the SP from publishing the result, receiving the $\mathrm{cid}$, publishing $\mathrm{PoP}$, and immediately removing the result from local storage. In the event of a dispute, the SP can re-upload the content to prove its availability. The SP has no motivation to proceed with this kind of misbehaviour other than to put the customer in a disadvantageous position caused by the lost dispute.} However, Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, which acts as an incentivisation layer on top of IPFS, increases content availability through economic incentivisation (i.e. punishment in case of lack of proof of content storage~\cite{filecoinSlashing}). Compared to typical blockchain networks, Filecoin focuses on data storage, making it cheaper than storing it on blockchains like Bitcoin or Ethereum.
+The availability of the result is guaranteed by the usage of Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, which operates as an incentivization layer on top of IPFS. Filecoin enhances content availability by economically penalizing the lack of proof of content storage~\cite{filecoinSlashing}.
 
-The SP uploads the result to both the IPFS and Filecoin networks (via Powergate), making access to the results free in the case of normal behaviour, and highly available in the case that the SP stops serving the result from its node. 
+In our protocol, the SP is responsible for uploading the result to both the IPFS and Filecoin networks (utilizing Powergate), which ensures free access to the results under normal operational circumstances. This dual-network approach also ensures high availability of the results, even if the SP ceases to host the content on their node.
 
 \paragraph{Costs}
-Deploying a smart contract and invoking functions on the Ethereum blockchain costs gas. The cost of gas is proportional to the amount of computation required to execute a transaction. 
+The deployment and operation of smart contracts on the Ethereum blockchain incur gas fees, which are proportional to the computational resources required for transaction execution. The following outlines the gas consumption and associated costs for each operation within our protocol, based on the testnet metrics which are analogous to the mainnet:
 
-Deploying a smart contract consumed 1456577 gas.
-Proof of delivery consumed 129649 gas.
-Proof of provision consumed 149130 gas.
-
-Although our experiment was conducted on the testnet, the amount of gas is the same on the mainnet.
-
-The cost of gas is denominated in $\mathrm{ETH}$. The price of gas at the time of the experiment (Jan. 03, 2023, \url{https://etherscan.io/gastracker}) was $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas}$, and the price of 1 $\mathrm{ETH}$ was $1261.97 \mathrm{USD}$.
-
-In a result, the cost of:
 \begin{itemize}
-  \item Deploying the smart contract cost $0.000000002227 \frac{\mathrm{ETH}}{\mathrm gas} \cdot 1456577 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} \approx 4.09 \mathrm{USD}$; 
-  \item Proof of delivery cost $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 129649 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} \approx 0.29 \mathrm{USD}$; 
-  \item Proof of provision cost $0.000000002227 \mathrm{\frac{ETH}{gas}} \cdot 149130 \mathrm{gas} \cdot 1261.97 \frac{\mathrm{USD}}{\mathrm{ETH}} \approx 0.33 \mathrm{USD}$.
+    \item \textbf{Smart Contract Deployment}: Consumed 1,456,577 gas units.
+    \item \textbf{Proof of Delivery}: Consumed 129,649 gas units.
+    \item \textbf{Proof of Provision}: Consumed 149,130 gas units.
 \end{itemize}
 
+The cost of gas is denominated in ETH, and the price per unit of gas at the time of the experiment (January 3, 2023) was 0.000000002227 ETH/gas, with the ETH price being \$1,261.97 USD\footnote{Etherscan Gas Tracker, \url{https://etherscan.io/gastracker}}.
+The customer is responsible only for covering the payment transaction fee. For transactions using Monero, the fee was approximately 0.000304 XMR at the time of the experiment, with the price of Monero being \$150 USD per XMR\footnote{Cryptocurrency statistics, \url{https://bitinfocharts.com}}.
+
+The incurred costs were as follows:
+
+\begin{itemize}
+    \item \textbf{Deploying the Smart Contract}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 1,456,577 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 4.09 \, \text{USD} \). This is a one-time cost, paid by the SP.
+
+    \item \textbf{Proof of Delivery}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 129,649 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 0.29 \, \text{USD} \). This fee is paid once per transaction, paid by the SP.
+
+    \item \textbf{Payment}: \( 0.000304 \, \text{XMR} \times 150 \frac{\text{USD}}{\text{XMR}} \approx 0.0456 \, \text{USD} \).  This fee is paid once per transaction, paid by the customer.
+        
+    \item \textbf{Proof of Provision}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 149,130 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 0.33 \, \text{USD} \). This fee is paid once per transaction, paid by the SP.
+\end{itemize}
+
+Additionally, our protocol's interaction with the Filecoin network introduces costs in FIL cryptocurrency for data storage and retrieval. These costs are determined through market-driven deals with miners. Deal prices, quoted in FIL, are influenced by various factors including data size, storage duration, and miner policies. The dynamic nature of these parameters means that costs can fluctuate, making precise predictions challenging. However, for our experiment, we leveraged Filecoin's reputation-based incentivisation layer to publish deals at no cost\footnote{Filecoin, Filecoin Plus Overview, \url{https://docs.filecoin.io/store/filecoin-plus/overview/}, (last visited Jan. 04, 2023)}.
+
+\paragraph{Performance Evaluation Metrics}
+
+To provide a comprehensive performance evaluation of our protocol, we have analyzed the following metrics for each of the blockchain networks:
+
+\begin{itemize}
+    \item \textbf{Ethereum Network}:
+    \begin{itemize}
+        \item \textbf{Block Time}: Approximately 13-15 seconds.
+        \item \textbf{Transaction Throughput}: Ranges between 15-30 transactions per second (TPS).
+        \item \textbf{Transaction Latency}: Approximately 6 minutes.
+    \end{itemize}
+    
+    \item \textbf{Monero Network}:
+    \begin{itemize}
+        \item \textbf{Block Time}: Approximately 2 minutes.
+        \item \textbf{Transaction Throughput}: Approximately 4 TPS.
+        \item \textbf{Transaction Latency}: Approximately under 20 minutes.
+    \end{itemize}
+    
+    \item \textbf{Filecoin Network}:
+    \begin{itemize}
+        \item \textbf{Block Time}: Approximately 30 seconds.
+        \item \textbf{Transaction Throughput}: Not explicitly stated. The network is optimized for storage operations rather than transaction processing, with the throughput being primarily dependent on the storage and retrieval deal proposals.
+        \item \textbf{Transaction Latency}: Storage deal transactions take approximately 5-10 minutes for a 1 MiB file.
+    \end{itemize}
+\end{itemize}
+
+These metrics are crucial for understanding the scalability and efficiency of the blockchain networks in question and provide insight into their suitability for various applications within our protocol.
 
 \section{Discussion}
 \label{sec:discussion}
