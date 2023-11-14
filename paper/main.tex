@@ -4,6 +4,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{mathptmx}      % use Times fonts if available on your TeX system
 \RequirePackage{flushend}
+\usepackage[htt]{hyphenat}
 \RequirePackage[numbers,sort&compress]{natbib}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
 
@@ -417,54 +418,56 @@ At the time of writing, we see the following technologies fulfilling the require
   Swarm~\cite{teamSWARMStorageCommunication2021}.
 \end{enumerate}
 
+
 \section{The Protocol}\label{sec:protocol}
-In this section, we propose an abstract protocol for anonymous service provisioning that makes no assumptions about the underlying technologies. We define the requirements for each role and leave the choice of technology to the developer. Later in the paper (Section~\ref{sec:experiments}) we describe our implementation, which we use to conduct an experiment.
+This section outlines an abstract protocol for anonymous service provisioning, designed to be technology-agnostic. It specifies the requirements for each role, allowing developers flexibility in technology selection. The implementation details and experimental validation of this protocol are discussed in Section~\ref{sec:experiments}.
 
 \subsection{Assumptions}
+The protocol is based on several key assumptions, each critical to its functionality and security:
 
 \begin{itemize}
-\item There exists PKI infrastructure:
+
+\item \textbf{Cryptography and Public Key Infrastructure (PKI)}:
     \begin{itemize}
-        \item The customer and the SP have their key pairs consisting of secret key $\mathrm{sk}_\mathrm{party}$ and public key $\mathrm{pk}_\mathrm{party}$, where $\mathrm{party} \in \{\mathrm{C}, \mathrm{SP}\}$ for the customer and the SP accordingly.
-        \item Both the customer and the SP can create and verify digital signatures created by the customer $\mathrm{sig}_{\mathrm{sk}_\mathrm{C}}$ and the SP $\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$.
-        \item The SP's public key $\mathrm{pk}_\mathrm{SP}$ is publicly known.
+        \item The service provider (SP) possesses a key pair consisting of a secret key ($\mathrm{sk}_\mathrm{SP}$) and a publicly known public key ($\mathrm{pk}_\mathrm{SP}$).
+        \item Digital signatures created by the SP ($\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$) can be verified using the publicly accessible $\mathrm{pk}_\mathrm{SP}$.
+        \item The customer remains anonymous and does not require a publicly known key pair, ensuring their privacy and anonymity in the protocol.
+        
+        \item Both parties utilize standard symmetric encryption ($\mathrm{E}_\mathrm{key}(\cdot)$) and decryption ($\mathrm{D}_\mathrm{key}(\cdot)$) methods.
+    \end{itemize}
+
+\item \textbf{Service Provider (SP) Requirements}:
+    \begin{itemize}
+        \item The SP is willing to accept packages from unidentified customers.
+        \item Payments are accepted via cash or anonymous cryptocurrencies, as detailed in Section~\ref{payment-for-services}.
     \end{itemize}
     
-\item Both the customer and the SP:
+\item \textbf{Anonymous Payments Blockchain}:
     \begin{itemize}
-        \item use common symmetric encryption $\mathrm{E}_\mathrm{key}(\cdot)$ and decryption $\mathrm{D}_\mathrm{key}(\cdot)$ operations.
-        \item have access to anonymous payments blockchain, message board, and storage network.
+        \item Facilitates anonymous transactions that are untraceable and ideally unlinkable.
+        \item Allows transactions to be uniquely identified through dedicated addresses, memo fields, or similar mechanisms (see Section~\ref{payment-for-services}).
     \end{itemize}
 
-\item The SP:
+\item \textbf{Message Board}:
     \begin{itemize}
-        \item accepts packages from unknown customers.
-        \item accepts payments with cash and anonymous cryptocurrencies as described in Section~\ref{payment-for-services}.
+        \item Capable of handling transaction sizes up to $\mathrm{PoD}$ and $\mathrm{PoP}$.
+    \end{itemize}
+
+\item \textbf{Storage Network}:
+    \begin{itemize}
+        \item Enables content retrieval using a content identifier ($\mathrm{cid}$), typically a hash of the content.
+        \item Ensures anonymous access to content.
+        \item Provides a guarantee of content availability for the agreed duration.
     \end{itemize}
     
-\item Dispute Resolution Service:
+\item \textbf{Dispute Resolution Service}:
     \begin{itemize}
-        \item accepts as evidence in a dispute the $\mathrm{PoD}$, $\mathrm{PoP}$, and payment $\mathrm{receipt}$ as described in Section~\ref{fairness}.
-    \end{itemize}
-
-\item Anonymous Payments Blockchain:
-    \begin{itemize}
-        \item supports anonymous, i.e., untraceable and (ideally) unlinkable transactions as described in Section~\ref{sec:pseudo-anon}.
-        \item supports uniquely identifiable transactions via a dedicated address, memo field, or other similar mechanisms as described in Section ~\ref{payment-for-services}. 
-    \end{itemize}
-
-\item Message Board:
-    \begin{itemize}
-        \item supports transactions of sizes up to $\mathrm{PoD}$ and $\mathrm{PoP}$.
-    \end{itemize}
-
-\item Storage Network:
-    \begin{itemize}
-        \item allows content to be retrieved using a content identifier $\mathrm{cid}$ (usually a hash of the content).
-        \item allows content to be retrieved anonymously.
-        \item guarantees that the content will be available for the duration of the agreement.
+        \item Recognizes $\mathrm{PoD}$ (Proof of Delivery), $\mathrm{PoP}$ (Proof of Provision), and payment receipts as valid evidence in disputes (see Section~\ref{fairness}).
     \end{itemize}
 \end{itemize}
+
+
+This protocol framework sets the stage for a secure, anonymous, and fair service provisioning system. It balances the needs for privacy and accountability, ensuring that both the customer and the SP can engage in transactions with confidence in the system's integrity and fairness.
 
 \subsection{Messages}\label{messages}
 In this section, we describe the messages exchanged between the parties of the protocol.
