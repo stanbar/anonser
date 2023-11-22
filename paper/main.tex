@@ -532,9 +532,9 @@ where:
 
 \noindent \textbf{Content Identifier (cid)}\label{content-identifier-cid} is a term from IPFS~\cite{ipfsContentIdentifiersCIDs}. However, the protocol allows for any secure and unique identifier for content referencing.
 
-\subsection{Protocol description}\label{protocol-description}
+\subsection{Protocol Description}\label{protocol-description}
 
-In this section we describe each step of the protocol, also shown in Figure~\ref{fig:protocol-diagram}.
+This section outlines each step of the protocol, also shown in Figure~\ref{fig:protocol-diagram}.
 
 \begin{figure}[ht!]
 \includegraphics[width=\linewidth]{anonser-protocol.png}
@@ -543,42 +543,38 @@ In this section we describe each step of the protocol, also shown in Figure~\ref
 \label{fig:protocol-diagram}
 \end{figure}
 
-\noindent \textbf
-{Step 0.  Preparation}\label{step-0-preparation}
+\noindent \textbf{Step 0. Preparation}\label{step-0-preparation}
 
-The customer collects all $\mathrm{materials}$ required by the SP, generates a random $\mathrm{provisionID}$ and a random keypair $(\mathrm{sk_C},\mathrm{pk_C})$. The $\mathrm{provisionID}$ is used to connect all actions associated with the transaction throughout the protocol. The $\mathrm{provisionID}$ and $\mathrm{pk_C}$ are encoded as a QR code, printed and attached to the $\mathrm{pkg}$ package. The $\mathrm{sk_C}$ is kept secret and is used to decrypt the $\mathrm{result}$ at the end of the protocol.
+The customer prepares the $\mathrm{materials}$ required by the SP, generates a random $\mathrm{provisionID}$, and a keypair $(\mathrm{sk_C},\mathrm{pk_C})$. The $\mathrm{provisionID}$ and $\mathrm{pk_C}$ are encoded as a QR code, attached to the $\mathrm{pkg}$. The $\mathrm{sk_C}$ is kept secret for decrypting the $\mathrm{result}$ later.
 
-\noindent \textbf
-{Step 1. Package Delivery}\label{step-1-package-delivery}
+\noindent \textbf{Step 1. Package Delivery}\label{step-1-package-delivery}
 
-The protocol starts when the customer delivers the package $\mathrm{pkg}$ to the SP and its content is accepted. As a result, $\mathrm{PoD}$ is created with a predefined payment deadline $\mathrm{T}_\mathrm{pay}$, service provision deadline $\mathrm{T}_\mathrm{provide}$ and current time $\mathrm{T}_\mathrm{issue}$. In addition, $\mathrm{PoD}$ embodies information on whether the service was paid for in cash or whether the customer should pay using the anonymous blockchain account. In the latter case, the SP's payment $\mathrm{address}$ is included in $\mathrm{PoD}$.
-
-The digital signature $\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$ on the $\mathrm{PoD}$, created with the SP's secret key $\mathrm{sk}_\mathrm{SP}$, guarantees non-repudiation.
+The protocol initiates when the customer delivers $\mathrm{pkg}$ to the SP. The SP creates $\mathrm{PoD}$ with deadlines $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$, and $\mathrm{T}_\mathrm{issue}$. The $\mathrm{PoD}$ also specifies the payment method (cash or blockchain address). The SP's digital signature $\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$ on $\mathrm{PoD}$ ensures non-repudiation.
 
 Symbolically: 
 \[
 \mathrm{PoD \gets delivery(pkg)}
 \]
+% TODO continute from here
 
-\noindent \textbf
-{Step 2. Proof of Delivery}\label{step-2-pod}
+\noindent \textbf{Step 2. Proof of Delivery}\label{step-2-pod}
 
-Then, the $\mathrm{PoD}$ is published on the message board by the SP, committing to the fact that the package $\mathrm{pkg}$ has been delivered, and the SP cannot reject receiving it. If the provision has not been paid in cash, the SP waits for the customer to pay for the service at the payment $\mathrm{address}$ specified in the $\mathrm{PoD}$.
+The SP publishes $\mathrm{PoD}$ on the message board, confirming receipt of $\mathrm{pkg}$. If not paid in cash, the SP awaits payment at the specified address in $\mathrm{PoD}$.
 
 Symbolically: 
 \[
 \mathrm{publish(PoD)}
 \]
 
-The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the PoD and recording it on-chain.
+The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the $\mathrm{PoD}$ and recording it on-chain.
 
 \begin{algorithm}
 \caption{Algorithm for Registering Proof of Delivery}
 \label{alg:proofOfDelivery}
 \begin{algorithmic}[1]
-\Function{proofOfDelivery}{$pk_C$, $provisionId$, $sig_{SP}$, $paidInCash$, $paymentAddress$, $paymentWindow$, $provisionWindow$}
+\Function{proofOfDelivery}{$pk_C$, $provisionId$, $paidInCash$, $paymentAddress$, $paymentWindow$, $provisionWindow$, $sig_{SP}$}
     \State Verify $sig_{SP}$
-    \If{provisions[$pk_C$][$provisionId$].exist}
+    \If{provisions[$pk_C$][$provisionId$] is not empty}
         \State \Return Error("Provision already exists")
     \EndIf
 
@@ -597,67 +593,59 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the P
 \end{algorithmic}
 \end{algorithm}
 
+\noindent \textbf{Step 3. Get Proof of Delivery}\label{step-3-get-pod}
 
-\noindent \textbf
-{Step 3. Get Proof of Delivery}\label{step-3-get-pod}
-
-Once the package has been delivered and the $\mathrm{PoD}$ has been published, the customer can retrieve the $\mathrm{PoD}$ from the message board and (if everything is correct) proceed with the protocol.
+The customer retrieves $\mathrm{PoD}$ from the message board and verifies its correctness.
 
 Symbolically: 
 \[
 \mathrm{PoD \gets get(pk_C, provisionID)}
 \]
 
-\noindent \textbf
-{Step 4. Payment}\label{step-4-payment}
+\noindent \textbf{Step 4. Payment}\label{step-4-payment}
 
-If the provision was not paid in cash, the customer should pay for the transaction using the predefined anonymous payment blockchain (see Section~\ref{payment-for-services}).
-In return, the customer receives the $\mathrm{receipt}$, which should be disclosed in case of dispute.
+If not paid in cash, the customer pays via the anonymous blockchain, receiving a $\mathrm{receipt}$.
 
 Symbolically: 
 \[
 \mathrm{receipt \gets payment(paymentAddress)}
 \]
 
-\noindent \textbf
-{Step 5. Provision of Service}\label{step-5-provision-of-service} 
+\noindent \textbf{Step 5. Provision of Service}\label{step-5-provision-of-service} 
 
-Once the customer has paid for the transaction, either in cash or via the anonymous blockchain, the SP can begin to provide the service.
+Upon payment confirmation, the SP begins service provision.
 
 Symbolically: 
 \[
 \mathrm{result \gets provision(materials)}
 \]
 
-\noindent \textbf
-{Step 6. Upload result}\label{step-6-upload-result}
+\noindent \textbf{Step 6. Upload Result}\label{step-6-upload-result}
 
-When the service is complete, a result should be generated. 
-Next, the result is encrypted using a shared key derived from the customer's public key $\mathrm{pk_C}$ and the SP's secret key $\mathrm{sk(SP)}$ using the Diffie-Hellman key exchange (DHKE) method~\cite{diffieNewDirectionsCryptography1976}.
-The encrypted result is then uploaded to the content addressable network (such as IPFS). In return, the content identifier ($\mathrm{cid}$) is created.
+The SP encrypts the $\mathrm{result}$ using $\mathrm{E_{DHKE(sk_{SP}, pk_C)}}$ and uploads it to the storage network, receiving a $\mathrm{cid}$.
 
 Symbolically: 
 \[
 \mathrm{cid \gets upload(E_{DHKE(sk_{SP}, pk_C)}(result))}
 \]
 
-\noindent \textbf
-{Step 7. Proof of Provision}\label{step-7-proof-of-provision}
+\noindent \textbf{Step 7. Proof of Provision}\label{step-7-proof-of-provision}
 
-When the $\mathrm{result}$ is uploaded, the SP creates and publishes on a message board a proof of provision consisting of $\mathrm{cid}$ along with $\mathrm{provisionID}$ and signature $\mathrm{sig}_\mathrm{SP}$.
+The SP publishes $\mathrm{PoP}$ on the message board, including $\mathrm{cid}$ and $\mathrm{provisionID}$.
 
 Symbolically: 
 \[
 \mathrm{publish(PoP)}
 \]
 
-The Algorithm~\ref{alg:proofOfProvision} presents the process of processing the PoP and recording it on-chain.
+The Algorithm~\ref{alg:proofOfProvision} presents the process of processing the $\mathrm{PoP}$ and recording it on-chain.
 
 \begin{algorithm}
 \caption{Algorithm for Registering Proof of Provision}
 \label{alg:proofOfProvision}
 \begin{algorithmic}[1]
-\Function{proofOfProvision}{$pk_C$, $provisionId$, $cid$}
+\Function{proofOfProvision}{$pk_C$, $provisionId$, $cid$, $sig_{SP}$}
+    \State Verify $sig_{SP}$
     \State $provision \gets$ provisions[$pk_C$][$provisionId$]
     \If{not $provision$.exist}
         \State \Return Error("Provision must be created with proof of delivery first")
@@ -668,20 +656,18 @@ The Algorithm~\ref{alg:proofOfProvision} presents the process of processing the 
 \end{algorithmic}
 \end{algorithm}
 
-\noindent \textbf
-{Step 8. Get Proof of Provision}\label{step-8-get-proof-of-provision}
+\noindent \textbf{Step 8. Get Proof of Provision}\label{step-8-get-proof-of-provision}
 
-After delivering the package and paying for the transaction, the customer starts listening to the message board and waits until the SP publishes the $\mathrm{PoP}$ for the $\mathrm{provisionID}$.
+The customer monitors the message board for the SP's $\mathrm{PoP}$.
 
 Symbolically: 
 \[
 \mathrm{cid \gets get(pk_C, provisionID)}
 \]
 
-\noindent \textbf
-{Step 9. Download result}\label{step-9-download-result}
+\noindent \textbf{Step 9. Download Result}\label{step-9-download-result}
 
-Having the $\mathrm{cid}$, the customer downloads and decrypts the $\mathrm{result}$ using a shared key derived from the customer's secret key $\mathrm{sk_C}$ and the SP's public key $\mathrm{pk_{SP}}$ using the DHKE method. The protocol ends.
+The customer downloads and decrypts the $\mathrm{result}$ using $\mathrm{D_{DHKE(sk_C, pk_{SP})}}$.
 
 Symbolically: 
 \[
@@ -1353,3 +1339,5 @@ The customer downloaded the result, then:
 
 \bibliographystyle{spbasic}
 \bibliography{bibliography}
+
+\end{document}
