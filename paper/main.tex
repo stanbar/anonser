@@ -7,8 +7,8 @@
 \usepackage[htt]{hyphenat}
 \RequirePackage[numbers,sort&compress]{natbib}
 
-\journalname{Eur. Phys. J. C}
 
+\journalname{Eur. Phys. J. C}
 
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithm}
@@ -129,86 +129,63 @@ In this work, we analyse the fairness of our protocol and implement it using Eth
 
 \section{Introduction}
 \label{sec:introduction}
-Diagnostic services such as paternity tests, doping tests or venereal disease tests are carried out in diagnostic centres that require customers to provide biological material such as blood, urine, stool or saliva. Unfortunately, customers are often forced to reveal their identity in order to complete transactions. Such a combination of personal information with biological materials exposes customers to significant privacy risks.
+Diagnostic services such as paternity tests, doping tests, or venereal disease tests require customers to provide biological material such as blood, urine, stool, or saliva. Unfortunately, customers often have to reveal their identity to complete transactions, exposing them to significant privacy risks.
 
-\begin{sloppypar}
-Other examples of sensitive services include anonymous complaints or legal services, such as legal advice, which may require disclosure of financial transaction history and confidential legal documents. Banking services, such as credit scoring, may require sensitive personal information, such as medical records and financial transaction history.
-\end{sloppypar}
+Other examples of sensitive services include anonymous complaints or legal services, like legal advice, which may require disclosure of financial transaction history and confidential legal documents. Banking services, such as credit scoring, may require sensitive personal information like medical records and financial transaction history.
 
-Providing personal information exposes users to a myriad of privacy risks, ranging from the potential loss of control over personal information to more severe threats like identity theft, data breaches, and unsanctioned monitoring. Such sensitive information is highly valuable to a potential attacker as it can be exploited for insider leaks, unauthorized entry, or financial profit. For instance, this data might be sold to marketers, banks, other corporations, government bodies, or cybercriminals. Consequently, this could unintentionally violate regulations like GDPR or CCPA, result in targeted advertising, or lead to crimes such as identity theft or unlawful tracking and surveillance~\cite{smithInformationPrivacyResearch2011}.
+Providing personal information exposes users to a myriad of privacy risks, ranging from the potential loss of control over personal information to severe threats like identity theft, data breaches, and unsanctioned monitoring. Sensitive information is valuable to attackers, leading to potential unauthorized uses. This situation could unintentionally violate regulations like GDPR or CCPA, result in targeted advertising, or lead to crimes like identity theft or unlawful tracking and surveillance~\cite{smithInformationPrivacyResearch2011}.
 
-Public figures such as influencers, politicians or celebrities are particularly vulnerable to this type of attack, as exposure of their health records, purchasing habits or legal documents can threaten their reputation, position or be used for blackmail.
+Public figures such as influencers, politicians, or celebrities are particularly vulnerable to this type of attack, as exposure of their health records, purchasing habits, or legal documents can threaten their reputation, position, or be used for blackmail.
 
-The problem is amplified when personal information is linked to health records, legal documents or biological materials such as DNA, saliva or blood. In such situations, customers may be reluctant to provide their personal information to the SP and therefore withdraw from the service.  \textbf{Both parties are harmed as the customer does not receive a diagnosis relevant to their health and the SP loses potential customers.}~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}
+The problem is amplified when personal information is linked to health records, legal documents, or biological materials such as DNA, saliva, or blood. In such situations, customers may be reluctant to provide their personal information to the SP and therefore withdraw from the service. Both parties are harmed as the customer does not receive a diagnosis relevant to their health and the SP loses potential customers~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}.
 
-In the majority of healthcare system, the critical data managed typically resides in the Electronic Medical Records (EMRs), which is consistently regarded as confidential information requiring robust security measures~\cite{jinReviewSecurePrivacypreserving2019}~\cite{keshtaSecurityPrivacyElectronic2021}. 
+In the majority of healthcare systems, the critical data managed typically resides in the Electronic Medical Records (EMRs), which is consistently regarded as confidential information requiring robust security measures~\cite{jinReviewSecurePrivacypreserving2019,keshtaSecurityPrivacyElectronic2021}.
 
-Maintaining the privacy of health data seems to be open and active area of research in the field of Privacy-Preserving Data Mining (PPDM) ~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. The recent research in this area focuses on employing methods of anonymisation and hiding sensitive information of the EMRs~\cite{hamdiEnhancingSecurityPrivacy2023, sharmaPrivacyPreservingData2019, wuHidingSensitiveInformation2021}, or securing the interaction between patient and Healthcare system~\cite{zhangPrivacyProtectionTelecare2016, mehmoodAnonymousAuthenticationScheme2018, khasimImprovedFastSecure2022}.
+Maintaining the privacy of health data seems to be an open and active area of research in the field of Privacy-Preserving Data Mining (PPDM)~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. Recent research in this area focuses on employing methods of anonymization and hiding sensitive information of the EMRs~\cite{hamdiEnhancingSecurityPrivacy2023, sharmaPrivacyPreservingData2019, wuHidingSensitiveInformation2021}, or securing the interaction between patient and Healthcare system~\cite{zhangPrivacyProtectionTelecare2016, mehmoodAnonymousAuthenticationScheme2018, khasimImprovedFastSecure2022}.
 
-\begin{sloppypar}
 Authors of~\cite{blackPresymptomaticTestingConfidentiality2021} highlight that after their organisation adopted Electronic Medical Record (EMR) systems, they could no longer promise the same confidentiality assurances.
-\end{sloppypar}
 
-Klitzman~\cite{klitzmanExclusionGeneticInformation2010} examined exclusion of genetic data from EMR, noting that patients frequently distrust healthcare facilities and choose not to share their genetic test results with doctors, fearing that this information might be recorded in their EMR.
- 
-In our study, we focus on the possibility of carrying out services without revealing any personal information — solving the problem of privacy at a much earlier stage, before any personal information gets into EMR system.
+Klitzman~\cite{klitzmanExclusionGeneticInformation2010} examined the exclusion of genetic data from EMR, noting that patients frequently distrust healthcare facilities and choose not to share their genetic test results with doctors, fearing that this information might be recorded in their EMR.
+
+In our study, we focus on the possibility of carrying out services without revealing any personal information — solving the problem of privacy at a much earlier stage, before any personal information gets into the EMR system.
 
 It would be desirable for customers to keep their identity private while still receiving the service. This could lead to a reduction in the trust that customers need to place in SPs and a reduction in the responsibility that SPs bear.
 
-\begin{sloppypar}
 Examples of services that would benefit from the anonymity property are:
-\end{sloppypar}
 
 \begin{itemize}
-    \item \textbf{Confidentiality in Medical Testing}: Patients who are willing to take a test, e.g. for drugs, STDs, paternity or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict.
+  \item \textbf{Confidentiality in Medical Testing}: Patients who are willing to take a test, e.g. for drugs, STDs, paternity, or steroids, have a strong incentive to keep the whole process private. The mere fact that they have taken the test—without revealing the result—is suggestive enough to be used as a premise in the event of a conflict. Currently, they have to take the risk that their personal data, materials, and results will be stored securely and kept secret from any unauthorized actor (both curious employees and malicious attackers)~\cite{klitzmanExclusionGeneticInformation2010, blackPresymptomaticTestingConfidentiality2021}.
 
-    Currently, they have to take the risk that their personal data, materials and results will be stored securely and kept secret from any unauthorised actor (both curious employees and malicious attackers)~\cite{klitzmanExclusionGeneticInformation2010, blackPresymptomaticTestingConfidentiality2021}.
+  \item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions. By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
 
-\begin{sloppypar}
-\item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Individuals engaged in entrepreneurial activities may want to assess the risks and possible consequences of their actions. By revealing their identity, they trust that the lawyer will not use this information for harmful actions.
-\end{sloppypar}
+  \item \textbf{Whistleblowing Platforms}: Employees or citizens witnessing unethical or illegal activities within organizations can report these anonymously without fear of reprisal, job loss, or social stigma, thereby promoting a more transparent and accountable society.
 
-\begin{sloppypar}
-\item \textbf{Whistleblowing Platforms}: Employees or citizens witnessing unethical or illegal activities within organizations can report these anonymously without fear of reprisal, job loss, or social stigma, thereby promoting a more transparent and accountable society.
-\end{sloppypar}
-
-\begin{sloppypar}
-\item \textbf{Sexual Health and Reproductive Services}: People seeking advice or services related to sexual health, contraception, or abortion might prefer anonymity due to the sensitive nature of these topics and potential societal judgment.
-\end{sloppypar}
-
+  \item \textbf{Sexual Health and Reproductive Services}: People seeking advice or services related to sexual health, contraception, or abortion might prefer anonymity due to the sensitive nature of these topics and potential societal judgment.
 \end{itemize}
 
-Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks: Breach of confidentiality, Disclosure, Identification, and Secondary use. We consider the following adversaries: Malicious insiders, Government agencies, Malicious third-party services, Hackers and cybercriminals.
+Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent the following privacy risks: Breach of confidentiality, Disclosure, Identification, and Secondary use. We consider the following adversaries: Malicious insiders, Government agencies, Malicious third-party services, Hackers, and cybercriminals.
 
-\begin{sloppypar}
-In this work we explore the possibilities of anonymous service provision and propose a protocol that preserves the customer's privacy even in the event of a successful attack. Under realistic operational assumptions, we show that \textbf{decoupling personal information from materials, payment and communication achieves a sufficient level of anonymity}.
-\end{sloppypar}
+In this work, we explore the possibilities of anonymous service provision and propose a protocol that preserves the customer's privacy even in the event of a successful attack. Under realistic operational assumptions, we show that decoupling personal information from materials, payment, and communication achieves a sufficient level of anonymity.
 
-However, a protocol that hides the customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is subject to accuse.
+However, a protocol that hides the customer's identity is difficult to secure and coordinate. In particular, conflicts between customers and service providers are difficult to resolve when there is no subject to accuse.
 
-We observe that the problem of anonymous service provision can be seen as a problem of fair exchange, where parties exchange some goods fairly, i.e. either both parties obtain the goods, or they both obtain nothing.
+We observe that the problem of anonymous service provision can be seen as a problem of fair exchange, where parties exchange some goods fairly, i.e., either both parties obtain the goods, or they both obtain nothing.
 
 In our case, the customer who wants to use the service exchanges his materials and money with the SP for the result of the service.
 
-\begin{sloppypar}
 Our review shows that none of the current systems is sufficient to achieve the desired goal. We propose an anonymous protocol for the provision of services that require physical materials. In the event of a dispute, either due to missed deadlines or incorrect results, the customer can disclose the entire interaction, prove the SP's misbehaviour to the Dispute Resolution Service, and win the dispute.
-\end{sloppypar}
 
-To achieve this goal we use
+To achieve this goal we use:
 \begin{itemize}
-    \item \textbf{Blockchain}, to achieve fairness, i.e. as a means of proving that certain actions took place at a certain time without the Trusted Third Party (TTP).
-    \item \textbf{Anonymous payment methods}, such as cash or anonymous cryptocurrencies, which allow customers to pay for services anonymously.
-    \item \textbf{Decentralised storage network} (e.g. IPFS) to provide results together with a provable storage network (e.g. Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
-    
-    \item Cryptography:
-    \begin{itemize}
-        \item \textbf{Symmetric encryption}, to encrypt and decrypt the results published on the public networks.
-        \begin{sloppypar}
-        \item \textbf{Diffie-Helman key exchange (DHKE)}, to derive shared secrets for symmetric encryption.
-        \item \textbf{Digital signatures}, to achieve authentication and non-repudiation of actions. 
-        \end{sloppypar}
-    \end{itemize}
-    
+  \item \textbf{Blockchain}, to achieve fairness, i.e., as a means of proving that certain actions took place at a certain time without the Trusted Third Party (TTP).
+  \item \textbf{Anonymous payment methods}, such as cash or anonymous cryptocurrencies, which allow customers to pay for services anonymously.
+  \item \textbf{Decentralised storage network} (e.g., IPFS) to provide results together with a provable storage network (e.g., Filecoin) to guarantee that the results are available to the customer even if the SP refuses to share the result.
+  \item Cryptography:
+  \begin{itemize}
+    \item \textbf{Symmetric encryption}, to encrypt and decrypt the results published on the public networks.
+    \item \textbf{Diffie-Hellman key exchange (DHKE)}, to derive shared secrets for symmetric encryption.
+    \item \textbf{Digital signatures}, to achieve authentication and non-repudiation of actions.
+  \end{itemize}
 \end{itemize}
 
 Figure~\ref{fig:protocol-overview} shows a simplified diagram of the protocol.
@@ -223,34 +200,24 @@ Figure~\ref{fig:protocol-overview} shows a simplified diagram of the protocol.
 
 The contribution of our paper is multifaceted and significant in advancing blockchain-based fair exchange systems:
 
-\begin{sloppypar}
 \begin{itemize}
-    \item We propose a protocol based on a realistic operational and threat model that:
-    \begin{itemize}
-        \item Enables \textbf{anonymous service provision} involving physical materials, eliminating the need for service providers to collect personal information from customers.
-        \item Achieves \textbf{fairness} through blockchain technology and cryptographic proofs, modeled as an interactive non-cooperative game, ensuring fairness at each step.
-        \item Operates without a centralized Trusted Third Party (TTP), leveraging a decentralized blockchain and a distributed content-addressable storage network.
-        \item Enhances \textbf{user experience and practicality} in conflict-free transactions by eliminating the need for customer interaction with the blockchain.
-        \item Ensures \textbf{remote availability of results}, even in cases of service provider denial.
-    \end{itemize}
-    \item Our implementation includes a working prototype with open-source code, demonstrating the practical applicability of our protocol.
-    \item We clarify often misused concepts such as anonymity, pseudonymity, linkability, and traceability, providing a clearer framework for understanding these critical aspects.
-    \item A novel framework for analyzing fairness in fair exchange protocols is introduced, and we use it to validate the fairness of our protocol.
-    \item We discuss potential enhancements using advanced technologies like secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution, paving the way for future research and development.
+  \item We propose a protocol based on a realistic operational and threat model that:
+  \begin{itemize}
+    \item Enables \textbf{anonymous service provision} involving physical materials, eliminating the need for service providers to collect personal information from customers.
+    \item Achieves \textbf{fairness} through blockchain technology and cryptographic proofs, modeled as an interactive non-cooperative game, ensuring fairness at each step.
+    \item Operates without a centralized Trusted Third Party (TTP), leveraging a decentralized blockchain and a distributed content-addressable storage network.
+    \item Enhances \textbf{user experience and practicality} in conflict-free transactions by eliminating the need for customer interaction with the blockchain.
+    \item Ensures \textbf{remote availability of results}, even in cases of service provider denial.
+  \end{itemize}
+  \item Our implementation includes a working prototype with open-source code, demonstrating the practical applicability of our protocol.
+  \item We clarify often misused concepts such as anonymity, pseudonymity, linkability, and traceability, providing a clearer framework for understanding these critical aspects.
+  \item A novel framework for analyzing fairness in fair exchange protocols is introduced, and we use it to validate the fairness of our protocol.
+  \item We discuss potential enhancements using advanced technologies like secure computation, self-sovereign identities, zero-knowledge proofs, and blockchain-based dispute resolution, paving the way for future research and development.
 \end{itemize}
-\end{sloppypar}
 
 Some authors have proposed blockchain-based fair exchange systems that could be adapted to service provision; however, to the best of our knowledge, we are the first to propose a system that satisfies all of the above properties. In particular, anonymity and physical delivery have rarely been addressed together, and if so, the protocol was based on TTP and impractical assumptions about the banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
 
-\begin{sloppypar}
-The rest of this paper is organised as follows. In Section~\ref{sec:related-works} we review related works. 
-Then in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, availability of results and anonymity.
-Section~\ref{sec:protocol} provides a detailed description of the protocol.
-Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol.
-Section~\ref{sec:experiments} presents the implementation of the protocol and the results of our experiments.
-Section~\ref{sec:discussion} discusses possible improvements in terms of crowdsourced dispute resolution or dispute avoidance, self-sovereign identities (SSIs), anonymous delivery, and formal verification.
-Finally, Section~\ref{sec:conclusion} concludes the paper.
-\end{sloppypar}
+The rest of this paper is organised as follows. In Section~\ref{sec:related-works} we review related works. Then in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, availability of results and anonymity. Section~\ref{sec:protocol} provides a detailed description of the protocol. Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol. Section~\ref{sec:experiments} presents the implementation of the protocol and the results of our experiments. Section~\ref{sec:discussion} discusses possible improvements in terms of crowdsourced dispute resolution or dispute avoidance, self-sovereign identities (SSIs), anonymous delivery, and formal verification. Finally, Section~\ref{sec:conclusion} concludes the paper.
 
 
 \section{Related Works}\label{sec:related-works}
@@ -764,7 +731,7 @@ Additionally, the customer has the option to initiate a dispute at any protocol 
 \end{enumerate}
 
 \begin{sloppypar}
-Consequently, our analysis must account for four potential outcomes for each party at every protocol step ($\mathrm{party \in \{C, SP}\}$, $\mathrm{step \in 1..9}$):
+Consequently, our analysis must account for four potential outcomes for each party at every protocol step ($\mathrm{party \in \{C, SP\} }$, $\mathrm{step \in 1..9}$):
 \end{sloppypar}
 
 \begin{itemize}
@@ -778,17 +745,30 @@ The protocol concludes after the final step, if a dispute is initiated, or if a 
 
 The anonymity of the customer prevents the SP from initiating a dispute. To address this, the protocol is designed in such a way that an SP who adheres to the protocol remains in an advantageous position, eliminating the incentive to dispute. Conversely, the customer can dispute at any time, but only proven misbehavior of the SP will result in a successful dispute.
 
-
 \begin{definition}[Fairness] \label{def:fairness}
-A protocol is considered fair iff 
-\begin{equation*}
-\begin{split}
-\forall_{party \in parties}\forall_{\mathrm{step} \in \mathrm{steps}} &\operatorname{can\ move}\\
-&\operatorname{to\ the\ non-disadvantaged\ position} 
-\end{split}
-\end{equation*}
+Let $\mathrm{parties} = \{ C, SP \}$, $\mathrm{steps} = 1..9$, and \( M_{\mathrm{s, p}} = \{ 
+\mathrm{\sigma_{s+1,p,\normal}}, 
+\mathrm{\sigma_{s+1,p,\abnormal}}, 
+\mathrm{\sigma_{s+1,p,\dispute}}, 
+\mathrm{\sigma_{s+1,p,\abdispute}}
+\} \) be the set of all possible moves that a party $p$ can make at a step $s$.
 
+% TODO: describe that we include also the further steps because the protocol can be continued after a dispute
+% The customer, following the 9th assumption described in
+% Section 5.2, risks the temporary disadvantaged position
+% σ4,c,n = - in favour of a later better position σ9,s,n = +;
+% in the meantime, he can get out of the disadvantaged position 
+% if the SP misbehaves in any of the following steps
+
+A protocol is considered fair if and only if, for every party involved and at every step of the protocol, there exists a move that allows the party to move to a non-disadvantaged position.
+\begin{equation}
+\forall_{\mathrm{p} \in \mathrm{parties}} \forall_{\mathrm{s} \in \mathrm{steps}} \exists \sigma \in M_{\mathrm{s, p}} \text{ such that } \sigma \neq -
+\end{equation}
 \end{definition}
+
+% TODO: write something at the end of the equatyion as it's usualy done in the math papers
+
+
 
 \subsection{Assumptions}\label{sec:assumptions}
 
@@ -926,61 +906,50 @@ The availability of the result is guaranteed by the usage of Filecoin~\cite{prot
 In our protocol, the SP is responsible for uploading the result to both the IPFS and Filecoin networks (utilizing Powergate), which ensures free access to the results under normal operational circumstances. This dual-network approach also ensures high availability of the results, even if the SP ceases to host the content on their node.
 
 \paragraph{Costs}
-The deployment and operation of smart contracts on the Ethereum blockchain incur gas fees, which are proportional to the computational resources required for transaction execution. The following outlines the gas consumption and associated costs for each operation within our protocol, based on the testnet metrics which are analogous to the mainnet:
+The deployment and operation of smart contracts on the Ethereum blockchain incur gas fees, which are proportional to the computational resources required for transaction execution. The following outlines the gas consumption and associated costs for each operation within our protocol, based on the testnet metrics, which are analogous to the mainnet:
 
-\begin{itemize}
-    \item \textbf{Smart Contract Deployment}: Consumed 1,456,577 gas units.
-    \item \textbf{Proof of Delivery}: Consumed 129,649 gas units.
-    \item \textbf{Proof of Provision}: Consumed 149,130 gas units.
-\end{itemize}
+The cost of gas is denominated in ETH, and the price per unit of gas at the time of the experiment (January 3, 2023) was 0.000000002227 ETH/gas, with the ETH price being \$1,261.97 USD\footnote{Etherscan Gas Tracker, \url{https://etherscan.io/gastracker}}. The customer is responsible only for covering the payment transaction fee. For transactions using Monero, the fee was approx. 0.000304 XMR at the time of the experiment, with the price of Monero being \$150 USD per XMR\footnote{Cryptocurrency statistics, \url{https://bitinfocharts.com}}.
 
-The cost of gas is denominated in ETH, and the price per unit of gas at the time of the experiment (January 3, 2023) was 0.000000002227 ETH/gas, with the ETH price being \$1,261.97 USD\footnote{Etherscan Gas Tracker, \url{https://etherscan.io/gastracker}}.
-The customer is responsible only for covering the payment transaction fee. For transactions using Monero, the fee was approximately 0.000304 XMR at the time of the experiment, with the price of Monero being \$150 USD per XMR\footnote{Cryptocurrency statistics, \url{https://bitinfocharts.com}}.
+The incurred costs are summarized in Table~\ref{table:costs}:
 
-The incurred costs were as follows:
-\begin{sloppypar}
-\begin{itemize}
-    \item \textbf{Deploying the Smart Contract}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 1,456,577 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 4.09 \, \text{USD} \). This is a one-time cost, paid by the SP.
-
-    \item \textbf{Proof of Delivery}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 129,649 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 0.29 \, \text{USD} \). This fee is paid once per transaction, paid by the SP.
-
-    \item \textbf{Payment}: \( 0.000304 \, \text{XMR} \times 150 \frac{\text{USD}}{\text{XMR}} \approx 0.0456 \, \text{USD} \).  This fee is paid once per transaction, paid by the customer.
-        
-    \item \textbf{Proof of Provision}: \( 0.000000002227 \frac{\text{ETH}}{\text{gas}} \times 149,130 \, \text{gas} \times 1,261.97 \frac{\text{USD}}{\text{ETH}} \approx 0.33 \, \text{USD} \). This fee is paid once per transaction, paid by the SP.
-\end{itemize}
-\end{sloppypar}
+\begin{table}[h!]
+\centering
+\caption{Incurred Costs for Protocol Operations}
+\label{table:costs}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Operation}            & \textbf{Gas Units} & \textbf{Cost (USD)} \\ \hline
+Smart Contract Deployment     & 1,456,577          & 4.09                \\ \hline
+Proof of Delivery             & 129,649            & 0.29                \\ \hline
+Payment (Monero)              & -                  & 0.0456              \\ \hline
+Proof of Provision            & 149,130            & 0.33                \\ \hline
+\end{tabular}
+\end{table}
 
 Additionally, our protocol's interaction with the Filecoin network introduces costs in FIL cryptocurrency for data storage and retrieval. These costs are determined through market-driven deals with miners. Deal prices, quoted in FIL, are influenced by various factors including data size, storage duration, and miner policies. The dynamic nature of these parameters means that costs can fluctuate, making precise predictions challenging. However, for our experiment, we leveraged Filecoin's reputation-based incentivisation layer to publish deals at no cost\footnote{Filecoin, Filecoin Plus Overview, \url{https://docs.filecoin.io/store/filecoin-plus/overview/}, (last visited Jan. 04, 2023)}.
 
 \paragraph{Performance Evaluation Metrics}
 
-To provide a comprehensive performance evaluation of our protocol, we have analyzed the following metrics for each of the blockchain networks:
+To provide a comprehensive performance evaluation of our protocol, we have analyzed the following metrics for each of the blockchain networks, as summarized in Table~\ref{table:performance}:
 
-\begin{itemize}
-    \item \textbf{Ethereum Network}:
-    \begin{itemize}
-        \item \textbf{Block Time}: Approximately 13-15 seconds.
-        \item \textbf{Transaction Throughput}: Ranges between 15-30 transactions per second (TPS).
-        \item \textbf{Transaction Latency}: Approximately 6 minutes.
-    \end{itemize}
-    
-    \item \textbf{Monero Network}:
-    \begin{itemize}
-        \item \textbf{Block Time}: Approximately 2 minutes.
-        \item \textbf{Transaction Throughput}: Approximately 4 TPS.
-        \item \textbf{Transaction Latency}: Approximately under 20 minutes.
-    \end{itemize}
-    
-    \item \textbf{Filecoin Network}:
-    \begin{itemize}
-        \item \textbf{Block Time}: Approximately 30 seconds.
-        \item \textbf{Transaction Throughput}: Not explicitly stated. The network is optimized for storage operations rather than transaction processing, with the throughput being primarily dependent on the storage and retrieval deal proposals.
-        \item \textbf{Transaction Latency}: Storage deal transactions take approximately 5-10 minutes for a 1 MiB file.
-    \end{itemize}
-\end{itemize}
+\begin{table}[h!]
+\centering
+\caption{Performance Evaluation Metrics}
+\label{table:performance}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Network}     & \textbf{Block Time} & \textbf{Tx Throughput} & \textbf{Tx Latency} \\ \hline
+Ethereum             & 13-15 sec       & 15-30 TPS                       & \textasciitilde{}6 min      \\ \hline
+Monero               & \textasciitilde{}2 min & \textasciitilde{}4 TPS             & \textasciitilde{}20 min \\ \hline
+Filecoin             & 30 s & N/A\footnotemark{}            & 5-10 min \\ 
+& & & for 1 MiB file \\ \hline
+\end{tabular}
+\end{table}
+
+\footnotetext{The network is optimized for storage operations rather than transaction processing, with the throughput being primarily dependent on the storage and retrieval deal proposals.}
+
 
 These metrics are crucial for understanding the scalability and efficiency of the blockchain networks in question and provide insight into their suitability for various applications within our protocol.
-
 \section{Discussion}
 \label{sec:discussion}
 
@@ -1065,7 +1034,7 @@ The case where the customer does not deliver the package is not considered as it
 \begin{itemize}
 \item \AgreeablePath
   \begin{itemize}
-    \item  \Pos{1}{c}{\normal}{\neutral}, the customer risked his materials but did not pay for the transaction and therefore ends up in a neutral position (see Assumption 10. in Section \ref{sec:assumptions}).
+    \item \Pos{1}{c}{\normal}{\neutral}, the customer risked his materials but did not pay for the transaction and therefore ends up in a neutral position (see Assumption 10. in Section \ref{sec:assumptions}).
     \item \Pos{1}{s}{\normal}{\neutral}, the SP ends up in a neutral position as she did not spend any resources and the package did not bring her any value.
   \end{itemize}
 \item \DisputePath
@@ -1201,7 +1170,7 @@ The customer paid the transaction, then:
 \newcommand{\CustomerRiskTemporaryDisadvantagedPosition}[1]{The customer, following the 9th assumption described in Section~\ref{sec:assumptions}, risks the temporary disadvantaged position #1 in favour of a later better position \Pos{9}{s}{\normal}{\plus}; in the meantime, he can get out of the disadvantaged position if the SP misbehaves in any of the following steps.}
 
 \begin{itemize}
-  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{4}{c}{\normal}{\minus}}.
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{4}{c}{\normal}{\minus}}
   \item \CanDoNothing{SP}.
 \end{itemize}
 
@@ -1243,7 +1212,7 @@ The \sp{} did the provision of service, then:
 \newcommand{\SPCanDoBothButFollowIsSafe}[1]{The SP can follow the protocol and move to the advantaged position \Pos{#1}{s}{\normal}{\plus}, or act abnormally (not provide the service) and also move to the advantaged position \Pos{#1}{s}{\abnormal}{\plus}; however, the second option puts her at risk of terminating the protocol at \Pos{#1}{s}{\abdispute}{\minus} if the customer is rational and starts a dispute; hence, the SP should choose the first option}
 
 \begin{itemize}
-  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{5}{c}{\normal}{\minus}}.
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{5}{c}{\normal}{\minus}}
   \item \SPCanDoBothButFollowIsSafe{5}.
 \end{itemize}
 
@@ -1283,7 +1252,7 @@ The SP uploaded the result on time, then:
 \Fairness
 
 \begin{itemize}
-  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{6}{c}{\normal}{\minus}}.
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{6}{c}{\normal}{\minus}}
   \item \SPCanDoBothButFollowIsSafe{6}.
 \end{itemize}
 
@@ -1324,7 +1293,7 @@ The SP published \PoP{} on time, then:
 \Fairness
 
 \begin{itemize}
-  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{7}{c}{\normal}{\minus}}.
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{7}{c}{\normal}{\minus}}
   \item \SPCanDoBothButFollowIsSafe{7}.
 \end{itemize}
 
@@ -1366,7 +1335,7 @@ The customer got the \PoP{}, then:
 \Fairness
 
 \begin{itemize}
-  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{8}{c}{\normal}{\minus}}.
+  \item \CustomerRiskTemporaryDisadvantagedPosition{\Pos{8}{c}{\normal}{\minus}}
   \item \CanDoNothing{} \Pos{8}{s}{\normal}{\plus} or \Pos{8}{s}{\abnormal}{\plus}.
 \end{itemize}
 
