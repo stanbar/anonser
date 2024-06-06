@@ -203,7 +203,7 @@ The rest of this paper is organised as follows. In Section~\ref{sec:related-work
 \end{figure}
 
 
-\section{Related works}\label{sec:related-works}
+\section{Related Works}\label{sec:related-works}
 \begin{sloppypar}
 This section reviews the main protocols for fair exchange, anonymity and physical delivery, highlighting their main features and differences.
 \end{sloppypar}
@@ -298,7 +298,9 @@ In our context, the process is reversed, as the physical materials are transferr
 Disputes are common in transactions, and systems are needed to ensure that rules and laws are followed. Traditionally, this has involved legal contracts and law enforcement. With blockchain technology, smart contracts offer a new way by putting contract details into code and enforcing them automatically~\cite{allenGovernanceBlockchainDispute2019}.
 \end{sloppypar}
 
+\begin{sloppypar}
 One challenge with blockchain is dealing with external information, which is where \textit{oracles} come in. They feed real-world data into the blockchain~\cite{breidenbachChainlinkNextSteps2021}. This is important for dispute resolution systems like Themis~\cite{mengThemisDecentralizedEscrow2019} and Kleros~\cite{bergollaKlerosSociolegalCase2022}, which use decentralized networks to make fair decisions. However, these systems may struggle with complex disputes that require special knowledge and privacy.
+\end{sloppypar}
 
 Our protocol takes a more traditional approach. It uses the blockchain to keep track of evidence, but relies on local legal systems (such as police or courts) to resolve disputes. In this way, we balance the use of technology with the need for detailed understanding in complicated service disputes. We talk more about exploring decentralized, partially automated systems in Section~\ref{sec:decentralised-justice}.
 
@@ -366,7 +368,7 @@ In the realm of blockchain technologies, the concepts of anonymity and confident
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{anonymity-diagram.png}
 \centering
-\caption{Consider a scenario where Alice is an anonymous customer and Bob is a public service provider (SP). Alice controls two addresses, labelled 1 and 2. The link (shown as a red line) between Alice's real identity and address 1 has been compromised, allowing identification. However, the link to address 2 remains unknown, preserving anonymity. Alice performs two actions, A and B. Action A is from the compromised address 1, while action B is from the anonymous address 2. Action A is confidential, meaning that despite the compromised pseudonym, the nature of the action remains undisclosed. Action B is transparent, but it cannot be linked to Alice as long as the connection to nickname 2 remains hidden.}
+\caption{Consider a scenario where Alice is an anonymous customer and Bob is a public service provider (SP). Alice controls two addresses, labelled 1 and 2. The link (shown as a red line) between Alice's real identity and address 1 has been compromised, allowing identification. However, the link to address 2 remains unknown, preserving anonymity. Alice performs two actions, A and B. Action A is from the compromised address 1, while action B is from the anonymous address 2. Action A is confidential, meaning that despite the compromised pseudonym, the nature of the action remains undisclosed. Action B is transparent, but it cannot be linked to Alice as long as the connection to pseudonym 2 remains hidden.}
 \label{fig:anonymity-diagram}
 \end{figure}
 
@@ -385,88 +387,86 @@ In transactions between customers and service providers (SPs), it is essential t
 
 Any payment that contains $\textrm{provisionID}$ in the memo or is sent to the specified address will be recognized as payment for the transaction. 
 
+
 \begin{sloppypar}
-In the event of a dispute, it is necessary to demonstrate to the courts that the customer has paid for the transaction. While proving payment is straightforward in transparent and traceable blockchains, it becomes more complex in anonymous blockchains. Monero, for instance, allows payments to be proven and verified through a dedicated API~\cite{moneroHowProvePayment}, and ZCash offers a mechanism known as Payment Disclosure~\cite{daviesIntroductionPaymentDisclosure2017}. We refer to this proof of payment as a \textit{payment receipt}.
+In the event of a dispute, it is necessary to prove to the courts that the customer has paid for the transaction. While proving payment is straightforward in transparent and traceable blockchains, it becomes more complex in anonymous blockchains. Monero, for example, allows payments to be proven and verified through a dedicated API~\cite{moneroHowProvePayment}, and ZCash provides a mechanism known as Payment Disclosure~\cite{daviesIntroductionPaymentDisclosure2017}. We refer to this proof of payment as a \textit{payment receipt}.
 \end{sloppypar}
 
 \subsection{Storage Network}\label{storage-network}
 
-Upon completing its service, the service provider (SP) faces the challenge of delivering the result to the customer while maintaining the customer's anonymity. The customer, wishing to remain anonymous, cannot reveal their email address or IP address. Additionally, the SP must prove that the result was delivered before a specified deadline, aligning with the concept of proof of existence discussed in Section~\ref{sec:message-board}.
+Upon completion of the service, the Service Provider (SP) faces the challenge of delivering the result to the customer while maintaining the customer's anonymity. The customer who wishes to remain anonymous cannot reveal their email address or IP address. In addition, the SP must prove that the result was delivered before a specified deadline, according to the concept of proof of existence discussed in section~\ref{sec:message-board}.
 
 \begin{sloppypar}
-A common solution is to utilize a content addressable peer-to-peer storage network for data storage, as direct blockchain storage is prohibitively expensive. This approach is widely adopted in various applications~\cite{shahidBlockchainBasedAgriFoodSupply2020, wangAuditableProtocolsFair2019, chenImprovedP2PFile2017}. Specifically, data is stored on a network like IPFS~\cite{benetIPFSContentAddressed2014}, and only the content identifier ($\mathrm{cid}$) that uniquely points to the content on IPFS is published on the blockchain.
+A common solution is to use a content addressable peer-to-peer storage network for data storage, as direct blockchain storage is prohibitively expensive. This approach has been widely adopted in various applications~\cite{shahidBlockchainBasedAgriFoodSupply2020, wangAuditableProtocolsFair2019, chenImprovedP2PFile2017}. Specifically, data is stored on a network such as IPFS~\cite{benetIPFSContentAddressed2014}, and only the content identifier ($\mathrm{cid}$) that uniquely points to the content on IPFS is published on the blockchain.
 \end{sloppypar}
 
-Following this methodology, the SP encrypts the result using the encryption key provided by the customer and uploads it to the IPFS network. To ensure the availability of the results, even in cases where the SP is unwilling to share them, we incorporate Filecoin as detailed in Section~\ref{sec:provable-results-availability}.
+Following this methodology, the SP encrypts the result using the encryption key provided by the client and uploads it to the IPFS network. To ensure the availability of the results, even in cases where the SP is unwilling to share them, we integrate Filecoin as described in Section~\ref{sec:provable-results-availability}.
 
-To further enhance anonymity, customers are advised to use standard techniques such as VPNs or proxies to conceal their IP addresses.
+To further increase anonymity, customers are advised to use standard techniques such as VPNs or proxies to hide their IP addresses.
 
 \subsection{Separation of Concerns}\label{sec:separation-of-concerns}
 
 \begin{sloppypar}
-The protocol we propose could potentially utilize a single blockchain to fulfill three distinct roles: (i) facilitating anonymous payments, (ii) serving as a message board, and (iii) acting as a storage network. However, while most blockchains can provide message board functionality, anonymous payments and a verifiable storage network are less common features, often limited to specialized blockchains.
+The protocol we propose could potentially use a single blockchain to fulfil three different roles: i) facilitating anonymous payments, ii) serving as a message board, and iii) acting as a storage network. However, while most blockchains can provide message board functionality, anonymous payments and a verifiable storage network are less common features and are often limited to specialized blockchains.
 
-Instead of relying on a single blockchain to provide all functionalities, our protocol is designed to be flexible, allowing the use of separate blockchains for each specific role. This approach provides the freedom to choose the best technology available for each function. In the future, if a blockchain emerges that can efficiently handle multiple roles, it can be integrated into the protocol.
+Rather than relying on a single blockchain to provide all functionalities, our protocol is designed to be flexible, allowing the use of separate blockchains for each specific role. This approach provides the freedom to choose the best available technology for each function. In the future, if a blockchain emerges that can efficiently handle multiple roles, it can be integrated into the protocol.
 
-As of the current state of blockchain technology, we identify the following platforms as suitable candidates for each role:
-
+Based on the current state of blockchain technology, we identify the following platforms as suitable candidates for each role:
 \begin{enumerate}
-    \item \textbf{Anonymous Payments:} Technologies such as Monero~\cite{vansaberhagenCryptoNote2013}, ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014}, Grin~\cite{fuchsbauerAggregateCashSystems2019}, and Tornado Cash~\cite{pertsevTornadoCashPrivacy2019} offer robust solutions for anonymous transactions.
-    \item \textbf{Message Board:} Various platforms can be utilized for this purpose, including Open timestamps~\cite{opentimestampsTimestampingProofStandard}, Stampery~\cite{crespoStamperyBlockchainTimestamping2017}, and the Bitcoin blockchain with services like Proof of Existence~\cite{proofofexistenceWebApplicationProve} and Chainpoint~\cite{chainpointBlockchainProofAnchoring}. The Ethereum blockchain, along with other public blockchains that support attaching extra data to transactions, are also viable options.
-    \item \textbf{Storage Network:} For decentralized storage solutions, IPFS~\cite{benetIPFSContentAddressed2014}, Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, and Ethereum's Swarm~\cite{teamSWARMStorageCommunication2021} are among the leading technologies.
+  \item \textbf{Anonymous payments:} Technologies such as Monero~\cite{vansaberhagenCryptoNote2013}, ZCash~\cite{ben-sassonZerocashDecentralizedAnonymous2014}, Grin~\cite{fuchsbauerAggregateCashSystems2019} and Tornado Cash~\cite{pertsevTornadoCashPrivacy2019} provide robust solutions for anonymous transactions.
+  \item \textbf{Message Board:} Several platforms can be used for this purpose, including Open Timestamps~\cite{opentimestampsTimestampingProofStandard}, Stampery~\cite{crespoStamperyBlockchainTimestamping2017} and the Bitcoin blockchain with services like Proof of Existence~\cite{proofofexistenceWebApplicationProve} and Chainpoint~\cite{chainpointBlockchainProofAnchoring}. The Ethereum blockchain and other public blockchains that support attaching extra data to transactions are also viable options.
+  \item \textbf{Storage Network:} For decentralized storage solutions, IPFS~\cite{benetIPFSContentAddressed2014}, Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017} and Ethereum's Swarm~\cite{teamSWARMStorageCommunication2021} are among the leading technologies.
 \end{enumerate}
 \end{sloppypar}
 
 \section{The Protocol}\label{sec:protocol}
-This section outlines an abstract protocol for anonymous service provisioning, designed to be technology-agnostic. It specifies the requirements for each role, allowing developers flexibility in technology selection. The implementation details and experimental validation of this protocol are discussed in Section~\ref{sec:experiments}.
+This section outlines an abstract protocol for anonymous service provisioning that is designed to be technology agnostic. It specifies the requirements for each role, allowing developers flexibility in technology choice. Implementation details and experimental validation of this protocol are discussed in Section~\ref{sec:experiments}.
 
 \subsection{Assumptions}
 The protocol is based on several key assumptions, each critical to its functionality and security:
 
 \begin{itemize}
-
-\item \textbf{Cryptography and Public Key Infrastructure (PKI)}:
-    \begin{itemize}
-        \item The service provider (SP) possesses a key pair consisting of a secret key ($\mathrm{sk}_\mathrm{SP}$) and a publicly known public key ($\mathrm{pk}_\mathrm{SP}$).
-        \item Digital signatures created by the SP ($\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$) can be verified using the publicly accessible $\mathrm{pk}_\mathrm{SP}$.
-        \item The customer remains anonymous and does not require a publicly known key pair, ensuring their privacy and anonymity in the protocol.
-        
-        \item Both parties utilize standard symmetric encryption ($\mathrm{E}_\mathrm{key}(\cdot)$) and decryption ($\mathrm{D}_\mathrm{key}(\cdot)$) methods.
-    \end{itemize}
+  \item \textbf{Cryptography and Public Key Infrastructure (PKI)}:
+  \begin{itemize}
+      \item The service provider (SP) has a key pair consisting of a secret key ($\mathrm{sk}_\mathrm{SP}$) and a publicly known public key ($\mathrm{pk}_\mathrm{SP}$).
+      \item Digital signatures created by the SP ($\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$) can be verified using the public $\mathrm{pk}_\mathrm{SP}$.
+      \item The customer remains anonymous and does not require a publicly known key pair, thus ensuring their privacy and anonymity in the protocol.
+      
+    \begin{sloppypar}
+      \item Both parties use standard symmetric encryption ($\mathrm{E}_\mathrm{key}(\cdot)$) and decryption ($\mathrm{D}_\mathrm{key}(\cdot)$) methods.
+    \end{sloppypar}
+\end{itemize}
 
 \item \textbf{Service Provider (SP) Requirements}:
-    \begin{itemize}
-        \item The SP is willing to accept packages from unidentified customers.
-        \item Payments are accepted via cash or anonymous cryptocurrencies, as detailed in Section~\ref{payment-for-services}.
-    \end{itemize}
-    
+  \begin{itemize}
+      \item The SP is willing to accept packages from unidentified customers.
+      \item Payments are accepted in cash or anonymous cryptocurrencies, as detailed in Section~\ref{payment-for-services}.
+   \end{itemize}
+  
 \item \textbf{Anonymous Payments Blockchain}:
-    \begin{itemize}
-        \item Facilitates anonymous transactions that are untraceable and ideally unlinkable.
-        \item Allows transactions to be uniquely identified through dedicated addresses, memo fields, or similar mechanisms (see Section~\ref{payment-for-services}).
-    \end{itemize}
+  \begin{itemize}
+      \item Facilitates anonymous transactions that are untraceable and ideally unlinkable.
+      \item Allows transactions to be uniquely identified through dedicated addresses, memo fields or similar mechanisms (see Section~\ref{payment-for-services}).
+  \end{itemize}
 
 \item \textbf{Message Board}:
-    \begin{itemize}
-        \item Capable of handling transaction sizes up to $\mathrm{PoD}$ and $\mathrm{PoP}$.
-    \end{itemize}
+  \begin{itemize}
+      \item Capable of handling transaction sizes up to $\mathrm{PoD}$ and $\mathrm{PoP}$.
+  \end{itemize}
 
 \item \textbf{Storage Network}:
-    \begin{itemize}
-        \item Enables content retrieval using a content identifier ($\mathrm{cid}$), typically a hash of the content.
-        \item Ensures anonymous access to content.
-        \item Provides a guarantee of content availability for the agreed duration.
-    \end{itemize}
+  \begin{itemize}
+      \item Enables content to be retrieved using a content identifier ($\mathrm{cid}$), typically a hash of the content.
+      \item Ensures anonymous access to content.
+      \item Guarantees that the content will be available for an agreed period of time.
+  \end{itemize}
+  
     
 \item \textbf{Dispute Resolution Service}:
     \begin{itemize}
         \item Recognizes $\mathrm{PoD}$ (Proof of Delivery), $\mathrm{PoP}$ (Proof of Provision), and payment receipts as valid evidence in disputes (see Section~\ref{fairness}).
     \end{itemize}
 \end{itemize}
-
-\begin{sloppypar}
-This protocol framework sets the stage for a secure, anonymous, and fair service provisioning system. It balances the needs for privacy and accountability, ensuring that both the customer and the SP can engage in transactions with confidence in the system's integrity and fairness.
-\end{sloppypar}
 
 \subsection{Messages}\label{messages}
 This subsection details the messages exchanged between the parties in the protocol.
@@ -550,7 +550,6 @@ Symbolically:
 \[
 \mathrm{PoD \gets delivery(pkg)}
 \]
-% TODO continute from here
 
 \noindent \textbf{Step 2. Proof of Delivery}\label{step-2-pod}
 
@@ -670,23 +669,22 @@ Symbolically:
 \]
 
 \section{Fairness Analysis}\label{sec:fairness-analysis}
-Our protocol's fairness is assessed through its representation as an interactive non-cooperative game, examining the strategic interactions between the service provider (SP) and the customer.
-
+The fairness of our protocol is assessed by representing it as an interactive non-cooperative game, examining the strategic interactions between the service provider (SP) and the customer.
 
 \subsection{Model}\label{sec:fairness-model}
 We define three distinct positions to represent the state of each party within the protocol:
 
 
 \begin{itemize}
-\item \textbf{Neutral Position ($\neutral{}$)}: A party's state when no significant resources (money, time, effort) have been expended or acquired.
-\item \textbf{Disadvantaged Position ($\minus{}$)}: A party's state when it has invested resources without receiving a commensurate return, like a customer who has prepaid for a service.
-\item \textbf{Advantaged position ($\plus{}$)}: A scenario where halting the transaction would result in a benefit for a party, for instance, if the SP has been paid but has not yet provided the service.
+\item \textbf{Neutral Position ($\neutral{}$)}: The state of a party when no significant resources (money, time, effort) have been expended or acquired.
+\item \textbf{Disadvantaged Position ($\minus{}$)}: The state of a party when it has invested resources without receiving a commensurate return, like a customer who has paid in advance for a service.
+\item \textbf{Advantaged position ($\plus{}$)}: A scenario where stopping the transaction would result in a benefit to one party, e.g. where the SP has been paid but has not yet delivered the service.
 \end{itemize}
 
 The actions of each party are categorized as follows:
 
 \begin{enumerate}
-\item \textbf{Normal} ($\normal{}$): Those that adhere to the protocol's prescribed steps.
+\item \textbf{Normal} ($\normal{}$): Those who adhere to the prescribed steps of the protocol.
 \item \textbf{Abnormal} ($\abnormal{}$): Any deviation from the protocol's prescribed steps, such as sending irrelevant messages, skipping steps, or exceeding time limits.
 \end{enumerate}
 
@@ -695,11 +693,11 @@ Additionally, the customer has the option to initiate a dispute at any protocol 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item \textbf{Agree} ($\normal{}$ or $\abnormal{}$): The customer consents to the action and refrains from disputing.
-\item \textbf{Start a dispute} ($\dispute{}$ or $\abdispute{}$): The customer contests the action and initiates a dispute.
+\item \textbf{Start a dispute} ($\dispute{}$ or $\abdispute{}$): The customer opposes the action and initiates a dispute.
 \end{enumerate}
 
 \begin{sloppypar}
-Consequently, our analysis must account for four potential $\mathrm{action} \in \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, for each $\mathrm{party \in \{C, SP\} }$, at every protocol step $\mathrm{step \in 1..9}$:
+  Consequently, our analysis needs to consider four possible $\mathrm{action} \in \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, for each $\mathrm{party \in \{C, SP\} }$, at every protocol step $\mathrm{step \in 1..9}$:
 \end{sloppypar}
 
 \begin{itemize}
@@ -709,7 +707,9 @@ Consequently, our analysis must account for four potential $\mathrm{action} \in 
 \item $\mathrm{\sigma_{step,party,\abdispute{}}}$: The outcome after a resolved dispute with the other party acting abnormally.
 \end{itemize}
 
-The protocol concludes after the final step, if a dispute is initiated, or if a party fails to perform its required action within the designated timeframe. Hence, all positions except $\mathrm{\sigma_{step, party, n}}$ for $\mathrm{step} \in 1..8$ signify the end of the protocol.
+\begin{sloppypar}
+The protocol ends after the final step, if a dispute is initiated, or if a party fails to take the required action within the specified timeframe. Therefore, all positions except $\mathrm{\sigma_{step, party, n}}$ for $\mathrm{step} \in 1..8$ indicate the end of the protocol.
+\end{sloppypar}
 
 The anonymity of the customer prevents the SP from initiating a dispute. To address this, the protocol is designed in such a way that an SP who adheres to the protocol remains in an advantageous position, eliminating the incentive to dispute. Conversely, the customer can dispute at any time, but only proven misbehavior of the SP will result in a successful dispute.
 
@@ -724,7 +724,7 @@ M_{\sigma_\mathrm{s,p,a}} =
 \]
 represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination position.
 
-A protocol is considered fair if, at every step, both the customer and the service provider have the option  to move to or stay in a non-disadvantaged position.
+A protocol is said to be fair if, at each step, both the customer and the service provider have the option to move to or remain in a non-disadvantaged position.
 
 \begin{equation}
 \forall_{\mathrm{p} \in \mathrm{parties}} \forall_{\mathrm{s} \in \mathrm{steps}} \forall_{\mathrm{a} \in \mathrm{actions}} \exists \sigma \in M_{\sigma_\mathrm{s, p, a}} \text{ such that } \sigma \neq -
@@ -738,11 +738,11 @@ For the purpose of our analysis, we operate under the following assumptions:
 
 \begin{enumerate}
 \item Both parties start from a neutral position ($\neutral{}$), implying no initial advantage or disadvantage.
-\item Upon successful transaction completion, both parties attain an advantageous position (\plus{}), indicating mutual benefit and motivation to engage in and complete the transaction.
-\item The steps within the protocol are atomic, meaning they are indivisible and have no intermediate states.
+\item Upon successful completion of the transaction, both parties reach an advantageous position (\plus{}), indicating mutual benefit and motivation to initiate and complete the transaction.
+\item The steps within the protocol are atomic, i.e. they are indivisible and have no intermediate states.
 \item The protocol is unidirectional; actions taken cannot be reversed or undone.
 \item The protocol can only be restarted by repeating the first step. Any repetition of subsequent steps is considered abnormal and will be disregarded. For example, a double payment does not change the course of the protocol.
-\item Once the service result is published, it becomes accessible to the customer via the storage network.
+\item Once the result of the service is published, it becomes available to the customer via the storage network.
 \item A successful dispute resolution restores the disputing party to a neutral position ($\neutral{}$).
 \item Losing a dispute incurs a penalty that exceeds any potential gain, resulting in a disadvantaged position (\minus{}). This discourages frivolous or uncertain disputes.
 \item Both the customer and the SP are rational actors who prefer to move from a less advantageous to a more advantageous position. However, they may temporarily accept a less advantageous position if it leads to a subsequent advantageous state, as long as there is an escape route from the less advantageous position. Specifically, the client can initiate a dispute to move from a disadvantaged (\minus{}) to a neutral ($\neutral{}$) position if the SP fails to comply with the protocol.
@@ -752,7 +752,7 @@ For the purpose of our analysis, we operate under the following assumptions:
 
 \subsection{Steps}\label{sec:steps}
 
-The fairness of our protocol is visually represented in Figure~\ref{fig:positions}, which illustrates the positions of each party following each possible action within the protocol.
+The fairness of our protocol is visually represented in Figure~\ref{fig:positions}, which shows the positions of each party after each possible action within the protocol.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{model.png}
@@ -761,15 +761,15 @@ The fairness of our protocol is visually represented in Figure~\ref{fig:position
 \label{fig:positions}
 \end{figure}
 
-The detailed description of each step and the reasoning for the outcomes is given in~\ref{app:proof-of-fairness}.
+The detailed description of each step and the reasoning behind the outcomes is given in~\ref{app:proof-of-fairness}.
 
 \subsection{Example scenarios}\label{example-scenarios}
-This section illustrates two key scenarios using figures to demonstrate the transitions of positions between the customer and the SP under different conditions.
+This section illustrates two key scenarios using figures to show the transitions of positions between the customer and the SP under different conditions.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{misbehaviour.png}
 \centering
-\caption{Transitions of positions in a scenario where the SP misbehaves by not performing the service and failing to publish $\mathrm{PoP}$ after receiving payment. This leads to the customer initiating a dispute.}
+\caption{Transitions of positions in a scenario where the SP misbehaves by failing to perform the service and publish $\mathrm{PoP}$ after receiving payment. This leads to the customer initiating a dispute.}
 \label{fig:misbehaviour}
 \end{figure}
 
@@ -788,12 +788,10 @@ By applying the definition of fairness from Section~\ref{def:fairness} and consi
 
 \section{Experiments}\label{sec:experiments}
 
-
-Our protocol's prototype was developed using a suite of technologies designed to ensure anonymity and security:
-
+The prototype of our protocol has been developed using a number of technologies designed to ensure anonymity and security:
 \begin{itemize}
 \begin{sloppypar}
-  \item \textbf{Anonymous Payments:} Utilization of the Monero blockchain for secure transactions.
+  \item \textbf{Anonymous Payments:} Use of the Monero blockchain for secure transactions.
 \end{sloppypar}
   \item \textbf{Storage Network:} Powergate serves as an interface for Filecoin and IPFS, facilitating decentralized storage.
   \item \textbf{Message Board:} The Ethereum blockchain, accessed via a local development version Truffle Ganache and Solidity, acts as a public ledger.
@@ -859,7 +857,7 @@ The protocol also ensures non-repudiation without the need for a TTP by employin
 
 \paragraph{Anonymity}
 \begin{sloppypar}
-Anonymity was secured by breaking the link between personal data and transactional elements, including materials, payments, and communications. We utilized anonymous payment methods such as cash and privacy-centric cryptocurrencies like Monero, to conceal transactional details. Furthermore, we leveraged decentralized storage networks like IPFS and Filecoin, which facilitate the anonymous storage and retrieval of data. This approach guaranteed that customer interactions with the protocol remained confidential at every stage.
+Anonymity was ensured by breaking the link between personal data and transactional elements, including materials, payments, and communications. We used anonymous payment methods such as cash and privacy-centric cryptocurrencies like Monero, to conceal transactional details. Furthermore, we leveraged decentralized storage networks like IPFS and Filecoin, which facilitate the anonymous storage and retrieval of data. This approach guaranteed that customer interactions with the protocol remained confidential at every stage.
 \end{sloppypar}
 
 \paragraph{Provable Results Availability}\label{sec:provable-results-availability}
@@ -874,17 +872,19 @@ The cost of gas is denominated in ETH, and the price per unit of gas at the time
 
 The incurred costs are summarized in Table~\ref{table:costs}:
 
-\begin{table}[h!]
-\centering
+\begin{table}
 \caption{Incurred Costs for Protocol Operations}
+\centering
 \label{table:costs}
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{lrr}
 \hline
-\textbf{Operation}            & \textbf{Gas Units} & \textbf{Cost (USD)} \\ \hline
-Smart Contract Deployment     & 1,456,577          & 4.09                \\ \hline
-Proof of Delivery             & 129,649            & 0.29                \\ \hline
-Payment (Monero)              & -                  & 0.0456              \\ \hline
-Proof of Provision            & 149,130            & 0.33                \\ \hline
+\textbf{Operation}            & \textbf{Gas Units} & \textbf{Cost (USD)} \\
+\hline
+Smart Contract Deployment     & 1,456,577          & 4.09                \\
+Proof of Delivery             & 129,649            & 0.29                \\
+Payment (Monero)              & -                  & 0.0456              \\
+Proof of Provision            & 149,130            & 0.33                \\
+\hline
 \end{tabular}
 \end{table}
 
@@ -898,13 +898,13 @@ To provide a comprehensive performance evaluation of our protocol, we have analy
 \centering
 \caption{Performance Evaluation Metrics}
 \label{table:performance}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{lrrr}
 \hline
 \textbf{Network}     & \textbf{Block Time} & \textbf{Tx Throughput} & \textbf{Tx Latency} \\ \hline
-Ethereum             & 13-15 sec       & 15-30 TPS                       & \textasciitilde{}6 min      \\ \hline
-Monero               & \textasciitilde{}2 min & \textasciitilde{}4 TPS             & \textasciitilde{}20 min \\ \hline
-Filecoin             & 30 s & N/A\footnotemark{}            & 5-10 min \\ 
-& & & for 1 MiB file \\ \hline
+Ethereum             & 13-15 sec       & 15-30 TPS                       & \textasciitilde{}6 min      \\
+Monero               & \textasciitilde{}2 min & \textasciitilde{}4 TPS             & \textasciitilde{}20 min \\
+Filecoin             & 30 sec & N/A\footnotemark{}            & 5-10 min  \\ 
+\hline
 \end{tabular}
 \end{table}
 
