@@ -160,7 +160,7 @@ However, a protocol that hides the customer's identity is difficult to secure an
 \end{sloppypar}
 
 \begin{sloppypar}
-We frame anonymous service provision as a fair exchange problem, ensuring that either both parties obtain the goods or neither does. Our review indicates that current systems do not meet our goals. We propose an anonymous protocol for services requiring physical materials, with dispute resolution capabilities. If disputes arise, customers can disclose interactions and prove SP misbehavior.
+We frame anonymous service provision as a fair exchange problem, ensuring that either both parties (customer and service provider) get the goods or neither. In our case, the parties exchange money and sensitive (possibly physical) materials for a service result. Our review shows that current systems do not achieve our goals. We propose an anonymous protocol for services that require physical materials, with dispute resolution capabilities. If disputes arise, customers can disclose interactions and prove SP misbehavior.
 \end{sloppypar}
 
 \begin{sloppypar}
@@ -223,25 +223,19 @@ Lelantos (Altawy et al., 2017)~\cite{altawyLelantosBlockchainBasedAnonymous2017}
 
 \paragraph{Comparison and our approach}
 
-We have only considered protocols that achieve fair exchange, as this is the fundamental feature of such protocols.
-
 \begin{sloppypar}
+We have only considered protocols that achieve fair exchange, as this is the fundamental feature of such protocols.
 We also didn't focus on protocols for buying digital products, as they are not relevant to our use case. A more comprehensive analysis of such protocols is available in~\cite{birjoveanuTwoPartyECommerceProtocols2022}.
 \end{sloppypar}
 
 Altawy et al. 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that uses onion routing and anonymous blockchain interaction to provide anonymous physical delivery, assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
-
 Hinarejos et al. 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not take into account anonymity, disputes between parties, or the exchange of physical material.
-
 Meng et al. 2019~\cite{mengThemisDecentralizedEscrow2019} improves on the previous protocol through a crowdsourced dispute resolution system. However, it does not consider anonymity.
-
 Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, but it is based on strong assumptions, namely the existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coin serial numbers.
 
 Our protocol differs from existing ones in that it focuses on anonymity and fair exchange without relying on TTPs or complex banking systems. It achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require the customer to submit a transaction to the bulletin board, simplifying the transaction process while maintaining anonymity and fairness.
 
-Unlike most protocols, our system is designed for transactions where the package is delivered from the customer to the service provider (SP), and we assume a generic dispute resolution service to handle conflicts.
-
-To provide a clearer understanding of how our protocol compares to existing work, Table~\ref{tab:comparison} provides a summary of the key features and differences between the protocols discussed.
+Table~\ref{tab:comparison} provides a summary of the key features and differences between the protocols discussed.
 
 \begin{table*}
 \centering
@@ -349,18 +343,8 @@ In the realm of blockchain technologies, the concepts of anonymity and confident
 
 \begin{sloppypar}
 \begin{enumerate}
-    \item \textbf{Privacy preserving blockchains:} These blockchains inherently support both anonymity and confidentiality through advanced cryptographic techniques, ensuring that both user identities and transaction details are obscured. Examples:
-      \begin{itemize}
-          \item \textbf{Monero:} Uses ring signatures and bulletproofs~\cite{vansaberhagenCryptoNote2013, noetherRingSignatureConfidential2015, bunzBulletproofsShortProofs2018}.
-          \item \textbf{ZCash:} Uses zkSNARKs for private transactions~\cite{ben-sassonZerocashDecentralizedAnonymous2014}.
-          \item \textbf{Grin} and \textbf{IronFish:} Use Mimblewimble and the Sapling protocol respectively~\cite{jedusorMIMBLEWIMBLE2016,fuchsbauerAggregateCashSystems2019, hopwoodZcashSaplingProtocol2022, ironfishPrivateAnonymousEasy}.
-    \end{itemize}
-
-    \item \textbf{Non-privacy preserving blockchains:} These blockchains, such as Bitcoin and Ethereum, do not natively support strong privacy features. However, anonymity can be enhanced through the use of mixers and other privacy tools. Examples:
-    \begin{itemize}
-          \item \textbf{Tornado Cash} (Ethereum): Implements zkSNARKs and MiMC for enhanced privacy~\cite{grothSizePairingbasedNoninteractive2016,pertsevTornadoCashPrivacy2019}.
-          \item \textbf{Wasabi Wallet} (Bitcoin): Uses CoinJoin to mix transactions~\cite{maxwellCoinJoinBitcoinPrivacy2013,wasabiwalletBitcoinPrivacyWallet}.
-    \end{itemize}
+    \item \textbf{Privacy preserving blockchains:} These blockchains inherently support both anonymity and confidentiality through advanced cryptographic techniques, ensuring that both user identities and transaction details are obscured. Examples include \textbf{Monero}, which uses ring signatures and bulletproofs~\cite{vansaberhagenCryptoNote2013, noetherRingSignatureConfidential2015, bunzBulletproofsShortProofs2018}, \textbf{ZCash}, which uses zkSNARKs for private transactions~\cite{ben-sassonZerocashDecentralizedAnonymous2014}, and \textbf{Grin} and \textbf{IronFish}, which use Mimblewimble and the Sapling protocol respectively~\cite{jedusorMIMBLEWIMBLE2016,fuchsbauerAggregateCashSystems2019, hopwoodZcashSaplingProtocol2022, ironfishPrivateAnonymousEasy}.
+    \item \textbf{Non-privacy preserving blockchains:} These blockchains, such as Bitcoin and Ethereum, do not natively support strong privacy features. However, anonymity can be enhanced through the use of mixers and other privacy tools. Examples include \textbf{Tornado Cash} (Ethereum), which implements zkSNARKs and MiMC for enhanced privacy~\cite{grothSizePairingbasedNoninteractive2016,pertsevTornadoCashPrivacy2019}, and \textbf{Wasabi Wallet} (Bitcoin), which uses CoinJoin to mix transactions~\cite{maxwellCoinJoinBitcoinPrivacy2013,wasabiwalletBitcoinPrivacyWallet}.
 \end{enumerate}
 \end{sloppypar}
 
@@ -697,15 +681,15 @@ Additionally, the customer has the option to initiate a dispute at any protocol 
 \end{enumerate}
 
 \begin{sloppypar}
-  Consequently, our analysis needs to consider four possible $\mathrm{action} \in \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, for each $\mathrm{party \in \{C, SP\} }$, at every protocol step $\mathrm{step \in 1..9}$:
+Consequently, our analysis needs to consider four possible $\mathrm{action} \in \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, for each $\mathrm{party \in \{C, SP\} }$, at every protocol step $\mathrm{step \in 1..9}$:
 \end{sloppypar}
 
-\begin{itemize}
+\begin{enumerate}
 \item $\mathrm{\sigma_{step,party,\normal{}}}$: The outcome after adhering to the protocol with the other party acting normally.
 \item $\mathrm{\sigma_{step,party,\dispute{}}}$: The outcome following a resolved dispute with the other party acting normally.
 \item $\mathrm{\sigma_{step,party,\abnormal{}}}$: The outcome when no dispute is raised despite the other party's abnormal actions.
 \item $\mathrm{\sigma_{step,party,\abdispute{}}}$: The outcome after a resolved dispute with the other party acting abnormally.
-\end{itemize}
+\end{enumerate}
 
 \begin{sloppypar}
 The protocol ends after the final step, if a dispute is initiated, or if a party fails to take the required action within the specified timeframe. Therefore, all positions except $\mathrm{\sigma_{step, party, n}}$ for $\mathrm{step} \in 1..8$ indicate the end of the protocol.
@@ -722,7 +706,7 @@ M_{\sigma_\mathrm{s,p,a}} =
 \{ \mathrm{\sigma_{s,p,a}} \} & \text{otherwise} 
 \end{cases}
 \]
-represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination position.
+represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination positions.
 
 A protocol is said to be fair if, at each step, both the customer and the service provider have the option to move to or remain in a non-disadvantaged position.
 
@@ -802,7 +786,6 @@ We used the following tools to create the experiment:
 \texttt{monerod} and \texttt{monero-wallet-cli} - v0.18.1.2; \texttt{Powergate} - v2.6.2; \texttt{Ganache} - v7.5.0; \texttt{Solidity} - v0.8.17; \texttt{ReactJS} - v18.0.25; \texttt{web3.js} - v1.8.1; \texttt{crypto-js} - v4.1.1.
 
 For simplicity, all components run on one physical machine; and all processes are managed by Docker. 
-
 Moreover, Powergate is configured to use local Filecoin and IPFS networks.
 For the Ethereum blockchain, we use Truffle Ganache, which is a local Ethereum blockchain for development and testing purposes. 
 Monero is configured to use the public stage network.
@@ -810,12 +793,8 @@ We assume that the service provider offers only one type of service at a fixed p
 
 The prototype is available at \url{https://anonser.stan.bar}. The source code is available at \url{https://github.com/stanbar/anonser}.
 
-\begin{sloppypar}
 In preparation for the experiment, both the customer and the SP set up their Monero wallets using the \texttt{monero-wallet-cli}. The SP deploys the smart contract to the Ethereum blockchain with the \texttt{truffle migrate --network development} command, and the web application is then configured to interact with this newly deployed contract.
-\end{sloppypar}
-
 The customer acquires test Monero funds from a Faucet service and configures their wallet to generate transaction proofs, essential for dispute resolution.
-
 With preparations complete, the experiment proceeds as follows:
 
 \begin{enumerate}
