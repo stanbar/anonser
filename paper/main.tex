@@ -322,7 +322,9 @@ This approach of using a decentralized message board to publish proofs has sever
 
 The protocol is designed to be adaptable, allowing for implementation with any decentralized technology capable of providing a message board service and supporting subscription to proofs from specific addresses.
 
+\begin{sloppypar}
 The choice between permissioned and permissionless blockchain touches on an ideological dispute about freedom and trust. The use of permissioned blockchain is recommended in domain-specific applications, such as closed consortia between distrustful parties. All the referenced protocols we've found use a public blockchain, suggesting that the fair exchange problem is allegedly not one of them. The public blockchain offers the irreplaceable qualities of total decentralisation, transparency, openness, no infrastructure maintenance costs (only transaction costs) and a different but arguably higher level of security (for networks with a high number of validators). In addition, protocols designed for public blockchains have a higher degree of generality and can be implemented in any private or permissioned blockchain. Therefore, for the rest of the paper, we only consider public networks.
+\end{sloppypar}
 
 \subsection{Anonymity, Pseudonymity, and Confidentiality}\label{sec:pseudo-anon}
 
@@ -381,13 +383,33 @@ In the event of a dispute, it is necessary to prove to the courts that the custo
 
 Upon completion of the service, the Service Provider (SP) faces the challenge of delivering the result to the customer while maintaining the customer's anonymity. The customer who wishes to remain anonymous cannot reveal their email address or IP address. In addition, the SP must prove that the result was delivered before a specified deadline, according to the concept of proof of existence discussed in section~\ref{sec:message-board}.
 
+Even though the result does not contain private information (because the input data did not have it) we acknowledge the danger of storing on a distributed immutable record as blockchain.
+
 \begin{sloppypar}
-A common solution is to use a content addressable peer-to-peer storage network for data storage, as direct blockchain storage is prohibitively expensive. This approach has been widely adopted in various applications~\cite{shahidBlockchainBasedAgriFoodSupply2020, wangAuditableProtocolsFair2019, chenImprovedP2PFile2017}. Specifically, data is stored on a network such as IPFS~\cite{benetIPFSContentAddressed2014}, and only the content identifier ($\mathrm{cid}$) that uniquely points to the content on IPFS is published on the blockchain.
+A common solution is to use a content addressable peer-to-peer storage network for data storage. This approach has been widely adopted in various applications~\cite{shahidBlockchainBasedAgriFoodSupply2020, wangAuditableProtocolsFair2019, chenImprovedP2PFile2017}. Specifically, data is stored on a network such as IPFS~\cite{benetIPFSContentAddressed2014}, and only the content identifier ($\mathrm{cid}$) that uniquely points to the content on IPFS is published on the blockchain.
 \end{sloppypar}
 
-Following this methodology, the SP encrypts the result using the encryption key provided by the client and uploads it to the IPFS network. To ensure the availability of the results, even in cases where the SP is unwilling to share them, we integrate Filecoin as described in Section~\ref{sec:provable-results-availability}.
+Following this methodology, the SP encrypts the result using the encryption key provided by the client and uploads it to the IPFS network. 
+
+The result is stored on public network so it is accessible to anyone with the cid address. However, the result is encrypted, so even if downloaded by third party it doesn't get access to the file unless it obtains the client's or SP's private key. 
 
 To further increase anonymity, customers are advised to use standard techniques such as VPNs or proxies to hide their IP addresses.
+
+\subsection{Provable Results Availability}
+
+The demand-driven and opportunistic nature of IPFS storage means that the results may not be available indefinitely.
+
+To ensure the availability of the results, we see two approaches. One involves fraud proofs, where an user which can not access the results invoke oracle service like Chainlink Request~\cite{breidenbachChainlinkNextSteps2021, ChainlinkMakeGET} which proves the content unavailability, and so pentalise the SP. 
+
+The other approach is to integrate Filecoin as a decentralised pinning service to ensure the results are available for a defined period.
+
+Filecoin enhances content availability on the IPFS network by economically penalizing the lack of proof of content storage~\cite{filecoinSlashing}.
+
+The content availability is therefore economically guaranteed for the duration of the Filecoin contract.
+
+Then, a file that is not further paid for in the Filecoin network is naturally deleted from the network as there is not incentive to keep it.
+
+In this paper we explore the second approach and leave the first for future work.
 
 \subsection{Separation of Concerns}\label{sec:separation-of-concerns}
 
@@ -459,7 +481,9 @@ This subsection details the messages exchanged between the parties in the protoc
 \vspace{5mm}
 
 \noindent \textbf{Package}\label{package} is a physical container prepared by the customer containing all the $\mathrm{materials}$ required by the SP to provide the service.
-\[\mathrm{pkg} \equiv (\mathrm{materials}, \mathrm{provisionID}, \mathrm{pk_C})\]
+\begin{equation}
+\mathrm{pkg} \equiv (\mathrm{materials}, \mathrm{provisionID}, \mathrm{pk_C})
+\end{equation}
 where:
 \begin{itemize}
 \item $\mathrm{materials}$ - Materials required for the service provision, such as biological samples, legal documents or other relevant items.
@@ -470,11 +494,11 @@ where:
 \noindent \textbf{Proof of Delivery ($\mathrm{PoD}$)}\label{proof-of-delivery} confirms the correct delivery of the package to the SP and its acceptance.
 
 It is also an agreement between the customer and the SP as it contains agreed deadlines for actions and a payment method.
-\begin{eqnarray*}
+\begin{eqnarray}
 \mathrm{PoD} & \equiv & (\begin{array}[t]{l}\mathrm{pk_C}, \mathrm{provisionID},   \mathrm{paymentAddress},
 \mathrm{sig}_\mathrm{SP}, \\\\ 
 \mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}\; )\end{array}
-\end{eqnarray*}
+\end{eqnarray}
 where:
 \begin{itemize}
 \item $\mathrm{pk_C}$ - Customer's public key.
@@ -492,9 +516,9 @@ also:
 \noindent \textbf{Proof of Provision ($\mathrm{PoP}$)}\label{proof-of-provision} verifies the SP's publication of results at a specific time, protecting the SP against unjustified disputes.
 
 The link between $\mathrm{PoP}$ and the results is made by the content identifier ($\mathrm{cid}$), which uniquely identifies the results so that the result cannot be forged after the $\mathrm{PoP}$ has been published.
-\begin{eqnarray*}
-\mathrm{PoP} & \equiv & (\mathrm{cid}, \mathrm{provisionID}, \mathrm{sig}_\mathrm{SP})
-\end{eqnarray*}
+\begin{equation}
+\mathrm{PoP} \equiv (\mathrm{cid}, \mathrm{provisionID}, \mathrm{sig}_\mathrm{SP})
+\end{equation}
 
 where:
 \begin{itemize}
@@ -700,13 +724,14 @@ The anonymity of the customer prevents the SP from initiating a dispute. To addr
 
 \begin{definition}[Fairness] \label{def:fairness}
 Let $\mathrm{parties} = \{ C, SP \}$, $\mathrm{steps} = 1..9$, $\mathrm{actions} = \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, and 
-\[
+
+\begin{equation}
 M_{\sigma_\mathrm{s,p,a}} = 
 \begin{cases} 
 \{ \mathrm{\sigma_{s+1,p,\normal}}, \mathrm{\sigma_{s+1,p,\abnormal}}, \mathrm{\sigma_{s,p,\dispute}}, \mathrm{\sigma_{s,p,\abdispute}} \} & \text{if } s < 9, a = \normal{} \\
 \{ \mathrm{\sigma_{s,p,a}} \} & \text{otherwise} 
 \end{cases}
-\]
+\end{equation}
 represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination positions.
 
 A protocol is said to be fair if, at each step, both the customer and the service provider have the option to move to or remain in a non-disadvantaged position.
@@ -914,6 +939,19 @@ Given the early stage of SSI technology and its current lack of governmental ado
 
 \subsection{Formal Verification}\label{sec:formal-verification}
 Following the work of~\cite{birjoveanuFormalVerificationMultiparty2022}, the security analysis of our protocol could be improved by using automatic formal verification tools, such as AVISPA~\cite{armandoAVISPAToolAutomated2005}. This process would involve formulating the protocol in the High-Level Protocol Specification Language (HLPSL)~\cite{chevalierHighLevelProtocol2004}, followed by its translation into AVISPA's intermediate format. Subsequently, AVISPA's tools would rigorously assess the protocol's adherence to established security properties through automated theorem proving and model checking techniques.
+
+
+\subsection{Ethical and Regulatory Considerations}
+
+The core objective of our protocol is to facilitate anonymous access to services without necessitating the disclosure of personal information, which naturally raises concerns regarding regulatory compliance, particularly with Know Your Customer (KYC), Anti-Money Laundering (AML), and regulations concerning Politically Exposed Persons (PEP).
+
+Our approach is explicitly designed to integrate with services that inherently comply with applicable local and international regulations. This integration ensures that while our protocol itself operates under the premise of anonymity, it does not facilitate illegal activities or contravene established legal frameworks. Specifically, the services that would utilize our protocol are those not primarily involved in financial transactions or money transmission, thereby not falling directly under the stringent requirements of financial regulations such as KYC and AML.
+
+We acknowledge that the use of anonymous payment methods, such as cryptocurrencies like Monero, might raise suspicions due to their common association with privacy and potential misuse. However, it is important to note that Monero is just one of several anonymous payment methods that could be utilized with our protocol. Our design is versatile enough to support a variety of payment mechanisms, both blockchain-based and non-blockchain-based.
+
+\begin{sloppypar}
+For instance, we could employ the Ethereum network and utilize privacy mixers to ensure private payments. Nevertheless, privacy mixers have drawn scrutiny from regulators because they are increasingly used by malicious actors to obscure the origins of funds illicitly. A notable example is Tornado Cash, the largest privacy mixer to date, which has faced sanctions across significant portions of the Ethereum network. Ongoing research into compliant privacy mixers, such as the Voluntary Reveal Approach proposed in~\cite{dotanHazeCompliantPrivacy2023}, seeks to address these concerns. This approach involves Proofs of Innocence required before a user can access the system and incorporates oracles for monitoring sanctioned addresses—currently maintained on the Ethereum blockchain by Chainalysis~\cite{ChainalysisOracleSanctions}.
+\end{sloppypar}
 
 \section{Conclusions}\label{sec:conclusion}
 
