@@ -288,7 +288,7 @@ In our context, the process is reversed, as the physical materials are transferr
 \subsection{Dispute Resolution System}
 \label{sec:dispute-resolution}
 \begin{sloppypar}
-Disputes are common in transactions, and systems are needed to ensure that rules and laws are followed. Traditionally, this has involved legal contracts and law enforcement. With blockchain technology, smart contracts offer a new way by putting contract details into code and enforcing them automatically~\cite{allenGovernanceBlockchainDispute2019}.
+Disputes are common in transactions, and systems are needed to ensure that rules and laws are followed. Traditionally, this has involved legal contracts and law enforcement. With blockchain technology, smart contracts offer a new way by putting the details of a contract into code and enforcing it through a consensus mechanism.~\cite{allenGovernanceBlockchainDispute2019}.
 \end{sloppypar}
 
 \begin{sloppypar}
@@ -773,8 +773,8 @@ The fairness of our protocol is visually represented in Figure~\ref{fig:position
 
 The detailed description of each step and the reasoning behind the outcomes is given in~\ref{app:proof-of-fairness}.
 
-\subsection{Example scenarios}\label{example-scenarios}
-This section illustrates two key scenarios using figures to show the transitions of positions between the customer and the SP under different conditions.
+\subsection{Analyse scenarios}\label{example-scenarios}
+This section illustrates two scenarios using figures to show the transitions of positions between the customer and the SP under different conditions.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{misbehaviour.png}
@@ -783,7 +783,8 @@ This section illustrates two key scenarios using figures to show the transitions
 \label{fig:misbehaviour}
 \end{figure}
 
-In the first scenario (Figure~\ref{fig:misbehaviour}), the SP attempts to misbehave by not delivering the service and consequently not publishing the Proof of Provision ($\mathrm{PoP}$) after receiving payment. If the SP fails to publish a valid $\mathrm{PoP}$ by the deadline $\mathrm{T}_\mathrm{provide}$, the customer is justified in starting a dispute. The customer is likely to win this dispute as the SP cannot prove the timely publication of $\mathrm{PoP}$. This scenario results in a neutral outcome for the customer and a disadvantageous outcome for the SP.
+\paragraph{Dispute}
+In the first scenario (Figure~\ref{fig:misbehaviour}), (1) the customer initialise the transaction and delivers the material to the SP, (2) who validates the materials and publish the Proof of Delivery ($\mathrm{PoD}$) on blockchain. (3) The customer validates the existence of PoD on blockchain and (4) pay for the transaction using one of the specified payment method. (5) The SP misbehaves by not delivering the service and consequently not publishing the Proof of Provision ($\mathrm{PoP}$) after having received the payment. Once the agreed deadline $\mathrm{T}_\mathrm{provide}$ pass the position moves to the Abnormal column and the customer is in disadvantage position and the SP is in advantage position. However, the customer is justified in starting a dispute, by collecting all the evidences, i.e., Proof of Delivery ($\mathrm{PoD}$) from Message Board, payment $\mathrm{recipt}$, and delivering them to the Dispute Resolution Service. The customer is likely to win this dispute as the SP cannot prove the timely publication of $\mathrm{PoP}$. This scenario results in a neutral outcome for the customer and a disadvantageous outcome for the SP.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{rational.png}
@@ -792,6 +793,7 @@ In the first scenario (Figure~\ref{fig:misbehaviour}), the SP attempts to misbeh
 \label{fig:rational}
 \end{figure}
 
+\paragraph{Agreement}
 The second scenario (Figure~\ref{fig:rational}) represents the rational and intended course of action, where both the customer and the SP follow the protocol as designed. This scenario is crucial as it demonstrates the protocol functioning optimally, leading to a fair outcome for both parties.
 
 By applying the definition of fairness from Section~\ref{def:fairness} and considering the assumptions outlined in Section~\ref{sec:assumptions}, our analysis confirms that the protocol achieves fairness under these scenarios (see ~\ref{app:proof-of-fairness} for detailed description).
@@ -926,7 +928,7 @@ These metrics are crucial for understanding the scalability and efficiency of th
 The central challenge in achieving a Web3-compliant system lies in the centralization of dispute resolution services~\cite{ethereumWhatWeb3Why2023}. To address this, we consider two potential solutions: the integration of blockchain-based dispute resolution systems and the development of mechanisms to ensure the infeasibility of incorrect service provision.
 \end{sloppypar}
 
-Blockchain-based dispute resolution platforms such as Themis~\cite{mengThemisDecentralizedEscrow2019}, Kleros~\cite{bergollaKlerosSociolegalCase2022, gudkovCrowdArbitrationBlockchain2020}, Aragon Court~\cite{aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution (ODR) systems~\cite{allenGovernanceBlockchainDispute2019} offer a promising direction. These systems could employ a pool of field experts who, in the event of a dispute, would examine the proofs (e.g., $\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{receipt}$) in a confidential, zero-knowledge context, providing verdicts without access to personal data. Expert participation and honest adjudication would be encouraged through a system of fees, stakes, and rewards.
+Blockchain-based dispute resolution platforms such as  Kleros~\cite{bergollaKlerosSociolegalCase2022, gudkovCrowdArbitrationBlockchain2020}, Themis~\cite{mengThemisDecentralizedEscrow2019}, Aragon Court~\cite{AragonWhitepaper2023,aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution (ODR) systems~\cite{allenGovernanceBlockchainDispute2019} offer a promising direction. These systems could employ a pool of field experts who, in the event of a dispute, would examine the smart contract, proofs ( $\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{receipt}$) and providing verdicts. Expert participation and honest adjudication would be encouraged through a system of fees, stakes, and rewards. At the time of writing Kleros is the most successful protocol for the disputes resolution, claiminng to employ 716 jurors and having resolved 1645 disputes.
 
 The second, more visionary approach involves ensuring service correctness through computational proofs, such as zkSNARKs~\cite{ben-sassonSNARKsVerifyingProgram2013}, which could validate the accuracy of services that are fully computable. This method, however, faces significant challenges in representing physical materials like blood or saliva digitally—a prerequisite for end-to-end service verification and the elimination of disputes.
 
