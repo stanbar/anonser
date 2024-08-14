@@ -245,28 +245,31 @@ Table~\ref{tab:comparison} provides a summary of the key features and difference
 \newcommand{\ANON}{\cellcolor{green!50}Anonymity}
 \newcommand{\NO}{\cellcolor{red!50}No}
 \newcommand{\TTP}{\cellcolor{red!50}TTP}
+\newcommand{\OffTTP}{\cellcolor{orange!50}Offline TTP}
+\newcommand{\OffBC}{\cellcolor{yellow!50}BC \& Offline TTP}
 \newcommand{\BC}{\cellcolor{green!50}BC}
-\caption{Comparison of related works. The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol uses a trusted third party; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature but is based on strong or impractical assumptions.}
+\caption{Comparison of related works. Category Definitions: \textit{E-commerce:} Secure online transactions for physical goods; \textit{Private Delivery System:} Methods ensuring fair and anonymous delivery of physical products; \textit{Certified email:} Secure exchange of certified electronic mail with proof of receipt; \textit{Digital escrow:} Decentralized escrow services for secure digital currency transactions. The notation \textit{Pseudonymity} means that the anonymity is based on the assumption that the pseudonym is not linked to the real identity; \textit{TTP} means that the protocol relies on a trusted third party in every transaction; \textit{Offline TTP} means that the protocol relies on a trusted third party only to resolve disputes; \textit{BC} means that the protocol uses a public blockchain; \textit{YES*} means that the protocol provides the feature but is based on strong or impractical assumptions.}
 \label{tab:comparison}
 \setlength{\tabcolsep}{3pt}
 
-\begin{tabular}{cccccc}
+\begin{tabular}{ccccccc}
 
 \noalign{\smallskip}\hline\noalign{\smallskip}
-Protocol & Fair exchange & Anonymity & Dispute resolution & Trust & Physical delivery \\
+Protocol & Scenario & Fair exchange & Anonymity & Dispute resolution & Trust & Physical delivery \\
 \noalign{\smallskip}\hline\noalign{\smallskip}
-\cite{zhangPracticalFairExchangeEPayment2006} (2006) & \YES & \YESBUT & \YES & \TTP & \YES \\
-\cite{mohammedalarajFairnessPhysicalProducts2012} (2012) & \YESBUT & \NO & \YES & \TTP & \YES \\
-Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} (2017) & \YES & \PSEUDO & \NO & \BC & \YES \\
-\cite{hinarejosSolutionSecureCertified2019} (2019) & \YES & \NO & \NO & \BC & \NO \\
-Themis~\cite{mengThemisDecentralizedEscrow2019} (2019) & \YES & \NO & \YES & \BC & \NO \\
-PPPDCP~\cite{birjoveanuTwoPartyECommerceProtocols2022} (2022) & \YES & \YES & \YES & \TTP & \YES \\
-This paper & \YES & \YES & \YES & \BC & \YES \\
+Zhang et al. \cite{zhangPracticalFairExchangeEPayment2006} (2006) & E-commerce & \YES & \YESBUT & \YES & \TTP & \YES  \\
+Alaraj et al.\cite{mohammedalarajFairnessPhysicalProducts2012} (2012) & E-commerce & \YESBUT & \NO & \YES & \OffTTP & \YES \\
+Lelantos~\cite{altawyLelantosBlockchainBasedAnonymous2017} (2017) & Private Delivery System & \YES & \PSEUDO & \NO & \BC & \YES \\
+Hinarejos et al.\cite{hinarejosSolutionSecureCertified2019} (2019) & Certified email & \YES & \NO & \NO & \BC & \NO \\
+Themis~\cite{mengThemisDecentralizedEscrow2019} (2019) & Digital escrow & \YES & \NO & \YES & \BC & \NO \\
+PPPDCP~\cite{birjoveanuTwoPartyECommerceProtocols2022} (2022) & E-commerce & \YES & \YES & \YES & \TTP & \YES \\
+This paper & E-commerce & \YES & \YES & \YES & \OffBC & \YES \\
 \noalign{\smallskip}\hline
 
 \end{tabular}
 
 \end{table*}
+
 
 \section{Building Blocks}\label{sec:building-blocks}
 
