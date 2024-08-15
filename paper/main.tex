@@ -681,10 +681,30 @@ Symbolically:
 \mathrm{result \gets D_{DHKE(sk_C, pk_{SP})}(download(cid))}
 \]
 
-\section{Fairness Analysis}\label{sec:fairness-analysis}
-The fairness of our protocol is assessed by representing it as an interactive non-cooperative game, examining the strategic interactions between the service provider (SP) and the customer.
+\section{Fair Exchange Analysis}\label{sec:fairness-analysis}
 
-\subsection{Model}\label{sec:fairness-model}
+Fair exchange protocols involve two parties trading items with each other, where each party holds an item to trade and expects to receive a specific item in return. These protocols operate even when the parties do not necessarily trust each other. A key goal of fair exchange protocols is to ensure that a dishonest participant cannot exploit the situation to gain an advantage over an honest participant. Specifically, these protocols must meet the following requirements~\cite{asokanFairnessElectronicCommerce1998, liuFairnessCryptocurrencyPayments2018}:
+\begin{enumerate}
+
+    \item \textbf{R1, Fairness}: Fairness can be defined in two ways:\begin{itemize}
+        \item \textbf{R1a Strong fairness}: Upon protocol completion, either both participants receive their desired items (successful exchange) or neither does (exchange fails).
+        \begin{sloppypar}
+        \item \textbf{R1b Weak fairness}: When strong fairness is not achievable, an honest participant can demonstrate to an external arbiter that the other party has received (or still can receive) the expected item.
+        \end{sloppypar}
+    \end{itemize}
+
+    \item \textbf{R2, Timeliness}: An honest participant can be assured that the exchange will conclude (either successfully or unsuccessfully) within a specified timeframe, regardless of the other participant's behavior. At the end of the protocol, the outcome is final from the honest participant's perspective (e.g., the fairness ensured by the protocol remains consistent).
+    
+    \item \textbf{R3, Effectiveness}: The protocol guarantees successful completion of the exchange if both participants act correctly and agree to trade.
+
+\end{enumerate}    
+
+
+\subsection{Weak fairness}
+
+Our protocol relies on an external arbiter to resolve disputes and so, by definition, it can achieve only \textbf{R1b Weak Fairness}. The weak fairness of our protocol is assessed by representing it as an interactive non-cooperative game, examining the strategic interactions between the service provider (SP) and the customer.
+
+\subsubsection{Model}\label{sec:fairness-model}
 We define three distinct positions to represent the state of each party within the protocol:
 
 
@@ -726,7 +746,7 @@ The protocol ends after the final step, if a dispute is initiated, or if a party
 
 The anonymity of the customer prevents the SP from initiating a dispute. To address this, the protocol is designed in such a way that an SP who adheres to the protocol remains in an advantageous position, eliminating the incentive to dispute. Conversely, the customer can dispute at any time, but only proven misbehavior of the SP will result in a successful dispute.
 
-\begin{definition}[Fairness] \label{def:fairness}
+\begin{definition}[Weak Fairness] \label{def:fairness}
 Let $\mathrm{parties} = \{ C, SP \}$, $\mathrm{steps} = 1..9$, $\mathrm{actions} = \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, and 
 
 \begin{equation}
@@ -746,7 +766,7 @@ A protocol is said to be fair if, at each step, both the customer and the servic
 \end{definition}
 
 
-\subsection{Assumptions}\label{sec:assumptions}
+\subsubsection{Assumptions}\label{sec:assumptions}
 
 For the purpose of our analysis, we operate under the following assumptions:
 
@@ -764,7 +784,7 @@ For the purpose of our analysis, we operate under the following assumptions:
 \item The cost of publishing the Proof of Delivery (PoD) is negligible and is offset by the customer's effort in delivering the package.
 \end{enumerate}
 
-\subsection{Steps}\label{sec:steps}
+\subsubsection{Steps}\label{sec:steps}
 
 The fairness of our protocol is visually represented in Figure~\ref{fig:positions}, which shows the positions of each party after each possible action within the protocol.
 
@@ -777,18 +797,21 @@ The fairness of our protocol is visually represented in Figure~\ref{fig:position
 
 The detailed description of each step and the reasoning behind the outcomes is given in~\ref{app:proof-of-fairness}.
 
-\subsection{Analyse scenarios}\label{example-scenarios}
-This section illustrates two scenarios using figures to show the transitions of positions between the customer and the SP under different conditions.
 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{misbehaviour.png}
-\centering
-\caption{Transitions of positions in a scenario where the SP misbehaves by failing to perform the service and publish $\mathrm{PoP}$ after receiving payment. This leads to the customer initiating a dispute.}
-\label{fig:misbehaviour}
-\end{figure}
+% By applying the definition of fairness from Section~\ref{def:fairness} and considering the assumptions outlined in Section~\ref{sec:assumptions}, our analysis confirms that the protocol achieves fairness under these scenarios (see ~\ref{app:proof-of-fairness} for detailed description).
 
-\paragraph{Dispute}
-In the first scenario (Figure~\ref{fig:misbehaviour}), (1) the customer initialise the transaction and delivers the material to the SP, (2) who validates the materials and publish the Proof of Delivery ($\mathrm{PoD}$) on blockchain. (3) The customer validates the existence of PoD on blockchain and (4) pay for the transaction using one of the specified payment method. (5) The SP misbehaves by not delivering the service and consequently not publishing the Proof of Provision ($\mathrm{PoP}$) after having received the payment. Once the agreed deadline $\mathrm{T}_\mathrm{provide}$ pass the position moves to the Abnormal column and the customer is in disadvantage position and the SP is in advantage position. However, the customer is justified in starting a dispute, by collecting all the evidences, i.e., Proof of Delivery ($\mathrm{PoD}$) from Message Board, payment $\mathrm{recipt}$, and delivering them to the Dispute Resolution Service. The customer is likely to win this dispute as the SP cannot prove the timely publication of $\mathrm{PoP}$. This scenario results in a neutral outcome for the customer and a disadvantageous outcome for the SP.
+\subsection{Timeliness}
+The timeliness of the protocol is achieved through the use of blockchain. Assuming an honest majority, the blockchain acts as a global, immutable and undeniable clock that timestamps each action and moves the protocol forward. Every step must be recorded on the blockchain, once the transaction is recorded it's undeniable.
+
+Both parties agree to the timelines $\mathrm{T}_\mathrm{issue}$, $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$ and so any breach of the timelines is undeniably conclusive. The blockchain continuously creates blocks at a probabilistic rate. If a party hasn't fulfilled its step within a time window, it can't publish a transaction in a previous block. Consequently, the protocol cannot move from a completed to a non-completed state, nor can it hang in a non-completed position as the timelines push it forward, thus fulfilling the \textbf{R2, Timeliness} requirement.
+
+
+
+% TODO: finish this train of thought
+% TODO: The transaction actually can hang out if one party voliate and the other doesn't start a dispute. We would have to add a period of time where the dispute is 
+% An honest participant can be assured that the exchange will conclude (either successfully or unsuccessfully) within a specified timeframe, regardless of the other participant's behavior. At the end of the protocol, the outcome is final from the honest participant's perspective (e.g., the fairness ensured by the protocol remains consistent).
+
+\subsection{Effectiveness}
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{rational.png}
@@ -797,10 +820,19 @@ In the first scenario (Figure~\ref{fig:misbehaviour}), (1) the customer initiali
 \label{fig:rational}
 \end{figure}
 
-\paragraph{Agreement}
-The second scenario (Figure~\ref{fig:rational}) represents the rational and intended course of action, where both the customer and the SP follow the protocol as designed. This scenario is crucial as it demonstrates the protocol functioning optimally, leading to a fair outcome for both parties.
+The first scenario (Figure~\ref{fig:rational}) represents the rational and intended course of action, where both the client and the SP follow the protocol as designed. This scenario is crucial as it shows that parties who act correctly (normally and agreeably) will eventually succeed and thus \textbf{R3, Effectiveness} is achieved.
 
-By applying the definition of fairness from Section~\ref{def:fairness} and considering the assumptions outlined in Section~\ref{sec:assumptions}, our analysis confirms that the protocol achieves fairness under these scenarios (see ~\ref{app:proof-of-fairness} for detailed description).
+\subsection{Dispute scenario}\label{sec:example-scenarios}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{misbehaviour.png}
+\centering
+\caption{Transitions of positions in a scenario where the SP misbehaves by failing to perform the service and publish $\mathrm{PoP}$ after receiving payment. This leads to the customer initiating a dispute.}
+\label{fig:misbehaviour}
+\end{figure}
+
+In the second scenario (Figure~\ref{fig:misbehaviour}), (1) the customer initialises the transaction and delivers the material to the SP, (2) who validates the material and publishes the Proof of Delivery ($\mathrm{PoD}$) on blockchain. (3) The customer validates the existence of the PoD on the blockchain, and (4) pays for the transaction using one of the specified payment methods. (5) The SP misbehaves by not provisioning the service and consequently not publishing the Proof of Provision ($\mathrm{PoP}$) after receiving the payment. Once the agreed $\mathrm{T}_\mathrm{provide}$ deadline has passed, the position moves to the Abnormal column and the customer is in a disadvantaged position and the SP is in an advantaged position. However, the customer is justified in starting a dispute by collecting all the evidence, i.e. Proof of Delivery ($\mathrm{PoD}$) from the message board, payment $\mathrm{recipt}$, and submitting it to the dispute resolution service. The customer is likely to win this dispute as the SP cannot prove the timely publication of $\mathrm{PoP}$. This scenario results in a neutral outcome for the customer and a disadvantaged outcome for the SP.
+
 
 \section{Experiments}\label{sec:experiments}
 
@@ -868,10 +900,13 @@ The protocol also ensures non-repudiation without the need for a TTP by employin
 
 \paragraph{Anonymity}
 \begin{sloppypar}
-Anonymity was ensured by breaking the link between personal data and transactional elements, including materials, payments, and communications. We used anonymous payment methods such as cash and privacy-centric cryptocurrencies like Monero, to conceal transactional details. Furthermore, we leveraged decentralized storage networks like IPFS and Filecoin, which facilitate the anonymous storage and retrieval of data. This approach guaranteed that customer interactions with the protocol remained confidential at every stage.
-\end{sloppypar}
+Anonymity was ensured by breaking the link between personal data and transactional elements, including materials, payments, and communications. We used anonymous payment methods such as cash and privacy-centric cryptocurrencies like Monero, to conceal transactional details. Furthermore, we leveraged decentralized storage networks like IPFS and Filecoin, which facilitate the anonymous storage and retrieval of data. This approach guaranteed that, in the dispute-free transaction, customer interactions with the protocol remained confidential at every stage.
 
-In the event of a dispute, the customer may lose their anonymity due to local policy enforcement that requires identification. To maintain anonymity in the event of a dispute, the anonymous dispute resolution service would have to be used. We discuss this further in section~\ref{sec:decentralised-justice}.
+Depending on the specific use case, the anonymity of the customer may be lost if the resolution of the dispute (e.g. by the police) involves the identification of the customer. However, even if the Dispute Resolution Service identifies the customer, the customer's identity won't be disclosed to the SP, which is the main goal of the protocol.
+
+To maintain anonymity in the event of a dispute,
+Online Dispute Resolution systems~\cite{allenGovernanceBlockchainDispute2019, lingwallShouldCodeBe2019} such as  Kleros~\cite{bergollaKlerosSociolegalCase2022, nappertDecentralizedJusticeReinventing2020, gudkovCrowdArbitrationBlockchain2020} should be used, where only the customer's pseudonym is revealed and anonymous evidence can be provided in zero-knowledge proofs. We discuss this further in Section~\ref{sec:decentralised-justice}.
+\end{sloppypar}
 
 \paragraph{Provable Results Availability}\label{sec:provable-results-availability}
 The availability of the result is guaranteed by the usage of Filecoin~\cite{protocollabsFilecoinDecentralizedStorage2017}, which operates as an incentivization layer on top of IPFS. Filecoin enhances content availability by economically penalizing the lack of proof of content storage~\cite{filecoinSlashing}.
