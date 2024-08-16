@@ -118,10 +118,10 @@ We observe that personal data is often only used for logistical purposes, such a
 We present a solution that allows services to be provided without collecting personal data. We use anonymous payment methods such as cash and anonymous cryptocurrencies, blockchain to achieve fairness, and distributed content-addressable storage networks to deliver results.
 
 \begin{sloppypar}
-Compared to other solutions, our protocol achieves anonymity with weaker assumptions, supports physical materials and conflict resolution, and does not require the customer to interact with the blockchain in conflict-free transactions, demonstrating better practicality.
+Compared to other solutions, our protocol achieves anonymity with weaker assumptions, supports physical materials and conflict resolution, and does not require the customer to interact with the trusted arbiter in conflict-free transactions, demonstrating better practicality.
 \end{sloppypar}
 
-In this work, we analyse the fairness of our protocol and implement it using Ethereum technology as a message board, Monero as an anonymous payment method, and Powergate (IPFS and Filecoin) as a decentralised storage network.
+We analyse the fairness of our protocol and implement it using Ethereum technology as a message board, Monero as an anonymous payment method, and Powergate (IPFS and Filecoin) as a decentralised storage network.
   \newcommand{\sep}{ \and }
   \keywords{Anonymity\sep{} blockchain\sep{} diagnosis\sep{} e-commerce\sep{} fair-exchange\sep{} privacy\sep{} services}
 \end{abstract}
@@ -159,7 +159,11 @@ However, a protocol that hides the customer's identity is difficult to secure an
 \end{sloppypar}
 
 \begin{sloppypar}
-We frame anonymous service provision as a fair exchange problem, ensuring that either both parties (customer and service provider) get the goods or neither. In our case, the parties exchange money and sensitive (possibly physical) materials for a service result. Our review shows that current systems do not achieve our goals. We propose an anonymous protocol for services that require physical materials, with dispute resolution capabilities. If disputes arise, customers can disclose interactions and prove SP misbehavior.
+We frame anonymous service provision as a fair exchange problem, ensuring that either both parties (customer and service provider) get the goods or neither. In our case, the parties exchange money and sensitive (possibly physical) materials for a service result. Our review of existing systems reveals that none fully meet our requirements. We propose an anonymous protocol for services that require physical materials, with dispute resolution capabilities. If disputes arise, customers can disclose interactions and prove SP misbehavior.
+\end{sloppypar}
+
+\begin{sloppypar}
+Our protocol is specifically designed for the commerce sector, particularly for service providers who handle sensitive and potentially physical materials provided by customers, such as biological samples, legal documents, or financial records. This includes applications in anonymous genetic testing, forensic analysis, and confidential research studies where personal data and physical materials must be handled with utmost privacy. Additionally, the protocol is beneficial for discreet services such as substance testing, private counseling, and therapy, as well as in sectors like industrial testing, environmental analysis, and intellectual property verification, where anonymity and secure handling of physical materials are crucial. These services span across industries such as healthcare, legal services, environmental science, and industrial compliance, highlighting the protocol's versatility in ensuring both privacy and compliance with legal regulations. By addressing the unique challenges of transactions involving physical materials, our approach ensures that these services can be delivered securely and fairly, even when the customer's identity remains protected.
 \end{sloppypar}
 
 \begin{sloppypar}
@@ -497,21 +501,22 @@ where:
 
 \noindent \textbf{Proof of Delivery ($\mathrm{PoD}$)}\label{proof-of-delivery} confirms the correct delivery of the package to the SP and its acceptance.
 
-It is also an agreement between the customer and the SP as it contains agreed deadlines for actions and a payment method.
+It is also an agreement between the customer and the SP as it contains the description of the expected item~\footnote{We follow the assumption from~\cite{asokanFairnessElectronicCommerce1998} that there exists a string that describes the desired item in "sufficient" detail so that during the dispute the arbitrator can decide whether the provided result is as agreed.}, agreed deadlines for actions and a payment method.
 \begin{eqnarray}
-\mathrm{PoD} & \equiv & (\begin{array}[t]{l}\mathrm{pk_C}, \mathrm{provisionID},   \mathrm{paymentAddress},
-\mathrm{sig}_\mathrm{SP}, \\\\ 
-\mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}\; )\end{array}
+\mathrm{PoD} & \equiv & (\begin{array}[t]{l}\mathrm{pk_C}, \mathrm{provisionID},    \mathrm{itemDescription}, \\\\ 
+\mathrm{paymentAddress}, \mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, \mathrm{sig}_\mathrm{SP} \; )\end{array}
 \end{eqnarray}
 where:
 \begin{itemize}
 \item $\mathrm{pk_C}$ - Customer's public key.
 \item $\mathrm{provisionID}$ - Unique transaction identifier.
+\item $\mathrm{itemDescription}$ - Hash of the description of the expected item.
 \item $\mathrm{paymentAddress}$ - SP's anonymous payment address.
-\item $\mathrm{sig}_\mathrm{SP}$ - SP's digital signature.
+
 \item $\mathrm{T}_\mathrm{issue}$ - Time of $\mathrm{PoD}$ issuance.
 \item $\mathrm{T}_\mathrm{pay}$ - Payment deadline.
 \item $\mathrm{T}_\mathrm{provide}$ - Service provision deadline.
+\item $\mathrm{sig}_\mathrm{SP}$ - SP's digital signature.
 \end{itemize}
 
 also:
@@ -557,7 +562,7 @@ The customer prepares the $\mathrm{materials}$ required by the SP, generates a r
 
 \noindent \textbf{Step 1. Package Delivery}\label{step-1-package-delivery}
 
-The protocol initiates when the customer delivers $\mathrm{pkg}$ to the SP. The SP creates $\mathrm{PoD}$ with deadlines $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$, and $\mathrm{T}_\mathrm{issue}$. The $\mathrm{PoD}$ also specifies the payment method (cash or blockchain address). The SP's digital signature $\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$ on $\mathrm{PoD}$ ensures non-repudiation.
+The protocol initiates when the customer delivers $\mathrm{pkg}$ to the SP. The SP creates $\mathrm{PoD}$ with deadlines $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$, and $\mathrm{T}_\mathrm{issue}$. The $\mathrm{PoD}$ also specifies the description of the item $itemDescription$, and payment method (cash or blockchain address). The SP's digital signature $\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$ on $\mathrm{PoD}$ ensures non-repudiation.
 
 Symbolically: 
 \[
@@ -579,7 +584,7 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the $
 \caption{Algorithm for Registering Proof of Delivery}
 \label{alg:proofOfDelivery}
 \begin{algorithmic}[1]
-\Function{proofOfDelivery}{$pk_C$, $provisionId$, $paidInCash$, $paymentAddress$, $paymentWindow$, $provisionWindow$, $sig_{SP}$}
+\Function{proofOfDelivery}{$pk_C$, $provisionId$, $itemDescription$, $paidInCash$, $paymentAddress$, $paymentWindow$, $provisionWindow$, $sig_{SP}$}
     \State Verify $sig_{SP}$
     \If{provisions[$pk_C$][$provisionId$] is not empty}
         \State \Return Error("Provision already exists")
@@ -593,8 +598,8 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the $
     \State $\mathrm{T}_\mathrm{pay} \gets \mathrm{T}_\mathrm{issue} + paymentWindow$
     \State $\mathrm{T}_\mathrm{provide} \gets \mathrm{T}_\mathrm{issue} + provisionWindow$
 
-    \State $provision \gets \left\{ \mathrm{T}_\mathrm{issue}, paymentDeadlineTime, \right.$
-    \State \hspace{\algorithmicindent}$\left. \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide}, paidInCash, paymentAddress \right\}$
+    \State $provision \gets \left\{ \mathrm{T}_\mathrm{issue}, \mathrm{T}_\mathrm{pay}, \mathrm{T}_\mathrm{provide} \right.$
+    \State \hspace{\algorithmicindent}$\left. itemDescription, paidInCash, paymentAddress \right\}$
     \State provisions[$pk_C$][$provisionId$] $\gets provision$
 \EndFunction
 \end{algorithmic}
@@ -602,7 +607,7 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the $
 
 \noindent \textbf{Step 3. Get Proof of Delivery}\label{step-3-get-pod}
 
-The customer retrieves $\mathrm{PoD}$ from the message board and verifies its correctness.
+The customer retrieves $\mathrm{PoD}$ from the message board and verifies payment details, $itemDescription$ and time windows ($\mathrm{T}_\mathrm{issue}$, $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$).
 
 Symbolically: 
 \[
@@ -693,6 +698,7 @@ Fair exchange protocols involve two parties trading items with each other, where
         \end{sloppypar}
     \end{itemize}
 
+
     \item \textbf{R2, Timeliness}: An honest participant can be assured that the exchange will conclude (either successfully or unsuccessfully) within a specified timeframe, regardless of the other participant's behavior. At the end of the protocol, the outcome is final from the honest participant's perspective (e.g., the fairness ensured by the protocol remains consistent).
     
     \item \textbf{R3, Effectiveness}: The protocol guarantees successful completion of the exchange if both participants act correctly and agree to trade.
@@ -701,8 +707,9 @@ Fair exchange protocols involve two parties trading items with each other, where
 
 
 \subsection{Weak fairness}
+Here we show that with the use of an external arbitrator (Dispute Resolution Service), either both parties receive their desired items at the end of the protocol, or neither receives anything. That is, the customer gets $result$ and the SP gets $payment$, or neither gets anything. This is how \textbf{R1b Weak Fairness} is achieved. 
 
-Our protocol relies on an external arbiter to resolve disputes and so, by definition, it can achieve only \textbf{R1b Weak Fairness}. The weak fairness of our protocol is assessed by representing it as an interactive non-cooperative game, examining the strategic interactions between the service provider (SP) and the customer.
+First, we represent the protocol as an interactive non-cooperative game and analyse the strategic interactions between the service provider (SP) and the customer. We then show that successful completions result in both parties receiving desired items, and all unsuccessful completions result in both parties receiving nothing. We also extend the definition to include penalties for misbehaviour, which discourages frivolous or uncertain disputes.
 
 \subsubsection{Model}\label{sec:fairness-model}
 We define three distinct positions to represent the state of each party within the protocol:
@@ -744,26 +751,47 @@ Consequently, our analysis needs to consider four possible $\mathrm{action} \in 
 The protocol ends after the final step, if a dispute is initiated, or if a party fails to take the required action within the specified timeframe. Therefore, all positions except $\mathrm{\sigma_{step, party, n}}$ for $\mathrm{step} \in 1..8$ indicate the end of the protocol.
 \end{sloppypar}
 
-The anonymity of the customer prevents the SP from initiating a dispute. To address this, the protocol is designed in such a way that an SP who adheres to the protocol remains in an advantageous position, eliminating the incentive to dispute. Conversely, the customer can dispute at any time, but only proven misbehavior of the SP will result in a successful dispute.
+The anonymity of the customer prevents the SP from initiating a dispute. To address this, the protocol is designed in such a way that an SP who adheres to the protocol remains in an advantageous position, eliminating the incentive to dispute. Conversely, the customer can dispute at any time, but only proven misbehavior of the SP will result in a successful dispute. The Algorithm~\ref{alg:disputeResolution} presents the process of dispute resolution.
 
-\begin{definition}[Weak Fairness] \label{def:fairness}
-Let $\mathrm{parties} = \{ C, SP \}$, $\mathrm{steps} = 1..9$, $\mathrm{actions} = \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, and 
+\begin{algorithm}
+\caption{Algorithm for Dispute Resolution}
+\label{alg:disputeResolution}
+\begin{algorithmic}[1]
+\Function{Dispute Resolution}{$pk_C$, $provisionId$, $receipt$, $result$}
+    
+    \State $provision$ $\gets$ $provisions$[$pk_C$][$provisionId$]
+    \If{Time dispute}
+    \State Verify $provision$.$paidInCash$ OR  (valid $receipt$ AND $receipt$.time < $provision$.$\mathrm{T}_\mathrm{pay}$)
+    \State Verify not $provision$.$cid$ and $provision$.$provisionTime$ > $provision$.$\mathrm{T}_\mathrm{provide}$
+    \State \Return The Customer wins the dispute because the SP has not provided the PoP on the agreed time.
+    \EndIf
+    \If{Result dispute}
+        \State $provision$.$cid$ $\equiv$ $result$
+        \State $provision$.$itemDescription$ $\not\equiv$ $result$
+        \State \Return The Customer wins the dispute because the SP has not provided the desired result.
+    \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
-\begin{equation}
-M_{\sigma_\mathrm{s,p,a}} = 
-\begin{cases} 
-\{ \mathrm{\sigma_{s+1,p,\normal}}, \mathrm{\sigma_{s+1,p,\abnormal}}, \mathrm{\sigma_{s,p,\dispute}}, \mathrm{\sigma_{s,p,\abdispute}} \} & \text{if } s < 9, a = \normal{} \\
-\{ \mathrm{\sigma_{s,p,a}} \} & \text{otherwise} 
-\end{cases}
-\end{equation}
-represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination positions.
+% \begin{definition}[Weak Fairness] \label{def:fairness}
+% Let $\mathrm{parties} = \{ C, SP \}$, $\mathrm{steps} = 1..9$, $\mathrm{actions} = \{ \normal{}, \abnormal{}, \dispute{}, \abdispute{} \}$, and 
 
-A protocol is said to be fair if, at each step, both the customer and the service provider have the option to move to or remain in a non-disadvantaged position.
+% \begin{equation}
+% M_{\sigma_\mathrm{s,p,a}} = 
+% \begin{cases} 
+% \{ \mathrm{\sigma_{s+1,p,\normal}}, \mathrm{\sigma_{s+1,p,\abnormal}}, \mathrm{\sigma_{s,p,\dispute}}, \mathrm{\sigma_{s,p,\abdispute}} \} & \text{if } s < 9, a = \normal{} \\
+% \{ \mathrm{\sigma_{s,p,a}} \} & \text{otherwise} 
+% \end{cases}
+% \end{equation}
+% represent the set of all possible positions a party $\mathrm{p}$ can move to at step $\mathrm{s}$ by taking action $\mathrm{a}$, from position $\sigma_\mathrm{s,p,a}$. The second case in $M_{\sigma_\mathrm{s,p,a}}$ represents the termination positions.
 
-\begin{equation}
-\forall_{\mathrm{p} \in \mathrm{parties}} \forall_{\mathrm{s} \in \mathrm{steps}} \forall_{\mathrm{a} \in \mathrm{actions}} \exists \sigma \in M_{\sigma_\mathrm{s, p, a}} \text{ such that } \sigma \neq -
-\end{equation}
-\end{definition}
+% A protocol is said to be fair if, at each step, both the customer and the service provider have the option to move to or remain in a non-disadvantaged position.
+
+% \begin{equation}
+% \forall_{\mathrm{p} \in \mathrm{parties}} \forall_{\mathrm{s} \in \mathrm{steps}} \forall_{\mathrm{a} \in \mathrm{actions}} \exists \sigma \in M_{\sigma_\mathrm{s, p, a}} \text{ such that } \sigma \neq -
+% \end{equation}
+% \end{definition}
 
 
 \subsubsection{Assumptions}\label{sec:assumptions}
@@ -784,9 +812,14 @@ For the purpose of our analysis, we operate under the following assumptions:
 \item The cost of publishing the Proof of Delivery (PoD) is negligible and is offset by the customer's effort in delivering the package.
 \end{enumerate}
 
-\subsubsection{Steps}\label{sec:steps}
+\subsection{Proofs}\label{sec:proofs}
 
-The fairness of our protocol is visually represented in Figure~\ref{fig:positions}, which shows the positions of each party after each possible action within the protocol.
+\begin{theorem}
+The proposed protocol satisfies the security requirement of \textbf{R1b Weak fairness}.  
+\end{theorem}
+
+\begin{proof} 
+The positions of each party after each action within our protocol are visually represented in Figure~\ref{fig:positions}. The detailed description of each step and the reasoning behind the outcomes is given in~\ref{app:proof-of-fairness}.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{model.png}
@@ -795,23 +828,29 @@ The fairness of our protocol is visually represented in Figure~\ref{fig:position
 \label{fig:positions}
 \end{figure}
 
-The detailed description of each step and the reasoning behind the outcomes is given in~\ref{app:proof-of-fairness}.
+Following the definition of \textbf{R1b Weak fairness} it's sufficient to show that, with the use of an external arbitrator (Dispute Resolution Service), the protocol completes either with both parties getting the desired items (advantaged positions), or neither does (neutral or disadvantaged).
+The protocol (successfully) completes at the last normal agreement step ($\sigma_{9,n}$), and (unsuccessfully), after starting a dispute ($\sigma_{\dispute}$ or $\sigma_{\abdispute}$). 
+We consider only honest (rational) customer, and so it will always starts a dispute after the SP misbehaves, and so it will never settle at abnormal agreement positions ($\sigma_{\abnormal}$, as that would be irrational.
+
+\end{proof}
 
 
-% By applying the definition of fairness from Section~\ref{def:fairness} and considering the assumptions outlined in Section~\ref{sec:assumptions}, our analysis confirms that the protocol achieves fairness under these scenarios (see ~\ref{app:proof-of-fairness} for detailed description).
+\begin{theorem}
+The proposed protocol satisfies the security requirement of \textbf{R2, Timeliness}.  
+\end{theorem}
 
-\subsection{Timeliness}
-The timeliness of the protocol is achieved through the use of blockchain. Assuming an honest majority, the blockchain acts as a global, immutable and undeniable clock that timestamps each action and moves the protocol forward. Every step must be recorded on the blockchain, once the transaction is recorded it's undeniable.
+\begin{proof} 
 
-Both parties agree to the timelines $\mathrm{T}_\mathrm{issue}$, $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$ and so any breach of the timelines is undeniably conclusive. The blockchain continuously creates blocks at a probabilistic rate. If a party hasn't fulfilled its step within a time window, it can't publish a transaction in a previous block. Consequently, the protocol cannot move from a completed to a non-completed state, nor can it hang in a non-completed position as the timelines push it forward, thus fulfilling the \textbf{R2, Timeliness} requirement.
+The timeliness of the protocol is achieved through the use of blockchain. Assuming an honest majority, the blockchain acts as a global, immutable and undeniable clock that timestamps every action and moves the protocol forward. Every step must be recorded on the blockchain, once the transaction is recorded it's undeniable.
 
+Both parties agree to the timelines $\mathrm{T}_\mathrm{issue}$, $\mathrm{T}_\mathrm{pay}$, $\mathrm{T}_\mathrm{provide}$ and so any breach of the timelines is undeniably conclusive. The blockchain continuously creates blocks at a probabilistic rate. If a party hasn't completed its step within a time window, it can't publish a transaction in a previous block. Consequently, the protocol cannot move from a completed to an uncompleted state, nor can it hang in an uncompleted position, as the blocks produced move the parties' states out of the agreed timelines, thus fulfilling the \textbf{R2, Timeliness} requirement.
+\end{proof}
 
 
 % TODO: finish this train of thought
 % TODO: The transaction actually can hang out if one party voliate and the other doesn't start a dispute. We would have to add a period of time where the dispute is 
 % An honest participant can be assured that the exchange will conclude (either successfully or unsuccessfully) within a specified timeframe, regardless of the other participant's behavior. At the end of the protocol, the outcome is final from the honest participant's perspective (e.g., the fairness ensured by the protocol remains consistent).
 
-\subsection{Effectiveness}
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{rational.png}
@@ -819,6 +858,10 @@ Both parties agree to the timelines $\mathrm{T}_\mathrm{issue}$, $\mathrm{T}_\ma
 \caption{Transitions of positions in a scenario where both the customer and the SP adhere to the protocol.}
 \label{fig:rational}
 \end{figure}
+
+\begin{theorem}
+The proposed protocol satisfies the security requirement of \textbf{R2, Effectiveness}.  
+\end{theorem}
 
 The first scenario (Figure~\ref{fig:rational}) represents the rational and intended course of action, where both the client and the SP follow the protocol as designed. This scenario is crucial as it shows that parties who act correctly (normally and agreeably) will eventually succeed and thus \textbf{R3, Effectiveness} is achieved.
 
@@ -891,7 +934,7 @@ With preparations complete, the experiment proceeds as follows:
 \subsection{Results}
 
 \paragraph{Fairness}
-As shown in Section~\ref{sec:steps} and ~\ref{app:proof-of-fairness}, the protocol is fair. This was achieved through an undeniable handshake mechanism, where the SP first commits to the package delivery and service deadlines by publishing the PoD (as outlined in step 2). The customer then acknowledges this commitment and accepts the terms by proceeding with the payment for the service (step 3).
+As shown in Section~\ref{sec:proofs} the protocol is fair. This was achieved through an undeniable handshake mechanism, where the SP first commits to the package delivery and service deadlines by publishing the PoD (as outlined in step 2). The customer then acknowledges this commitment and accepts the terms by proceeding with the payment for the service (step 3).
 
 Once payment is confirmed, the SP is incentivized to fulfill the service obligations. The SP must deliver the service and publish both the results and the PoP before the agreed deadline (step 7). Failure to do so allows the customer, equipped with all necessary evidence, to initiate a dispute and potentially penalize the SP. This mechanism ensures that rational parties are motivated to adhere to the protocol.
 
@@ -1025,7 +1068,7 @@ The source code is available at \url{https://github.com/stanbar/anonser}.
 \begin{sloppypar}
 \section{Proof of fairness}\label{app:proof-of-fairness}
 Below we describe each step and the reasoning behind the outcome position.
-We use the notation introduced in Section~\ref{sec:fairness-model} to analyse each position in the protocol and the fairness Definition~\ref{def:fairness} to show the fairness of the protocol.
+We use the notation introduced in Section~\ref{sec:fairness-model} to analyse each position in the protocol and to show the fairness of the protocol.
 
 \newcommand{\AgreeablePath}{Agreeable path:}
 \newcommand{\DisputePath}{The customer starts a dispute:}
