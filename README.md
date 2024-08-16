@@ -1,132 +1,140 @@
-# Anonymous provision of services via blockchain
+# Anonymous Provision of Services via Blockchain
 
 ## Installation
 
 ### Install Powergate (IPFS + Lotus)
 
-Follow the installation `https://github.com/textileio/powergate#localnet-mode`
+Follow the installation instructions [here](https://github.com/textileio/powergate#localnet-mode) to set up Powergate, which combines IPFS and Lotus.
 
-### Install Ganache — Ethereum development blockchain
+### Install Ganache — Ethereum Development Blockchain
 
-https://github.com/trufflesuite/ganache/tree/master#docker
-
-1. Start a docker container with ganache `docker run --detach --publish 8545:8545 trufflesuite/ganache:latest`
-2. Import one of the generated accounts into Metamask.
+1. Follow the instructions [here](https://github.com/trufflesuite/ganache/tree/master#docker) to install Ganache.
+2. Start a Docker container with Ganache:
+   ```bash
+   docker run --detach --publish 8545:8545 trufflesuite/ganache:latest
+   ```
+3. Import one of the generated accounts into MetaMask.
 
 ### Install Monero
 
-1. Download and install Monero CLI wallet binaries: https://www.getmonero.org/downloads/  
-2. Use `monero-wallet-cli` to interact with daemon https://www.getmonero.org/resources/user-guides/monero-wallet-cli.html
+1. Download and install the Monero CLI wallet binaries from the official [Monero website](https://www.getmonero.org/downloads/).
+2. Use `monero-wallet-cli` to interact with the daemon. Refer to the [user guide](https://www.getmonero.org/resources/user-guides/monero-wallet-cli.html) for details.
 
-Start 2 nodes of a stagenet which only like talking to each other:
-```
+Start two nodes on a stagenet that only communicate with each other:
+```bash
 monerod --stagenet
 ```
 
-Then start client's cli wallet on the same machine:
-
+Then start the client's CLI wallet on the same machine:
 ```bash
 monero-wallet-cli --stagenet
 ```
-And mine some blocks `start_mining <yourwalletaddress> 1`
+Mine some blocks:
+```bash
+start_mining <yourwalletaddress> 1
+```
 
-
-Then start SP's cli wallet on the same machine:
-
+Repeat the above steps for the Service Provider's (SP) CLI wallet:
 ```bash
 monero-wallet-cli --stagenet
 ```
+Mine some blocks as well:
+```bash
+start_mining <yourwalletaddress> 1
+```
 
-And mine some blocks `start_mining <yourwalletaddress> 1`
+After a short time, both wallets should show a balance. Check the balance with the `refresh` command.
 
-After some time, both wallets should have some balance. Check balance with `refresh` command.
+- Client's address: `5Azsn5VgEje8ocGTJcyXNcj2rGdNHEbyNQBJJjrYvCxrJjNCDZuQxoT6caF12TSoNr77WwoEGUsfofQxHG2s84htP7K918K`
+- SP's address: `5B6PgosHHqXNRgMhGyN25pewMf1VjoCWvGQJRzFYkj3UYZwvTaHfG2gdrSAWxLmgHphhh1Zt1AsvgRj6eBYQb3MW5YSXiUr`
 
-Client's address is 5Azsn5VgEje8ocGTJcyXNcj2rGdNHEbyNQBJJjrYvCxrJjNCDZuQxoT6caF12TSoNr77WwoEGUsfofQxHG2s84htP7K918K
-SP's address is 5B6PgosHHqXNRgMhGyN25pewMf1VjoCWvGQJRzFYkj3UYZwvTaHfG2gdrSAWxLmgHphhh1Zt1AsvgRj6eBYQb3MW5YSXiUr
+#### Proving to a Third Party You Paid Someone
 
-#### Proving to a third party you paid someone
+1. Enable per-transaction proof generation by setting:
+   ```bash
+   set store-tx-info 1
+   ```
+2. Send a transaction from the client to SP and generate a proof:
+   ```bash
+   get_tx_key <key>
+   ```
+3. Verify the transaction using:
+   ```bash
+   check_tx_key TXID TXKEY ADDRESS
+   ```
 
-https://www.getmonero.org/resources/user-guides/monero-wallet-cli.html#proving-to-a-third-party-you-paid-someone
+### Deploy the Smart Contract
 
-1. Enable per-transaction proof generation by setting `set store-tx-info 1`
+1. Navigate to the smart contracts directory:
+   ```bash
+   cd smartcontracts
+   ```
+2. Connect to the Ganache blockchain with Truffle:
+   ```bash
+   truffle console
+   ```
+3. Deploy the smart contract:
+   ```bash
+   migrate --network development
+   ```
+   This will compile the smart contract and output the ABI to `webapp/src/contracts/AnonSer.json`.
 
-2. Send transaction from client to SP: 
-`get_tx_key <key>`
+### Start the Web App
 
-`check_tx_key TXID TXKEY ADDRESS`
+1. Navigate to the web app directory:
+   ```bash
+   cd webapp
+   ```
+2. Start the npm server:
+   ```bash
+   npm start
+   ```
 
+## Flow
 
+1. **Client:** Opens the web app, which generates a DHKE-compliant key pair and a random `provisionId`.
+2. **QR Code:** The app generates a QR code containing the public key and `provisionId`, which the client downloads and prints as a label.
+3. **Package:** The QR code is attached to the materials package (`pkg`) and delivered to the service provider, optionally with cash.
+4. **SP:** Scans the QR code to retrieve the public key and `provisionId`.
+5. **Payment:**
+   - If paid in cash, SP can immediately publish a Proof of Delivery on the Ethereum smart contract.
+   - If not, SP generates a new integrated address for the client, calculates a payment ID, and publishes the Proof of Delivery along with the dedicated payment address.
+6. **Client:** Listens for events on the Ethereum smart contract.
+7. **Payment:** If not paid in cash, the client sends payment to the specified address.
+8. **Service Provision:** SP processes the payment, provides the service, and uploads the results to the Powergate network.
+9. **Result Delivery:** SP publishes the proof of provision to the Ethereum smart contract.
+10. **Client:** Retrieves and decrypts the results from IPFS/Lotus using the smart contract information.
 
-### Deploy smart contract
+## Components
 
-1. Go to smartcontracts directory `cd smartcontracts`.
-2. Connect truffle console connecting to ganache blockchain `truffle console`.
-3. Deploy the smartcontract `migrate --project development`, such command compile the smart contract and output the ABI to `webapp/src/contracts/AnonSer.json`.
+### Client's App Responsibilities:
+- Generate a random key pair and `provisionId`.
+- Encode the public key and `provisionId`, generate a QR code, and download it as a printable label.
+- Listen for smart contract events and fetch/decrypt provision results from IPFS/Lotus.
 
-### Start a webapp
+### SP's App Responsibilities:
+- Scan and decode the QR code.
+- Publish transactions to the Ethereum smart contract.
+- Listen for payments on supported methods.
+- Upload provision results to IPFS/Lotus.
 
-1. Go to webapp directory `cd webapp`.
-2. Start an npm server `npm start`.
+### User Responsibilities:
+- Use the web app, print the QR code, and attach it to the package.
+- Deliver the package to the Service Provider.
+- Pay for the service, either in cash or via another supported method.
+- Notify authorities in case of a conflict.
 
-# Flow
+### SP Responsibilities:
+- Accept the package with the printed QR code label.
+- Handle payments and service provision according to the protocol.
 
-1. Client opens the web app. The app generate keypair in DHKE complaint way and a random provisionId.
-2. The app allows for downloading QR code which includes his public key (0x030996a0abeab1c02aa9d9fc0062a68410278328c332eaa9980f6033869c3e4c51) and random provisionId (0xa89338dba7ba5aa46c4dfadd209bfd82a99564444767041ce7f35af7189100f4) (provisionId is generated client side because it allows for one way communication). 
-3. The QR code is printed and attached to materials forming package pkg.
-4. Pkg is delivered to service provider along with optional cash. 
-5. SP scan the QR code, and decode public key, provisionId (0x030996a0abeab1c02aa9d9fc0062a68410278328c332eaa9980f6033869c3e4c51, 0xa89338dba7ba5aa46c4dfadd209bfd82a99564444767041ce7f35af7189100f4)
+## Development
 
-6.1. If Client has paid in cash then SP can publish Proof of Delivery on Ethereum smart contract immediately indicating that the service has been paid.
-6.2. If Client has not paid in cash then SP generates new integrated address for the client and publish Proof of Delivery with the decidated address for this particular provision.
-6.2.1 SP calculates the payment ID which is first 8 bytes of SHA256 hash of provisionId  (0xa89338dba7ba5aa46c4dfadd209bfd82a99564444767041ce7f35af7189100f4) and publish it on Ethereum smart contract.
-6.2.2 Calculate the payment ID with `echo -n "a89338dba7ba5aa46c4dfadd209bfd82a99564444767041ce7f35af7189100f4" | shasum -a 256 | cut -f 1 -d " " | head -c 16` which gives us `b5117c8076f969b6`.
-6.2.3 SP creates integrated address using the payment ID `integrated_address b5117c8076f969b6` which encodes to an address `5Lo4hcgmu73NRgMhGyN25pewMf1VjoCWvGQJRzFYkj3UYZwvTaHfG2gdrSAWxLmgHphhh1Zt1AsvgRj6eBYQb3MW7outEsEws1aMdBwaAS`.
+### Client App
+- Initialized using `create-react-app`.
+- Integrated with `web3js` for blockchain interaction.
+- User interface with options to start new provisions or check provision status.
 
-7. The client app, listens for Ethereum smart contract.
-8. Once SP has published Proof of Delivery and Client had not paid with cash, Client can pay for the provision using the dedicated address provided in the smart contract.
-8.1. 
-9. SP listens for all supported payment methods.
-10. Once the payment is published, SP starts the provision of a service.
-11. Then the result is created and SP publish it to it's local Powergate network, or public https://estuary.tech or https://web3.storage for test purposes use Powergate network. Receive dealID and CID in return.
-12. Publish proof of provision to ethereum smart contract.
-13. Client app observe the smart contract and listen for transactions published to it. 
-14. Client app gets notified about new event made for his publicKey.
-15. Client app fetches the content CID and dealID and fetch the results from public gateway https://dweb.link/
-16. The content is then decrypted and user can download it.
-
-# Components
-
-Client's app is responsible for:
-- Generating random keypair and random provisionId https://www.npmjs.com/package/randombytes
-- Encoding publicKey and provisionId Generating QR code and downloading it as a printable label. https://www.npmjs.com/package/react-qr-code
-- Listening on Service Provider's smart contract events.
-- Fetching and decrypting the provision result from IPFS/Lotus network.
-
-SP's app is responsible for:
-- Scanning and decoding the QR code
-- Publishing transactions to Ethereum's smart contract
-- Listening for payments on supported payment methods
-- Publishing provision result to IPFS/Lotus networks.
-
-User is responsible for:
-- Using the WebApp.
-- Printing QR code and sticking it on package.
-- Delivering package to Service Provider. In person, via trusted person, or via deviery agent.
-- Paying for the package, in cash or any other supported payment method.
-- Notifying the justice in case of a conflict.
-
-SP is responsible for:
-- Accepting the package with printed QR code label.
-- Sending 
-
-Client App
-- init create-react-app
-- add web3js https://web3js.readthedocs.io/en/v1.8.0/getting-started.html#adding-web3
-- connect to local-network where the smart contract is deployed.
-- user opens the app, there is a button with "Start new provision" and "Check provision status".
-- ... TODO
-
-Server App
-- Accept package
-- Checkbox if paid synchroniously, a priori, with cash.
-- ...TODO
+### Server App
+- Accept packages and handle payment verification.
+- Manage the lifecycle of service provision.
