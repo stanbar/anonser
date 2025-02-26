@@ -1,4 +1,7 @@
 \documentclass[pdftex,twocolumn,epjc3]{svjour3} 
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL main_21-08-2024.tex   Wed Feb 26 18:44:23 2025
+%DIF ADD main.tex              Wed Feb 26 19:04:30 2025
 \RequirePackage[T1]{fontenc}
 \smartqed
 \RequirePackage{graphicx}
@@ -79,6 +82,87 @@ The work has been supported partially by the founds of Department of Computer Ar
 }
 
 \newcommand\LASTVISITED{(last visited Jan. 31, 2023)}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -129,41 +213,47 @@ We analyse the fairness of our protocol and implement it using Ethereum technolo
 \section{Introduction}
 \label{sec:introduction}
 \begin{sloppypar}
-Providing services in sensitive domains like healthcare, legal advice, or financial auditing increasingly relies on secure information handling. These services often require customers to share personal data, including sensitive information such as health records, biological materials, or confidential legal documents. This necessity exposes both users and service providers (SPs) to significant information security and privacy risks. SPs face the challenge of adhering to regulations like GDPR, CPA, and other data protection laws, while customers are vulnerable to privacy breaches, identity theft, and misuse of their sensitive data~\cite{smithInformationPrivacyResearch2011}.
+\DIFdelbegin \DIFdel{Sensitive diagnostic services such as paternity tests, doping tests, and venereal disease tests }\DIFdelend \DIFaddbegin \DIFadd{Providing services in sensitive domains like healthcare, legal advice, or financial auditing increasingly relies on secure information handling. These services often }\DIFaddend require customers to \DIFdelbegin \DIFdel{provide biological material such as blood, urine, stool, or saliva, which often necessitates revealing their identity. This exposure poses significant }\DIFdelend \DIFaddbegin \DIFadd{share personal data, including sensitive information such as health records, biological materials, or confidential legal documents. This necessity exposes both users and service providers (SPs) to significant information security and }\DIFaddend privacy risks. \DIFdelbegin \DIFdel{Similarly, other sensitive services include anonymous complaints, legal services requiring financial and confidential disclosures, and banking services needing personal information such as medical records and financial histories. The necessity to provide personal information exposes users to risks such as loss of control over their information}\DIFdelend \DIFaddbegin \DIFadd{SPs face the challenge of adhering to regulations like GDPR, CPA, and other data protection laws, while customers are vulnerable to privacy breaches}\DIFaddend , identity theft, \DIFdelbegin \DIFdel{data breaches, and unauthorized monitoring, which can lead to severe consequences such as GDPR or CPA violations, targeted advertising, or unlawful tracking and surveillance}\DIFdelend \DIFaddbegin \DIFadd{and misuse of their sensitive data}\DIFaddend ~\cite{smithInformationPrivacyResearch2011}.
 \end{sloppypar}
 
 \begin{sloppypar}
-For individuals in the public eye, such as influencers, politicians, and celebrities, these risks are amplified. Exposure of their health records, financial transactions, or legal documents can severely damage their reputation or become tools for blackmail. The problem is further compounded when personal information is directly linked to sensitive records or biological materials.  This can deter customers from seeking necessary services due to privacy concerns, negatively impacting both the customer and the service provider (SP)~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}.
+\DIFdelbegin \DIFdel{Public figures, including }\DIFdelend \DIFaddbegin \DIFadd{For individuals in the public eye, such as }\DIFaddend influencers, politicians, and celebrities, \DIFdelbegin \DIFdel{are particularly vulnerable as the exposure }\DIFdelend \DIFaddbegin \DIFadd{these risks are amplified. Exposure }\DIFaddend of their health records, \DIFdelbegin \DIFdel{purchasing habits}\DIFdelend \DIFaddbegin \DIFadd{financial transactions}\DIFaddend , or legal documents can \DIFdelbegin \DIFdel{be detrimental to }\DIFdelend \DIFaddbegin \DIFadd{severely damage }\DIFaddend their reputation or \DIFdelbegin \DIFdel{used }\DIFdelend \DIFaddbegin \DIFadd{become tools }\DIFaddend for blackmail. \DIFdelbegin \DIFdel{This problem intensifies }\DIFdelend \DIFaddbegin \DIFadd{The problem is further compounded }\DIFaddend when personal information is \DIFaddbegin \DIFadd{directly }\DIFaddend linked to sensitive records or biological materials\DIFdelbegin \DIFdel{, causing customers to withdraw from }\DIFdelend \DIFaddbegin \DIFadd{.  This can deter customers from seeking necessary }\DIFaddend services due to privacy concerns\DIFdelbegin \DIFdel{. This withdrawal negatively impacts }\DIFdelend \DIFaddbegin \DIFadd{, negatively impacting }\DIFaddend both the customer \DIFdelbegin \DIFdel{, who does not receive needed services, }\DIFdelend and the service provider (SP)\DIFdelbegin \DIFdel{, who loses potential clients}\DIFdelend ~\cite{klitzmanExclusionGeneticInformation2010,blackPresymptomaticTestingConfidentiality2021}.
 \end{sloppypar}
 
 \begin{sloppypar}
-Within healthcare systems, Electronic Medical Records (EMRs) are prime examples of sensitive data requiring stringent security measures~\cite{jinReviewSecurePrivacypreserving2019,keshtaSecurityPrivacyElectronic2021}. Privacy-preserving data mining (PPDM) is a vital research area, focusing on anonymization and secure patient-healthcare interactions~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. Studies suggest that EMR adoption can inadvertently compromise confidentiality~\cite{blackPresymptomaticTestingConfidentiality2021}, and patient distrust due to privacy concerns can lead to the exclusion of genetic data from EMRs~\cite{klitzmanExclusionGeneticInformation2010}.
+\DIFdelbegin \DIFdel{In }\DIFdelend \DIFaddbegin \DIFadd{Within }\DIFaddend healthcare systems, \DIFdelbegin \DIFdel{critical data typically resides in }\DIFdelend Electronic Medical Records (EMRs) \DIFdelbegin \DIFdel{, regarded as confidential and requiring robust }\DIFdelend \DIFaddbegin \DIFadd{are prime examples of sensitive data requiring stringent }\DIFaddend security measures~\cite{jinReviewSecurePrivacypreserving2019,keshtaSecurityPrivacyElectronic2021}. Privacy-preserving data mining (PPDM) \DIFdelbegin \DIFdel{remains an active }\DIFdelend \DIFaddbegin \DIFadd{is a vital }\DIFaddend research area, focusing on anonymization \DIFdelbegin \DIFdel{methods and securing }\DIFdelend \DIFaddbegin \DIFadd{and secure }\DIFaddend patient-healthcare interactions~\cite{nareshPrivacyPreservingData2023,linPPSFOpensourcePrivacypreserving2018,hewagePrivacypreservingDataStream2023}. Studies \DIFdelbegin \DIFdel{indicate that adopting EMRs can }\DIFdelend \DIFaddbegin \DIFadd{suggest that EMR adoption can inadvertently }\DIFaddend compromise confidentiality~\cite{blackPresymptomaticTestingConfidentiality2021}, and \DIFaddbegin \DIFadd{patient distrust due to privacy concerns can lead to the }\DIFaddend exclusion of genetic data from EMRs\DIFdelbegin \DIFdel{often results from patient distrust}\DIFdelend ~\cite{klitzmanExclusionGeneticInformation2010}.
 \end{sloppypar}
 
 \begin{sloppypar}
-Our study explores the provision of services while minimizing the collection of personal information, thereby addressing privacy concerns proactively, even before data is entered into systems like EMRs. By maintaining customer anonymity during service delivery, we aim to reduce the level of trust required from customers and alleviate the responsibility borne by SPs regarding personal data protection. Key participants in this model include customers, SPs, and dispute resolution services. Examples of services that particularly benefit from anonymity include:
+Our study explores \DIFdelbegin \DIFdel{providing services without revealing }\DIFdelend \DIFaddbegin \DIFadd{the provision of services while minimizing the collection of }\DIFaddend personal information, \DIFaddbegin \DIFadd{thereby }\DIFaddend addressing privacy concerns \DIFdelbegin \DIFdel{before data enters EMR systems . Maintaining customer anonymity while delivering services reduces the }\DIFdelend \DIFaddbegin \DIFadd{proactively, even before data is entered into systems like EMRs. By maintaining customer anonymity during service delivery, we aim to reduce the level of }\DIFaddend trust required from customers and \DIFaddbegin \DIFadd{alleviate }\DIFaddend the responsibility borne by SPs \DIFaddbegin \DIFadd{regarding personal data protection}\DIFaddend . Key participants in this model include customers, SPs, and dispute resolution services. Examples of services \DIFdelbegin \DIFdel{benefiting }\DIFdelend \DIFaddbegin \DIFadd{that particularly benefit }\DIFaddend from anonymity include:
 \begin{itemize}
+\DIFaddbegin 
 
-  \item \textbf{Confidentiality in Medical Testing}: Patients undergoing sensitive tests such as for drugs, STDs, paternity, or steroids benefit from privacy to avoid potential stigma or unwanted disclosure.
+  \DIFaddend \item \textbf{Confidentiality in Medical Testing}: Patients undergoing \DIFdelbegin \DIFdel{tests }\DIFdelend \DIFaddbegin \DIFadd{sensitive tests such as }\DIFaddend for drugs, STDs, paternity, or steroids benefit from \DIFdelbegin \DIFdel{keeping the process private to avoid suggestive implications.
+}\DIFdelend \DIFaddbegin \DIFadd{privacy to avoid potential stigma or unwanted disclosure.
+}
 
-  \item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Entrepreneurs seeking risk assessment may prefer anonymous consultations to protect sensitive business ideas and prevent potential misuse of disclosed information.
+  \DIFaddend \item \textbf{Anonymity in Legal Consultations for Entrepreneurs}: Entrepreneurs \DIFdelbegin \DIFdel{assessing risks }\DIFdelend \DIFaddbegin \DIFadd{seeking risk assessment }\DIFaddend may prefer anonymous consultations to \DIFdelbegin \DIFdel{prevent }\DIFdelend \DIFaddbegin \DIFadd{protect sensitive business ideas and prevent potential }\DIFaddend misuse of disclosed information.
+\DIFaddbegin 
 
-  \item \textbf{Whistleblowing Platforms}: Anonymous reporting mechanisms for unethical or illegal activities foster transparency and accountability without fear of retaliation.
+  \DIFaddend \item \textbf{Whistleblowing Platforms}: Anonymous reporting \DIFdelbegin \DIFdel{of }\DIFdelend \DIFaddbegin \DIFadd{mechanisms for }\DIFaddend unethical or illegal activities \DIFdelbegin \DIFdel{promotes }\DIFdelend \DIFaddbegin \DIFadd{foster }\DIFaddend transparency and accountability without fear of \DIFdelbegin \DIFdel{reprisal.
+}\DIFdelend \DIFaddbegin \DIFadd{retaliation.
+}
 
-  \item \textbf{Sexual Health and Reproductive Services}: Individuals seeking advice on sensitive health topics prefer anonymity to avoid societal judgment or discrimination.
+  \DIFaddend \item \textbf{Sexual Health and Reproductive Services}: Individuals seeking advice on sensitive \DIFdelbegin \DIFdel{topics like sexual health , contraception, or abortion prefer anonymity due to potential societal judgment }\DIFdelend \DIFaddbegin \DIFadd{health topics prefer anonymity to avoid societal judgment or discrimination}\DIFaddend .
 \end{itemize}
 \end{sloppypar}
 
 \begin{sloppypar}
-Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent privacy risks such as breach of confidentiality, disclosure, identification, and secondary use. We consider adversaries like malicious insiders, government agencies, third-party services, hackers, and cybercriminals. Our proposed protocol aims to decouple personal information from materials, payment, and communication processes, thereby enhancing anonymity even under adversarial conditions.
+Using Solove's Taxonomy of Privacy~\cite{soloveTaxonomyPrivacy2006}, our protocol aims to prevent privacy risks such as breach of confidentiality, disclosure, identification, and secondary use. We consider adversaries like malicious insiders, government agencies, third-party services, hackers, and cybercriminals. Our proposed protocol \DIFdelbegin \DIFdel{decouples }\DIFdelend \DIFaddbegin \DIFadd{aims to decouple }\DIFaddend personal information from materials, payment, and communication \DIFdelbegin \DIFdel{, achieving anonymity even during attacks}\DIFdelend \DIFaddbegin \DIFadd{processes, thereby enhancing anonymity even under adversarial conditions}\DIFaddend .
 \end{sloppypar}
 
 \begin{sloppypar}
-However, designing a protocol that effectively hides the customer's identity while ensuring secure and coordinated service delivery presents significant challenges.  In particular, resolving conflicts between customers and service providers becomes complex when customer identities are not known.
+However, \DIFaddbegin \DIFadd{designing }\DIFaddend a protocol that \DIFaddbegin \DIFadd{effectively }\DIFaddend hides the customer's identity \DIFdelbegin \DIFdel{is difficult to secure and coordinate}\DIFdelend \DIFaddbegin \DIFadd{while ensuring secure and coordinated service delivery presents significant challenges}\DIFaddend .  In particular, \DIFaddbegin \DIFadd{resolving }\DIFaddend conflicts between customers and service providers \DIFdelbegin \DIFdel{are difficult to resolve when there is no subject to accuse}\DIFdelend \DIFaddbegin \DIFadd{becomes complex when customer identities are not known}\DIFaddend .
 \end{sloppypar}
 
 \begin{sloppypar}
-We address the challenge of anonymous service provision by framing it as a fair exchange problem. This approach ensures that in a transaction, either both parties (customer and service provider) receive what they expect, or neither does. In our specific context, this involves the exchange of money and sensitive (possibly physical) materials for a service result. Our review of existing systems indicates that none fully satisfy all our requirements, especially regarding anonymity and handling of physical materials with dispute resolution. We, therefore, propose a novel anonymous protocol tailored for services that require physical materials, incorporating robust dispute resolution mechanisms. In situations of conflict, our protocol allows customers to disclose relevant interaction details and provide verifiable proofs of SP misbehavior to dispute resolution services.
+We \DIFdelbegin \DIFdel{frame }\DIFdelend \DIFaddbegin \DIFadd{address the challenge of }\DIFaddend anonymous service provision \DIFaddbegin \DIFadd{by framing it }\DIFaddend as a fair exchange problem\DIFdelbegin \DIFdel{, ensuring that }\DIFdelend \DIFaddbegin \DIFadd{. This approach ensures that in a transaction, }\DIFaddend either both parties (customer and service provider) \DIFdelbegin \DIFdel{get the goods or neither }\DIFdelend \DIFaddbegin \DIFadd{receive what they expect, or neither does}\DIFaddend . In our \DIFdelbegin \DIFdel{case, the parties exchange }\DIFdelend \DIFaddbegin \DIFadd{specific context, this involves the exchange of }\DIFaddend money and sensitive (possibly physical) materials for a service result. Our review of existing systems \DIFdelbegin \DIFdel{reveals }\DIFdelend \DIFaddbegin \DIFadd{indicates }\DIFaddend that none fully \DIFdelbegin \DIFdel{meet our requirements. We propose an anonymous protocol }\DIFdelend \DIFaddbegin \DIFadd{satisfy all our requirements, especially regarding anonymity and handling of physical materials with dispute resolution. We, therefore, propose a novel anonymous protocol tailored }\DIFaddend for services that require physical materials, \DIFdelbegin \DIFdel{with dispute resolution capabilities. If disputes arise, customers can disclose interactions and prove SP misbehavior }\DIFdelend \DIFaddbegin \DIFadd{incorporating robust dispute resolution mechanisms. In situations of conflict, our protocol allows customers to disclose relevant interaction details and provide verifiable proofs of SP misbehavior to dispute resolution services}\DIFaddend .
 \end{sloppypar}
 
 \begin{sloppypar}
@@ -171,40 +261,49 @@ Our protocol is specifically designed for the commerce sector, particularly for 
 \end{sloppypar}
 
 \begin{sloppypar}
+\DIFaddbegin 
 
-To achieve this, our protocol integrates:
+\DIFaddend To achieve this, \DIFdelbegin \DIFdel{we use}\DIFdelend \DIFaddbegin \DIFadd{our protocol integrates}\DIFaddend :
 \begin{itemize}
   \item \textbf{Blockchain}, to achieve fairness, i.e., as a means of proving that certain actions took place at a certain time without the Trusted Third Party (TTP).
   \item \textbf{Anonymous payment methods}, like cash or cryptocurrencies, for anonymous transactions.
-  \item \textbf{Decentralised storage network} (e.g., IPFS) to enable secure delivery of results, coupled with a provable storage network (e.g., Filecoin) to guarantee result availability to the customer.
-  \item \textbf{Cryptographic techniques}, including symmetric encryption, Diffie-Hellman key exchange, and digital signatures for secure communication and authentication.
+  \item \textbf{Decentralised storage network} (e.g., IPFS) to \DIFdelbegin \DIFdel{provide resultstogether }\DIFdelend \DIFaddbegin \DIFadd{enable secure delivery of results, coupled }\DIFaddend with a provable storage network (e.g., Filecoin) to guarantee \DIFdelbegin \DIFdel{that the results are available }\DIFdelend \DIFaddbegin \DIFadd{result availability }\DIFaddend to the customer\DIFdelbegin \DIFdel{even if the SP refuses to share the result}\DIFdelend .
+  \item \DIFdelbegin \DIFdel{Cryptographic techniques}\DIFdelend \DIFaddbegin \textbf{\DIFadd{Cryptographic techniques}}\DIFaddend , including symmetric encryption, Diffie-Hellman key exchange, and digital signatures for \DIFdelbegin \DIFdel{security }\DIFdelend \DIFaddbegin \DIFadd{secure communication }\DIFaddend and authentication.
 \end{itemize}
 \end{sloppypar}
 
 \begin{sloppypar}
+\DIFaddbegin 
 
-Figure~\ref{fig:protocol-overview} presents a simplified protocol diagram. The contributions of this paper are:
+\DIFaddend Figure~\ref{fig:protocol-overview} \DIFdelbegin \DIFdel{illustrates }\DIFdelend \DIFaddbegin \DIFadd{presents }\DIFaddend a simplified protocol diagram. The \DIFdelbegin \DIFdel{contribution of our paper is multifaceted and significant in advancing blockchain-based fair exchange systems}\DIFdelend \DIFaddbegin \DIFadd{contributions of this paper are}\DIFaddend :
 \begin{itemize}
   \item We propose a protocol based on a realistic operational and threat model that:
   \begin{itemize}
-    \item Enables \textbf{anonymous service provision} involving physical materials, thus eliminating the need for service providers to collect personal information.
-    \item Achieves \textbf{weak fairness} through blockchain technology and cryptographic proofs, modeled as an interactive non-cooperative game, ensuring fairness at each step, with recourse to dispute resolution.
-    \item In dispute-free cases operates without a centralized Trusted Third Party (TTP), leveraging a decentralized blockchain and a distributed content-addressable storage network, while acknowledging the role of offline dispute resolution.
-    \item Enhances \textbf{user experience and practicality} in conflict-free transactions by minimizing customer interaction with the blockchain.
-    \item Ensures \textbf{remote availability of results}, even if the service provider becomes unresponsive.
+    \item Enables \textbf{anonymous service provision} involving physical materials, \DIFaddbegin \DIFadd{thus }\DIFaddend eliminating the need for service providers to collect personal information\DIFdelbegin \DIFdel{from customers}\DIFdelend .
+    \item Achieves \textbf{\DIFaddbegin \DIFadd{weak }\DIFaddend fairness} through blockchain technology and cryptographic proofs, modeled as an interactive non-cooperative game, ensuring fairness at each step\DIFaddbegin \DIFadd{, with recourse to dispute resolution}\DIFaddend .
+    \item \DIFdelbegin \DIFdel{Operates }\DIFdelend \DIFaddbegin \DIFadd{In dispute-free cases operates }\DIFaddend without a centralized Trusted Third Party (TTP), leveraging a decentralized blockchain and a distributed content-addressable storage network\DIFaddbegin \DIFadd{, while acknowledging the role of offline dispute resolution}\DIFaddend .
+    \item Enhances \textbf{user experience and practicality} in conflict-free transactions by \DIFdelbegin \DIFdel{eliminating the need for }\DIFdelend \DIFaddbegin \DIFadd{minimizing }\DIFaddend customer interaction with the blockchain.
+    \item Ensures \textbf{remote availability of results}, even \DIFdelbegin \DIFdel{in cases of service provider denial}\DIFdelend \DIFaddbegin \DIFadd{if the service provider becomes unresponsive}\DIFaddend .
   \end{itemize}
-  \item We provide a working prototype with open-source code, demonstrating the practical applicability of our protocol.
+  \item \DIFdelbegin \DIFdel{Our implementation includes }\DIFdelend \DIFaddbegin \DIFadd{We provide }\DIFaddend a working prototype with open-source code, demonstrating the practical applicability of our protocol.
+\DIFaddbegin 
 
-  \item We clarify key concepts such as anonymity, pseudonymity, linkability, and traceability, which are often used ambiguously in the literature.
+  \DIFaddend \item We clarify \DIFdelbegin \DIFdel{often misused }\DIFdelend \DIFaddbegin \DIFadd{key }\DIFaddend concepts such as anonymity, pseudonymity, linkability, and traceability, \DIFdelbegin \DIFdel{providing a clearer framework for understanding these critical aspects.
+}\DIFdelend \DIFaddbegin \DIFadd{which are often used ambiguously in the literature.
+}
 
-  \item We introduce and validate a novel framework for analyzing fairness in fair exchange protocols.
+  \DIFaddend \item \DIFdelbegin \DIFdel{A }\DIFdelend \DIFaddbegin \DIFadd{We introduce and validate a }\DIFaddend novel framework for analyzing fairness in fair exchange protocols\DIFdelbegin \DIFdel{is introduced and used to validate the fairness.
+}\DIFdelend \DIFaddbegin \DIFadd{.
+}
 
-  \item We discuss potential future enhancements using technologies like decentralized dispute resolution, self-sovereign identities, zero-knowledge proofs, and anonymous delivery.
+  \DIFaddend \item We discuss potential \DIFdelbegin \DIFdel{enhancements using advanced technologies like secure computation}\DIFdelend \DIFaddbegin \DIFadd{future enhancements using technologies like decentralized dispute resolution}\DIFaddend , self-sovereign identities, zero-knowledge proofs, and \DIFdelbegin \DIFdel{blockchain-based dispute resolution}\DIFdelend \DIFaddbegin \DIFadd{anonymous delivery}\DIFaddend .
 \end{itemize}
+\DIFaddbegin 
 
-Some authors have proposed blockchain-based fair exchange systems that could be adapted to service provision; however, to the best of our knowledge, we are the first to propose a system that satisfies all of the above properties. In particular, anonymity and physical delivery have rarely been addressed together, and if so, the protocol was based on TTP and impractical assumptions about the banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
+\DIFaddend Some authors have proposed blockchain-based fair exchange systems that could be adapted to service provision; however, to the best of our knowledge, we are the first to propose a system that satisfies all of the above properties. In particular, anonymity and physical delivery have rarely been addressed together, and if so, the protocol was based on TTP and impractical assumptions about the banking system~\cite{birjoveanuAnonymityFairexchangeEcommerce2015} or did not address the conflict between parties~\cite{altawyLelantosBlockchainBasedAnonymous2017}.
+\DIFaddbegin 
 
-\end{sloppypar}
+\DIFaddend \end{sloppypar}
 
 The rest of this paper is organised as follows. In Section~\ref{sec:related-works} we review related works. Then in Section~\ref{sec:building-blocks} we discuss the building blocks of a dispute resolution system, blockchain as a message board, fairness, anonymous payments, storage network, availability of results and anonymity. Section~\ref{sec:protocol} provides a detailed description of the protocol. Section~\ref{sec:fairness-analysis} provides a fairness analysis of the proposed protocol. Section~\ref{sec:experiments} presents the implementation of the protocol and the results of our experiments. Section~\ref{sec:discussion} discusses possible improvements in terms of crowdsourced dispute resolution or dispute avoidance, self-sovereign identities (SSIs), anonymous delivery, and formal verification. Finally, Section~\ref{sec:conclusion} concludes the paper.
 
@@ -242,12 +341,13 @@ We have only considered protocols that achieve fair exchange, as this is the fun
 We also didn't focus on protocols for buying digital products, as they are not relevant to our use case. A more comprehensive analysis of such protocols is available in~\cite{birjoveanuTwoPartyECommerceProtocols2022}.
 \end{sloppypar}
 
-\begin{sloppypar}
-Altawy et al. 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that uses onion routing and anonymous blockchain interaction to provide anonymous physical delivery, assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
+\DIFaddbegin \begin{sloppypar}
+\DIFaddend Altawy et al. 2017~\cite{altawyLelantosBlockchainBasedAnonymous2017} is a blockchain-based protocol that uses onion routing and anonymous blockchain interaction to provide anonymous physical delivery, assuming unlinkability between pseudonyms and real identities. However, it does not provide dispute resolution.
 Hinarejos et al. 2019~\cite{hinarejosSolutionSecureCertified2019} is the simplest protocol that replaces TTP with blockchain. However, it does not take into account anonymity, disputes between parties, or the exchange of physical material.
 Meng et al. 2019~\cite{mengThemisDecentralizedEscrow2019} improves on the previous protocol through a crowdsourced dispute resolution system. However, it does not consider anonymity.
 Bîrjoveanu, 2022~\cite{birjoveanuTwoPartyECommerceProtocols2022} is the closest to our protocol, but it is based on strong assumptions, namely the existence of TTP, banks supporting confidential transactions with commit buffers, and maintaining a global list of coin serial numbers.
-\end{sloppypar}
+\DIFaddbegin \end{sloppypar}
+\DIFaddend 
 
 Our protocol differs from existing ones in that it focuses on anonymity and fair exchange without relying on TTPs or complex banking systems. It achieves anonymity by using either cash or privacy-preserving blockchains. In addition, our protocol does not require the customer to submit a transaction to the bulletin board, simplifying the transaction process while maintaining anonymity and fairness.
 
@@ -297,11 +397,11 @@ In our context, the process is reversed, as the physical materials are transferr
 
 \begin{itemize}
     \item \textbf{SP's Drop Box:} Utilizing a secure drop box provided by the SP, where customers can leave their packages without revealing their identity.
-    
+
     \item \textbf{Parcel Locker Services:} Leverage existing locker services (e.g. Amazon Locker, InPost) that provide a level of anonymity and security for package delivery.
-    
+
     \item \textbf{Trusted Delivery Agent:} The customer can use a trusted individual or service to deliver the package to the SP, ensuring the customer's anonymity.
-    
+
     \item \textbf{Postal Services:} Traditional postal services may be used, provided they do not require personal identification or return addresses that could compromise anonymity.
 \end{itemize}
 
@@ -314,10 +414,11 @@ Disputes are common in transactions, and systems are needed to ensure that rules
 \end{sloppypar}
 
 \begin{sloppypar}
-Smart contracts often require integration with real-world data, which is facilitated by \textit{oracles} that bridge off-chain information to the blockchain~\cite{breidenbachChainlinkNextSteps2021}. This is particularly relevant for decentralized dispute resolution systems like Kleros~\cite{bergollaKlerosSociolegalCase2022, nappertDecentralizedJusticeReinventing2020, gudkovCrowdArbitrationBlockchain2020} or Themis~\cite{mengThemisDecentralizedEscrow2019}. These platforms utilize decentralized networks of jurors, who are often domain experts, to review smart contracts and evidence in case of disputes and deliver verdicts back to the blockchain.  Such systems often involve mechanisms for staking and penalizing misbehavior to ensure fair arbitration. However, these systems may face challenges with complex disputes requiring highly specialized knowledge or handling sensitive, private information.
+\DIFdelbegin \DIFdel{One challenge with blockchain is dealing with external information}\DIFdelend \DIFaddbegin \DIFadd{Smart contracts often require integration with real-world data}\DIFaddend , which is \DIFdelbegin \DIFdel{where }\DIFdelend \DIFaddbegin \DIFadd{facilitated by }\DIFaddend \textit{oracles} \DIFdelbegin \DIFdel{come in. They feed real-world data into }\DIFdelend \DIFaddbegin \DIFadd{that bridge off-chain information to }\DIFaddend the blockchain~\cite{breidenbachChainlinkNextSteps2021}. This is \DIFdelbegin \DIFdel{important for }\DIFdelend \DIFaddbegin \DIFadd{particularly relevant for decentralized }\DIFaddend dispute resolution systems like Kleros~\cite{bergollaKlerosSociolegalCase2022, nappertDecentralizedJusticeReinventing2020, gudkovCrowdArbitrationBlockchain2020} or Themis~\cite{mengThemisDecentralizedEscrow2019}\DIFdelbegin \DIFdel{, which use decentralized networks to make fair decisions. Such arbitration services employ a pool of local experts who would
+In the event of a dispute, they would examine the smart contract and all the evidence to provide }\DIFdelend \DIFaddbegin \DIFadd{. These platforms utilize decentralized networks of jurors, who are often domain experts, to review smart contracts and evidence in case of disputes and deliver }\DIFaddend verdicts back to the blockchain.  \DIFdelbegin \DIFdel{The SP would be required to lock a certain amount of funds into the protocol, which would be cut in the event of misbehaviour}\DIFdelend \DIFaddbegin \DIFadd{Such systems often involve mechanisms for staking and penalizing misbehavior to ensure fair arbitration}\DIFaddend . However, these systems may \DIFdelbegin \DIFdel{struggle }\DIFdelend \DIFaddbegin \DIFadd{face challenges }\DIFaddend with complex disputes \DIFdelbegin \DIFdel{that require specialised knowledge and privacy}\DIFdelend \DIFaddbegin \DIFadd{requiring highly specialized knowledge or handling sensitive, private information}\DIFaddend .
 \end{sloppypar}
 
-Our protocol adopts a more conventional approach, leveraging the blockchain for evidence logging but relying on established legal systems (police or courts) for dispute resolution. This approach balances technological innovation with the nuanced understanding required for complex service-related disputes. While this introduces a degree of centralization in dispute resolution, the blockchain infrastructure ensures transparency and immutability of evidence. We further explore integrating decentralized, partially automated dispute resolution in Section~\ref{sec:decentralised-justice} as a potential enhancement towards greater decentralization.
+Our protocol \DIFdelbegin \DIFdel{takes a more traditional approach. It uses the blockchain to keep track of evidence , but relies on local }\DIFdelend \DIFaddbegin \DIFadd{adopts a more conventional approach, leveraging the blockchain for evidence logging but relying on established }\DIFaddend legal systems (\DIFdelbegin \DIFdel{such as }\DIFdelend police or courts) \DIFdelbegin \DIFdel{to resolve disputes. In this way, we balance the use of technology with the need for detailed understanding in complicated service disputes. We talk more about exploring }\DIFdelend \DIFaddbegin \DIFadd{for dispute resolution. This approach balances technological innovation with the nuanced understanding required for complex service-related disputes. While this introduces a degree of centralization in dispute resolution, the blockchain infrastructure ensures transparency and immutability of evidence. We further explore integrating }\DIFaddend decentralized, partially automated \DIFdelbegin \DIFdel{systems }\DIFdelend \DIFaddbegin \DIFadd{dispute resolution }\DIFaddend in Section~\ref{sec:decentralised-justice} \DIFaddbegin \DIFadd{as a potential enhancement towards greater decentralization}\DIFaddend .
 
 \subsection{Fairness}\label{fairness}
 In our protocol, disputes are resolved by providing evidence to judicial authorities (police or courts). As the customer remains anonymous, the SP cannot initiate a dispute due to the inability to identify the customer. Our protocol is designed to favour the SP who adheres to the protocol, thus eliminating the need to initiate disputes. Conversely, customers can initiate disputes, but only misbehavior by the SP will result in a successful claim.
@@ -326,29 +427,33 @@ We outline three key pieces of evidence for dispute resolution:
 
 \begin{enumerate}
   \item \textbf{Proof of Delivery ($\textrm{PoD}$)}: Issued by the SP to confirm that the customer has delivered a complete package in accordance with the SP's requirements. The detailed definition is given in Section~\ref{proof-of-delivery}.
-  
+
   \item \textbf{Payment $\textrm{receipt}$}: This confirms that the customer has paid for the service. Its format varies depending on the payment method (cryptocurrency or cash) and is discussed further in Section~\ref{payment-for-services}.
-  
+
   \item \textbf{Proof of Provision ($\textrm{PoP}$)}: This shows that the SP has published the service result at a certain time, thus protecting the SP against unjustified disputes from the customer. The detailed definition is given in Section~\ref{proof-of-provision}.
 \end{enumerate}
 
 \subsection{Message Board}\label{sec:message-board}
 The platform for issuing and publishing these proofs is a critical aspect of the protocol. Known by various names such as bulletin board~\cite{achenbachImprovedCoercionresistantElectronic2015}, trusted timestamping~\cite{gippDecentralizedTrustedTimestamping2015}, or message board~\cite{hinarejosSolutionSecureCertified2019}, this platform serves as a decentralized, public ledger that securely timestamps and records each proof. By using blockchain technology, the platform ensures that the proofs are tamper-proof and verifiable by any third party, including judicial authorities.
 
-Using a decentralized message board offers several advantages:
+\DIFdelbegin \DIFdel{This approach of using }\DIFdelend \DIFaddbegin \DIFadd{Using }\DIFaddend a decentralized message board \DIFdelbegin \DIFdel{to publish proofs has }\DIFdelend \DIFaddbegin \DIFadd{offers }\DIFaddend several advantages:
 \begin{itemize}
+\DIFaddbegin 
 
-  \item It provides an immutable record of interactions and agreements between the customer and service provider.
+  \DIFaddend \item It \DIFdelbegin \DIFdel{creates }\DIFdelend \DIFaddbegin \DIFadd{provides }\DIFaddend an immutable record of \DIFdelbegin \DIFdel{the actions }\DIFdelend \DIFaddbegin \DIFadd{interactions }\DIFaddend and agreements between the \DIFdelbegin \DIFdel{anonymous customer and the }\DIFdelend \DIFaddbegin \DIFadd{customer and }\DIFaddend service provider.
+\DIFaddbegin 
 
-  \item It allows transparent verification of event timelines, critical for resolving disputes fairly.
+  \DIFaddend \item It allows transparent verification of \DIFdelbegin \DIFdel{the timeline of events, which is critical for dispute resolution.
+}\DIFdelend \DIFaddbegin \DIFadd{event timelines, critical for resolving disputes fairly.
+}
 
-  \item It offers a universally accessible platform to verify the authenticity and integrity of transaction proofs.
+  \DIFaddend \item It \DIFdelbegin \DIFdel{provides }\DIFdelend \DIFaddbegin \DIFadd{offers }\DIFaddend a universally accessible platform \DIFdelbegin \DIFdel{for verifying }\DIFdelend \DIFaddbegin \DIFadd{to verify }\DIFaddend the authenticity and integrity of \DIFdelbegin \DIFdel{transaction-related }\DIFdelend \DIFaddbegin \DIFadd{transaction }\DIFaddend proofs.
 \end{itemize}
 
 The protocol is designed to be adaptable, allowing for implementation with any decentralized technology capable of providing a message board service and supporting subscription to proofs from specific addresses.
 
 \begin{sloppypar}
-The choice between permissioned and permissionless blockchains involves a trade-off between control and openness. While permissioned blockchains are suitable for specific domain applications, such as consortia of known participants, our protocol is designed for a broader, more open context.  Existing fair exchange protocols often utilize public blockchains, highlighting their relevance to this problem. Public blockchains offer key benefits like decentralization, transparency, openness, and reduced infrastructure maintenance costs (transaction costs only). They also provide a robust security model, particularly in networks with a large number of validators. Furthermore, protocols designed for public blockchains are generally more adaptable and can be implemented on private or permissioned networks if needed. Therefore, we focus on public, permissionless networks for our protocol, recognizing that permissioned blockchains could be considered as alternative deployment environments for specific use cases.
+The choice between permissioned and permissionless \DIFdelbegin \DIFdel{blockchain touches on an ideological dispute about freedom and trust. The use of permissioned blockchain is recommended in domain-specific }\DIFdelend \DIFaddbegin \DIFadd{blockchains involves a trade-off between control and openness. While permissioned blockchains are suitable for specific domain }\DIFaddend applications, such as \DIFdelbegin \DIFdel{closed consortia between distrustful parties. All the referenced protocols we've found use a public blockchain, suggesting that the fair exchange problem is allegedly not one of them. The public blockchain offers the irreplaceable qualities of total decentralisation}\DIFdelend \DIFaddbegin \DIFadd{consortia of known participants, our protocol is designed for a broader, more open context.  Existing fair exchange protocols often utilize public blockchains, highlighting their relevance to this problem. Public blockchains offer key benefits like decentralization}\DIFaddend , transparency, openness, \DIFdelbegin \DIFdel{no }\DIFdelend \DIFaddbegin \DIFadd{and reduced }\DIFaddend infrastructure maintenance costs (\DIFdelbegin \DIFdel{only transaction costs ) and a different but arguably higher level of security (for }\DIFdelend \DIFaddbegin \DIFadd{transaction costs only). They also provide a robust security model, particularly in }\DIFaddend networks with a \DIFdelbegin \DIFdel{high }\DIFdelend \DIFaddbegin \DIFadd{large }\DIFaddend number of validators\DIFdelbegin \DIFdel{). In addition}\DIFdelend \DIFaddbegin \DIFadd{. Furthermore}\DIFaddend , protocols designed for public blockchains \DIFdelbegin \DIFdel{have a higher degree of generality }\DIFdelend \DIFaddbegin \DIFadd{are generally more adaptable }\DIFaddend and can be implemented \DIFdelbegin \DIFdel{in any }\DIFdelend \DIFaddbegin \DIFadd{on }\DIFaddend private or permissioned \DIFdelbegin \DIFdel{blockchain}\DIFdelend \DIFaddbegin \DIFadd{networks if needed}\DIFaddend . Therefore, \DIFdelbegin \DIFdel{for the rest of the paper, we only consider publicnetworks}\DIFdelend \DIFaddbegin \DIFadd{we focus on public, permissionless networks for our protocol, recognizing that permissioned blockchains could be considered as alternative deployment environments for specific use cases}\DIFaddend .
 \end{sloppypar}
 
 \subsection{Anonymity, Pseudonymity, and Confidentiality}\label{sec:pseudo-anon}
@@ -422,14 +527,30 @@ To further increase anonymity, customers are advised to use standard techniques 
 
 \subsection{Provable Results Availability}
 
-The demand-driven and opportunistic nature of IPFS storage means that results may not be available indefinitely.
-To ensure the availability of the results, we see two approaches. One involves fraud proofing, where a user who cannot access the results calls an Oracle service such as Chainlink Request~\cite{breidenbachChainlinkNextSteps2021, ChainlinkMakeGET}, which proves the unavailability of the content and thus pentalises the SP. 
+The demand-driven and opportunistic nature of IPFS storage means that \DIFdelbegin \DIFdel{the }\DIFdelend results may not be available indefinitely.
+\DIFdelbegin %DIFDELCMD < 
 
-The other approach is to integrate Filecoin as a decentralised pinning service to ensure the results are available for a defined period of time. Filecoin increases the availability of content on the IPFS network by economically penalising the lack of proof of content storage~\cite{filecoinSlashing}. The availability of content is therefore economically guaranteed for the duration of the Filecoin contract.
-A file that is no longer paid for in the Filecoin network will naturally be deleted from the network, as there is no incentive to keep it.
+%DIFDELCMD < %%%
+\DIFdelend To ensure the availability of the results, we see two approaches. One involves fraud \DIFdelbegin \DIFdel{proofs, where an user which can not }\DIFdelend \DIFaddbegin \DIFadd{proofing, where a user who cannot }\DIFaddend access the results \DIFdelbegin \DIFdel{invoke oracle service like }\DIFdelend \DIFaddbegin \DIFadd{calls an Oracle service such as }\DIFaddend Chainlink Request~\cite{breidenbachChainlinkNextSteps2021, ChainlinkMakeGET}\DIFaddbegin \DIFadd{, }\DIFaddend which proves the \DIFdelbegin \DIFdel{content unavailability , and so pentalise }\DIFdelend \DIFaddbegin \DIFadd{unavailability of the content and thus pentalises }\DIFaddend the SP. 
 
-In this paper we explore the second approach, leaving the first for future work.
-\subsection{Separation of Concerns}\label{sec:separation-of-concerns}
+The other approach is to integrate Filecoin as a decentralised pinning service to ensure the results are available for a defined period \DIFdelbegin \DIFdel{.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Filecoin enhances content availability }\DIFdelend \DIFaddbegin \DIFadd{of time. Filecoin increases the availability of content }\DIFaddend on the IPFS network by economically \DIFdelbegin \DIFdel{penalizing }\DIFdelend \DIFaddbegin \DIFadd{penalising }\DIFaddend the lack of proof of content storage~\cite{filecoinSlashing}. \DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{The content availability }\DIFdelend \DIFaddbegin \DIFadd{The availability of content }\DIFaddend is therefore economically guaranteed for the duration of the Filecoin contract.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Then, a }\DIFdelend \DIFaddbegin \DIFadd{A }\DIFaddend file that is \DIFdelbegin \DIFdel{not further }\DIFdelend \DIFaddbegin \DIFadd{no longer }\DIFaddend paid for in the Filecoin network \DIFdelbegin \DIFdel{is naturally }\DIFdelend \DIFaddbegin \DIFadd{will naturally be }\DIFaddend deleted from the network\DIFaddbegin \DIFadd{, }\DIFaddend as there is \DIFdelbegin \DIFdel{not }\DIFdelend \DIFaddbegin \DIFadd{no }\DIFaddend incentive to keep it.
+
+In this paper we explore the second approach\DIFdelbegin \DIFdel{and leave }\DIFdelend \DIFaddbegin \DIFadd{, leaving }\DIFaddend the first for future work.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Separation of Concerns}\label{sec:separation-of-concerns}
 
 \begin{sloppypar}
 The protocol we propose could potentially use a single blockchain to fulfil three different roles: i) facilitating anonymous payments, ii) serving as a message board, and iii) acting as a storage network. However, while most blockchains can provide message board functionality, anonymous payments and a verifiable storage network are less common features and are often limited to specialized blockchains.
@@ -456,7 +577,7 @@ The protocol is based on several key assumptions, each critical to its functiona
       \item The service provider (SP) has a key pair consisting of a secret key ($\mathrm{sk}_\mathrm{SP}$) and a publicly known public key ($\mathrm{pk}_\mathrm{SP}$).
       \item Digital signatures created by the SP ($\mathrm{sig}_{\mathrm{sk}_\mathrm{SP}}$) can be verified using the public $\mathrm{pk}_\mathrm{SP}$.
       \item The customer remains anonymous and does not require a publicly known key pair, thus ensuring their privacy and anonymity in the protocol.
-      
+
     \begin{sloppypar}
       \item Both parties use standard symmetric encryption ($\mathrm{E}_\mathrm{key}(\cdot)$) and decryption ($\mathrm{D}_\mathrm{key}(\cdot)$) methods.
     \end{sloppypar}
@@ -467,7 +588,7 @@ The protocol is based on several key assumptions, each critical to its functiona
       \item The SP is willing to accept packages from unidentified customers.
       \item Payments are accepted in cash or anonymous cryptocurrencies, as detailed in Section~\ref{payment-for-services}.
    \end{itemize}
-  
+
 \item \textbf{Anonymous Payments Blockchain}:
   \begin{itemize}
       \item Facilitates anonymous transactions that are untraceable and ideally unlinkable.
@@ -485,7 +606,7 @@ The protocol is based on several key assumptions, each critical to its functiona
       \item Ensures anonymous access to content.
       \item Guarantees that the content will be available for an agreed period of time.
   \end{itemize}
-  
+
     
 \item \textbf{Dispute Resolution Service}:
     \begin{itemize}
@@ -603,7 +724,7 @@ The Algorithm~\ref{alg:proofOfDelivery} presents the process of processing the $
     \If{$paidInCash = \text{TRUE} \oplus paymentAddress$ is not empty}
         \State \Return Error("Pay in cash or specify paymentAddress")
     \EndIf
-    
+
     \State $\mathrm{T}_\mathrm{issue} \gets$ block.timestamp
     \State $\mathrm{T}_\mathrm{pay} \gets \mathrm{T}_\mathrm{issue} + paymentWindow$
     \State $\mathrm{T}_\mathrm{provide} \gets \mathrm{T}_\mathrm{issue} + provisionWindow$
@@ -710,17 +831,20 @@ Fair exchange protocols involve two parties trading items with each other, where
 
 
     \item \textbf{R2, Timeliness}: An honest participant can be assured that the exchange will conclude (either successfully or unsuccessfully) within a specified timeframe, regardless of the other participant's behavior. At the end of the protocol, the outcome is final from the honest participant's perspective (e.g., the fairness ensured by the protocol remains consistent).
-    
+
     \item \textbf{R3, Effectiveness}: The protocol guarantees successful completion of the exchange if both participants act correctly and agree to trade.
 
 \end{enumerate}    
 
 \subsection{Weak fairness}
-Here we demonstrate that with the use of an external arbitrator (Dispute Resolution Service), our protocol achieves \textbf{R1b Weak Fairness}: either both parties receive their desired items at the end of the protocol, or neither receives anything. Specifically, the customer receives the service result, and the SP receives payment, or neither occurs. This is in contrast to \textbf{R1a Strong Fairness}, which would ideally guarantee simultaneous exchange without reliance on an external arbiter.  Achieving strong fairness in scenarios involving physical goods and anonymous transactions is inherently challenging, which is why we focus on the more practical and commonly achievable weak fairness.
+Here we \DIFdelbegin \DIFdel{show }\DIFdelend \DIFaddbegin \DIFadd{demonstrate }\DIFaddend that with the use of an external arbitrator (Dispute Resolution Service), \DIFaddbegin \DIFadd{our protocol achieves }\textbf{\DIFadd{R1b Weak Fairness}}\DIFadd{: }\DIFaddend either both parties receive their desired items at the end of the protocol, or neither receives anything. \DIFdelbegin \DIFdel{That is}\DIFdelend \DIFaddbegin \DIFadd{Specifically}\DIFaddend , the customer \DIFdelbegin \DIFdel{gets $result$ }\DIFdelend \DIFaddbegin \DIFadd{receives the service result, }\DIFaddend and the SP \DIFdelbegin \DIFdel{gets $payment$}\DIFdelend \DIFaddbegin \DIFadd{receives payment}\DIFaddend , or neither \DIFdelbegin \DIFdel{gets anything}\DIFdelend \DIFaddbegin \DIFadd{occurs}\DIFaddend . This is \DIFdelbegin \DIFdel{how }\DIFdelend \DIFaddbegin \DIFadd{in contrast to }\DIFaddend \textbf{\DIFdelbegin \DIFdel{R1b Weak }\DIFdelend \DIFaddbegin \DIFadd{R1a Strong }\DIFaddend Fairness\DIFdelbegin %DIFDELCMD < \MBLOCKRIGHTBRACE %%%
+\DIFdel{is achieved}\DIFdelend \DIFaddbegin }\DIFadd{, which would ideally guarantee simultaneous exchange without reliance on an external arbiter.  Achieving strong fairness in scenarios involving physical goods and anonymous transactions is inherently challenging, which is why we focus on the more practical and commonly achievable weak fairness}\DIFaddend .
 
-\begin{sloppypar}
-First, we model the protocol as an interactive non-cooperative game to analyze strategic interactions between the service provider (SP) and the customer. We then show how successful protocol executions lead to both parties obtaining their desired outcomes, while unsuccessful executions result in neither party gaining an advantage. We also incorporate penalties for misbehavior in our model to discourage unwarranted disputes.
-\end{sloppypar}
+\DIFaddbegin \begin{sloppypar}
+\DIFaddend First, we \DIFdelbegin \DIFdel{represent }\DIFdelend \DIFaddbegin \DIFadd{model }\DIFaddend the protocol as an interactive non-cooperative game \DIFdelbegin \DIFdel{and analyse the }\DIFdelend \DIFaddbegin \DIFadd{to analyze }\DIFaddend strategic interactions between the service provider (SP) and the customer. We then show \DIFdelbegin \DIFdel{that successful completions result in both parties receiving desired items, and all unsuccessful completions result in both parties receiving nothing}\DIFdelend \DIFaddbegin \DIFadd{how successful protocol executions lead to both parties obtaining their desired outcomes, while unsuccessful executions result in neither party gaining an advantage}\DIFaddend . We also \DIFdelbegin \DIFdel{extend the definition to include penalties for misbehaviour, which discourages frivolous or uncertain disputes.
+}\DIFdelend \DIFaddbegin \DIFadd{incorporate penalties for misbehavior in our model to discourage unwarranted disputes.
+}\end{sloppypar}
+\DIFaddend 
 
 \subsubsection{Model}\label{sec:fairness-model}
 We define three distinct positions to represent the state of each party within the protocol:
@@ -769,7 +893,7 @@ The anonymity of the customer prevents the SP from initiating a dispute. To addr
 \label{alg:disputeResolution}
 \begin{algorithmic}[1]
 \Function{Dispute Resolution}{$pk_C$, $provisionId$, $receipt$, $result$}
-    
+
     \State $provision$ $\gets$ $provisions$[$pk_C$][$provisionId$]
     \If{Time dispute}
     \State Verify $provision$.$paidInCash$ OR  (valid $receipt$ AND $receipt$.time < $provision$.$\mathrm{T}_\mathrm{pay}$)
@@ -918,7 +1042,7 @@ With preparations complete, the experiment proceeds as follows:
 \begin{enumerate}
   \setcounter{enumi}{-1}
   \item \textbf{Setup:} The customer begins by creating a new provision in the webapp, which generates a unique ECDSA keypair and provisionID. The corresponding QR code is printed and attached to the parcel for delivery.
-  
+
   \item  \textbf{Package Delivery:}  The parcel is delivered to the SP through a chosen delivery method, such as a secure drop box or locker service. Upon receipt, the SP scans the QR code to retrieve the provisionID and customer's public key. Since (in this experiment) the provision was not paid in cash, the SP generates a unique Monero payment address using \texttt{monero-wallet-cli integrated\_address}. As a result, the PoD is prepared.
 
   \item \textbf{Proof of Delivery:} Then, the SP submits the PoD to the Ethereum blockchain using the MetaMask interface.
@@ -928,7 +1052,7 @@ With preparations complete, the experiment proceeds as follows:
     \begin{sloppypar}
     \item \textbf{Payment:} The customer sends the payment (using \texttt{monero-wallet-cli transfer}) to the \texttt{paymentAddress} specified in the smart contract and stores the payment receipt using \texttt{monero-wallet-cli get\_tex\_key <tx-id>}.
     \end{sloppypar}
-  
+
     \item \textbf{Provision of Service:} Upon payment confirmation, the SP provides the service, resulting in a \texttt{result.pdf} file.
 
   \item \textbf{Upload result:} This file is uploaded to IPFS and Filecoin, granting the SP a \texttt{cid}, \texttt{dealID}, and \texttt{minerID}.
@@ -939,7 +1063,7 @@ With preparations complete, the experiment proceeds as follows:
 
 
   \item \textbf{Download result:} Upon noticing the PoP, the customer retrieves the result using either one of the public gateways\footnote{IPFS Public Gateway Checker, \url{https://ipfs.github.io/public-gateway-checker/}, (last visited Jan. 04, 2023)} like \url{https://cf-ipfs.com/ipfs/<cid>} or Lotus network using \texttt{lotus} \texttt{retrieve} \texttt{<cid>} \texttt{<minerID>}. The result is then decrypted using the customer's previously stored private key. If the customer is satisfied with the service the protocol ends; otherwise, the customer may initiate a dispute process.
-  
+
 \end{enumerate}
 
 \subsection{Results}
@@ -1014,75 +1138,125 @@ Filecoin             & 30 sec & N/A\footnotemark{}            & 5-10 min  \\
 
 
 These metrics are crucial for understanding the scalability and efficiency of the blockchain networks in question and provide insight into their suitability for various applications within our protocol.
+\DIFaddbegin 
 
-\section{Discussion}
+\DIFaddend \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Scalability and Practicality Considerations}
+\DIFaddbegin \subsection{\DIFadd{Scalability and Practicality Considerations}}
 
 \begin{sloppypar}
-For our protocol to transition from demonstration to real-world impact, careful consideration must be given to both scalability and practicality, particularly regarding high-demand applications and ease of use for a wider audience.  Currently, the reliance on on-chain transactions for proofs introduces potential bottlenecks in scalability, with latency and costs that could become significant in large-scale deployments, especially on blockchains like Ethereum.  Furthermore, the protocol's design assumes a degree of technical expertise from users, requiring them to manage cryptographic elements and engage with blockchain technologies, which presents a barrier to adoption for non-technical individuals, potentially limiting its accessibility in sectors like healthcare and legal services.
+\DIFadd{For our protocol to transition from demonstration to real-world impact, careful consideration must be given to both scalability and practicality, particularly regarding high-demand applications and ease of use for a wider audience.  Currently, the reliance on on-chain transactions for proofs introduces potential bottlenecks in scalability, with latency and costs that could become significant in large-scale deployments, especially on blockchains like Ethereum.  Furthermore, the protocol's design assumes a degree of technical expertise from users, requiring them to manage cryptographic elements and engage with blockchain technologies, which presents a barrier to adoption for non-technical individuals, potentially limiting its accessibility in sectors like healthcare and legal services.
+}\end{sloppypar}
+
+\begin{sloppypar}
+\DIFadd{Future development should prioritize addressing these practical aspects.  From a scalability standpoint, exploring Layer-2 solutions for Ethereum or migrating to alternative blockchains with higher throughput and lower transaction fees are viable paths.  Simultaneously, enhancing practicality necessitates a focus on user experience.  Creating intuitive interfaces, developing user-friendly applications, and potentially incorporating intermediary services to abstract away technical complexities will be crucial to broaden accessibility.  Addressing both scalability and user experience in future work will be essential to realize the full potential of our anonymous and fair service provision protocol and facilitate its widespread adoption.
+}\end{sloppypar}
+
+\DIFaddend \subsection{Dispute Resolution Service}\label{sec:decentralised-justice}
+
+\begin{sloppypar}
+\DIFdelbegin \DIFdel{The central challenge in achieving a Web3-compliant system lies in the }\DIFdelend \DIFaddbegin \DIFadd{A key challenge in developing fully decentralized Web3 systems is addressing the potential }\DIFaddend centralization of dispute resolution services~\cite{ethereumWhatWeb3Why2023}. To \DIFdelbegin \DIFdel{address this }\DIFdelend \DIFaddbegin \DIFadd{move towards greater decentralization in this aspect}\DIFaddend , we consider \DIFdelbegin \DIFdel{two potential solutions: }\DIFdelend the integration of blockchain-based dispute resolution systems\DIFdelbegin \DIFdel{and the development of mechanisms to ensure the infeasibility of incorrect service provision}\DIFdelend .
 \end{sloppypar}
 
-\begin{sloppypar}
-Future development should prioritize addressing these practical aspects.  From a scalability standpoint, exploring Layer-2 solutions for Ethereum or migrating to alternative blockchains with higher throughput and lower transaction fees are viable paths.  Simultaneously, enhancing practicality necessitates a focus on user experience.  Creating intuitive interfaces, developing user-friendly applications, and potentially incorporating intermediary services to abstract away technical complexities will be crucial to broaden accessibility.  Addressing both scalability and user experience in future work will be essential to realize the full potential of our anonymous and fair service provision protocol and facilitate its widespread adoption.
-\end{sloppypar}
+\DIFaddbegin \begin{sloppypar}
+\DIFaddend Blockchain-based dispute resolution platforms\DIFaddbegin \DIFadd{, }\DIFaddend such as Kleros~\cite{bergollaKlerosSociolegalCase2022, nappertDecentralizedJusticeReinventing2020, gudkovCrowdArbitrationBlockchain2020}, Themis~\cite{mengThemisDecentralizedEscrow2019}, Aragon Court~\cite{AragonWhitepaper2023,aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution (ODR) systems~\cite{allenGovernanceBlockchainDispute2019, lingwallShouldCodeBe2019}\DIFaddbegin \DIFadd{, }\DIFaddend offer a promising \DIFdelbegin \DIFdel{direction}\DIFdelend \DIFaddbegin \DIFadd{avenue for future development}\DIFaddend . These systems could \DIFdelbegin \DIFdel{employ a pool }\DIFdelend \DIFaddbegin \DIFadd{utilize decentralized panels }\DIFaddend of field experts who \DIFdelbegin \DIFdel{, in the event of a dispute, would examine the smart contract, the }\DIFdelend \DIFaddbegin \DIFadd{would review smart contracts, }\DIFaddend proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{receipt}$)\DIFdelbegin \DIFdel{and provide verdicts . Expert participation and honest verdicts are encouraged through a system of }\DIFdelend \DIFaddbegin \DIFadd{, and other evidence to reach verdicts in disputes. Mechanisms involving }\DIFaddend fees, stakes\DIFdelbegin \DIFdel{and rewards. At the time of writing Klerosis the most successful platform for }\DIFdelend \DIFaddbegin \DIFadd{, and rewards are typically used to incentivize expert participation and ensure impartial judgments. Kleros, a prominent platform in this domain, has demonstrated success in }\DIFaddend resolving consumer disputes in e-commerce \DIFdelbegin \DIFdel{or collaborative economy. It has received funding from the Commission's European Innovation Council}\DIFdelend \DIFaddbegin \DIFadd{and the collaborative economy, and is actively supported by the European Commission}\DIFaddend ~\cite{europeancommissionCommissionEuropeanInnovation2020}. \DIFdelbegin \DIFdel{The protocol claims to have resolved 1645 disputes , employing 716 jurorsand rewarding them with 401 ETH~\mbox{%DIFAUXCMD
+\cite{KlerosHomepage}}\hskip0pt%DIFAUXCMD
+. Kleros allows integration with new protocols and we leave it to }\DIFdelend \DIFaddbegin \DIFadd{With a track record of resolving thousands of disputes and employing a large pool of jurors~\mbox{%DIFAUXCMD
+\cite{KlerosHomepage}}\hskip0pt%DIFAUXCMD
+, Kleros represents a viable option for integration with protocols like ours, which we plan to explore in }\DIFaddend future work.
+\DIFaddbegin \end{sloppypar}
+\DIFaddend 
 
-\subsection{Dispute Resolution Service}\label{sec:decentralised-justice}
-
-\begin{sloppypar}
-A key challenge in developing fully decentralized Web3 systems is addressing the potential centralization of dispute resolution services~\cite{ethereumWhatWeb3Why2023}. To move towards greater decentralization in this aspect, we consider the integration of blockchain-based dispute resolution systems.
-\end{sloppypar}
-
-\begin{sloppypar}
-Blockchain-based dispute resolution platforms, such as Kleros~\cite{bergollaKlerosSociolegalCase2022, nappertDecentralizedJusticeReinventing2020, gudkovCrowdArbitrationBlockchain2020}, Themis~\cite{mengThemisDecentralizedEscrow2019}, Aragon Court~\cite{AragonWhitepaper2023,aragonDecentralizedDisputeResolution}, LTO Network~\cite{ltonetworkNextGenBlockchainB2B}, and other Online Dispute Resolution (ODR) systems~\cite{allenGovernanceBlockchainDispute2019, lingwallShouldCodeBe2019}, offer a promising avenue for future development. These systems could utilize decentralized panels of field experts who would review smart contracts, proofs ($\mathrm{PoD}$, $\mathrm{PoP}$, payment $\mathrm{receipt}$), and other evidence to reach verdicts in disputes. Mechanisms involving fees, stakes, and rewards are typically used to incentivize expert participation and ensure impartial judgments. Kleros, a prominent platform in this domain, has demonstrated success in resolving consumer disputes in e-commerce and the collaborative economy, and is actively supported by the European Commission~\cite{europeancommissionCommissionEuropeanInnovation2020}. With a track record of resolving thousands of disputes and employing a large pool of jurors~\cite{KlerosHomepage}, Kleros represents a viable option for integration with protocols like ours, which we plan to explore in future work.
-\end{sloppypar}
-
-% The second, more visionary approach involves ensuring service correctness through computational proofs, such as zkSNARKs~\cite{ben-sassonSNARKsVerifyingProgram2013}, which could validate the accuracy of services that are fully computable. This method, however, faces significant challenges in representing physical materials like blood or saliva digitally—a prerequisite for end-to-end service verification and the elimination of disputes.
+\DIFdelbegin \DIFdel{The second, more visionary approach involves ensuring service correctness through computational proofs, such as zkSNARKs~\mbox{%DIFAUXCMD
+\cite{ben-sassonSNARKsVerifyingProgram2013}}\hskip0pt%DIFAUXCMD
+, which could validate the accuracy of services that are fully computable. This method, however, faces significant challenges in representing physical materials like blood or saliva digitally—a prerequisite for end-to-end service verification and the elimination of disputes.
+}\DIFdelend %DIF >  The second, more visionary approach involves ensuring service correctness through computational proofs, such as zkSNARKs~\cite{ben-sassonSNARKsVerifyingProgram2013}, which could validate the accuracy of services that are fully computable. This method, however, faces significant challenges in representing physical materials like blood or saliva digitally—a prerequisite for end-to-end service verification and the elimination of disputes.
 
 
-\subsection{Security Considerations and Future Formal Verification}\label{sec:formal-verification}
+\DIFaddbegin \subsection{\DIFadd{Security Considerations and Future Formal Verification}}\label{sec:formal-verification}
 
-While our protocol incorporates cryptographic techniques and blockchain technology to enhance security, a comprehensive security analysis is essential.
-
-\begin{sloppypar}
-One consideration is the reliance on IPFS and Filecoin for result availability. While Filecoin incentivizes storage and enhances availability, the long-term persistence of data depends on the economic incentives and continued operation of the Filecoin network.  If these incentives were to fail, or if miners were to cease storing the data, result availability could be compromised.  Smart contract vulnerabilities are another potential concern. Although Solidity and Ethereum are mature technologies, vulnerabilities in smart contracts can still arise, potentially leading to exploits. Rigorous smart contract auditing and formal verification are crucial to mitigate these risks. Furthermore, while our protocol focuses on anonymity, metadata leaks or sophisticated traffic analysis could potentially lead to de-anonymization in certain scenarios, especially if users do not employ best practices like VPNs or Tor.
-\end{sloppypar}
+\DIFadd{While our protocol incorporates cryptographic techniques and blockchain technology to enhance security, a comprehensive security analysis is essential.
+}
 
 \begin{sloppypar}
-To enhance the security analysis of our protocol, future work should include formal verification using tools like AVISPA~\cite{armandoAVISPAToolAutomated2005}, following methodologies similar to~\cite{birjoveanuFormalVerificationMultiparty2022}. Formal verification would involve specifying the protocol in a language like HLPSL~\cite{chevalierHighLevelProtocol2004} and using automated tools to rigorously check for security properties. This would provide a more robust and mathematically grounded assurance of the protocol's security.
-\end{sloppypar}
-
-
-\subsection{Self-sovereign Identities}
-In our exploration of privacy-preserving protocols, we encountered regulatory requirements that mandate the linking of diagnostic results to patient identities, as seen in regulations like those in Poland~\cite{ministerstwozdrowiaRegulationMinisterHealth2006}. Such regulations pose a direct challenge to protocols designed for strict anonymity.
+\DIFadd{One consideration is the reliance on IPFS and Filecoin for result availability. While Filecoin incentivizes storage and enhances availability, the long-term persistence of data depends on the economic incentives and continued operation of the Filecoin network.  If these incentives were to fail, or if miners were to cease storing the data, result availability could be compromised.  Smart contract vulnerabilities are another potential concern. Although Solidity and Ethereum are mature technologies, vulnerabilities in smart contracts can still arise, potentially leading to exploits. Rigorous smart contract auditing and formal verification are crucial to mitigate these risks. Furthermore, while our protocol focuses on anonymity, metadata leaks or sophisticated traffic analysis could potentially lead to de-anonymization in certain scenarios, especially if users do not employ best practices like VPNs or Tor.
+}\end{sloppypar}
 
 \begin{sloppypar}
-Self-sovereign identities (SSIs) and verifiable claims offer a potential approach to reconcile anonymity with certain regulatory needs~\cite{muhleSurveyEssentialComponents2018}. In an SSI framework, a trusted authority, such as a government agency, could issue a one-time verifiable claim to a customer. Service providers could accept this claim as a form of pseudo-identification, linking diagnostic results to a Decentralized Identifier (DID) that itself contains no personal data. While the SP would not be able to directly identify the customer, the issuing authority could, if legally necessary, trace the DID back to the individual.
-\end{sloppypar}
+\DIFadd{To enhance the security analysis of our protocol, future work should include formal verification using tools like AVISPA~\mbox{%DIFAUXCMD
+\cite{armandoAVISPAToolAutomated2005}}\hskip0pt%DIFAUXCMD
+, following methodologies similar to~\mbox{%DIFAUXCMD
+\cite{birjoveanuFormalVerificationMultiparty2022}}\hskip0pt%DIFAUXCMD
+. Formal verification would involve specifying the protocol in a language like HLPSL~\mbox{%DIFAUXCMD
+\cite{chevalierHighLevelProtocol2004} }\hskip0pt%DIFAUXCMD
+and using automated tools to rigorously check for security properties. This would provide a more robust and mathematically grounded assurance of the protocol's security.
+}\end{sloppypar}
+
+
+\DIFaddend \subsection{Self-sovereign Identities}
+In our exploration of privacy-preserving protocols, we encountered regulatory requirements that mandate the linking of diagnostic results to patient identities, as \DIFdelbegin \DIFdel{is the case in }\DIFdelend \DIFaddbegin \DIFadd{seen in regulations like those in }\DIFaddend Poland~\cite{ministerstwozdrowiaRegulationMinisterHealth2006}. Such regulations \DIFdelbegin \DIFdel{present }\DIFdelend \DIFaddbegin \DIFadd{pose }\DIFaddend a direct challenge to \DIFdelbegin \DIFdel{our protocol's objective of }\DIFdelend \DIFaddbegin \DIFadd{protocols designed for strict }\DIFaddend anonymity.
+
+\DIFdelbegin \DIFdel{The concept of self-sovereign }\DIFdelend \DIFaddbegin \begin{sloppypar}
+\DIFadd{Self-sovereign }\DIFaddend identities (SSIs) and verifiable claims \DIFdelbegin \DIFdel{offers a potential resolution}\DIFdelend \DIFaddbegin \DIFadd{offer a potential approach to reconcile anonymity with certain regulatory needs}\DIFaddend ~\cite{muhleSurveyEssentialComponents2018}. \DIFdelbegin \DIFdel{Under this system}\DIFdelend \DIFaddbegin \DIFadd{In an SSI framework}\DIFaddend , a trusted \DIFdelbegin \DIFdel{entity}\DIFdelend \DIFaddbegin \DIFadd{authority}\DIFaddend , such as a government \DIFdelbegin \DIFdel{body}\DIFdelend \DIFaddbegin \DIFadd{agency}\DIFaddend , could issue a one-time \DIFdelbegin \DIFdel{, }\DIFdelend verifiable claim to \DIFdelbegin \DIFdel{the }\DIFdelend \DIFaddbegin \DIFadd{a }\DIFaddend customer. Service providers \DIFdelbegin \DIFdel{would }\DIFdelend \DIFaddbegin \DIFadd{could }\DIFaddend accept this claim as \DIFdelbegin \DIFdel{valid identification}\DIFdelend \DIFaddbegin \DIFadd{a form of pseudo-identification}\DIFaddend , linking diagnostic results to a Decentralized Identifier (DID) that \DIFdelbegin \DIFdel{holds }\DIFdelend \DIFaddbegin \DIFadd{itself contains }\DIFaddend no personal data. While \DIFdelbegin \DIFdel{this ensures the SP cannot deduce the customer's identity, the DID couldbe traced }\DIFdelend \DIFaddbegin \DIFadd{the SP would not be able to directly identify the customer, the issuing authority could, if legally necessary, trace the DID }\DIFaddend back to the individual\DIFdelbegin \DIFdel{by the issuing authority if necessary.
+}\DIFdelend \DIFaddbegin \DIFadd{.
+}\end{sloppypar}
+\DIFaddend 
+
+\DIFdelbegin \DIFdel{Given the early stage of SSI technology and its current lack of }\DIFdelend \DIFaddbegin \begin{sloppypar}
+\DIFadd{Given that SSI technology is still in its early stages and lacks widespread }\DIFaddend governmental adoption, \DIFdelbegin \DIFdel{we recognize the need for }\DIFdelend further research and development \DIFdelbegin \DIFdel{in this area.
+}\DIFdelend \DIFaddbegin \DIFadd{are necessary to fully assess its applicability and effectiveness in balancing anonymity and regulatory compliance in sensitive service provision.
+}\end{sloppypar}
+\DIFaddend 
+
+\DIFdelbegin \subsection{\DIFdel{Formal Verification}}%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+%DIFDELCMD < \label{sec:formal-verification}
+%DIFDELCMD < %%%
+\DIFdel{Following the work of~\mbox{%DIFAUXCMD
+\cite{birjoveanuFormalVerificationMultiparty2022}}\hskip0pt%DIFAUXCMD
+, the security analysis of our protocol could be improved by using automatic formal verification tools, such as AVISPA~\mbox{%DIFAUXCMD
+\cite{armandoAVISPAToolAutomated2005}}\hskip0pt%DIFAUXCMD
+. This process would involve formulating the protocol in the High-Level Protocol Specification Language (HLPSL)~\mbox{%DIFAUXCMD
+\cite{chevalierHighLevelProtocol2004}}\hskip0pt%DIFAUXCMD
+, followed by its translation into AVISPA's intermediate format.
+Subsequently, AVISPA's tools would rigorously assess the protocol's adherence to established security properties through automated theorem proving and model checking techniques.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Ethical and Regulatory Considerations}
+
+\DIFdelbegin \DIFdel{The core objective of our protocol is to facilitate }\DIFdelend \DIFaddbegin \begin{sloppypar}
+\DIFadd{Our protocol aims to enable }\DIFaddend anonymous access to services\DIFdelbegin \DIFdel{without necessitating the disclosure of personal information, which naturally raises concerns regarding regulatory compliance, particularly with }\DIFdelend \DIFaddbegin \DIFadd{, which inherently raises ethical and regulatory considerations, particularly concerning }\DIFaddend Know Your Customer (KYC), Anti-Money Laundering (AML), and regulations \DIFdelbegin \DIFdel{concerning }\DIFdelend \DIFaddbegin \DIFadd{related to }\DIFaddend Politically Exposed Persons (PEP).
+\DIFaddbegin \end{sloppypar}
+\DIFaddend 
+
+\DIFdelbegin \DIFdel{Our approach is explicitly designed to integrate }\DIFdelend \DIFaddbegin \begin{sloppypar}
+\DIFadd{Our protocol is designed to be integrated }\DIFaddend with services that \DIFdelbegin \DIFdel{inherently comply with applicable local and international regulations.  This integration ensures that while our protocol itself operates under the premise of }\DIFdelend \DIFaddbegin \DIFadd{operate within existing legal and regulatory frameworks.  While the protocol itself prioritizes }\DIFaddend anonymity, it does not \DIFaddbegin \DIFadd{aim to }\DIFaddend facilitate illegal activities\DIFdelbegin \DIFdel{or contravene established legal frameworks.  Specifically, the services that would utilize }\DIFdelend \DIFaddbegin \DIFadd{.  The types of services envisioned for }\DIFaddend our protocol are \DIFdelbegin \DIFdel{those not primarily }\DIFdelend \DIFaddbegin \DIFadd{generally not those directly }\DIFaddend involved in financial transactions or money transmission \DIFdelbegin \DIFdel{, thereby not falling directly under the stringent requirements of financial regulations such as KYCand AML .
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{We acknowledge that the use of }\DIFdelend \DIFaddbegin \DIFadd{that typically fall under stringent KYC/AML requirements. However, we acknowledge the concerns around }\DIFaddend anonymous payment methods \DIFdelbegin \DIFdel{, such as cryptocurrencies like Monero , might raise suspicions due to their common association with privacy and potential misuse. However, it }\DIFdelend \DIFaddbegin \DIFadd{like Monero and their potential association with illicit activities. It }\DIFaddend is important to \DIFdelbegin \DIFdel{note }\DIFdelend \DIFaddbegin \DIFadd{emphasize }\DIFaddend that Monero is just one of several \DIFdelbegin \DIFdel{anonymous payment methods that could be utilized with }\DIFdelend \DIFaddbegin \DIFadd{payment options supported by }\DIFaddend our protocol. \DIFdelbegin \DIFdel{Our design is versatile enough to support a variety of }\DIFdelend \DIFaddbegin \DIFadd{The protocol is designed to be flexible and can accommodate various }\DIFaddend payment mechanisms, \DIFdelbegin \DIFdel{both blockchain-based and non-blockchain-based.
+}\DIFdelend \DIFaddbegin \DIFadd{including those that incorporate KYC/AML compliance at the service provider level if required by applicable regulations or service policies.
+}\end{sloppypar}
+\DIFaddend 
 
 \begin{sloppypar}
-Given that SSI technology is still in its early stages and lacks widespread governmental adoption, further research and development are necessary to fully assess its applicability and effectiveness in balancing anonymity and regulatory compliance in sensitive service provision.
-\end{sloppypar}
+For instance, \DIFdelbegin \DIFdel{we could employ the Ethereum network and utilize }\DIFdelend \DIFaddbegin \DIFadd{while we discuss the use of }\DIFaddend privacy mixers to \DIFdelbegin \DIFdel{ensure private payments. Nevertheless, privacy mixers have drawn scrutiny from regulators because they are increasingly used by malicious actors to obscure the origins of funds illicitly.  A notable example is Tornado Cash , the largest privacy mixer to date, which has faced sanctions across significant portions of the Ethereum network}\DIFdelend \DIFaddbegin \DIFadd{enhance payment anonymity on platforms like Ethereum, we recognize the regulatory scrutiny these technologies face due to potential misuse.  Recent sanctions against services like Tornado Cash highlight these concerns}\DIFaddend . Ongoing research into compliant privacy mixers, such as \DIFdelbegin \DIFdel{the Voluntary Reveal Approach proposed in~\mbox{%DIFAUXCMD
+\cite{dotanHazeCompliantPrivacy2023}}\hskip0pt%DIFAUXCMD
+, seeks to address these concerns. This approach involves Proofs of Innocence required before a user can access the system and incorporates oracles for monitoring sanctioned addresses—currently maintained on the Ethereum blockchain by Chainalysis~\mbox{%DIFAUXCMD
+\cite{chainalysisChainalysisOracleSanctions}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{Voluntary Reveal Approaches or retroactive de-anonymization~\mbox{%DIFAUXCMD
+\cite{baranskiHazeDazeCompliant2023} }\hskip0pt%DIFAUXCMD
+with sanctioned list (like Chainalysis~\mbox{%DIFAUXCMD
+\cite{chainalysisChainalysisOracleSanctions}}\hskip0pt%DIFAUXCMD
+), offers potential paths towards more regulator-friendly anonymous payment solutions. These approaches often involve mechanisms for providing proofs of innocence or integrating with oracles that monitor sanctioned addresses, potentially enabling a balance between privacy and compliance.  Ultimately, the choice of payment method and the level of anonymity employed would need to be carefully considered in the context of specific service applications and relevant legal and regulatory requirements.
+}\end{sloppypar}
 
-\subsection{Ethical and Regulatory Considerations}
-
-\begin{sloppypar}
-Our protocol aims to enable anonymous access to services, which inherently raises ethical and regulatory considerations, particularly concerning Know Your Customer (KYC), Anti-Money Laundering (AML), and regulations related to Politically Exposed Persons (PEP).
-\end{sloppypar}
-
-\begin{sloppypar}
-Our protocol is designed to be integrated with services that operate within existing legal and regulatory frameworks.  While the protocol itself prioritizes anonymity, it does not aim to facilitate illegal activities.  The types of services envisioned for our protocol are generally not those directly involved in financial transactions or money transmission that typically fall under stringent KYC/AML requirements. However, we acknowledge the concerns around anonymous payment methods like Monero and their potential association with illicit activities. It is important to emphasize that Monero is just one of several payment options supported by our protocol. The protocol is designed to be flexible and can accommodate various payment mechanisms, including those that incorporate KYC/AML compliance at the service provider level if required by applicable regulations or service policies.
-\end{sloppypar}
-
-\begin{sloppypar}
-For instance, while we discuss the use of privacy mixers to enhance payment anonymity on platforms like Ethereum, we recognize the regulatory scrutiny these technologies face due to potential misuse.  Recent sanctions against services like Tornado Cash highlight these concerns. Ongoing research into compliant privacy mixers, such as Voluntary Reveal Approaches or retroactive de-anonymization~\cite{baranskiHazeDazeCompliant2023} with sanctioned list (like Chainalysis~\cite{chainalysisChainalysisOracleSanctions}), offers potential paths towards more regulator-friendly anonymous payment solutions. These approaches often involve mechanisms for providing proofs of innocence or integrating with oracles that monitor sanctioned addresses, potentially enabling a balance between privacy and compliance.  Ultimately, the choice of payment method and the level of anonymity employed would need to be carefully considered in the context of specific service applications and relevant legal and regulatory requirements.
-\end{sloppypar}
-
-\subsection{Permissioned Blockchain Alternatives}
+\subsection{\DIFadd{Permissioned Blockchain Alternatives}}
 
 \begin{sloppypar}
-While our protocol is designed for permissionless public blockchains to maximize openness, transparency, and censorship resistance, we acknowledge that permissioned blockchain solutions offer a different set of trade-offs that may be advantageous in certain contexts. In scenarios where regulatory compliance, auditability, and strict access control are paramount, particularly in highly regulated sectors like healthcare or finance, a permissioned blockchain infrastructure might be more suitable. Permissioned blockchains allow for controlled participation, enabling authorized entities like healthcare providers, laboratories, and patients to operate within a closed and auditable system. Access control mechanisms can be implemented to ensure that sensitive data, such as medical records, are only accessible to authorized personnel. Furthermore, integrating KYC-compliant payment methods and identity verification within a permissioned blockchain framework can directly address AML and regulatory concerns for high-value transactions. Therefore, while our work focuses on the benefits of permissionless systems for anonymous service provision, we recognize the viability and potential advantages of permissioned blockchain alternatives for specific use cases where different priorities and regulatory requirements prevail.
+\DIFadd{While our protocol is designed for permissionless public blockchains to maximize openness, transparency, and censorship resistance, we acknowledge that permissioned blockchain solutions offer a different set of trade-offs that may be advantageous in certain contexts. In scenarios where regulatory compliance, auditability, and strict access control are paramount, particularly in highly regulated sectors like healthcare or finance, a permissioned blockchain infrastructure might be more suitable. Permissioned blockchains allow for controlled participation, enabling authorized entities like healthcare providers, laboratories, and patients to operate within a closed and auditable system. Access control mechanisms can be implemented to ensure that sensitive data, such as medical records, are only accessible to authorized personnel. Furthermore, integrating KYC-compliant payment methods and identity verification within a permissioned blockchain framework can directly address AML and regulatory concerns for high-value transactions. Therefore, while our work focuses on the benefits of permissionless systems for anonymous service provision, we recognize the viability and potential advantages of permissioned blockchain alternatives for specific use cases where different priorities and regulatory requirements prevail}\DIFaddend .
 \end{sloppypar}
 
 \section{Conclusions}\label{sec:conclusion}
@@ -1092,7 +1266,7 @@ This study has been dedicated to the development of a protocol that facilitates 
 We found that the current state of the art was not sufficient to achieve this goal, so we have designed and implemented a novel protocol that ensures user anonymity, fairness in service delivery, and a mechanism for dispute resolution without the need for a trusted third party. This protocol leverages anonymous payment systems, such as cash or privacy-focused cryptocurrencies, and utilizes peer-to-peer networks for the dissemination of service results.
 
 \begin{sloppypar}
-Through rigorous definition and analysis, we have demonstrated that our protocol meets the criteria for a fair exchange protocol, as outlined in Section~\ref{sec:fairness-analysis}. It does this by systematically publishing proofs of delivery, payment and provisioning, ensuring a transparent and fair process for all parties involved.
+Through rigorous definition and analysis, we have demonstrated that our protocol meets the criteria for \DIFdelbegin \DIFdel{fair-exchange }\DIFdelend \DIFaddbegin \DIFadd{a fair exchange }\DIFaddend protocol, as \DIFdelbegin \DIFdel{shown in in }\DIFdelend \DIFaddbegin \DIFadd{outlined in }\DIFaddend Section~\ref{sec:fairness-analysis}. It does \DIFdelbegin \DIFdel{so }\DIFdelend \DIFaddbegin \DIFadd{this }\DIFaddend by systematically publishing proofs of delivery, payment \DIFdelbegin \DIFdel{, }\DIFdelend and provisioning, ensuring a transparent and \DIFdelbegin \DIFdel{equitable }\DIFdelend \DIFaddbegin \DIFadd{fair }\DIFaddend process for all parties involved.
 \end{sloppypar}
 
 In closing, we have pinpointed several avenues for future enhancement, including the integration of decentralized dispute resolution systems, the application of self-sovereign identity (SSI) frameworks, and the exploration of anonymous physical delivery methods. These areas present exciting opportunities for further research and development towards the realization of fully anonymous service provision in the digital age.
@@ -1493,6 +1667,8 @@ The customer downloaded the result, then:
 \end{sloppypar}
 
 
-\bibliographystyle{spmpsci}
-\bibliography{bibliography-betterbibtex}
+\DIFdelbegin %DIFDELCMD < \bibliographystyle{spbasic}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \bibliographystyle{spmpsci}
+\DIFaddend \bibliography{bibliography-betterbibtex}
 \end{document}
