@@ -1,0 +1,10 @@
+node_modules/
+cache/
+artifacts/
+.blobs/
+.next/
+out/
+dist/
+app/node_modules/
+app/.next/
+app/out/
