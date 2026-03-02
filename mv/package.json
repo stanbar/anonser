@@ -1,0 +1,19 @@
+{
+  "name": "anonser-mv",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Anonser-BC^MV – Anonymous service desk, digital-verifiable multi-provider variant",
+  "scripts": {
+    "compile": "node scripts/compile.js",
+    "test": "npm run compile && npx hardhat test --no-compile",
+    "node": "npx hardhat node",
+    "deploy:local": "npx hardhat run scripts/deploy.ts --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  }
+}
