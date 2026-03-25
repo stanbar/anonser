@@ -5,24 +5,30 @@ async function main() {
 
   console.log("Deploying DeskGW with account:", deployer.address);
 
-  const serviceDescHash = ethers.keccak256(ethers.toUtf8Bytes("DNA paternity test"));
-  const serviceFee = ethers.parseEther("0.1");
-  const claimWindow = 3600; // 1 hour
-  const completionWindow = 86400; // 24 hours
-
+  // Deploy contract (org = deployer)
   const DeskGW = await ethers.getContractFactory("DeskGW");
-  const gw = await DeskGW.deploy(serviceDescHash, serviceFee, claimWindow, completionWindow, [
-    provider1.address,
-    provider2.address,
-  ]);
-
+  const gw = await DeskGW.deploy();
   const address = await gw.getAddress();
   console.log("DeskGW deployed to:", address);
+
+  // Stage 0: Pin service parameters
+  const sid = ethers.keccak256(ethers.toUtf8Bytes("DNA paternity test"));
+  const vkZK = ethers.keccak256(ethers.toUtf8Bytes("mock-verification-key"));
+  const claimTTL = 3600; // 1 hour max claim window
+  const serviceFee = ethers.parseEther("0.1");
+
+  await gw.pinService(sid, vkZK, claimTTL, serviceFee);
+  console.log("Service pinned:");
+  console.log("  sid:", sid);
+  console.log("  vkZK:", vkZK);
+  console.log("  claimTTL:", claimTTL, "seconds");
+  console.log("  serviceFee:", ethers.formatEther(serviceFee), "ETH");
+
+  // Register providers
+  await gw.registerProvider(provider1.address);
+  await gw.registerProvider(provider2.address);
   console.log("Provider 1:", provider1.address);
   console.log("Provider 2:", provider2.address);
-  console.log("Service fee:", ethers.formatEther(serviceFee), "ETH");
-  console.log("Claim window:", claimWindow, "seconds");
-  console.log("Completion window:", completionWindow, "seconds");
 }
 
 main().catch((error) => {

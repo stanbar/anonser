@@ -23,165 +23,230 @@ import type {
   TypedContractMethod,
 } from "./common";
 
+export declare namespace DeskGW {
+  export type JobStruct = {
+    status: BigNumberish;
+    client: AddressLike;
+    hMat: BytesLike;
+    pkC: BytesLike;
+    cidMat: BytesLike;
+    capV: BytesLike;
+    dep: BigNumberish;
+    due: BigNumberish;
+    claimUntil: BigNumberish;
+    claimer: AddressLike;
+    cidOut: BytesLike;
+    hRes: BytesLike;
+    pkDj: BytesLike;
+    provider: AddressLike;
+  };
+
+  export type JobStructOutput = [
+    status: bigint,
+    client: string,
+    hMat: string,
+    pkC: string,
+    cidMat: string,
+    capV: string,
+    dep: bigint,
+    due: bigint,
+    claimUntil: bigint,
+    claimer: string,
+    cidOut: string,
+    hRes: string,
+    pkDj: string,
+    provider: string
+  ] & {
+    status: bigint;
+    client: string;
+    hMat: string;
+    pkC: string;
+    cidMat: string;
+    capV: string;
+    dep: bigint;
+    due: bigint;
+    claimUntil: bigint;
+    claimer: string;
+    cidOut: string;
+    hRes: string;
+    pkDj: string;
+    provider: string;
+  };
+}
+
 export interface DeskGWInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "addProvider"
-      | "allowedProviders"
-      | "claim"
-      | "claimWindow"
-      | "complete"
-      | "completionWindow"
-      | "getRequest"
-      | "owner"
-      | "removeProvider"
-      | "request"
-      | "requests"
-      | "serviceDescHash"
+      | "allowlisted"
+      | "claimTTL"
+      | "getJob"
+      | "org"
+      | "pinService"
+      | "pinned"
+      | "postClaim"
+      | "postCmp"
+      | "postReq"
+      | "providerCount"
+      | "providerList"
+      | "registerProvider"
       | "serviceFee"
-      | "timeout"
+      | "sid"
+      | "timeoutRefund"
+      | "vkZK"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
-      | "ProviderAdded"
-      | "ProviderRemoved"
-      | "RequestClaimed"
-      | "RequestCompleted"
-      | "RequestOpened"
-      | "RequestRefunded"
+      | "ClaimPosted"
+      | "CmpAccepted"
+      | "ProviderRegistered"
+      | "ReqPosted"
+      | "ServicePinned"
+      | "TimeoutRefund"
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "addProvider",
+    functionFragment: "allowlisted",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(functionFragment: "claimTTL", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getJob", values: [BytesLike]): string;
+  encodeFunctionData(functionFragment: "org", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "allowedProviders",
-    values: [AddressLike]
+    functionFragment: "pinService",
+    values: [BytesLike, BytesLike, BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "claim", values: [BytesLike]): string;
+  encodeFunctionData(functionFragment: "pinned", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "claimWindow",
+    functionFragment: "postClaim",
+    values: [BytesLike, BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "postCmp",
+    values: [
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "postReq",
+    values: [
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "providerCount",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "complete",
-    values: [BytesLike, BytesLike, BytesLike]
+    functionFragment: "providerList",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "completionWindow",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRequest",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "removeProvider",
+    functionFragment: "registerProvider",
     values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "request",
-    values: [BytesLike, BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "requests", values: [BytesLike]): string;
-  encodeFunctionData(
-    functionFragment: "serviceDescHash",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "serviceFee",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "timeout", values: [BytesLike]): string;
+  encodeFunctionData(functionFragment: "sid", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "timeoutRefund",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(functionFragment: "vkZK", values?: undefined): string;
 
   decodeFunctionResult(
-    functionFragment: "addProvider",
+    functionFragment: "allowlisted",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "claimTTL", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getJob", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "org", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "pinService", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "pinned", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "postClaim", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "postCmp", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "postReq", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "providerCount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "allowedProviders",
+    functionFragment: "providerList",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "claimWindow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "complete", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "completionWindow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getRequest", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "removeProvider",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "request", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "requests", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "serviceDescHash",
+    functionFragment: "registerProvider",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "serviceFee", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "timeout", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sid", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "timeoutRefund",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "vkZK", data: BytesLike): Result;
 }
 
-export namespace ProviderAddedEvent {
-  export type InputTuple = [provider: AddressLike];
-  export type OutputTuple = [provider: string];
-  export interface OutputObject {
-    provider: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace ProviderRemovedEvent {
-  export type InputTuple = [provider: AddressLike];
-  export type OutputTuple = [provider: string];
-  export interface OutputObject {
-    provider: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RequestClaimedEvent {
-  export type InputTuple = [requestId: BytesLike, provider: AddressLike];
-  export type OutputTuple = [requestId: string, provider: string];
-  export interface OutputObject {
-    requestId: string;
-    provider: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RequestCompletedEvent {
+export namespace ClaimPostedEvent {
   export type InputTuple = [
-    requestId: BytesLike,
-    resultCid: BytesLike,
-    provider: AddressLike
+    jid: BytesLike,
+    provider: AddressLike,
+    claimUntil: BigNumberish
+  ];
+  export type OutputTuple = [jid: string, provider: string, claimUntil: bigint];
+  export interface OutputObject {
+    jid: string;
+    provider: string;
+    claimUntil: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CmpAcceptedEvent {
+  export type InputTuple = [
+    jid: BytesLike,
+    provider: AddressLike,
+    cidOut: BytesLike,
+    hRes: BytesLike
   ];
   export type OutputTuple = [
-    requestId: string,
-    resultCid: string,
-    provider: string
+    jid: string,
+    provider: string,
+    cidOut: string,
+    hRes: string
   ];
   export interface OutputObject {
-    requestId: string;
-    resultCid: string;
+    jid: string;
+    provider: string;
+    cidOut: string;
+    hRes: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace ProviderRegisteredEvent {
+  export type InputTuple = [provider: AddressLike];
+  export type OutputTuple = [provider: string];
+  export interface OutputObject {
     provider: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -190,24 +255,30 @@ export namespace RequestCompletedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RequestOpenedEvent {
+export namespace ReqPostedEvent {
   export type InputTuple = [
-    requestId: BytesLike,
-    payloadCid: BytesLike,
+    jid: BytesLike,
+    sid: BytesLike,
     client: AddressLike,
-    escrow: BigNumberish
+    cidMat: BytesLike,
+    dep: BigNumberish,
+    due: BigNumberish
   ];
   export type OutputTuple = [
-    requestId: string,
-    payloadCid: string,
+    jid: string,
+    sid: string,
     client: string,
-    escrow: bigint
+    cidMat: string,
+    dep: bigint,
+    due: bigint
   ];
   export interface OutputObject {
-    requestId: string;
-    payloadCid: string;
+    jid: string;
+    sid: string;
     client: string;
-    escrow: bigint;
+    cidMat: string;
+    dep: bigint;
+    due: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -215,12 +286,24 @@ export namespace RequestOpenedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RequestRefundedEvent {
-  export type InputTuple = [requestId: BytesLike, client: AddressLike];
-  export type OutputTuple = [requestId: string, client: string];
+export namespace ServicePinnedEvent {
+  export type InputTuple = [sid: BytesLike];
+  export type OutputTuple = [sid: string];
   export interface OutputObject {
-    requestId: string;
-    client: string;
+    sid: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace TimeoutRefundEvent {
+  export type InputTuple = [jid: BytesLike, refundAddr: AddressLike];
+  export type OutputTuple = [jid: string, refundAddr: string];
+  export interface OutputObject {
+    jid: string;
+    refundAddr: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -271,317 +354,287 @@ export interface DeskGW extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  addProvider: TypedContractMethod<
-    [provider: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  allowlisted: TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
 
-  allowedProviders: TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+  claimTTL: TypedContractMethod<[], [bigint], "view">;
 
-  claim: TypedContractMethod<[requestId: BytesLike], [void], "nonpayable">;
-
-  claimWindow: TypedContractMethod<[], [bigint], "view">;
-
-  complete: TypedContractMethod<
-    [requestId: BytesLike, resultCid: BytesLike, proof: BytesLike],
-    [void],
-    "nonpayable"
-  >;
-
-  completionWindow: TypedContractMethod<[], [bigint], "view">;
-
-  getRequest: TypedContractMethod<
-    [requestId: BytesLike],
-    [
-      [
-        string,
-        string,
-        bigint,
-        bigint,
-        bigint,
-        string,
-        string,
-        string,
-        bigint
-      ] & {
-        payloadCid: string;
-        client: string;
-        escrow: bigint;
-        openedAt: bigint;
-        claimedAt: bigint;
-        provider: string;
-        resultCid: string;
-        completionProof: string;
-        status: bigint;
-      }
-    ],
+  getJob: TypedContractMethod<
+    [jid: BytesLike],
+    [DeskGW.JobStructOutput],
     "view"
   >;
 
-  owner: TypedContractMethod<[], [string], "view">;
+  org: TypedContractMethod<[], [string], "view">;
 
-  removeProvider: TypedContractMethod<
-    [provider: AddressLike],
+  pinService: TypedContractMethod<
+    [
+      _sid: BytesLike,
+      _vkZK: BytesLike,
+      _claimTTL: BigNumberish,
+      _serviceFee: BigNumberish
+    ],
     [void],
     "nonpayable"
   >;
 
-  request: TypedContractMethod<
-    [requestId: BytesLike, payloadCid: BytesLike],
+  pinned: TypedContractMethod<[], [boolean], "view">;
+
+  postClaim: TypedContractMethod<
+    [jid: BytesLike, comJ: BytesLike, claimWindow: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  postCmp: TypedContractMethod<
+    [
+      jid: BytesLike,
+      cidOut: BytesLike,
+      hRes: BytesLike,
+      pi: BytesLike,
+      pkDj: BytesLike,
+      sigJ: BytesLike,
+      j: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  postReq: TypedContractMethod<
+    [
+      jid: BytesLike,
+      hMat: BytesLike,
+      pkC: BytesLike,
+      cidMat: BytesLike,
+      capV: BytesLike,
+      due: BigNumberish
+    ],
     [void],
     "payable"
   >;
 
-  requests: TypedContractMethod<
-    [arg0: BytesLike],
-    [
-      [
-        string,
-        string,
-        bigint,
-        bigint,
-        bigint,
-        string,
-        string,
-        string,
-        bigint
-      ] & {
-        payloadCid: string;
-        client: string;
-        escrow: bigint;
-        openedAt: bigint;
-        claimedAt: bigint;
-        provider: string;
-        resultCid: string;
-        completionProof: string;
-        status: bigint;
-      }
-    ],
-    "view"
-  >;
+  providerCount: TypedContractMethod<[], [bigint], "view">;
 
-  serviceDescHash: TypedContractMethod<[], [string], "view">;
+  providerList: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+
+  registerProvider: TypedContractMethod<
+    [provider: AddressLike],
+    [void],
+    "nonpayable"
+  >;
 
   serviceFee: TypedContractMethod<[], [bigint], "view">;
 
-  timeout: TypedContractMethod<[requestId: BytesLike], [void], "nonpayable">;
+  sid: TypedContractMethod<[], [string], "view">;
+
+  timeoutRefund: TypedContractMethod<
+    [jid: BytesLike, refundAddr: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  vkZK: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
-    nameOrSignature: "addProvider"
-  ): TypedContractMethod<[provider: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "allowedProviders"
+    nameOrSignature: "allowlisted"
   ): TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
   getFunction(
-    nameOrSignature: "claim"
-  ): TypedContractMethod<[requestId: BytesLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "claimWindow"
+    nameOrSignature: "claimTTL"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "complete"
+    nameOrSignature: "getJob"
+  ): TypedContractMethod<[jid: BytesLike], [DeskGW.JobStructOutput], "view">;
+  getFunction(
+    nameOrSignature: "org"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "pinService"
   ): TypedContractMethod<
-    [requestId: BytesLike, resultCid: BytesLike, proof: BytesLike],
+    [
+      _sid: BytesLike,
+      _vkZK: BytesLike,
+      _claimTTL: BigNumberish,
+      _serviceFee: BigNumberish
+    ],
     [void],
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "completionWindow"
-  ): TypedContractMethod<[], [bigint], "view">;
+    nameOrSignature: "pinned"
+  ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
-    nameOrSignature: "getRequest"
+    nameOrSignature: "postClaim"
   ): TypedContractMethod<
-    [requestId: BytesLike],
-    [
-      [
-        string,
-        string,
-        bigint,
-        bigint,
-        bigint,
-        string,
-        string,
-        string,
-        bigint
-      ] & {
-        payloadCid: string;
-        client: string;
-        escrow: bigint;
-        openedAt: bigint;
-        claimedAt: bigint;
-        provider: string;
-        resultCid: string;
-        completionProof: string;
-        status: bigint;
-      }
-    ],
-    "view"
+    [jid: BytesLike, comJ: BytesLike, claimWindow: BigNumberish],
+    [void],
+    "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "owner"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "removeProvider"
-  ): TypedContractMethod<[provider: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "request"
+    nameOrSignature: "postCmp"
   ): TypedContractMethod<
-    [requestId: BytesLike, payloadCid: BytesLike],
+    [
+      jid: BytesLike,
+      cidOut: BytesLike,
+      hRes: BytesLike,
+      pi: BytesLike,
+      pkDj: BytesLike,
+      sigJ: BytesLike,
+      j: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "postReq"
+  ): TypedContractMethod<
+    [
+      jid: BytesLike,
+      hMat: BytesLike,
+      pkC: BytesLike,
+      cidMat: BytesLike,
+      capV: BytesLike,
+      due: BigNumberish
+    ],
     [void],
     "payable"
   >;
   getFunction(
-    nameOrSignature: "requests"
-  ): TypedContractMethod<
-    [arg0: BytesLike],
-    [
-      [
-        string,
-        string,
-        bigint,
-        bigint,
-        bigint,
-        string,
-        string,
-        string,
-        bigint
-      ] & {
-        payloadCid: string;
-        client: string;
-        escrow: bigint;
-        openedAt: bigint;
-        claimedAt: bigint;
-        provider: string;
-        resultCid: string;
-        completionProof: string;
-        status: bigint;
-      }
-    ],
-    "view"
-  >;
+    nameOrSignature: "providerCount"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "serviceDescHash"
-  ): TypedContractMethod<[], [string], "view">;
+    nameOrSignature: "providerList"
+  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  getFunction(
+    nameOrSignature: "registerProvider"
+  ): TypedContractMethod<[provider: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "serviceFee"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "timeout"
-  ): TypedContractMethod<[requestId: BytesLike], [void], "nonpayable">;
+    nameOrSignature: "sid"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "timeoutRefund"
+  ): TypedContractMethod<
+    [jid: BytesLike, refundAddr: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "vkZK"
+  ): TypedContractMethod<[], [string], "view">;
 
   getEvent(
-    key: "ProviderAdded"
+    key: "ClaimPosted"
   ): TypedContractEvent<
-    ProviderAddedEvent.InputTuple,
-    ProviderAddedEvent.OutputTuple,
-    ProviderAddedEvent.OutputObject
+    ClaimPostedEvent.InputTuple,
+    ClaimPostedEvent.OutputTuple,
+    ClaimPostedEvent.OutputObject
   >;
   getEvent(
-    key: "ProviderRemoved"
+    key: "CmpAccepted"
   ): TypedContractEvent<
-    ProviderRemovedEvent.InputTuple,
-    ProviderRemovedEvent.OutputTuple,
-    ProviderRemovedEvent.OutputObject
+    CmpAcceptedEvent.InputTuple,
+    CmpAcceptedEvent.OutputTuple,
+    CmpAcceptedEvent.OutputObject
   >;
   getEvent(
-    key: "RequestClaimed"
+    key: "ProviderRegistered"
   ): TypedContractEvent<
-    RequestClaimedEvent.InputTuple,
-    RequestClaimedEvent.OutputTuple,
-    RequestClaimedEvent.OutputObject
+    ProviderRegisteredEvent.InputTuple,
+    ProviderRegisteredEvent.OutputTuple,
+    ProviderRegisteredEvent.OutputObject
   >;
   getEvent(
-    key: "RequestCompleted"
+    key: "ReqPosted"
   ): TypedContractEvent<
-    RequestCompletedEvent.InputTuple,
-    RequestCompletedEvent.OutputTuple,
-    RequestCompletedEvent.OutputObject
+    ReqPostedEvent.InputTuple,
+    ReqPostedEvent.OutputTuple,
+    ReqPostedEvent.OutputObject
   >;
   getEvent(
-    key: "RequestOpened"
+    key: "ServicePinned"
   ): TypedContractEvent<
-    RequestOpenedEvent.InputTuple,
-    RequestOpenedEvent.OutputTuple,
-    RequestOpenedEvent.OutputObject
+    ServicePinnedEvent.InputTuple,
+    ServicePinnedEvent.OutputTuple,
+    ServicePinnedEvent.OutputObject
   >;
   getEvent(
-    key: "RequestRefunded"
+    key: "TimeoutRefund"
   ): TypedContractEvent<
-    RequestRefundedEvent.InputTuple,
-    RequestRefundedEvent.OutputTuple,
-    RequestRefundedEvent.OutputObject
+    TimeoutRefundEvent.InputTuple,
+    TimeoutRefundEvent.OutputTuple,
+    TimeoutRefundEvent.OutputObject
   >;
 
   filters: {
-    "ProviderAdded(address)": TypedContractEvent<
-      ProviderAddedEvent.InputTuple,
-      ProviderAddedEvent.OutputTuple,
-      ProviderAddedEvent.OutputObject
+    "ClaimPosted(bytes32,address,uint64)": TypedContractEvent<
+      ClaimPostedEvent.InputTuple,
+      ClaimPostedEvent.OutputTuple,
+      ClaimPostedEvent.OutputObject
     >;
-    ProviderAdded: TypedContractEvent<
-      ProviderAddedEvent.InputTuple,
-      ProviderAddedEvent.OutputTuple,
-      ProviderAddedEvent.OutputObject
-    >;
-
-    "ProviderRemoved(address)": TypedContractEvent<
-      ProviderRemovedEvent.InputTuple,
-      ProviderRemovedEvent.OutputTuple,
-      ProviderRemovedEvent.OutputObject
-    >;
-    ProviderRemoved: TypedContractEvent<
-      ProviderRemovedEvent.InputTuple,
-      ProviderRemovedEvent.OutputTuple,
-      ProviderRemovedEvent.OutputObject
+    ClaimPosted: TypedContractEvent<
+      ClaimPostedEvent.InputTuple,
+      ClaimPostedEvent.OutputTuple,
+      ClaimPostedEvent.OutputObject
     >;
 
-    "RequestClaimed(bytes32,address)": TypedContractEvent<
-      RequestClaimedEvent.InputTuple,
-      RequestClaimedEvent.OutputTuple,
-      RequestClaimedEvent.OutputObject
+    "CmpAccepted(bytes32,address,bytes32,bytes32)": TypedContractEvent<
+      CmpAcceptedEvent.InputTuple,
+      CmpAcceptedEvent.OutputTuple,
+      CmpAcceptedEvent.OutputObject
     >;
-    RequestClaimed: TypedContractEvent<
-      RequestClaimedEvent.InputTuple,
-      RequestClaimedEvent.OutputTuple,
-      RequestClaimedEvent.OutputObject
-    >;
-
-    "RequestCompleted(bytes32,bytes32,address)": TypedContractEvent<
-      RequestCompletedEvent.InputTuple,
-      RequestCompletedEvent.OutputTuple,
-      RequestCompletedEvent.OutputObject
-    >;
-    RequestCompleted: TypedContractEvent<
-      RequestCompletedEvent.InputTuple,
-      RequestCompletedEvent.OutputTuple,
-      RequestCompletedEvent.OutputObject
+    CmpAccepted: TypedContractEvent<
+      CmpAcceptedEvent.InputTuple,
+      CmpAcceptedEvent.OutputTuple,
+      CmpAcceptedEvent.OutputObject
     >;
 
-    "RequestOpened(bytes32,bytes32,address,uint256)": TypedContractEvent<
-      RequestOpenedEvent.InputTuple,
-      RequestOpenedEvent.OutputTuple,
-      RequestOpenedEvent.OutputObject
+    "ProviderRegistered(address)": TypedContractEvent<
+      ProviderRegisteredEvent.InputTuple,
+      ProviderRegisteredEvent.OutputTuple,
+      ProviderRegisteredEvent.OutputObject
     >;
-    RequestOpened: TypedContractEvent<
-      RequestOpenedEvent.InputTuple,
-      RequestOpenedEvent.OutputTuple,
-      RequestOpenedEvent.OutputObject
+    ProviderRegistered: TypedContractEvent<
+      ProviderRegisteredEvent.InputTuple,
+      ProviderRegisteredEvent.OutputTuple,
+      ProviderRegisteredEvent.OutputObject
     >;
 
-    "RequestRefunded(bytes32,address)": TypedContractEvent<
-      RequestRefundedEvent.InputTuple,
-      RequestRefundedEvent.OutputTuple,
-      RequestRefundedEvent.OutputObject
+    "ReqPosted(bytes32,bytes32,address,bytes32,uint256,uint64)": TypedContractEvent<
+      ReqPostedEvent.InputTuple,
+      ReqPostedEvent.OutputTuple,
+      ReqPostedEvent.OutputObject
     >;
-    RequestRefunded: TypedContractEvent<
-      RequestRefundedEvent.InputTuple,
-      RequestRefundedEvent.OutputTuple,
-      RequestRefundedEvent.OutputObject
+    ReqPosted: TypedContractEvent<
+      ReqPostedEvent.InputTuple,
+      ReqPostedEvent.OutputTuple,
+      ReqPostedEvent.OutputObject
+    >;
+
+    "ServicePinned(bytes32)": TypedContractEvent<
+      ServicePinnedEvent.InputTuple,
+      ServicePinnedEvent.OutputTuple,
+      ServicePinnedEvent.OutputObject
+    >;
+    ServicePinned: TypedContractEvent<
+      ServicePinnedEvent.InputTuple,
+      ServicePinnedEvent.OutputTuple,
+      ServicePinnedEvent.OutputObject
+    >;
+
+    "TimeoutRefund(bytes32,address)": TypedContractEvent<
+      TimeoutRefundEvent.InputTuple,
+      TimeoutRefundEvent.OutputTuple,
+      TimeoutRefundEvent.OutputObject
+    >;
+    TimeoutRefund: TypedContractEvent<
+      TimeoutRefundEvent.InputTuple,
+      TimeoutRefundEvent.OutputTuple,
+      TimeoutRefundEvent.OutputObject
     >;
   };
 }
